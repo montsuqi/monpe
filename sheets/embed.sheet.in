@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Embed</_name>
+  <_description>Embed Objects</_description>
+  <contents>
+    <object name="Embed - Text">
+      <_description>Embed text</_description>
+    </object>
+    <object name="Embed - Table">
+      <_description>Embed table</_description>
+    </object>
+    <object name="Embed - Image">
+      <_description>Embed image</_description>
+    </object>
+  </contents>
+</sheet>
