@@ -39,6 +39,8 @@
 #include "widgets.h"
 #include "message.h"
 #include "color.h"
+#include "text.h"
+#include "font.h"
 #include "properties.h"
 
 #include "pixmaps/etable.xpm"
@@ -49,10 +51,6 @@ typedef struct _ETable {
   Element element;
 
   ConnectionPoint base_cps[GRID_OBJECT_BASE_CONNECTION_POINTS];
-  gint cells_rows;
-  gint cells_cols;
-  ConnectionPoint *cells;
-  
   Color border_color;
   real border_line_width;
   Color inner_color;
@@ -61,6 +59,21 @@ typedef struct _ETable {
   gint grid_cols;
   Color gridline_color;
   real gridline_width;
+
+  gboolean draw_line;
+
+  /* texts */
+  DiaFont *font;
+  real font_height;
+  Color text_color;
+  Alignment alignment;
+  gchar *template;
+
+  int numtexts;
+  gchar **texts;
+
+  gchar *embed_id;
+  gint embed_text_size;
 } ETable;
 
 static real etable_distance_from(ETable *etable,
@@ -80,7 +93,6 @@ static DiaObject *etable_create(Point *startpoint,
                                    void *user_data,
                                    Handle **handle1,
                                    Handle **handle2);
-static void etable_reallocate_cells (ETable* etable);
 static void etable_destroy(ETable *etable);
 static DiaObject *etable_load(ObjectNode obj_node, int version, 
                                  const char *filename);
@@ -130,6 +142,7 @@ static ObjectOps etable_ops = {
 };
 
 static PropNumData rows_columns_range = { 1, G_MAXINT, 1 };
+static PropNumData embed_text_size_range = { 1, G_MAXINT, 10 };
 
 static PropDescription etable_props[] = {
   ELEMENT_COMMON_PROPERTIES,
@@ -146,6 +159,28 @@ static PropDescription etable_props[] = {
     N_("Gridline color"), NULL, NULL },
   { "gridline_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Gridline width"), NULL, &prop_std_line_width_data },
+
+
+  { "draw_line", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE ,
+    N_("Draw Line"), NULL, NULL },
+
+  { "font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE ,
+    N_("Font"), NULL, NULL },
+  { "font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE ,
+    N_("Font height"), NULL, NULL },
+  { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Text color"), NULL, NULL },
+  { "alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Alignment"), NULL,  prop_std_text_align_data },
+
+
+  { "template", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Text Template"), NULL, NULL },
+
+  { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Embed ID"), NULL, NULL },
+  { "embed_text_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+    N_("Embed Text Size"), NULL, &embed_text_size_range },
   
   {NULL}
 };
@@ -170,7 +205,16 @@ static PropOffset etable_offsets[] = {
   { "gridline_colour", PROP_TYPE_COLOUR, offsetof(ETable, gridline_color) },
   { "gridline_width", PROP_TYPE_REAL, offsetof(ETable,
                                                  gridline_width) },
-  
+
+  { "draw_line", PROP_TYPE_BOOL,offsetof(ETable,draw_line) },
+
+  {"font",PROP_TYPE_FONT,offsetof(ETable,font)},
+  {"font_height",PROP_TYPE_REAL,offsetof(ETable,font_height)},
+  {"text_color",PROP_TYPE_COLOUR,offsetof(ETable,text_color)},
+  {"alignment",PROP_TYPE_ENUM,offsetof(ETable,alignment)},
+
+  { "embed_id", PROP_TYPE_STRING, offsetof(ETable, embed_id) },
+  { "embed_text_size", PROP_TYPE_INT, offsetof(ETable, embed_text_size) },
   {NULL}
 };
 
@@ -187,8 +231,6 @@ etable_set_props(ETable *etable, GPtrArray *props)
   DiaObject *obj = &etable->element.object;
 
   object_set_props_from_offsets(obj, etable_offsets,props);
-
-  etable_reallocate_cells(etable);
 
   etable_update_data(etable);
 }
@@ -245,10 +287,6 @@ etable_update_data(ETable *etable)
   DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
 
-  real inset = (etable->border_line_width - etable->gridline_width)/2.0;
-  real cell_width = (elem->width - 2.0 * inset) / etable->grid_cols;
-  real cell_height = (elem->height - 2.0 * inset) / etable->grid_rows;
-  int i, j;
   coord left, top;
 
   extra->border_trans = etable->border_line_width / 2.0;
@@ -259,15 +297,6 @@ etable_update_data(ETable *etable)
   obj->position = elem->corner;
   left = obj->position.x;
   top = obj->position.y;
-  for (i = 0; i < etable->grid_cols; ++i)
-    for (j = 0; j < etable->grid_rows; ++j)
-    {
-      int cell = grid_cell(i, j, etable->grid_rows, etable->grid_cols);
-      etable->cells[cell].pos.x =
-			left + inset + i*cell_width + cell_width/2.0;
-      etable->cells[cell].pos.y =
-			top + inset + j*cell_height + cell_height/2.0;
-    }
 }  
 
 static void 
@@ -277,15 +306,13 @@ etable_draw_gridlines (ETable *etable, DiaRenderer *renderer,
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point st, fn;
-  real cell_size;
   unsigned i;
   real inset;
+  real cell_size;
+
 
   elem = &etable->element;
 
-  /* The goal is to have all cells equal size; if the border line is
-   * much wider than the gridline, the outer course of cells will be
-   * visibly smaller.  So we "inset" them by a little bit: */
   inset = (etable->border_line_width - etable->gridline_width)/2;
 
   /* horizontal gridlines */
@@ -387,9 +414,7 @@ etable_create(Point *startpoint,
   etable->show_background = TRUE;
   etable->grid_rows = 3;
   etable->grid_cols = 4;
-  etable->gridline_color.red = 0.5;
-  etable->gridline_color.green = 0.5;
-  etable->gridline_color.blue = 0.5;
+  etable->gridline_color = attributes_get_foreground();
   etable->gridline_width = attributes_get_default_linewidth();
 
   for (i = 0; i < GRID_OBJECT_BASE_CONNECTION_POINTS; ++i)
@@ -400,122 +425,40 @@ etable_create(Point *startpoint,
   }
   etable->base_cps[8].flags = CP_FLAGS_MAIN;
 
-  etable->cells_rows = 0;
-  etable->cells_cols = 0;
-  etable->cells = NULL;
-  etable_reallocate_cells(etable);
-
   etable_update_data(etable);
   
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
 
-  return &etable->element.object;
-}
-
-static void
-connectionpoint_init (ConnectionPoint* cp, DiaObject* obj)
-{
-  cp->object = obj;
-  cp->connected = NULL;
-  cp->directions = DIR_ALL;
-  cp->name = NULL;
-  cp->flags = 0;
-}
-
-static void
-connectionpoint_update(ConnectionPoint* newcp, ConnectionPoint* oldcp)
-{
-  GList* cur;
-  newcp->connected = oldcp->connected;
-
-  cur = newcp->connected;  /* GList of DO* */
-  while (cur != NULL)
-  {
-    DiaObject* connecting_obj = g_list_nth_data(cur, 0);
-    int i;
-    for (i = 0; i < connecting_obj->num_handles; ++i)
-    {
-      if (connecting_obj->handles[i]->connected_to == oldcp)
-      { /* this is the inbound connection */
-        connecting_obj->handles[i]->connected_to = newcp;
-      }
-    }
-
-    cur = g_list_next(cur);
+  /* font */
+  if (etable->font == NULL) {
+      etable->font_height = 0.8;
+      etable->font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
   }
-}
+  etable->text_color = attributes_get_foreground();
+  etable->alignment = ALIGN_LEFT;
+  etable->template = g_strdup("abcdef");
 
-/** Adjusts allocations for connection points; does not actually compute
-  * them.  This call should always be followed with a call to update_data. */
-static void
-etable_reallocate_cells (ETable* etable)
-{
-  DiaObject* obj = &(etable->element.object);
-  int old_rows = etable->cells_rows;
-  int old_cols = etable->cells_cols;
-  int new_rows = etable->grid_rows;
-  int new_cols = etable->grid_cols;
-  int i, j;
-  ConnectionPoint* new_cells;
+  etable->numtexts = etable->grid_rows * etable->grid_cols;
+  etable->texts = g_malloc0(sizeof(gchar*)*etable->numtexts);
+  for (i = 0; i < etable->numtexts; ++i) {
+    *(etable->texts + i) = g_strdup(etable->template);
+  }
 
-  if (old_rows == new_rows && old_cols == new_cols)
-    return;  /* no reallocation necessary */
+  etable->embed_id = g_strdup("embed_table");
+  etable->embed_text_size = 10;
 
-  /* obj->connections doesn't own the pointers, so just realloc; values
-   * will be updated later */
-  obj->num_connections = GRID_OBJECT_BASE_CONNECTION_POINTS + new_rows*new_cols;
-  obj->connections = (ConnectionPoint **) g_realloc(obj->connections,
-      		obj->num_connections * sizeof(ConnectionPoint *));
-
-  /* If either new dimension is smaller, some connpoints will have to
-   * be disconnected before reallocating */
-
-  /* implicit: if (new_rows < old_rows) */
-  for (j = new_rows; j < old_rows; ++j)
-    for (i = 0; i < old_cols; ++i)
-    {
-      int cell = grid_cell(i, j, old_rows, old_cols);
-      object_remove_connections_to(&etable->cells[cell]);
-    }
-
-  /* implicit: if (new_cols < old_cols) */
-  for (i = new_cols; i < old_cols; ++i)
-    for (j = 0; j < old_cols && j < new_cols; ++j) /* don't double-delete */
-    {
-      int cell = grid_cell(i, j, old_rows, old_cols);
-      object_remove_connections_to(&etable->cells[cell]);
-    }
-
-  /* Can't use realloc; if grid has different dims, memory lays out
-   * differently.  Must copy by hand. */
-
-  new_cells = g_malloc(new_rows * new_cols * sizeof(ConnectionPoint));
-  for (i = 0; i < new_cols; ++i)
-    for (j = 0; j < new_rows; ++j)
-    {
-      int oldloc = grid_cell(i,j,old_rows,old_cols);
-      int newloc = grid_cell(i,j,new_rows,new_cols);
-      connectionpoint_init(&new_cells[newloc], obj);
-      obj->connections[GRID_OBJECT_BASE_CONNECTION_POINTS + newloc] =
-	&new_cells[newloc];
-      if (i < old_cols && j < old_rows)
-      {
-	connectionpoint_update(&new_cells[newloc], &etable->cells[oldloc]);
-      }
-    }
-
-  g_free(etable->cells);
-  etable->cells = new_cells;
-  etable->cells_rows = new_rows;
-  etable->cells_cols = new_cols;
+  return &etable->element.object;
 }
 
 static void 
 etable_destroy(ETable *etable)
 {
   element_destroy(&etable->element);
-  g_free(etable->cells);
+  dia_font_unref(etable->font);
+  g_free(etable->template);
+  g_free(etable->embed_id);
+  g_strfreev(etable->texts);
 }
 
 static DiaObject *
