@@ -144,8 +144,8 @@ PropEnumData prop_text_vert_align_data[] = {
   { NULL, 0 }
 };
 
-static PropNumData embed_text_size_range = { 1, G_MAXINT, 10 };
-static PropNumData embed_column_size_range = { 0, G_MAXINT, 0 };
+static PropNumData embed_text_size_range = { 1, G_MAXINT, 1 };
+static PropNumData embed_column_size_range = { 0, G_MAXINT, 1 };
 
 static PropDescription textobj_props[] = {
   OBJECT_COMMON_PROPERTIES,

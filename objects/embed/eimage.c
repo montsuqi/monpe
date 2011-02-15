@@ -136,7 +136,7 @@ static ObjectOps eimage_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
-static PropNumData embed_path_size_range = { 1, G_MAXINT, 256 };
+static PropNumData embed_path_size_range = { 128, 1024, 1 };
 
 static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,

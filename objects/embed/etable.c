@@ -75,6 +75,7 @@ typedef struct _ETable {
 
   gchar *embed_id;
   gint embed_text_size;
+  gint embed_column_size;
 } ETable;
 
 static real etable_distance_from(ETable *etable,
@@ -144,8 +145,9 @@ static ObjectOps etable_ops = {
 };
 
 static PropNumData rows_columns_range = { 1, G_MAXINT, 1 };
-static PropNumData embed_text_size_range = { 1, G_MAXINT, 10 };
 static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
+static PropNumData embed_text_size_range = { 1, G_MAXINT, 1 };
+static PropNumData embed_column_size_range = { 0, G_MAXINT, 1 };
 
 static PropDescription etable_props[] = {
   ELEMENT_COMMON_PROPERTIES,
@@ -186,6 +188,8 @@ static PropDescription etable_props[] = {
     N_("Embed ID"), NULL, NULL },
   { "embed_text_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
     N_("Embed Text Size"), NULL, &embed_text_size_range },
+  { "embed_column_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+    N_("Embed Column Size"), NULL, &embed_column_size_range },
   
   {NULL}
 };
@@ -222,6 +226,7 @@ static PropOffset etable_offsets[] = {
 
   { "embed_id", PROP_TYPE_STRING, offsetof(ETable, embed_id) },
   { "embed_text_size", PROP_TYPE_INT, offsetof(ETable, embed_text_size) },
+  { "embed_column_size", PROP_TYPE_INT, offsetof(ETable, embed_column_size) },
   {NULL}
 };
 
@@ -372,14 +377,13 @@ static void
 etable_draw_texts (ETable *etable, DiaRenderer *renderer,
     		Point* lr_corner)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point p;
   unsigned i, j;
   real inset;
   real cell_width;
   real cell_height;
-  gchar *str;
+  Text *text;
 
   elem = &etable->element;
 
@@ -387,35 +391,37 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
   cell_height = (elem->height - 2 * inset)/etable->grid_rows;
   cell_width = (elem->width - 2 * inset)/etable->grid_cols;
 
+  text = new_text("",etable->font,etable->font_height, 
+    &p,&etable->text_color,etable->alignment);
+
   for (j=0; j<etable->grid_rows;j++) {
-   p.y = elem->corner.y + inset + 
-     j * cell_height + cell_height / 2.0 +
-     etable->font_height/2.0;
-   for (i=0; i<etable->grid_cols;i++) {
-     p.x = elem->corner.x + inset + i * cell_width;
-     switch(etable->alignment) {
-     case ALIGN_LEFT:
-       p.x += etable->padding;
-       break;
-     case ALIGN_CENTER:
-       p.x += cell_width/2.0;
-       break;
-     case ALIGN_RIGHT:
-       p.x = p.x + cell_width - etable->padding;
-       break;
-     }
-     if (etable->template != NULL && 
-       strlen(etable->template) > 0) {
-       str = etable->template;
-     } else {
-       str = *(etable->texts + j * etable->grid_cols + i);
-     }
-     renderer_ops->set_font (renderer, 
-       etable->font, etable->font_height);
-     renderer_ops->draw_string (renderer,
-       str, &p, etable->alignment, &etable->text_color);
-   }
+    p.y = elem->corner.y + inset + 
+      j * cell_height + cell_height / 2.0;
+    for (i=0; i<etable->grid_cols;i++) {
+      p.x = elem->corner.x + inset + i * cell_width;
+      switch(etable->alignment) {
+      case ALIGN_LEFT:
+        p.x += etable->padding;
+        break;
+      case ALIGN_CENTER:
+        p.x += cell_width/2.0;
+        break;
+      case ALIGN_RIGHT:
+        p.x = p.x + cell_width - etable->padding;
+        break;
+      }
+      text_set_position(text,&p);
+      if (etable->template != NULL && 
+        strlen(etable->template) > 0) {
+        text_set_string(text,etable->template);
+      } else {
+        text_set_string(text,
+          *(etable->texts + j * etable->grid_cols + i));
+      }
+      text_draw(text,renderer);
+    }
   }
+  text_destroy(text);
 }
 
 static void
@@ -516,6 +522,7 @@ etable_create(Point *startpoint,
 
   etable->embed_id = g_strdup("embed_table");
   etable->embed_text_size = 10;
+  etable->embed_column_size = 0;
 
   etable_update_data(etable);
   *handle1 = NULL;
