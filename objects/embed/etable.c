@@ -46,6 +46,7 @@
 #include "pixmaps/etable.xpm"
 
 #define GRID_OBJECT_BASE_CONNECTION_POINTS 9
+#define MAX_ROWS_COLS 100
 
 typedef struct _ETable {
   Element element;
@@ -61,6 +62,8 @@ typedef struct _ETable {
   real gridline_width;
 
   gboolean draw_line;
+
+  real cell_width[MAX_ROWS_COLS];
 
   /* texts */
   real padding;
@@ -105,6 +108,9 @@ static void etable_get_props(ETable *etable,
                                    GPtrArray *props);
 static void etable_set_props(ETable *etable, 
                                    GPtrArray *props);
+static void add_column_handle(ETable *etable, 
+  Point point);
+static void remove_column_handle(ETable *etable);
 
 static ObjectTypeOps etable_type_ops =
 {
@@ -144,7 +150,7 @@ static ObjectOps etable_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
-static PropNumData rows_columns_range = { 1, G_MAXINT, 1 };
+static PropNumData rows_columns_range = { 1, MAX_ROWS_COLS, 1 };
 static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
 static PropNumData embed_text_size_range = { 1, G_MAXINT, 1 };
 static PropNumData embed_column_size_range = { 0, G_MAXINT, 1 };
@@ -240,12 +246,27 @@ etable_get_props(ETable *etable, GPtrArray *props)
 static void
 etable_set_props(ETable *etable, GPtrArray *props)
 {
+  int i;
   DiaObject *obj = &etable->element.object;
+  Point pos;
+  gint old_grid_cols;
 
   object_set_props_from_offsets(obj, etable_offsets,props);
 
-
-
+  pos = etable->element.corner;
+  pos.x += etable->element.width;
+  pos.y += etable->element.height / 2.0;
+  old_grid_cols = obj->num_handles - 8 + 1;
+  if (old_grid_cols < etable->grid_cols) {
+    for(i=old_grid_cols - 1;i < etable->grid_cols - 1;i++) {
+      add_column_handle(etable,pos);
+      pos.x += etable->cell_width[i];
+    }
+  } else if (old_grid_cols > etable->grid_cols) {
+    for(i=old_grid_cols - 1;i > etable->grid_cols - 1;i--) {
+      remove_column_handle(etable);
+    }
+  }
   etable_update_data(etable);
 }
 
@@ -268,12 +289,40 @@ etable_move_handle(ETable *etable, Handle *handle,
 			 Point *to, ConnectionPoint *cp, 
 			 HandleMoveReason reason, ModifierKeys modifiers)
 {
+  DiaObject *obj;
+  int i;
+  real oldx,newx,diff;
   g_assert(etable!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&etable->element, handle->id, to, cp, 
-		      reason, modifiers);
+  obj = &(etable->element.object);
+  if (handle->id == HANDLE_CUSTOM1) {
+    for (i = 8; i < obj->num_handles; i++) {
+      if (handle == obj->handles[i]) {
+        oldx = handle->pos.x;
+        newx = to->x;
+        if (oldx > newx) {
+          diff = oldx - newx;
+          if (diff > etable->cell_width[i-8]) {
+            diff = etable->cell_width[i-8];
+          }
+          etable->cell_width[i-8] -= diff;
+          etable->cell_width[i-8+1] += diff;
+        } else if (oldx < newx){
+          diff = newx - oldx;
+          if (diff > etable->cell_width[i-8+1]) {
+            diff = etable->cell_width[i-8+1];
+          }
+          etable->cell_width[i-8] += diff;
+          etable->cell_width[i-8+1] -= diff;
+        }
+      }
+    }
+  } else {
+    element_move_handle(&etable->element, handle->id, to, cp, 
+  		      reason, modifiers);
+  }
   etable_update_data(etable);
 
   return NULL;
@@ -295,6 +344,22 @@ inline static int grid_cell (int i, int j, int rows, int cols)
 }
 
 static void
+etable_update_cell_widths(ETable *etable)
+{
+  Element *elem = &etable->element;
+  real old_width;
+  int i;
+
+  old_width = 0;
+  for(i=0;i<etable->grid_cols;i++) {
+    old_width += etable->cell_width[i];
+  }
+  for(i=0;i<etable->grid_cols;i++) {
+    etable->cell_width[i] *= elem->width / old_width;
+  }
+}
+
+static void
 etable_update_data(ETable *etable)
 {
   Element *elem = &etable->element;
@@ -310,6 +375,8 @@ etable_update_data(ETable *etable)
   element_update_handles(elem);
   element_update_connections_rectangle(elem, etable->base_cps);
 
+  etable_update_cell_widths(etable);
+
   obj->position = elem->corner;
   left = obj->position.x;
   top = obj->position.y;
@@ -317,18 +384,42 @@ etable_update_data(ETable *etable)
   new_numtexts = etable->grid_rows * etable->grid_cols;
   if (etable->numtexts < new_numtexts) {
     g_strfreev(etable->texts);
-    etable->texts = g_malloc0(sizeof(gchar*)*new_numtexts);
+    etable->texts = g_malloc0(sizeof(gchar*)*(new_numtexts + 1));
     for (i = 0; i < new_numtexts; ++i) {
       *(etable->texts + i) = g_strdup(etable->template);
     }
+    *(etable->texts + new_numtexts) = NULL;
   }
   etable->numtexts = new_numtexts;
 }  
 
 static void 
+etable_update_column_handles (ETable *etable)
+{
+  DiaObject *obj;
+  Element *elem;
+  Point st;
+  unsigned i;
+  real inset;
+
+  elem = &etable->element;
+  obj = &elem->object;
+
+  inset = (etable->border_line_width - etable->gridline_width)/2;
+
+  st.x = elem->corner.x + inset;
+  st.y = elem->corner.y + elem->height / 2.0;
+  for (i = 0; i < etable->grid_cols - 1; ++i) {
+    st.x += etable->cell_width[i];
+    obj->handles[8 + i]->pos = st;
+  }
+}
+
+static void 
 etable_draw_gridlines (ETable *etable, DiaRenderer *renderer,
     		Point* lr_corner)
 {
+  DiaObject *obj;
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point st, fn;
@@ -337,6 +428,7 @@ etable_draw_gridlines (ETable *etable, DiaRenderer *renderer,
   real cell_size;
 
   elem = &etable->element;
+  obj = &elem->object;
 
   inset = (etable->border_line_width - etable->gridline_width)/2;
 
@@ -362,15 +454,19 @@ etable_draw_gridlines (ETable *etable, DiaRenderer *renderer,
   fn.x = elem->corner.x + inset;
   fn.y = elem->corner.y + elem->height;
 
-  cell_size = (elem->width - 2 * inset)
-              / etable->grid_cols;
-  if (cell_size < 0)
-    cell_size = 0;
-  for (i = 1; i < etable->grid_cols; ++i) {
-    st.x += cell_size;
-    fn.x += cell_size;
+  for (i = 0; i < etable->grid_cols; ++i) {
+    st.x += etable->cell_width[i];
+    fn.x += etable->cell_width[i];
     renderer_ops->draw_line(renderer,&st,&fn,&etable->gridline_color);
   }
+
+  st.x = elem->corner.x + inset;
+  st.y = elem->corner.y + elem->height / 2.0;
+  for (i = 0; i < etable->grid_cols - 1; ++i) {
+    st.x += etable->cell_width[i];
+    obj->handles[8 + i]->pos = st;
+  }
+
 }
 
 static void 
@@ -381,7 +477,7 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
   Point p;
   unsigned i, j;
   real inset;
-  real cell_width;
+  real startx;
   real cell_height;
   Text *text;
 
@@ -389,7 +485,6 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
 
   inset = (etable->border_line_width - etable->gridline_width)/2;
   cell_height = (elem->height - 2 * inset)/etable->grid_rows;
-  cell_width = (elem->width - 2 * inset)/etable->grid_cols;
 
   text = new_text("",etable->font,etable->font_height, 
     &p,&etable->text_color,etable->alignment);
@@ -397,17 +492,18 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
   for (j=0; j<etable->grid_rows;j++) {
     p.y = elem->corner.y + inset + 
       j * cell_height + cell_height / 2.0;
+    startx = elem->corner.x + inset;
     for (i=0; i<etable->grid_cols;i++) {
-      p.x = elem->corner.x + inset + i * cell_width;
       switch(etable->alignment) {
       case ALIGN_LEFT:
-        p.x += etable->padding;
+        p.x = startx + etable->padding;
         break;
       case ALIGN_CENTER:
-        p.x += cell_width/2.0;
+        p.x = startx + etable->cell_width[i]/2.0;
         break;
       case ALIGN_RIGHT:
-        p.x = p.x + cell_width - etable->padding;
+        p.x = startx + etable->cell_width[i] 
+          - etable->padding;
         break;
       }
       text_set_position(text,&p);
@@ -419,6 +515,7 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
           *(etable->texts + j * etable->grid_cols + i));
       }
       text_draw(text,renderer);
+      startx += etable->cell_width[i];
     }
   }
   text_destroy(text);
@@ -430,11 +527,17 @@ etable_draw(ETable *etable, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point lr_corner;
+  int i;
   
   g_assert(etable != NULL);
   g_assert(renderer != NULL);
 
   elem = &etable->element;
+
+  elem->width = 0;
+  for(i=0;i<etable->grid_cols;i++) {
+    elem->width += etable->cell_width[i];
+  }
 
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
@@ -459,8 +562,38 @@ etable_draw(ETable *etable, DiaRenderer *renderer)
                               &etable->border_color);
   }
   etable_draw_texts(etable, renderer, &lr_corner);
+  etable_update_column_handles(etable);
 }
 
+static void
+add_column_handle(ETable *etable,
+  Point point)
+{
+  DiaObject *obj;
+  Handle *handle;
+
+  obj = &(etable->element.object);
+  handle = g_malloc(sizeof(Handle));
+  handle->id = HANDLE_CUSTOM1;
+  handle->type = HANDLE_MINOR_CONTROL;
+  handle->connect_type = HANDLE_NONCONNECTABLE;
+  handle->connected_to = NULL;
+  handle->pos = point;
+  object_add_handle(obj,handle);
+}
+
+static void
+remove_column_handle(ETable *etable)
+{
+  DiaObject *obj;
+  Handle *handle;
+
+  obj = &(etable->element.object);
+  handle = obj->handles[obj->num_handles-1];
+  if (handle->id == HANDLE_CUSTOM1) {
+    object_remove_handle(obj,handle);
+  }
+}
 
 static DiaObject *
 etable_create(Point *startpoint,
@@ -472,6 +605,7 @@ etable_create(Point *startpoint,
   Element *elem;
   DiaObject *obj;
   unsigned i;
+  Point pos;
 
   etable = g_new0(ETable,1);
   elem = &(etable->element);
@@ -481,8 +615,8 @@ etable_create(Point *startpoint,
   obj->ops = &etable_ops;
 
   elem->corner = *startpoint;
-  elem->width = 4.0;
-  elem->height = 4.0;
+  elem->width = 12.0;
+  elem->height = 5.0;
 
   element_init(elem, 8, 9);
 
@@ -503,6 +637,17 @@ etable_create(Point *startpoint,
   }
   etable->base_cps[8].flags = CP_FLAGS_MAIN;
 
+  for (i = 0; i < MAX_ROWS_COLS; i++) {
+    etable->cell_width[i] = elem->width / etable->grid_cols;
+  } 
+
+  pos = *startpoint;
+  pos.y += elem->height/2.0;
+  for (i = 0; i < etable->grid_cols - 1; i++) {
+    pos.x += etable->cell_width[i];
+    add_column_handle(etable,pos);
+  }
+
   etable->draw_line = TRUE;
 
   /* font */
@@ -515,10 +660,11 @@ etable_create(Point *startpoint,
   etable->template = g_strdup("abcdefg");
 
   etable->numtexts = etable->grid_rows * etable->grid_cols;
-  etable->texts = g_malloc0(sizeof(gchar*)*etable->numtexts);
+  etable->texts = g_malloc0(sizeof(gchar*)*(etable->numtexts)+1);
   for (i = 0; i < etable->numtexts; ++i) {
     *(etable->texts + i) = g_strdup(etable->template);
   }
+  *(etable->texts + etable->numtexts) = NULL;
 
   etable->embed_id = g_strdup("embed_table");
   etable->embed_text_size = 10;
@@ -556,10 +702,11 @@ etable_load(ObjectNode obj_node, int version, const char *filename)
   etable = (ETable*)obj;
 
   etable->numtexts = etable->grid_rows * etable->grid_cols;
-  etable->texts = g_malloc0(sizeof(gchar*)*etable->numtexts);
+  etable->texts = g_malloc0(sizeof(gchar*)*(etable->numtexts+1));
   for (i = 0; i < etable->numtexts; ++i) {
     *(etable->texts + i) = g_strdup(etable->template);
   }
+  *(etable->texts + etable->numtexts) = NULL;
 
   attr = object_find_attribute(obj_node, "etable_texts");
   if (attr != NULL) {
@@ -575,6 +722,19 @@ etable_load(ObjectNode obj_node, int version, const char *filename)
     data = data_next(data);
   }
 
+  attr = object_find_attribute(obj_node, "cell_widths");
+  if (attr != NULL) {
+    num = attribute_num_data(attr);
+  } else {
+    num = 0;
+  }
+
+  data = attribute_first_data(attr);
+  for (i=0; i<num && i<MAX_ROWS_COLS;i++) {
+    etable->cell_width[i] = data_real(data);
+    data = data_next(data);
+  }
+
   return obj; 
 }
 
@@ -586,8 +746,12 @@ etable_save(ETable *etable, ObjectNode obj_node, const char *filename)
 
   object_save_props(&etable->element.object, obj_node);
 
+  attr = new_attribute(obj_node, "cell_widths");
+  for (i=0;i<MAX_ROWS_COLS;i++) {
+    data_add_real(attr, etable->cell_width[i]);
+  }
+
   attr = new_attribute(obj_node, "etable_texts");
-  
   for (i=0;i<etable->numtexts;i++) {
     data_add_string(attr, *(etable->texts + i));
   }
