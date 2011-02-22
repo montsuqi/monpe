@@ -64,14 +64,15 @@ typedef struct _ETable {
   gboolean draw_line;
 
   real cell_width[MAX_ROWS_COLS];
+  Alignment align[MAX_ROWS_COLS];
 
   /* texts */
   real padding;
   DiaFont *font;
   real font_height;
   Color text_color;
-  Alignment alignment;
   gchar *template;
+  gchar *aligns;
 
   int numtexts;
   gchar **texts;
@@ -111,6 +112,7 @@ static void etable_set_props(ETable *etable,
 static void add_column_handle(ETable *etable, 
   Point point);
 static void remove_column_handle(ETable *etable);
+static void etable_eval_aligns(ETable *etable);
 
 static ObjectTypeOps etable_type_ops =
 {
@@ -183,12 +185,11 @@ static PropDescription etable_props[] = {
     N_("Font height"), NULL, NULL },
   { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Text color"), NULL, NULL },
-  { "alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
-    N_("Alignment"), NULL,  prop_std_text_align_data },
-
 
   { "template", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Text Template"), NULL, NULL },
+  { "aligns", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Text Alignments"), NULL, NULL },
 
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
@@ -227,8 +228,8 @@ static PropOffset etable_offsets[] = {
   {"font",PROP_TYPE_FONT,offsetof(ETable,font)},
   {"font_height",PROP_TYPE_REAL,offsetof(ETable,font_height)},
   {"text_color",PROP_TYPE_COLOUR,offsetof(ETable,text_color)},
-  {"alignment",PROP_TYPE_ENUM,offsetof(ETable,alignment)},
   {"template", PROP_TYPE_STRING, offsetof(ETable, template) },
+  {"aligns", PROP_TYPE_STRING, offsetof(ETable, aligns) },
 
   { "embed_id", PROP_TYPE_STRING, offsetof(ETable, embed_id) },
   { "embed_text_size", PROP_TYPE_INT, offsetof(ETable, embed_text_size) },
@@ -267,6 +268,7 @@ etable_set_props(ETable *etable, GPtrArray *props)
       remove_column_handle(etable);
     }
   }
+  etable_eval_aligns(etable);
   etable_update_data(etable);
 }
 
@@ -487,14 +489,14 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
   cell_height = (elem->height - 2 * inset)/etable->grid_rows;
 
   text = new_text("",etable->font,etable->font_height, 
-    &p,&etable->text_color,etable->alignment);
+    &p,&etable->text_color,ALIGN_LEFT);
 
   for (j=0; j<etable->grid_rows;j++) {
     p.y = elem->corner.y + inset + 
       j * cell_height + cell_height / 2.0;
     startx = elem->corner.x + inset;
     for (i=0; i<etable->grid_cols;i++) {
-      switch(etable->alignment) {
+      switch(etable->align[i]) {
       case ALIGN_LEFT:
         p.x = startx + etable->padding;
         break;
@@ -506,6 +508,7 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
           - etable->padding;
         break;
       }
+      text_set_alignment(text,etable->align[i]);
       text_set_position(text,&p);
       if (etable->template != NULL && 
         strlen(etable->template) > 0) {
@@ -595,6 +598,33 @@ remove_column_handle(ETable *etable)
   }
 }
 
+static void
+etable_eval_aligns(ETable *etable)
+{
+  int i;
+  gchar **p;
+
+  if (etable->aligns == NULL) {
+    return ;
+  }
+
+  for(i=0;i<MAX_ROWS_COLS;i++){
+    etable->align[i] = ALIGN_LEFT;
+  }
+
+  p = g_strsplit(etable->aligns,",",MAX_ROWS_COLS);
+  i = 0;
+  while (*(p+i) != NULL) {
+    if (**(p+i) == 'c' || **(p+i) == 'C') {
+      etable->align[i] = ALIGN_CENTER;
+    } else if (**(p+i) == 'r' || **(p+i) == 'R') {
+      etable->align[i] = ALIGN_RIGHT;
+    }
+    i++;
+  }
+  g_strfreev(p);
+}
+
 static DiaObject *
 etable_create(Point *startpoint,
 	   void *user_data,
@@ -639,6 +669,7 @@ etable_create(Point *startpoint,
 
   for (i = 0; i < MAX_ROWS_COLS; i++) {
     etable->cell_width[i] = elem->width / etable->grid_cols;
+    etable->align[i]= ALIGN_LEFT;
   } 
 
   pos = *startpoint;
@@ -656,7 +687,6 @@ etable_create(Point *startpoint,
       etable->font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
   }
   etable->text_color = attributes_get_foreground();
-  etable->alignment = ALIGN_LEFT;
   etable->template = g_strdup("abcdefg");
 
   etable->numtexts = etable->grid_rows * etable->grid_cols;
@@ -755,5 +785,6 @@ etable_save(ETable *etable, ObjectNode obj_node, const char *filename)
   for (i=0;i<etable->numtexts;i++) {
     data_add_string(attr, *(etable->texts + i));
   }
+  etable_eval_aligns(etable);
 }
 
