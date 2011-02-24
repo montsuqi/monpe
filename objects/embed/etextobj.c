@@ -216,6 +216,9 @@ static void
 textobj_select(ETextobj *textobj, Point *clicked_point,
 	       DiaRenderer *interactive_renderer)
 {
+if (clicked_point != NULL) {
+fprintf(stderr,"clicked_point[%lf,%lf]\n",clicked_point->x,clicked_point->y);
+}
   text_set_cursor(textobj->text, clicked_point, interactive_renderer);
   text_grab_focus(textobj->text, &textobj->object);
 }

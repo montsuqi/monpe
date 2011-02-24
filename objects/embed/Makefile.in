@@ -70,7 +70,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libembed_objects_la_LIBADD =
 am_libembed_objects_la_OBJECTS = embed.lo etextobj.lo eimage.lo \
-	etable.lo
+	etable.lo earray.lo
 libembed_objects_la_OBJECTS = $(am_libembed_objects_la_OBJECTS)
 libembed_objects_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -291,7 +291,8 @@ libembed_objects_la_SOURCES = \
 	embed.c \
 	etextobj.c \
 	eimage.c \
-	etable.c
+	etable.c \
+	earray.c
 
 libembed_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
@@ -300,7 +301,8 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 EXTRA_DIST = \
 	pixmaps/eimage.xpm \
 	pixmaps/etext.xpm \
-	pixmaps/etable.xpm
+	pixmaps/etable.xpm \
+	pixmaps/earray.xpm
 
 all: all-am
 
@@ -376,6 +378,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/earray.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eimage.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/embed.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etable.Plo@am__quote@

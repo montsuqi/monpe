@@ -28,6 +28,7 @@
 extern DiaObjectType *_etextobj_type;
 extern DiaObjectType *_eimage_type;
 extern DiaObjectType *_etable_type;
+extern DiaObjectType *_earray_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -41,6 +42,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(_etextobj_type);
   object_register_type(_eimage_type);
   object_register_type(_etable_type);
+  object_register_type(_earray_type);
 
   return DIA_PLUGIN_INIT_OK;
 }

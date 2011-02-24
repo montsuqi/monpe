@@ -4,7 +4,8 @@ libembed_objects_la_SOURCES = \
 	embed.c \
 	etextobj.c \
 	eimage.c \
-	etable.c
+	etable.c \
+	earray.c
 
 libembed_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
@@ -14,4 +15,5 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 EXTRA_DIST = \
 	pixmaps/eimage.xpm \
 	pixmaps/etext.xpm \
-	pixmaps/etable.xpm
+	pixmaps/etable.xpm \
+	pixmaps/earray.xpm
