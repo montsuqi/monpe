@@ -20,6 +20,8 @@
 #include <config.h>
 #endif
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include <math.h>
 
@@ -41,9 +43,7 @@ typedef struct _EArray EArray;
 struct _EArray {
   DiaObject object;
 
-  Handle text_handle;
-
-  Text *sample;
+  Text *template;
   TextAttributes attrs;
   
   Text **texts;
@@ -80,7 +80,6 @@ static void earray_save(EArray *eary, ObjectNode obj_node,
 			 const char *filename);
 static DiaObject *earray_load(ObjectNode obj_node, int version,
 			    const char *filename);
-static void earray_valign_point(EArray *eary, Point* p, real factor);
 
 static ObjectTypeOps earray_type_ops =
 {
@@ -158,7 +157,7 @@ earray_describe_props(EArray *eary)
 
 static PropOffset earray_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
-  {"text",PROP_TYPE_TEXT,offsetof(EArray,sample)},
+  {"text",PROP_TYPE_TEXT,offsetof(EArray,template)},
   {"text_font",PROP_TYPE_FONT,offsetof(EArray,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(EArray,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(EArray,attrs.color)},
@@ -175,7 +174,7 @@ static PropOffset earray_offsets[] = {
 static void
 earray_get_props(EArray *eary, GPtrArray *props)
 {
-  text_get_attributes(eary->sample,&eary->attrs);
+  text_get_attributes(eary->template,&eary->attrs);
   object_get_props_from_offsets(&eary->object,earray_offsets,props);
 }
 
@@ -183,22 +182,21 @@ static void
 earray_set_props(EArray *eary, GPtrArray *props)
 {
   object_set_props_from_offsets(&eary->object,earray_offsets,props);
-#if 0
-  apply_textattr_properties(props,eary->text,"text",&eary->attrs);
-#endif
+  apply_textattr_properties(props,eary->template,"text",&eary->attrs);
   earray_update_data(eary);
 }
 
 static real
 earray_distance_from(EArray *eary, Point *point)
 {
-  return text_distance_from(eary->sample, point); 
+  return text_distance_from(*(eary->texts), point); 
 }
 
 static void
 earray_select(EArray *eary, Point *clicked_point,
 	       DiaRenderer *interactive_renderer)
 {
+fprintf(stderr,"select clicked_point[%p]\n",clicked_point);
 #if 0
   text_set_cursor(eary->text, clicked_point, interactive_renderer);
   text_grab_focus(eary->text, &eary->object);
@@ -212,18 +210,24 @@ earray_move_handle(EArray *eary, Handle *handle,
 		    Point *to, ConnectionPoint *cp,
 		    HandleMoveReason reason, ModifierKeys modifiers)
 {
+  DiaObject *obj;
+  int i;  
+
   assert(eary!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
+  obj = &eary->object;
   if (handle->id == HANDLE_TEXT) {
-          /*Point to2 = *to;
-          point_add(&to2,&eary->text->position);
-          point_sub(&to2,&eary->text_handle.pos);
-          earray_move(eary, &to2);*/
-          earray_move(eary, to);
-          
+    for(i=0;i<obj->num_handles;i++) {
+      if (handle == obj->handles[i]) {
+        text_set_position(*(eary->texts+i),to);
+        obj->handles[i]->pos = *to;
+        break;
+      }
+    }
   }
+  earray_update_data(eary);
 
   return NULL;
 }
@@ -231,7 +235,19 @@ earray_move_handle(EArray *eary, Handle *handle,
 static ObjectChange*
 earray_move(EArray *eary, Point *to)
 {
-  eary->object.position = *to;
+  Point move;
+  Point pos;
+  int i;
+
+  pos = (*(eary->texts))->position;
+  move = *to;
+  point_sub(&move,&pos);
+
+  for(i=0;i<eary->embed_array_size;i++){
+    pos = (*(eary->texts+i))->position;
+    point_add(&pos,&move);
+    text_set_position(*(eary->texts+i),&pos);
+  }
 
   earray_update_data(eary);
 
@@ -241,41 +257,88 @@ earray_move(EArray *eary, Point *to)
 static void
 earray_draw(EArray *eary, DiaRenderer *renderer)
 {
+  int i;
+  Text *text;
+
   assert(eary != NULL);
   assert(renderer != NULL);
 
-#if 0
-  if (eary->show_background) {
-    Rectangle box;
-    Point ul, lr;
-    text_calc_boundingbox (eary->text, &box);
-    ul.x = box.left;
-    ul.y = box.top;
-    lr.x = box.right;
-    lr.y = box.bottom;
-    DIA_RENDERER_GET_CLASS (renderer)->fill_rect (renderer, &ul, &lr, &eary->fill_color);
+  for (i=0;i<eary->embed_array_size;i++) {
+    text = *(eary->texts+i);
+    if (eary->show_background) {
+      Rectangle box;
+      Point ul, lr;
+      text_calc_boundingbox (text, &box);
+      ul.x = box.left;
+      ul.y = box.top;
+      lr.x = box.right;
+      lr.y = box.bottom;
+      DIA_RENDERER_GET_CLASS (renderer)->fill_rect (renderer, &ul, &lr, &eary->fill_color);
+    }
+    text_draw(text, renderer);
   }
-  text_draw(eary->text, renderer);
-#endif
+}
+
+static void
+earray_calc_boundingbox(EArray *eary)
+{
+  DiaObject *obj = &eary->object;
+  Rectangle bb;
+  int i;
+
+  for(i = 0; i < eary->embed_array_size; i++) {
+    text_calc_boundingbox(*(eary->texts+i), &bb);
+    rectangle_union(&obj->bounding_box,&bb);
+  }
 }
 
 static void
 earray_update_data(EArray *eary)
 {
-  Point to2;
   DiaObject *obj = &eary->object;
-#if 0
-  
-  text_set_position(eary->text, &obj->position);
-  text_calc_boundingbox(eary->text, &obj->bounding_box);
+  Point pos;
+  int i;
 
-  to2 = obj->position;
-  earray_valign_point(eary, &to2, 1);
-  text_set_position(eary->text, &to2);
-  text_calc_boundingbox(eary->text, &obj->bounding_box);
-  
-  eary->text_handle.pos = obj->position;
-#endif
+  earray_calc_boundingbox(eary);
+  obj->position = ((Text*)*(eary->texts))->position;
+  for(i=0;i<eary->embed_array_size;i++) {
+    obj->handles[i]->pos = ((Text*)*(eary->texts+i))->position;
+  }
+  for(i=0;i<eary->embed_array_size;i++) {
+    pos = ((Text*)*(eary->texts+i))->position;
+    text_set_attributes(*(eary->texts+i),&eary->attrs);
+    text_set_position(*(eary->texts+i),&pos);
+  }
+}
+
+static void
+add_handle(EArray *eary)
+{
+  DiaObject *obj;
+  Handle *handle;
+
+  obj = &(eary->object);
+  handle = g_malloc0(sizeof(Handle));
+  handle->id = HANDLE_TEXT;
+  handle->type = HANDLE_MAJOR_CONTROL;
+  handle->connect_type = HANDLE_NONCONNECTABLE;
+  handle->connected_to = NULL;
+  object_add_handle(obj,handle);
+}
+
+static void
+remove_handle(EArray *eary)
+{
+  DiaObject *obj;
+  Handle *handle;
+
+  obj = &(eary->object);
+  if (obj->num_handles > 0) {
+    handle = obj->handles[obj->num_handles-1];
+    if (handle->id == HANDLE_TEXT) {
+      object_remove_handle(obj,handle);
+    }
+  }
 }
 
 static DiaObject *
@@ -289,6 +352,9 @@ earray_create(Point *startpoint,
   Color col;
   DiaFont *font = NULL;
   real font_height;
+  Point pos;
+  gchar buf[256];
+  int i;
   
   eary = g_malloc0(sizeof(EArray));
   obj = &eary->object;
@@ -299,30 +365,36 @@ earray_create(Point *startpoint,
 
   col = attributes_get_foreground();
   attributes_get_default_font(&font, &font_height);
-  eary->sample = new_text("", font, font_height,
+  eary->template = new_text("", font, font_height,
 			   startpoint, &col, ALIGN_LEFT );
   /* need to initialize to object.position as well, it is used update data */
   obj->position = *startpoint;
 
-  text_get_attributes(eary->sample,&eary->attrs);
+  text_get_attributes(eary->template,&eary->attrs);
   dia_font_unref(font);
   
   /* default visibility must be off to keep compatibility */
   eary->fill_color = attributes_get_background();
   eary->show_background = FALSE;
 
-  eary->embed_id = g_strdup("embed_text");
-  eary->embed_array_size = 3;
+  eary->embed_id = g_strdup("embed_array");
+  eary->embed_array_size = 10;
   eary->embed_text_size = 10;
   eary->embed_column_size = 0;
   
-  object_init(obj, 1, 0);
+  object_init(obj, 0, 0);
 
-  obj->handles[0] = &eary->text_handle;
-  eary->text_handle.id = HANDLE_TEXT;
-  eary->text_handle.type = HANDLE_MAJOR_CONTROL;
-  eary->text_handle.connect_type = HANDLE_CONNECTABLE;
-  eary->text_handle.connected_to = NULL;
+  eary->texts = g_malloc0(sizeof(Text*)*(eary->embed_array_size));
+
+  pos = *startpoint;
+  for(i=0;i<eary->embed_array_size;i++) {
+    add_handle(eary);
+
+    g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
+    *(eary->texts + i) = new_text(buf, font, font_height,
+      &pos, &col, ALIGN_LEFT );
+    pos.y += font_height + 0.1;
+  }
 
   earray_update_data(eary);
 
@@ -334,7 +406,12 @@ earray_create(Point *startpoint,
 static void
 earray_destroy(EArray *eary)
 {
-  text_destroy(eary->sample);
+  int i;
+  for(i=0;i<eary->embed_array_size;i++) {
+    text_destroy(*(eary->texts+i));
+  }
+  g_free(eary->texts);
+  text_destroy(eary->template);
   dia_font_unref(eary->attrs.font);
   object_destroy(&eary->object);
 }
@@ -342,10 +419,13 @@ earray_destroy(EArray *eary)
 static void
 earray_save(EArray *eary, ObjectNode obj_node, const char *filename)
 {
+  AttributeNode attr;
+  int i;
+
   object_save(&eary->object, obj_node);
 
-  data_add_text(new_attribute(obj_node, "sample"),
-		eary->sample);
+  data_add_text(new_attribute(obj_node, "template"),
+		eary->template);
 
   if (eary->show_background) {
     data_add_color(new_attribute(obj_node, "fill_color"), &eary->fill_color);
@@ -360,6 +440,11 @@ earray_save(EArray *eary, ObjectNode obj_node, const char *filename)
 		eary->embed_text_size);
   data_add_int(new_attribute(obj_node, "embed_column_size"),
 		eary->embed_column_size);
+
+  attr = new_attribute(obj_node, "earray_texts");
+  for (i=0;i<eary->embed_array_size;i++) {
+    data_add_text(attr, *(eary->texts + i));
+  }
 }
 
 static DiaObject *
@@ -368,7 +453,12 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
   EArray *eary;
   DiaObject *obj;
   AttributeNode attr;
+  DataNode data;
   Point startpoint = {0.0, 0.0};
+  Text *text;
+  gchar buf[256];
+  int i;
+  int num;
 
   eary = g_malloc0(sizeof(EArray));
   obj = &eary->object;
@@ -378,17 +468,17 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
 
   object_load(obj, obj_node);
 
-  attr = object_find_attribute(obj_node, "sample");
+  attr = object_find_attribute(obj_node, "template");
   if (attr != NULL) {
-    eary->sample = data_text( attribute_first_data(attr) );
+    eary->template = data_text( attribute_first_data(attr) );
   } else {
     DiaFont* font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
-    eary->sample = new_text("", font, 1.0,
+    eary->template = new_text("", font, 1.0,
 			     &startpoint, &color_black, ALIGN_LEFT);
     dia_font_unref(font);
   }
   /* initialize attrs from text */
-  text_get_attributes(eary->sample,&eary->attrs);
+  text_get_attributes(eary->template,&eary->attrs);
 
   /* default visibility must be off to keep compatibility */
   eary->fill_color = attributes_get_background();
@@ -417,13 +507,35 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
   if (attr)
     eary->embed_column_size = data_int( attribute_first_data(attr) );
 
-  object_init(obj, 1, 0);
+  object_init(obj, 0, 0);
+  for(i=0;i<eary->embed_array_size;i++) {
+    add_handle(eary);
+  }
 
-  obj->handles[0] = &eary->text_handle;
-  eary->text_handle.id = HANDLE_TEXT;
-  eary->text_handle.type = HANDLE_MAJOR_CONTROL;
-  eary->text_handle.connect_type = HANDLE_CONNECTABLE;
-  eary->text_handle.connected_to = NULL;
+  eary->texts = g_malloc0(
+    sizeof(Text*)*(eary->embed_array_size));
+
+  attr = object_find_attribute(obj_node, "earray_texts");
+  if (attr != NULL) {
+    num = attribute_num_data(attr);
+  } else {
+    num = 0;
+  }
+
+  data = attribute_first_data(attr);
+  for (i=0; i<num && i<eary->embed_array_size;i++) {
+    *(eary->texts+i) = data_text(data);
+    data = data_next(data);
+  }
+  if (num < eary->embed_array_size) {
+    for (i=num; i<eary->embed_array_size;i++) {
+      g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
+      text = text_copy(eary->template);
+      text_set_string(text,buf);
+      text->position.x += i * text->height;
+      *(eary->texts+i) = text;
+    }
+  }
 
   earray_update_data(eary);
 
