@@ -22,8 +22,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <math.h>
+#include <glib/gprintf.h>
 
 #include "intl.h"
 #include "object.h"
@@ -51,10 +53,13 @@ struct _EArray {
   Color fill_color;
   gboolean show_background;
 
+  gchar *sample;
+
   gchar *embed_id;
   gint embed_text_size;
   gint embed_column_size;
   gint embed_array_size;
+  gint alloc_size;
 };
 
 static real earray_distance_from(EArray *eary, Point *point);
@@ -78,8 +83,10 @@ static void earray_set_props(EArray *eary, GPtrArray *props);
 
 static void earray_save(EArray *eary, ObjectNode obj_node,
 			 const char *filename);
-static DiaObject *earray_load(ObjectNode obj_node, int version,
+static DiaObject *earray_load(ObjectNode obj_node,int version,
 			    const char *filename);
+static void add_handle(EArray *eary);
+static void remove_handle(EArray *eary);
 
 static ObjectTypeOps earray_type_ops =
 {
@@ -136,6 +143,8 @@ static PropDescription earray_props[] = {
   PROP_STD_SAVED_TEXT,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
+  { "sample", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Sample"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
   { "embed_array_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
@@ -164,6 +173,7 @@ static PropOffset earray_offsets[] = {
   {"text_alignment",PROP_TYPE_ENUM,offsetof(EArray,attrs.alignment)},
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(EArray, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(EArray, show_background) },
+  { "sample", PROP_TYPE_STRING, offsetof(EArray, sample) },
   { "embed_id", PROP_TYPE_STRING, offsetof(EArray, embed_id) },
   { "embed_array_size", PROP_TYPE_INT, offsetof(EArray, embed_array_size) },
   { "embed_text_size", PROP_TYPE_INT, offsetof(EArray, embed_text_size) },
@@ -179,10 +189,43 @@ earray_get_props(EArray *eary, GPtrArray *props)
 }
 
 static void
+earray_check_array_size(EArray *eary)
+{
+  DiaObject *obj;
+  Text **p;
+  Text *from,*to;
+  gchar buf[256];
+  int i,asize,num;
+
+  obj = &eary->object;
+  asize = eary->embed_array_size;
+  num = obj->num_handles;
+  if (asize > num) {
+    p = g_realloc(eary->texts, sizeof(Text*)*(asize));
+    assert(p != NULL);
+    eary->texts = p;
+    from = *(eary->texts+num-1);
+    for (i=num;i<asize;i++){
+      to = text_copy(from);
+      to->position.y += 0.1+to->height*(i-num+1);
+      g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
+      text_set_string(to,buf);
+      *(eary->texts+i) = to;
+      add_handle(eary);
+    }
+  } else if (asize < num){
+    for (i=asize;i<num;i++){
+      remove_handle(eary);
+    }
+  }
+}
+
+static void
 earray_set_props(EArray *eary, GPtrArray *props)
 {
   object_set_props_from_offsets(&eary->object,earray_offsets,props);
   apply_textattr_properties(props,eary->template,"text",&eary->attrs);
+  earray_check_array_size(eary);
   earray_update_data(eary);
 }
 
@@ -196,7 +239,6 @@ static void
 earray_select(EArray *eary, Point *clicked_point,
 	       DiaRenderer *interactive_renderer)
 {
-fprintf(stderr,"select clicked_point[%p]\n",clicked_point);
 #if 0
   text_set_cursor(eary->text, clicked_point, interactive_renderer);
   text_grab_focus(eary->text, &eary->object);
@@ -259,6 +301,7 @@ earray_draw(EArray *eary, DiaRenderer *renderer)
 {
   int i;
   Text *text;
+  gchar *org;
 
   assert(eary != NULL);
   assert(renderer != NULL);
@@ -275,7 +318,15 @@ earray_draw(EArray *eary, DiaRenderer *renderer)
       lr.y = box.bottom;
       DIA_RENDERER_GET_CLASS (renderer)->fill_rect (renderer, &ul, &lr, &eary->fill_color);
     }
-    text_draw(text, renderer);
+    if (eary->sample != NULL && strlen(eary->sample) > 0) {
+      org = text_get_string_copy(text);
+      text_set_string(text,eary->sample);
+      text_draw(text, renderer);
+      text_set_string(text,org);
+      g_free(org);
+    } else {
+      text_draw(text, renderer);
+    }
   }
 }
 
@@ -377,10 +428,12 @@ earray_create(Point *startpoint,
   eary->fill_color = attributes_get_background();
   eary->show_background = FALSE;
 
+  eary->sample = g_strdup("");
   eary->embed_id = g_strdup("embed_array");
-  eary->embed_array_size = 10;
   eary->embed_text_size = 10;
   eary->embed_column_size = 0;
+  eary->embed_array_size = 10;
+  eary->alloc_size = eary->embed_array_size;
   
   object_init(obj, 0, 0);
 
@@ -432,6 +485,8 @@ earray_save(EArray *eary, ObjectNode obj_node, const char *filename)
     data_add_boolean(new_attribute(obj_node, "show_background"), eary->show_background);
   }
 
+  data_add_string(new_attribute(obj_node, "sample"),
+		eary->sample);
   data_add_string(new_attribute(obj_node, "embed_id"),
 		eary->embed_id);
   data_add_int(new_attribute(obj_node, "embed_array_size"),
@@ -491,13 +546,20 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
   else
     eary->show_background = FALSE;
 
+  attr = object_find_attribute(obj_node, "sample");
+  if (attr)
+    eary->sample = data_string( attribute_first_data(attr) );
+
   attr = object_find_attribute(obj_node, "embed_id");
   if (attr)
     eary->embed_id = data_string( attribute_first_data(attr) );
 
   attr = object_find_attribute(obj_node, "embed_array_size");
-  if (attr)
+  if (attr) {
     eary->embed_array_size = data_int( attribute_first_data(attr) );
+    eary->alloc_size = eary->embed_array_size;
+  } else {
+  }
 
   attr = object_find_attribute(obj_node, "embed_text_size");
   if (attr)

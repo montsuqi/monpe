@@ -71,7 +71,7 @@ typedef struct _ETable {
   DiaFont *font;
   real font_height;
   Color text_color;
-  gchar *template;
+  gchar *sample;
   gchar *cell_widths;
   gchar *aligns;
 
@@ -187,8 +187,8 @@ static PropDescription etable_props[] = {
   { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Text color"), NULL, NULL },
 
-  { "template", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Text template"), NULL, NULL },
+  { "sample", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Text sample"), NULL, NULL },
   { "aligns", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Cell Alignments"), NULL, NULL },
   { "cell_widths", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -229,7 +229,7 @@ static PropOffset etable_offsets[] = {
   {"font",PROP_TYPE_FONT,offsetof(ETable,font)},
   {"font_height",PROP_TYPE_REAL,offsetof(ETable,font_height)},
   {"text_color",PROP_TYPE_COLOUR,offsetof(ETable,text_color)},
-  {"template", PROP_TYPE_STRING, offsetof(ETable, template) },
+  {"sample", PROP_TYPE_STRING, offsetof(ETable, sample) },
   {"aligns", PROP_TYPE_STRING, offsetof(ETable, aligns) },
   {"cell_widths", PROP_TYPE_STRING, offsetof(ETable, cell_widths) },
 
@@ -394,7 +394,7 @@ etable_update_data(ETable *etable)
     g_strfreev(etable->texts);
     etable->texts = g_malloc0(sizeof(gchar*)*(new_numtexts + 1));
     for (i = 0; i < new_numtexts; ++i) {
-      *(etable->texts + i) = g_strdup(etable->template);
+      *(etable->texts + i) = g_strdup(etable->sample);
     }
     *(etable->texts + new_numtexts) = NULL;
   }
@@ -516,9 +516,9 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
       }
       text_set_alignment(text,etable->align[i]);
       text_set_position(text,&p);
-      if (etable->template != NULL && 
-        strlen(etable->template) > 0) {
-        text_set_string(text,etable->template);
+      if (etable->sample != NULL && 
+        strlen(etable->sample) > 0) {
+        text_set_string(text,etable->sample);
       } else {
         text_set_string(text,
           *(etable->texts + j * etable->grid_cols + i));
@@ -743,12 +743,12 @@ etable_create(Point *startpoint,
       etable->font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
   }
   etable->text_color = attributes_get_foreground();
-  etable->template = g_strdup("abcdefg");
+  etable->sample = g_strdup("abcdefg");
 
   etable->numtexts = etable->grid_rows * etable->grid_cols;
   etable->texts = g_malloc0(sizeof(gchar*)*(etable->numtexts)+1);
   for (i = 0; i < etable->numtexts; ++i) {
-    *(etable->texts + i) = g_strdup(etable->template);
+    *(etable->texts + i) = g_strdup(etable->sample);
   }
   *(etable->texts + etable->numtexts) = NULL;
 
@@ -766,7 +766,7 @@ etable_destroy(ETable *etable)
 {
   element_destroy(&etable->element);
   dia_font_unref(etable->font);
-  g_free(etable->template);
+  g_free(etable->sample);
   g_free(etable->embed_id);
   g_strfreev(etable->texts);
 }
@@ -788,7 +788,7 @@ etable_load(ObjectNode obj_node, int version, const char *filename)
   etable->numtexts = etable->grid_rows * etable->grid_cols;
   etable->texts = g_malloc0(sizeof(gchar*)*(etable->numtexts+1));
   for (i = 0; i < etable->numtexts; ++i) {
-    *(etable->texts + i) = g_strdup(etable->template);
+    *(etable->texts + i) = g_strdup(etable->sample);
   }
   *(etable->texts + etable->numtexts) = NULL;
 
