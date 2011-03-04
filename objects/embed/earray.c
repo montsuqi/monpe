@@ -55,6 +55,7 @@ struct _EArray {
 
   gchar *sample;
 
+  gchar *name;
   gchar *embed_id;
   gint embed_text_size;
   gint embed_column_size;
@@ -143,6 +144,8 @@ static PropDescription earray_props[] = {
   PROP_STD_SAVED_TEXT,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
+  { "name", PROP_TYPE_STRING,  PROP_FLAG_DONT_SAVE,
+    N_("Name"), NULL, NULL },
   { "sample", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Sample"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -174,6 +177,7 @@ static PropOffset earray_offsets[] = {
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(EArray, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(EArray, show_background) },
   { "sample", PROP_TYPE_STRING, offsetof(EArray, sample) },
+  { "name", PROP_TYPE_STRING, offsetof(EArray, name) },
   { "embed_id", PROP_TYPE_STRING, offsetof(EArray, embed_id) },
   { "embed_array_size", PROP_TYPE_INT, offsetof(EArray, embed_array_size) },
   { "embed_text_size", PROP_TYPE_INT, offsetof(EArray, embed_text_size) },
@@ -194,7 +198,6 @@ earray_check_array_size(EArray *eary)
   DiaObject *obj;
   Text **p;
   Text *from,*to;
-  gchar buf[256];
   int i,asize,num;
 
   obj = &eary->object;
@@ -208,8 +211,6 @@ earray_check_array_size(EArray *eary)
     for (i=num;i<asize;i++){
       to = text_copy(from);
       to->position.y += 0.1+to->height*(i-num+1);
-      g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
-      text_set_string(to,buf);
       *(eary->texts+i) = to;
       add_handle(eary);
     }
@@ -348,17 +349,26 @@ earray_update_data(EArray *eary)
 {
   DiaObject *obj = &eary->object;
   Point pos;
+  gchar buf[256];
   int i;
+
+  if (eary->name != NULL) {
+    g_free(eary->name);
+  }
+  eary->name = g_strdup_printf("[%s[%d]]",
+    eary->embed_id,eary->embed_array_size);
 
   earray_calc_boundingbox(eary);
   obj->position = ((Text*)*(eary->texts))->position;
   for(i=0;i<eary->embed_array_size;i++) {
-    obj->handles[i]->pos = ((Text*)*(eary->texts+i))->position;
   }
   for(i=0;i<eary->embed_array_size;i++) {
     pos = ((Text*)*(eary->texts+i))->position;
+    obj->handles[i]->pos = pos;
     text_set_attributes(*(eary->texts+i),&eary->attrs);
     text_set_position(*(eary->texts+i),&pos);
+    g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
+    text_set_string(*(eary->texts+i),buf);
   }
 }
 

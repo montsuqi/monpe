@@ -27,6 +27,7 @@
 #include <math.h>
 #include <string.h>
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <time.h>
 #include <stdio.h>
 
@@ -78,6 +79,7 @@ typedef struct _ETable {
   int numtexts;
   gchar **texts;
 
+  gchar *name;
   gchar *embed_id;
   gchar *embed_text_sizes;
 } ETable;
@@ -187,6 +189,8 @@ static PropDescription etable_props[] = {
   { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Text color"), NULL, NULL },
 
+  { "name", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE,
+    N_("Name"), NULL, NULL },
   { "sample", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Text sample"), NULL, NULL },
   { "aligns", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -229,6 +233,7 @@ static PropOffset etable_offsets[] = {
   {"font",PROP_TYPE_FONT,offsetof(ETable,font)},
   {"font_height",PROP_TYPE_REAL,offsetof(ETable,font_height)},
   {"text_color",PROP_TYPE_COLOUR,offsetof(ETable,text_color)},
+  {"name", PROP_TYPE_STRING, offsetof(ETable, name) },
   {"sample", PROP_TYPE_STRING, offsetof(ETable, sample) },
   {"aligns", PROP_TYPE_STRING, offsetof(ETable, aligns) },
   {"cell_widths", PROP_TYPE_STRING, offsetof(ETable, cell_widths) },
@@ -375,6 +380,12 @@ etable_update_data(ETable *etable)
   int i;
 
   coord left, top;
+
+  if (etable->name != NULL) {
+    g_free(etable->name);
+  }
+  etable->name = g_strdup_printf("[%s[%d][%d]]",
+    etable->embed_id,etable->grid_rows,etable->grid_cols);
 
   extra->border_trans = etable->border_line_width / 2.0;
   element_update_boundingbox(elem);
@@ -808,6 +819,7 @@ etable_load(ObjectNode obj_node, int version, const char *filename)
 
   etable_eval_aligns(etable);
   etable_eval_cell_widths(etable);
+  etable_update_data(etable);
 
   return obj; 
 }

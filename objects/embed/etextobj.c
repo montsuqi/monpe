@@ -48,6 +48,7 @@ enum _Valign {
 typedef struct _ETextobj ETextobj;
 struct _ETextobj {
   DiaObject object;
+  gchar *name;
   
   Handle text_handle;
 
@@ -158,6 +159,8 @@ static PropDescription textobj_props[] = {
   PROP_STD_SAVED_TEXT,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE,
+    N_("Name"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
   { "embed_text_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
@@ -185,6 +188,7 @@ static PropOffset textobj_offsets[] = {
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(ETextobj,vert_align)},
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(ETextobj, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(ETextobj, show_background) },
+  { "name", PROP_TYPE_STRING, offsetof(ETextobj, name) },
   { "embed_id", PROP_TYPE_STRING, offsetof(ETextobj, embed_id) },
   { "embed_text_size", PROP_TYPE_INT, offsetof(ETextobj, embed_text_size) },
   { "embed_column_size", PROP_TYPE_INT, offsetof(ETextobj, embed_column_size) },
@@ -302,6 +306,12 @@ textobj_update_data(ETextobj *textobj)
 {
   Point to2;
   DiaObject *obj = &textobj->object;
+
+  if (textobj->name != NULL) {
+    g_free(textobj->name);
+  }
+  textobj->name = g_strdup_printf("[%s]",
+    textobj->embed_id);
   
   text_set_position(textobj->text, &obj->position);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);

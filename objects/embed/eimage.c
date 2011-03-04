@@ -65,6 +65,7 @@ struct _EImage {
 
   time_t mtime;
 
+  gchar *name;
   gchar *embed_id;
   gint embed_path_size;
 };
@@ -149,6 +150,8 @@ static PropDescription image_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE,
+    N_("Name"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
   { "embed_path_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
@@ -173,6 +176,7 @@ static PropOffset image_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(EImage, border_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(EImage, line_style), offsetof(EImage, dashlength) },
+  { "name", PROP_TYPE_STRING, offsetof(EImage, name) },
   { "embed_id", PROP_TYPE_STRING, offsetof(EImage, embed_id) },
   { "embed_path_size", PROP_TYPE_INT, offsetof(EImage, embed_path_size) },
   { NULL, 0, 0 }
@@ -394,6 +398,11 @@ image_update_data(EImage *image)
   Element *elem = &image->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
+
+  if (image->name != NULL) {
+    g_free(image->name);
+  }
+  image->name = g_strdup_printf("[%s]",image->embed_id);
 
   /* Update connections: */
   image->connections[0].pos = elem->corner;
