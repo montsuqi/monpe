@@ -613,3 +613,4 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
 
   return &eary->object;
 }
+
