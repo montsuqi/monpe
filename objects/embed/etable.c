@@ -69,9 +69,10 @@ typedef struct _ETable {
 
   /* texts */
   real padding;
-  DiaFont *font;
-  real font_height;
-  Color text_color;
+
+  Text *template;
+  TextAttributes attrs;
+
   gchar *sample;
   gchar *cell_widths;
   gchar *aligns;
@@ -182,12 +183,10 @@ static PropDescription etable_props[] = {
 
   { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Text padding"), NULL, &text_padding_data },
-  { "font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE ,
-    N_("Font"), NULL, NULL },
-  { "font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE ,
-    N_("Font height"), NULL, NULL },
-  { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Text color"), NULL, NULL },
+
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
 
   { "name", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE,
     N_("Name"), NULL, NULL },
@@ -230,9 +229,12 @@ static PropOffset etable_offsets[] = {
   { "draw_line", PROP_TYPE_BOOL,offsetof(ETable,draw_line) },
 
   {"padding", PROP_TYPE_REAL, offsetof(ETable, padding) },
-  {"font",PROP_TYPE_FONT,offsetof(ETable,font)},
-  {"font_height",PROP_TYPE_REAL,offsetof(ETable,font_height)},
-  {"text_color",PROP_TYPE_COLOUR,offsetof(ETable,text_color)},
+
+  {"text",PROP_TYPE_TEXT,offsetof(ETable,template)},
+  {"text_font",PROP_TYPE_FONT,offsetof(ETable,attrs.font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(ETable,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(ETable,attrs.color)},
+
   {"name", PROP_TYPE_STRING, offsetof(ETable, name) },
   {"sample", PROP_TYPE_STRING, offsetof(ETable, sample) },
   {"aligns", PROP_TYPE_STRING, offsetof(ETable, aligns) },
@@ -246,6 +248,8 @@ static PropOffset etable_offsets[] = {
 static void
 etable_get_props(ETable *etable, GPtrArray *props)
 {  
+
+  text_get_attributes(etable->template,&etable->attrs);
   object_get_props_from_offsets(&etable->element.object,
                                 etable_offsets,props);
 }
@@ -259,6 +263,9 @@ etable_set_props(ETable *etable, GPtrArray *props)
   gint old_grid_cols;
 
   object_set_props_from_offsets(obj, etable_offsets,props);
+
+  apply_textattr_properties(props,etable->template,
+    "text",&etable->attrs);
 
   pos = etable->element.corner;
   pos.x += etable->element.width;
@@ -505,8 +512,9 @@ etable_draw_texts (ETable *etable, DiaRenderer *renderer,
   inset = (etable->border_line_width - etable->gridline_width)/2;
   cell_height = (elem->height - 2 * inset)/etable->grid_rows;
 
-  text = new_text("",etable->font,etable->font_height, 
-    &p,&etable->text_color,ALIGN_LEFT);
+  text = new_text("",etable->attrs.font,
+    etable->attrs.height, 
+    &p,&etable->attrs.color,ALIGN_LEFT);
 
   for (j=0; j<etable->grid_rows;j++) {
     p.y = elem->corner.y + inset + 
@@ -703,6 +711,9 @@ etable_create(Point *startpoint,
   DiaObject *obj;
   unsigned i;
   Point pos;
+  DiaFont *font = NULL;
+  real font_height;
+  Color col;
 
   etable = g_new0(ETable,1);
   elem = &(etable->element);
@@ -748,12 +759,13 @@ etable_create(Point *startpoint,
 
   etable->draw_line = TRUE;
 
-  /* font */
-  if (etable->font == NULL) {
-      etable->font_height = 0.8;
-      etable->font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
-  }
-  etable->text_color = attributes_get_foreground();
+  col = attributes_get_foreground();
+  attributes_get_default_font(&font, &font_height);
+  etable->template = new_text("", font, font_height,
+			   startpoint, &col, ALIGN_LEFT );
+  text_get_attributes(etable->template,&etable->attrs);
+  dia_font_unref(font);
+
   etable->sample = g_strdup("abcdefg");
 
   etable->numtexts = etable->grid_rows * etable->grid_cols;
@@ -776,7 +788,8 @@ static void
 etable_destroy(ETable *etable)
 {
   element_destroy(&etable->element);
-  dia_font_unref(etable->font);
+  text_destroy(etable->template);
+  dia_font_unref(etable->attrs.font);
   g_free(etable->sample);
   g_free(etable->embed_id);
   g_strfreev(etable->texts);
@@ -791,10 +804,22 @@ etable_load(ObjectNode obj_node, int version, const char *filename)
   DataNode data;
   DiaObject *obj;
   ETable *etable;
+  Point p = {0,0};
  
   obj = object_load_using_properties(&etable_type,
     obj_node,version,filename);  
   etable = (ETable*)obj;
+
+  attr = object_find_attribute(obj_node, "template");
+  if (attr != NULL) {
+    etable->template = data_text(attribute_first_data(attr));
+  } else {
+    DiaFont* font = dia_font_new_from_style(
+      DIA_FONT_MONOSPACE,1.0);
+    etable->template = new_text("", font, 1.0,
+			     &p, &color_black, ALIGN_LEFT);
+    dia_font_unref(font);
+  }
 
   etable->numtexts = etable->grid_rows * etable->grid_cols;
   etable->texts = g_malloc0(sizeof(gchar*)*(etable->numtexts+1));
@@ -831,6 +856,9 @@ etable_save(ETable *etable, ObjectNode obj_node, const char *filename)
   AttributeNode attr;
 
   object_save_props(&etable->element.object, obj_node);
+
+  data_add_text(new_attribute(obj_node, "template"),
+		etable->template);
 
   attr = new_attribute(obj_node, "etable_texts");
   for (i=0;i<etable->numtexts;i++) {
