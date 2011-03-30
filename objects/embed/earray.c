@@ -224,9 +224,18 @@ earray_check_array_size(EArray *eary)
 static void
 earray_set_props(EArray *eary, GPtrArray *props)
 {
+  gchar buf[256];
+  int i;
+
   object_set_props_from_offsets(&eary->object,earray_offsets,props);
   apply_textattr_properties(props,eary->template,"text",&eary->attrs);
   earray_check_array_size(eary);
+
+  for(i=0;i<eary->embed_array_size;i++) {
+    g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
+    text_set_string(*(eary->texts+i),buf);
+  }
+
   earray_update_data(eary);
 }
 
@@ -361,14 +370,10 @@ earray_update_data(EArray *eary)
   earray_calc_boundingbox(eary);
   obj->position = ((Text*)*(eary->texts))->position;
   for(i=0;i<eary->embed_array_size;i++) {
-  }
-  for(i=0;i<eary->embed_array_size;i++) {
     pos = ((Text*)*(eary->texts+i))->position;
     obj->handles[i]->pos = pos;
     text_set_attributes(*(eary->texts+i),&eary->attrs);
     text_set_position(*(eary->texts+i),&pos);
-    g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
-    text_set_string(*(eary->texts+i),buf);
   }
 }
 
