@@ -20,32 +20,38 @@
 #include <config.h>
 #endif
 
+#define EMBED_UTILS_MAIN
+
 #include "object.h"
 #include "sheet.h"
 #include "intl.h"
 #include "plug-ins.h"
 #include "utils.h"
 
-extern DiaObjectType *_etextobj_type;
-extern DiaObjectType *_eimage_type;
-extern DiaObjectType *_etable_type;
-extern DiaObjectType *_earray_type;
-
-DIA_PLUGIN_CHECK_INIT
-
-PluginInitResult
-dia_plugin_init(PluginInfo *info)
+gchar *
+get_default_embed_id(
+  gchar *template)
 {
-  if (!dia_plugin_info_init(info, "Embed", _("Embed objects"),
-			    NULL, NULL))
-    return DIA_PLUGIN_INIT_ERROR;
+  int i = 1;
+  gchar *id;
 
-  object_register_type(_etextobj_type);
-  object_register_type(_eimage_type);
-  object_register_type(_etable_type);
-  object_register_type(_earray_type);
-
-  EmbedIDTable = g_hash_table_new(g_str_hash,g_str_equal);
-
-  return DIA_PLUGIN_INIT_OK;
+  while(1) {
+    id = g_strdup_printf("%s%d",template,i);
+    if ((g_hash_table_lookup(EmbedIDTable,id)) == NULL) {
+      register_embed_id(id);
+      break;
+    }
+    g_free(id);
+    i++;
+  }
+  return id;
 }
+
+void 
+register_embed_id(gchar *id)
+{
+  if ((g_hash_table_lookup(EmbedIDTable,id)) == NULL) {
+    g_hash_table_insert(EmbedIDTable,id,id);
+  }
+}
+

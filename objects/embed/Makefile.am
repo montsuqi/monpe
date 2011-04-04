@@ -5,7 +5,9 @@ libembed_objects_la_SOURCES = \
 	etextobj.c \
 	eimage.c \
 	etable.c \
-	earray.c
+	earray.c \
+	utils.h \
+	utils.c
 
 libembed_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 

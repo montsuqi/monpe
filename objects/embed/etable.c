@@ -43,6 +43,7 @@
 #include "text.h"
 #include "font.h"
 #include "properties.h"
+#include "utils.h"
 
 #include "pixmaps/etable.xpm"
 
@@ -281,6 +282,9 @@ etable_set_props(ETable *etable, GPtrArray *props)
       remove_column_handle(etable);
     }
   }
+
+  register_embed_id(etable->embed_id);
+
   etable_eval_aligns(etable);
   etable_eval_cell_widths(etable);
   etable_update_data(etable);
@@ -775,7 +779,7 @@ etable_create(Point *startpoint,
   }
   *(etable->texts + etable->numtexts) = NULL;
 
-  etable->embed_id = g_strdup("embed_table");
+  etable->embed_id = get_default_embed_id("embed_table");
 
   etable_update_data(etable);
   *handle1 = NULL;
@@ -841,6 +845,8 @@ etable_load(ObjectNode obj_node, int version, const char *filename)
     *(etable->texts +i) = g_strdup(data_string(data));
     data = data_next(data);
   }
+
+  register_embed_id(etable->embed_id);
 
   etable_eval_aligns(etable);
   etable_eval_cell_widths(etable);

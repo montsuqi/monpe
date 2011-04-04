@@ -33,10 +33,9 @@
 #include "widgets.h"
 #include "properties.h"
 #include "pixmaps/etext.xpm"
-
+#include "utils.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
-
 
 typedef enum _Valign Valign;
 enum _Valign {
@@ -312,6 +311,7 @@ textobj_update_data(ETextobj *textobj)
   }
   textobj->name = g_strdup_printf("[%s]",
     textobj->embed_id);
+  register_embed_id(textobj->embed_id);
   
   text_set_position(textobj->text, &obj->position);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
@@ -358,7 +358,7 @@ textobj_create(Point *startpoint,
   textobj->fill_color = attributes_get_background();
   textobj->show_background = FALSE;
 
-  textobj->embed_id = g_strdup("embed_text");
+  textobj->embed_id = get_default_embed_id("embed_text");
   textobj->embed_text_size = 10;
   textobj->embed_column_size = 0;
   
@@ -455,8 +455,10 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
     textobj->show_background = FALSE;
 
   attr = object_find_attribute(obj_node, "embed_id");
-  if (attr)
+  if (attr) {
     textobj->embed_id = data_string( attribute_first_data(attr) );
+    register_embed_id(textobj->embed_id);
+  }
 
   attr = object_find_attribute(obj_node, "embed_text_size");
   if (attr)

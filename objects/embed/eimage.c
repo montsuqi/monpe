@@ -38,6 +38,7 @@
 #include "dia_image.h"
 #include "message.h"
 #include "properties.h"
+#include "utils.h"
 #include "pixmaps/eimage.xpm"
 
 
@@ -219,6 +220,8 @@ image_set_props(EImage *image, GPtrArray *props)
   g_free(old_file);
   /* remember it */
   image->mtime = mtime;
+
+  register_embed_id(image->embed_id);
 
   image_update_data(image);
 }
@@ -484,7 +487,7 @@ image_create(Point *startpoint,
   image->draw_border = default_properties.draw_border;
   image->keep_aspect = default_properties.keep_aspect;
 
-  image->embed_id = g_strdup("embed_image");
+  image->embed_id = get_default_embed_id("embed_image");
   image->embed_path_size = 256;
 
   image_update_data(image);
@@ -542,7 +545,7 @@ image_copy(EImage *image)
   newimage->draw_border = image->draw_border;
   newimage->keep_aspect = image->keep_aspect;
 
-  newimage->embed_id = g_strdup(image->embed_id);
+  newimage->embed_id = get_default_embed_id("embed_image");
   newimage->embed_path_size = image->embed_path_size;
 
   return &newimage->element.object;
@@ -691,8 +694,10 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   attr = object_find_attribute(obj_node, "embed_id");
-  if (attr)
+  if (attr) {
     image->embed_id = data_string( attribute_first_data(attr) );
+    register_embed_id(image->embed_id);
+  }
 
   attr = object_find_attribute(obj_node, "embed_path_size");
   if (attr)

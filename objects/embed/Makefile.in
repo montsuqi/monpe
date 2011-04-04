@@ -70,7 +70,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libembed_objects_la_LIBADD =
 am_libembed_objects_la_OBJECTS = embed.lo etextobj.lo eimage.lo \
-	etable.lo earray.lo
+	etable.lo earray.lo utils.lo
 libembed_objects_la_OBJECTS = $(am_libembed_objects_la_OBJECTS)
 libembed_objects_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -292,7 +292,9 @@ libembed_objects_la_SOURCES = \
 	etextobj.c \
 	eimage.c \
 	etable.c \
-	earray.c
+	earray.c \
+	utils.h \
+	utils.c
 
 libembed_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
@@ -383,6 +385,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/embed.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etable.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etextobj.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utils.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

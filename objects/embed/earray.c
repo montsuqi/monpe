@@ -36,6 +36,7 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "properties.h"
+#include "utils.h"
 #include "pixmaps/earray.xpm"
 
 
@@ -231,6 +232,8 @@ earray_set_props(EArray *eary, GPtrArray *props)
   apply_textattr_properties(props,eary->template,"text",&eary->attrs);
   earray_check_array_size(eary);
 
+  register_embed_id(eary->embed_id);
+
   for(i=0;i<eary->embed_array_size;i++) {
     g_snprintf(buf,sizeof(buf),"%s[%d]",eary->embed_id,i);
     text_set_string(*(eary->texts+i),buf);
@@ -358,7 +361,6 @@ earray_update_data(EArray *eary)
 {
   DiaObject *obj = &eary->object;
   Point pos;
-  gchar buf[256];
   int i;
 
   if (eary->name != NULL) {
@@ -444,7 +446,7 @@ earray_create(Point *startpoint,
   eary->show_background = FALSE;
 
   eary->sample = g_strdup("");
-  eary->embed_id = g_strdup("embed_array");
+  eary->embed_id = get_default_embed_id("embed_array");
   eary->embed_text_size = 10;
   eary->embed_column_size = 0;
   eary->embed_array_size = 10;
@@ -566,8 +568,10 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
     eary->sample = data_string( attribute_first_data(attr) );
 
   attr = object_find_attribute(obj_node, "embed_id");
-  if (attr)
+  if (attr) {
     eary->embed_id = data_string( attribute_first_data(attr) );
+    register_embed_id(eary->embed_id);
+  }
 
   attr = object_find_attribute(obj_node, "embed_array_size");
   if (attr) {
