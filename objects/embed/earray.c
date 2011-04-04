@@ -61,7 +61,6 @@ struct _EArray {
   gint embed_text_size;
   gint embed_column_size;
   gint embed_array_size;
-  gint alloc_size;
 };
 
 static real earray_distance_from(EArray *eary, Point *point);
@@ -450,7 +449,6 @@ earray_create(Point *startpoint,
   eary->embed_text_size = 10;
   eary->embed_column_size = 0;
   eary->embed_array_size = 10;
-  eary->alloc_size = eary->embed_array_size;
   
   object_init(obj, 0, 0);
 
@@ -576,8 +574,8 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "embed_array_size");
   if (attr) {
     eary->embed_array_size = data_int( attribute_first_data(attr) );
-    eary->alloc_size = eary->embed_array_size;
   } else {
+    eary->embed_array_size = 10;
   }
 
   attr = object_find_attribute(obj_node, "embed_text_size");
