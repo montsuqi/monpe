@@ -6,6 +6,7 @@ libembed_objects_la_SOURCES = \
 	eimage.c \
 	etable.c \
 	earray.c \
+	textcircle.c \
 	utils.h \
 	utils.c
 
@@ -18,4 +19,5 @@ EXTRA_DIST = \
 	pixmaps/eimage.xpm \
 	pixmaps/etext.xpm \
 	pixmaps/etable.xpm \
-	pixmaps/earray.xpm
+	pixmaps/earray.xpm \
+	pixmaps/textcircle.xpm

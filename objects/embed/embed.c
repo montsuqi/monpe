@@ -30,6 +30,7 @@ extern DiaObjectType *_etextobj_type;
 extern DiaObjectType *_eimage_type;
 extern DiaObjectType *_etable_type;
 extern DiaObjectType *_earray_type;
+extern DiaObjectType *_tcircle_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -44,6 +45,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(_eimage_type);
   object_register_type(_etable_type);
   object_register_type(_earray_type);
+  object_register_type(_tcircle_type);
 
   EmbedIDTable = g_hash_table_new(g_str_hash,g_str_equal);
 

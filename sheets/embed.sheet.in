@@ -15,5 +15,8 @@
     <object name="Embed - Image">
       <_description>Embed image</_description>
     </object>
+    <object name="ORCA - TextCircle">
+      <_description>ORCA TextCircle</_description>
+    </object>
   </contents>
 </sheet>

@@ -70,7 +70,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libembed_objects_la_LIBADD =
 am_libembed_objects_la_OBJECTS = embed.lo etextobj.lo eimage.lo \
-	etable.lo earray.lo utils.lo
+	etable.lo earray.lo textcircle.lo utils.lo
 libembed_objects_la_OBJECTS = $(am_libembed_objects_la_OBJECTS)
 libembed_objects_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -293,6 +293,7 @@ libembed_objects_la_SOURCES = \
 	eimage.c \
 	etable.c \
 	earray.c \
+	textcircle.c \
 	utils.h \
 	utils.c
 
@@ -304,7 +305,8 @@ EXTRA_DIST = \
 	pixmaps/eimage.xpm \
 	pixmaps/etext.xpm \
 	pixmaps/etable.xpm \
-	pixmaps/earray.xpm
+	pixmaps/earray.xpm \
+	pixmaps/textcircle.xpm
 
 all: all-am
 
@@ -385,6 +387,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/embed.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etable.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etextobj.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/textcircle.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utils.Plo@am__quote@
 
 .c.o:
