@@ -457,16 +457,24 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "embed_id");
   if (attr) {
     textobj->embed_id = data_string( attribute_first_data(attr) );
-    register_embed_id(textobj->embed_id);
+  } else {
+    textobj->embed_id = get_default_embed_id("embed_text");
   }
+  register_embed_id(textobj->embed_id);
 
   attr = object_find_attribute(obj_node, "embed_text_size");
-  if (attr)
+  if (attr) {
     textobj->embed_text_size = data_int( attribute_first_data(attr) );
+  } else {
+    textobj->embed_text_size = 10;
+  }
 
   attr = object_find_attribute(obj_node, "embed_column_size");
-  if (attr)
+  if (attr) {
     textobj->embed_column_size = data_int( attribute_first_data(attr) );
+  } else {
+    textobj->embed_column_size = 0;
+  }
 
   object_init(obj, 1, 0);
 

@@ -696,12 +696,17 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "embed_id");
   if (attr) {
     image->embed_id = data_string( attribute_first_data(attr) );
-    register_embed_id(image->embed_id);
+  } else {
+    image->embed_id = get_default_embed_id("embed_image");
   }
+  register_embed_id(image->embed_id);
 
   attr = object_find_attribute(obj_node, "embed_path_size");
-  if (attr)
+  if (attr) {
     image->embed_path_size = data_int( attribute_first_data(attr) );
+  } else {
+    image->embed_path_size = 1024;
+  }
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

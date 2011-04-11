@@ -562,14 +562,19 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
     eary->show_background = FALSE;
 
   attr = object_find_attribute(obj_node, "sample");
-  if (attr)
+  if (attr) {
     eary->sample = data_string( attribute_first_data(attr) );
+  } else {
+    eary->sample = g_strdup("");
+  }
 
   attr = object_find_attribute(obj_node, "embed_id");
   if (attr) {
     eary->embed_id = data_string( attribute_first_data(attr) );
-    register_embed_id(eary->embed_id);
+  } else {
+    eary->embed_id = get_default_embed_id("embed_array");
   }
+  register_embed_id(eary->embed_id);
 
   attr = object_find_attribute(obj_node, "embed_array_size");
   if (attr) {
@@ -579,12 +584,18 @@ earray_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   attr = object_find_attribute(obj_node, "embed_text_size");
-  if (attr)
+  if (attr) {
     eary->embed_text_size = data_int( attribute_first_data(attr) );
+  } else {
+    eary->embed_text_size = 10;
+  }
 
   attr = object_find_attribute(obj_node, "embed_column_size");
-  if (attr)
+  if (attr) {
     eary->embed_column_size = data_int( attribute_first_data(attr) );
+  } else {
+    eary->embed_column_size = 0;
+  }
 
   object_init(obj, 0, 0);
   for(i=0;i<eary->embed_array_size;i++) {
