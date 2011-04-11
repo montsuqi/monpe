@@ -138,7 +138,7 @@ static ObjectOps eimage_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
-static PropNumData embed_path_size_range = { 128, 1024, 1 };
+static PropNumData embed_path_size_range = { 128, 4096, 1 };
 
 static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,
@@ -488,7 +488,7 @@ image_create(Point *startpoint,
   image->keep_aspect = default_properties.keep_aspect;
 
   image->embed_id = get_default_embed_id("embed_image");
-  image->embed_path_size = 256;
+  image->embed_path_size = 1024;
 
   image_update_data(image);
   
