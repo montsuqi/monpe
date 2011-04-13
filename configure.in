@@ -12,11 +12,14 @@ AM_CONFIG_HEADER(config.h)
 
 dnl do this check now, to keep autogen quiet.
 AC_PROG_CC
+AC_PROG_CPP
 dnl also c++
 AC_PROG_CXX
 
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
+
+AM_PROG_CC_C_O
 
 dnl Initialize libtool
 AC_DISABLE_STATIC
@@ -524,6 +527,15 @@ else
   fi
 fi
 
+PKG_CHECK_MODULES(M3TOOLS, 
+[
+	glib-2.0	>= 2.0.0
+	libxml-2.0	>= 2.6.0
+	libmondai	>= 1.4.0
+])
+AC_SUBST(M3TOOLS_CFLAGS)
+AC_SUBST(M3TOOLS_LIBS)
+
 
 AC_OUTPUT(
 Makefile
@@ -631,6 +643,7 @@ installer/Makefile
 installer/win32/Makefile
 installer/win32/locale/Makefile
 dia.keys
+tools/Makefile
 )
 
 dnl GTK2: simplify this, we will have much less options.
