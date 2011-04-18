@@ -434,7 +434,7 @@ draw_text (DiaRenderer *renderer,
 						     &pos,
 						     text->alignment,
 						     &text->color);
-    pos.y += text->height;
+    pos.y += text->height * 0.8;
   }
 }
 
