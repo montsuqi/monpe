@@ -65,7 +65,7 @@ GetAttributeString(xmlNodePtr node,
   regex = g_regex_new("^#(.*)#$",G_REGEX_MULTILINE,0,NULL);
 
   while(child != NULL) {
-    name = xmlGetProp(child, BAD_CAST("name"));
+    name = xmlGetProp(child,BAD_CAST("name"));
     if (name != NULL && !xmlStrcmp(name, propname)) {
       child2 = child->children;
       while(child2 != NULL) {
@@ -104,7 +104,7 @@ GetAttributeInt(xmlNodePtr node,
   int ret = -1;
 
   while(child != NULL) {
-    name = xmlGetProp(child, BAD_CAST("name"));
+    name = xmlGetProp(child,BAD_CAST("name"));
     if (name != NULL && !xmlStrcmp(name, propname)) {
       child2 = child->children;
       while(child2 != NULL) {
@@ -112,7 +112,7 @@ GetAttributeInt(xmlNodePtr node,
           !xmlStrcmp(child2->name,BAD_CAST("int"))) {
           val = xmlGetProp(child2,BAD_CAST("val"));
           if (val != NULL) {
-            ret = atoi((const char*)val);
+            ret = atoi((char*)val);
             xmlFree(val);
           }
         } 
@@ -307,73 +307,40 @@ EmbedInfoCompare(gconstpointer a,
   return res;
 }
 
-static GPtrArray* 
-_GetEmbedInfoList(xmlNodeSetPtr nodes)
+static void
+_GetEmbedInfoList(xmlNodePtr node,
+  GPtrArray *array)
 {
-  GPtrArray *array;
-  xmlNodePtr cur;
+  xmlNodePtr child;
   EmbedInfo *info;
-  int size;
-  int i;
 
-  size = (nodes) ? nodes->nodeNr : 0;
-  array = g_ptr_array_new();
-  
-  for(i = 0; i < size; ++i) {
-    assert(nodes->nodeTab[i]);
-    
-    if(nodes->nodeTab[i]->type == XML_ELEMENT_NODE) {
-      cur = nodes->nodeTab[i];   	    
-      if ((info = GetEmbedInfo(cur)) != NULL) {
-        g_ptr_array_add(array,info);
-      }
+  if (node == NULL) {
+    return ;
+  }
+  if (!xmlStrcmp(node->name,BAD_CAST("object"))) {
+    if ((info = GetEmbedInfo(node)) != NULL) {
+      g_ptr_array_add(array,info);
     }
+    return;
   }
 
-  g_ptr_array_sort(array,(GCompareFunc)EmbedInfoCompare);
-
-  return array;
+  for(child = node->children; child != NULL; child = child->next)
+  {
+    _GetEmbedInfoList(child,array);
+  }
 }
 
 GPtrArray* 
 GetEmbedInfoList(xmlDocPtr doc)
 {
-  xmlXPathContextPtr xpathCtx; 
-  xmlXPathObjectPtr xpathObj; 
+  GPtrArray *array;
 
-  xmlChar *prefix = BAD_CAST("dia");
-  xmlChar *href = BAD_CAST("http://www.lysator.liu.se/~alla/dia/"); 
-  xmlChar *xpathExpr = BAD_CAST("//dia:object");
-
-  GPtrArray *ret = NULL;
-
-  assert(doc);
-
-  xpathCtx = xmlXPathNewContext(doc);
-  if(xpathCtx == NULL) {
-      fprintf(stderr,"Error: unable to create new XPath context\n");
-      xmlFreeDoc(doc); 
-      return ret;
+  array = g_ptr_array_new();
+  if (doc == NULL) {
+    g_warning("doc is NULL");
+    return array;
   }
-
-  /* do register namespace */
-  if(xmlXPathRegisterNs(xpathCtx,prefix,href) != 0) {
-      fprintf(stderr,"Error: unable to register NS with prefix=\"%s\" and href=\"%s\"\n", prefix, href);
-      return ret;	
-  }
-
-  /* Evaluate xpath expression */
-  xpathObj = xmlXPathEvalExpression(xpathExpr, xpathCtx);
-  if(xpathObj == NULL) {
-      fprintf(stderr,"Error: unable to evaluate xpath expression \"%s\"\n", xpathExpr);
-      xmlXPathFreeContext(xpathCtx); 
-      return ret;
-  }
-
-  ret = _GetEmbedInfoList(xpathObj->nodesetval);
-
-  xmlXPathFreeObject(xpathObj);
-  xmlXPathFreeContext(xpathCtx); 
-
-  return ret;
+  _GetEmbedInfoList(xmlDocGetRootElement(doc),array);
+  g_ptr_array_sort(array,(GCompareFunc)EmbedInfoCompare);
+  return array;
 }

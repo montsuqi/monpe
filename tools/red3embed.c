@@ -30,21 +30,18 @@ foldText(ValueStruct *value,
   gsize size;
 
   if (!IS_VALUE_STRING(value)) {
-    fprintf(stderr,"WARNING %s:%d invalid value type(%d)\n",
-      __FILE__,__LINE__,ValueType(value));
+    g_warning("WARNING invalid value type(%d)", ValueType(value));
     return NULL;
   }
   if (IS_VALUE_NIL(value)) {
-    fprintf(stderr,"WARNING %s:%d value is nil\n",
-      __FILE__,__LINE__);
+    g_warning("WARNING value is nil");
     return NULL;
   }
 
   str = ValueToString(value,NULL);
 
   if (!g_utf8_validate(str,-1,NULL)) {
-    fprintf(stderr,"WARNING %s:%d invalid utf8 string\n",
-      __FILE__,__LINE__);
+    g_warning("WARNING invalid utf8 string");
     return NULL;
   } 
 
@@ -199,8 +196,7 @@ embedArray(EmbedInfo *info,
   int i,array_size;
 
   if (array == NULL || ValueType(array) != GL_TYPE_ARRAY) {
-    fprintf(stderr,"WARNING %s:%d invalid value type(%d)\n",
-      __FILE__,__LINE__,ValueType(array));
+    g_warning("WARNING invalid value type(%d)",ValueType(array));
     return;
   }
   if (EmbedInfoAttr(info,Array,array_size) > ValueArraySize(array)) {
@@ -267,13 +263,11 @@ embedTable(EmbedInfo *info,
   ValueStruct *record,*str;
 
   if (value == NULL || ValueType(value) != GL_TYPE_ARRAY) {
-    fprintf(stderr,"WARNING %s:%d invalid value type(%d)\n",
-      __FILE__,__LINE__,ValueType(value));
+    g_warning("WARNING invalid value type(%d)",ValueType(value));
     return;
   }
   if (EmbedInfoAttr(info,Table,rows) != ValueArraySize(value)) {
-    fprintf(stderr,"WARNING %s:%d rows are not corresponding (%d,%d)\n",
-      __FILE__,__LINE__,
+    g_warning("WARNING rows are not corresponding (%d,%d)",
       EmbedInfoAttr(info,Table,rows),
       ValueArraySize(value));
     return;
@@ -282,13 +276,11 @@ embedTable(EmbedInfo *info,
   for(i=0;i<ValueArraySize(value);i++) {
     record = ValueArrayItem(value,i);
     if (record == NULL || !IS_VALUE_RECORD(record)) {
-      fprintf(stderr,"WARNING %s:%d invalid value type(%d)\n",
-        __FILE__,__LINE__,ValueType(record));
+      g_warning("WARNING invalid value type(%d)",ValueType(record));
       return;
     }
     if (EmbedInfoAttr(info,Table,cols) != ValueRecordSize(record)) {
-      fprintf(stderr,"WARNING %s:%d columns are not corresponding (%d,%d)\n",
-        __FILE__,__LINE__,
+      g_warning("WARNING columns are not corresponding (%d,%d)",
         EmbedInfoAttr(info,Table,rows),
         ValueArraySize(value));
       return;
@@ -296,8 +288,7 @@ embedTable(EmbedInfo *info,
     for (j = 0; j < ValueRecordSize(record); j++) {
       str = GetRecordItem(record,ValueRecordName(record,j));
       if (str == NULL || !IS_VALUE_STRING(str)) {
-        fprintf(stderr,"WARNING %s:%d invalid value type(%d)\n",
-          __FILE__,__LINE__,ValueType(str));
+        g_warning("WARNING invalid value type(%d)",ValueType(str));
         return;
       }
       content = foldText(str,
@@ -374,7 +365,7 @@ red3embed(char *diafile,
 
   doc = xmlParseFile(diafile);
   if (doc == NULL) {
-    fprintf(stderr, "Error: unable to parse file:%s\n", diafile);
+    g_warning("Error: unable to parse file:%s", diafile);
     return;
   }
   array = GetEmbedInfoList(doc);
@@ -382,17 +373,17 @@ red3embed(char *diafile,
   RecParserInit();
   value = RecParseValue(recfile,&vname);
   if (value == NULL) {
-    fprintf(stderr, "Error: unable to read rec file:%s\n",recfile);
+    g_warning("Error: unable to read rec file:%s\n",recfile);
     return;
   }
   if (!IS_VALUE_RECORD(value)) {
-    fprintf(stderr, "Error: invalid value type:%d rec file:%s\n",
+    g_warning("Error: invalid value type:%d rec file:%s\n",
       ValueType(value),recfile);
     return;
   }
 
   if (!g_file_get_contents(datafile,&buf,&size,NULL)) {
-    fprintf(stderr, "Error: unable to read data file:%s\n",datafile);
+    g_warning("Error: unable to read data file:%s\n",datafile);
     return;
   }
   conv = NewConvOpt();
@@ -423,7 +414,7 @@ int main(int argc, char *argv[])
   GError *error = NULL;
   GOptionContext *ctx;
 
-  ctx = g_option_context_new("<.red3> <.rec> <.dat>");
+  ctx = g_option_context_new("- embed data to .dia");
   g_option_context_add_main_entries(ctx, entries, NULL);
   if (!g_option_context_parse(ctx,&argc,&argv,&error)) {
     g_print("option parsing failed:%s\n",error->message);

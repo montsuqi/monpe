@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
   GError *error = NULL;
   GOptionContext *ctx;
 
-  ctx = g_option_context_new("<.red3>");
+  ctx = g_option_context_new("- make .rec from .dia");
   g_option_context_add_main_entries(ctx, entries, NULL);
   if (!g_option_context_parse(ctx,&argc,&argv,&error)) {
     g_print("option parsing failed:%s\n",error->message);

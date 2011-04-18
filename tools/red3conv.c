@@ -41,6 +41,7 @@ typedef struct {
 
 typedef struct {
   gchar *oldname;
+  double scale;
   gchar *family;
   gchar *style;
   gchar *name;
@@ -49,39 +50,87 @@ typedef struct {
 #define NUM_FONT_INFO 10
 
 static FontInfo Fonts[] = {
-  {"Mincho"             ,"Takao明朝"    ,"0" ,"Courier"},
-  {"明朝"               ,"Takao明朝"    ,"0" ,"Courier"},
-  {"Gothic"             ,"Takaoゴシック","0" ,"Courier"},
-  {"ゴシック"           ,"Takaoゴシック","0" ,"Courier"},
-  {"Courier"            ,"Takao明朝"    ,"0" ,"Courier"},
-  {"Courier-Oblique"    ,"Takao明朝"    ,"8" ,"Courier"},
-  {"Courier-Bold"       ,"Takao明朝"    ,"80","Courier"},
-  {"Courier-BoldOblique","Takao明朝"    ,"88","Courier"},
-  {"Times-Roman"        ,"serif"        ,"0" ,"Times-Roman"}
+  {"Mincho"             ,1.25,"Takao明朝"    ,"0" ,"Courier"},
+  {"明朝"               ,1.25,"Takao明朝"    ,"0" ,"Courier"},
+  {"Gothic"             ,1.25,"Takaoゴシック","0" ,"Courier"},
+  {"ゴシック"           ,1.25,"Takaoゴシック","0" ,"Courier"},
+  {"Courier"            ,1.25,"Takao明朝"    ,"0" ,"Courier"},
+  {"Courier-Oblique"    ,1.25,"Takao明朝"    ,"8" ,"Courier"},
+  {"Courier-Bold"       ,1.25,"Takao明朝"    ,"80","Courier"},
+  {"Courier-BoldOblique",1.25,"Takao明朝"    ,"88","Courier"},
+  {"Times-Roman"        ,1.25,"serif"        ,"0" ,"Times-Roman"}
 };
+
+static void
+fix_font_height(xmlNodePtr node,
+  double scale)
+{
+  xmlNodePtr child;
+  xmlChar *val;
+  double height;
+
+  for (child = node->children; child != NULL; child = child->next) {
+    if (!xmlStrcmp(child->name,BAD_CAST("real"))) {
+      val = xmlGetProp(child,BAD_CAST("val"));
+      if (val != NULL) { 
+        height = atof((const char*)val) * scale;
+        xmlSetProp(child,BAD_CAST("val"),
+          BAD_CAST(g_strdup_printf("%lf",height)));
+      }
+      return;
+    }
+  }
+}
+
+static double
+fix_font_name(xmlNodePtr node)
+{
+  xmlNodePtr child;
+  xmlChar *name;
+  int i;
+
+  for (child = node->children; child != NULL; child = child->next) {
+    if (!xmlStrcmp(child->name,BAD_CAST("font"))) {
+      name = xmlGetProp(child,BAD_CAST("name"));
+      if (name != NULL) {
+        for (i=0;i<NUM_FONT_INFO;i++) {
+          if (!xmlStrcmp(name,BAD_CAST(Fonts[i].oldname))) {
+            xmlNewProp(child,BAD_CAST("family"),BAD_CAST(Fonts[i].family));
+            xmlNewProp(child,BAD_CAST("style"),BAD_CAST(Fonts[i].style));
+            xmlSetProp(child,BAD_CAST("name"),BAD_CAST(Fonts[i].name));
+            return Fonts[i].scale;
+          }
+        }
+      }
+    }
+  }
+  return 1.0;
+}
 
 static void
 fix_font(xmlNodePtr node)
 {
   xmlNodePtr cur;
+  xmlChar *type;
   xmlChar *name;
-  int i;
+  double scale = 1.0;
 
-  if (!xmlStrcmp(node->name,BAD_CAST("font"))) {
-    name = xmlGetProp(node,BAD_CAST("name"));
-    if (name != NULL) {
-      for (i=0;i<NUM_FONT_INFO;i++) {
-        if (!xmlStrcmp(name,BAD_CAST(Fonts[i].oldname))) {
-          xmlNewProp(node,BAD_CAST("family"),BAD_CAST(Fonts[i].family));
-          xmlNewProp(node,BAD_CAST("style"),BAD_CAST(Fonts[i].style));
-          xmlSetProp(node,BAD_CAST("name"),BAD_CAST(Fonts[i].name));
-          return;
+  if (!xmlStrcmp(node->name,BAD_CAST("composite"))) {
+    type = xmlGetProp(node,BAD_CAST("type"));
+    if (!xmlStrcmp(type,BAD_CAST("text"))) {
+      for (cur = node->children; cur != NULL; cur = cur->next) {
+        if (!xmlStrcmp(cur->name,BAD_CAST("attribute"))) {
+          name = xmlGetProp(cur,BAD_CAST("name"));
+          if (!xmlStrcmp(name,BAD_CAST("font"))) {
+            scale = fix_font_name(cur);
+          } else if (!xmlStrcmp(name,BAD_CAST("height"))) {
+            fix_font_height(cur,scale);
+          } 
         }
       }
+      return ;
     }
-    return;
   }
-
   for (cur = node->children; cur != NULL; cur = cur->next) {
     fix_font(cur);
   }
@@ -235,12 +284,13 @@ modify_embed_image(xmlNodePtr node,
   for (i=0;i<g_list_length(list);i++) {
     info = g_list_nth_data(list,i);
     if (!xmlStrcmp(id,BAD_CAST(info->id))) {
-      /* embed_id */
+      /*embed_id */
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_id"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("string"),
-        BAD_CAST(g_strdup_printf("#_%06d_%s#",i,escape_for_rec(info->id))));
-      /* embed_text_size */
+        BAD_CAST(g_strdup_printf("#_%06d_%s#",i,
+          CAST_BAD(escape_for_rec(info->id)))));
+      /*embed_text_size*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_path_size"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("int"),NULL);
@@ -270,18 +320,19 @@ modify_embed_text(xmlNodePtr node,
   for (i=0;i<g_list_length(list);i++) {
     info = g_list_nth_data(list,i);
     if (!xmlStrcmp(id,BAD_CAST(info->id))) {
-      /* embed_id */
+      /*embed_id*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_id"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("string"),
-        BAD_CAST(g_strdup_printf("#_%06d_%s#",i,escape_for_rec(info->id))));
-      /* embed_text_size */
+        BAD_CAST(
+        g_strdup_printf("#_%06d_%s#",i,CAST_BAD(escape_for_rec(info->id)))));
+      /*embed_text_size*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_text_size"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("int"),NULL);
       xmlNewProp(child2,BAD_CAST("val"),
         BAD_CAST(g_strdup_printf("%d",info->length)));
-      /* embed_column_size */
+      /*embed_column_size*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_column_size"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("int"),NULL);
@@ -312,7 +363,7 @@ modify_embed_object(xmlNodePtr node,
       } else if (!xmlStrcmp(type,BAD_CAST("Embed - Image"))) {
         modify_embed_image(node,list);
       } else if (!xmlStrcmp(type,BAD_CAST("Embed - TextBox"))) {
-        /* do nothing */
+        /* do nothing*/
         node->name = BAD_CAST(g_strdup("undef"));
       }
     }
@@ -348,7 +399,7 @@ append_dict_list(xmlNodePtr node,
   } else {
     return retlist;
   }
-  info = (DictInfo*)g_new0(DictInfo,1);
+  info = (DictInfo *)g_new0(DictInfo,1);
   info->id = CAST_BAD(xmlStrdup(path));
   info->type = type;
   info->located = FALSE;
@@ -375,10 +426,11 @@ _get_dict_list(xmlNodePtr node,xmlChar *path,GList *list)
 {
   GList *retlist = list;
   xmlNodePtr child,embed;
-  xmlChar *occurs;
   xmlChar *name;
   xmlChar *newpath;
+  xmlChar *prop;
   int i;
+  int occurs;
 
   child = node->children;
   while(child != NULL) {
@@ -388,8 +440,12 @@ _get_dict_list(xmlNodePtr node,xmlChar *path,GList *list)
         g_warning("element name = NULL");
         break;
       }
-      occurs = xmlGetProp(child,BAD_CAST("occurs"));
-      if (occurs == NULL || atoi((const char*)occurs) <= 1) {
+      occurs = 0;
+      prop = xmlGetProp(child,BAD_CAST("occurs"));
+      if (prop != NULL) {
+        occurs = atoi((const char*)occurs);
+      }
+      if (occurs <= 1) {
         if (path == NULL) {
           newpath = BAD_CAST(g_strdup_printf("%s",name));
         } else {
@@ -397,7 +453,7 @@ _get_dict_list(xmlNodePtr node,xmlChar *path,GList *list)
         }
         retlist = _get_dict_list(child,newpath,retlist);
       } else {
-        for(i=0;i<atoi((const char*)occurs);i++) {
+        for(i=0;i<occurs;i++) {
           if (path == NULL) {
             newpath = BAD_CAST(g_strdup_printf("%s[%d]",name,i));
           } else {
@@ -473,7 +529,7 @@ eval_cb(
   match = g_match_info_fetch(info, 1);
   c[0] = (guchar)atoi(match);
   c[1] = 0;
-  g_string_append (res, (const gchar*)c);
+  g_string_append (res, (const gchar *)c);
   g_free(match);
   return FALSE;
 }
@@ -540,7 +596,7 @@ read_red(gchar *fname)
   }
   gzfile = gzdopen(fd, GZ_MODE);
   if (gzfile != NULL) {
-    /* dummy read to get deflate size */
+    /* dummy read to get deflate size*/
     size = 0;
 	while((readbytes = gzread(gzfile, buf, sizeof(buf))) > 0 ) {
       size += readbytes;
@@ -599,7 +655,7 @@ red3conv(char *infile)
   /* dnode_path list */
   list = get_dict_list(doc);
 
-  /* add embed attribute*/
+  /* add embed attribute */
   modify_embed_object(root,list);
 
   /* add unlocated object for cobol data */
@@ -608,7 +664,7 @@ red3conv(char *infile)
   /* fix font */
   fix_font(root);
 
-  /* output */
+  /* output*/
   xmlKeepBlanksDefault(0);
   if (outfile != NULL) {
     xmlSaveFormatFile(outfile,doc,1);
@@ -630,7 +686,7 @@ int main(int argc, char *argv[])
   GError *error = NULL;
   GOptionContext *ctx;
 
-  ctx = g_option_context_new("<.red>");
+  ctx = g_option_context_new(" <.red>");
   g_option_context_add_main_entries(ctx, entries, NULL);
   if (!g_option_context_parse(ctx,&argc,&argv,&error)) {
     g_print("option parsing failed:%s\n",error->message);
