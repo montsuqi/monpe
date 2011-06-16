@@ -88,6 +88,7 @@ void objects_align_v_callback           (GtkAction *action);
 
 void dialogs_properties_callback (GtkAction *action);
 void dialogs_layers_callback     (GtkAction *action);
+void dialogs_dic_callback     (GtkAction *action);
 
 
 #endif /* COMMANDS_H */

@@ -75,6 +75,7 @@ ShellExecuteA (long        hwnd,
 #include "propinternals.h"
 #include "preferences.h"
 #include "layer_dialog.h"
+#include "dic_dialog.h"
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "pagesetup.h"
@@ -1135,6 +1136,13 @@ dialogs_layers_callback (GtkAction *action)
 {
   layer_dialog_set_diagram(ddisplay_active_diagram());
   layer_dialog_show();
+}
+
+void
+dialogs_dic_callback (GtkAction *action)
+{
+  dic_dialog_set_diagram(ddisplay_active_diagram());
+  dic_dialog_show();
 }
 
 

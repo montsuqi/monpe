@@ -217,6 +217,7 @@ static const GtkActionEntry display_entries[] =
   { "InputMethods", NULL, N_("_Input Methods"), NULL, NULL, NULL },
 
   { "Dialogs", NULL, N_("D_ialogs"), NULL, NULL, NULL },
+    { "DialogsDictionary", NULL, N_("Dictionary..."), NULL, NULL, G_CALLBACK (dialogs_dic_callback) },
 
   { "Debug", NULL, N_("D_ebug"), NULL, NULL, NULL }
 };

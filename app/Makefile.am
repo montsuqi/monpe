@@ -208,7 +208,9 @@ dia_core_files = \
 	textedit.h \
 	textedit_tool.c \
 	textedit_tool.h \
-	diagrid.h
+	diagrid.h \
+	dic_dialog.c \
+	dic_dialog.h
 
 dia_SOURCES = \
 	$(dia_core_files) \

@@ -933,9 +933,11 @@ app_init (int argc, char **argv)
       create_integrated_ui();
     } else {
       create_toolbox();
+#if 0
       /* for the integrated ui case it is integrated */
       persistence_register_window_create("layer_window",
 				         (NullaryFunc*)&create_layer_dialog);
+#endif
     }
       
     /*fill recent file menu */

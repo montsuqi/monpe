@@ -157,6 +157,7 @@
 		</menu>
 		<menuitem name="InputMethods" action="InputMethods" />
 		<menu name="Dialogs" action="Dialogs">
+			<menuitem name="DialogsDictionary" action="DialogsDictionary" />
 			<separator name="DialogsExtensionStart" />
 		</menu>
 		<menu name="Debug" action="Debug">
