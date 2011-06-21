@@ -30,6 +30,8 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 #include "intl.h"
 
@@ -42,7 +44,8 @@
 struct DicDialog {
   Diagram *diagram;
   GtkWidget *dialog;
-  GtkWidget *treeview;
+  GtkWidget *combo;
+  GtkTreeView *treeview;
   GtkWidget *frame;
   GtkWidget *name_entry;
   GtkWidget *occurs_spin;
@@ -56,6 +59,7 @@ enum
   COLUMN_TREE,
   COLUMN_OCCURS,
   COLUMN_USED,
+  COLUMN_NODE,
   NUM_COLS
 } ;
 
@@ -71,6 +75,47 @@ enum
 #define ICON_IMAGE GTK_STOCK_CONVERT
 
 static struct DicDialog *dic_dialog = NULL;
+
+static gboolean 
+dnode_prop_name_is_unique(DicNode *node, DicNode *dparent,
+                                   const gchar *name)
+{
+  DicNode *p;
+  
+  if (dparent == NULL) { return TRUE;}
+  
+  for (p = DNODE_CHILDREN(dparent); p != NULL; p = DNODE_NEXT(p)) {
+    if (p == node) {continue;}
+    
+    if (g_strcmp0(p->name, name) == 0) {
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
+
+#define MIN_SUFFIX  1
+#define MAX_SUFFIX  65535
+
+static gchar*
+dnode_prop_name_unique_dup(DicNode *node, DicNode *dparent,
+                                  const gchar *name)
+{
+  gchar *ret;
+  int i;
+
+  for (i = MIN_SUFFIX; i < MAX_SUFFIX; i++) {
+    ret = g_strdup_printf("%s-%d",name,i);
+    if (dnode_prop_name_is_unique(node, dparent, ret)) {
+      return ret;
+    }
+    g_free(ret);
+  }
+  fprintf(stderr, "%s isn't unique.\n", name);
+  return NULL;
+}
+
 
 static int
 get_node_item_type(gchar *stock)
@@ -89,40 +134,13 @@ static GtkTreeModel *
 create_and_fill_model (void)
 {
   GtkTreeStore *treestore;
-  GtkTreeIter top, child;
 
   treestore = gtk_tree_store_new(NUM_COLS,
-                  G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT,G_TYPE_STRING);
-
-  gtk_tree_store_append(treestore, &top, NULL);
-  gtk_tree_store_set(treestore, &top,
-                     COLUMN_ICON, ICON_STRING,
-                     COLUMN_TREE, "STRING1",
-                     COLUMN_OCCURS, 1,
-                     COLUMN_USED, "-",
-                     -1);
-  gtk_tree_store_append(treestore, &top, NULL);
-  gtk_tree_store_set(treestore, &top,
-                     COLUMN_ICON, ICON_NODE,
-                     COLUMN_TREE, "NODE1",
-                     COLUMN_OCCURS, 10,
-                     COLUMN_USED, "-",
-                     -1);
-  gtk_tree_store_append(treestore, &child, &top);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN_ICON, ICON_STRING,
-                     COLUMN_TREE, "STRING2",
-                     COLUMN_OCCURS, 10,
-                     COLUMN_USED, "0/10",
-                     -1);
-  gtk_tree_store_append(treestore, &child, &top);
-  gtk_tree_store_set(treestore, &child,
-                     COLUMN_ICON, ICON_IMAGE,
-                     COLUMN_TREE, "IMAGE1",
-                     COLUMN_OCCURS, 10,
-                     COLUMN_USED, "0/10",
-                     -1);
-
+                  G_TYPE_STRING, 
+                  G_TYPE_STRING,
+                  G_TYPE_INT,
+                  G_TYPE_STRING,
+                  G_TYPE_POINTER);
   return GTK_TREE_MODEL(treestore);
 }
 
@@ -164,6 +182,7 @@ create_view_and_model (void)
   GtkCellRenderer *renderer;
   GtkWidget *view;
   GtkTreeModel *model;
+  GtkTreeSelection* selection;
 
   view = gtk_tree_view_new();
   g_object_set(G_OBJECT(view),"enable-tree-lines",TRUE,NULL);
@@ -171,10 +190,14 @@ create_view_and_model (void)
   g_signal_connect(G_OBJECT(view),"drag-drop",
     G_CALLBACK(cb_drag_drop),NULL);
 
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
+  gtk_tree_selection_set_mode(selection,GTK_SELECTION_SINGLE);
+
   /* tree */
   col = gtk_tree_view_column_new();
   gtk_tree_view_column_set_title(col, "TREE");
   gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
+
 
   renderer = gtk_cell_renderer_pixbuf_new();
   gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -229,58 +252,148 @@ cb_delete_button(GtkToolButton *button,
 }
 
 static void
-cb_add_button(GtkToolButton *button,
+cb_add_node(GtkToolButton *button,
   GtkTreeSelection *select)
 {
   GtkTreeIter iter,new;
   GtkTreeModel *model;
   GtkTreeStore *store;
-  gchar *stock;
-  gchar *parent_type;
+  gchar *parent_type, *name;
+  DicNode *node, *pnode, *snode;
+
+  if (dic_dialog == NULL || dic_dialog->diagram == NULL) {
+    return;
+  }
+
+  pnode = DIA_DIAGRAM_DATA(dic_dialog->diagram)->dtree;
+  snode = NULL;
 
   if (gtk_tree_selection_get_selected(
       select, &model, &iter)) {
     gtk_tree_model_get(model, &iter, COLUMN_ICON, &parent_type,  -1);
     store = GTK_TREE_STORE(model);
     if (get_node_item_type(parent_type) == ITEM_TYPE_NODE) {
-      gtk_tree_store_insert_after(store, &new, &iter, NULL);
+      gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
+      gtk_tree_store_append(store, &new, &iter);
     } else {
+      gtk_tree_model_get(model, &iter, COLUMN_NODE, &snode,  -1);
       gtk_tree_store_insert_after(store, &new, NULL, &iter);
     }
     g_free(parent_type);
   } else {
     store = GTK_TREE_STORE(model);
-    gtk_tree_store_insert_after(store, &new, NULL, NULL);
+    gtk_tree_store_append(store, &new, NULL);
   }
 
-  stock = (gchar*)gtk_tool_button_get_stock_id(button);
+  name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_NODE);
+  node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_NODE,
+    DNODE_DEFAULT_LENGTH,pnode,snode);
 
-  switch(get_node_item_type(stock)) {
-  case ITEM_TYPE_NODE:
-    gtk_tree_store_set(store, &new,
-      COLUMN_ICON, ICON_NODE,
-      COLUMN_TREE, "NODE",
-      COLUMN_OCCURS, 10,
-      COLUMN_USED, "-",
-      -1);
-    break;
-  case ITEM_TYPE_STRING:
-    gtk_tree_store_set(store, &new,
-      COLUMN_ICON, ICON_STRING,
-      COLUMN_TREE, "STRING",
-      COLUMN_OCCURS, 10,
-      COLUMN_USED, "-",
-      -1);
-    break;
-  case ITEM_TYPE_IMAGE:
-    gtk_tree_store_set(store, &new,
-      COLUMN_ICON, ICON_IMAGE,
-      COLUMN_TREE, "IMAGE",
-      COLUMN_OCCURS, 10,
-      COLUMN_USED, "-",
-      -1);
-    break;
+  gtk_tree_store_set(store, &new,
+    COLUMN_ICON, ICON_NODE,
+    COLUMN_TREE, name,
+    COLUMN_OCCURS, 10,
+    COLUMN_USED, "-",
+    COLUMN_NODE,node,
+    -1);
+  g_free(name);
+}
+
+static void
+cb_add_string(GtkToolButton *button,
+  GtkTreeSelection *select)
+{
+  GtkTreeIter iter,new;
+  GtkTreeModel *model;
+  GtkTreeStore *store;
+  gchar *parent_type, *name;
+  DicNode *node, *pnode, *snode;
+
+  if (dic_dialog == NULL || dic_dialog->diagram == NULL) {
+    return;
   }
+
+  pnode = DIA_DIAGRAM_DATA(dic_dialog->diagram)->dtree;
+  snode = NULL;
+
+  if (gtk_tree_selection_get_selected(
+      select, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, COLUMN_ICON, &parent_type,  -1);
+    store = GTK_TREE_STORE(model);
+    if (get_node_item_type(parent_type) == ITEM_TYPE_NODE) {
+      gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
+      gtk_tree_store_append(store, &new, &iter);
+    } else {
+      gtk_tree_model_get(model, &iter, COLUMN_NODE, &snode,  -1);
+      gtk_tree_store_insert_after(store, &new, NULL, &iter);
+    }
+    g_free(parent_type);
+  } else {
+    store = GTK_TREE_STORE(model);
+    gtk_tree_store_append(store, &new, NULL);
+  }
+
+  name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_STRING);
+  node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_STRING,
+    DNODE_DEFAULT_LENGTH,pnode,snode);
+
+  gtk_tree_store_set(store, &new,
+    COLUMN_ICON, ICON_STRING,
+    COLUMN_TREE, name,
+    COLUMN_OCCURS, 10,
+    COLUMN_USED, "-",
+    COLUMN_NODE,node,
+    -1);
+  g_free(name);
+}
+
+
+static void
+cb_add_image(GtkToolButton *button,
+  GtkTreeSelection *select)
+{
+  GtkTreeIter iter,new;
+  GtkTreeModel *model;
+  GtkTreeStore *store;
+  gchar *parent_type, *name;
+  DicNode *node, *pnode, *snode;
+
+  if (dic_dialog == NULL || dic_dialog->diagram == NULL) {
+    return;
+  }
+
+  pnode = DIA_DIAGRAM_DATA(dic_dialog->diagram)->dtree;
+  snode = NULL;
+
+  if (gtk_tree_selection_get_selected(
+      select, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, COLUMN_ICON, &parent_type,  -1);
+    store = GTK_TREE_STORE(model);
+    if (get_node_item_type(parent_type) == ITEM_TYPE_NODE) {
+      gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
+      gtk_tree_store_append(store, &new, &iter);
+    } else {
+      gtk_tree_model_get(model, &iter, COLUMN_NODE, &snode,  -1);
+      gtk_tree_store_insert_after(store, &new, NULL, &iter);
+    }
+    g_free(parent_type);
+  } else {
+    store = GTK_TREE_STORE(model);
+    gtk_tree_store_append(store, &new, NULL);
+  }
+
+  name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_IMAGE);
+  node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_IMAGE,
+    DNODE_DEFAULT_LENGTH,pnode,snode);
+
+  gtk_tree_store_set(store, &new,
+    COLUMN_ICON, ICON_IMAGE,
+    COLUMN_TREE, name,
+    COLUMN_OCCURS, 10,
+    COLUMN_USED, "-",
+    COLUMN_NODE,node,
+    -1);
+  g_free(name);
 }
 
 static GtkWidget*
@@ -298,19 +411,19 @@ create_toolbar(GtkTreeSelection *select)
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar),GTK_TOOL_ITEM(node_button),0);
   gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(node_button),"ADD NODE");
   g_signal_connect(G_OBJECT(node_button),"clicked",
-    G_CALLBACK(cb_add_button),select);
+    G_CALLBACK(cb_add_node),select);
 
   str_button = gtk_tool_button_new_from_stock(ICON_STRING);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar),GTK_TOOL_ITEM(str_button),1);
   gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(str_button),"ADD STRING");
   g_signal_connect(G_OBJECT(str_button),"clicked",
-    G_CALLBACK(cb_add_button),select);
+    G_CALLBACK(cb_add_string),select);
 
   img_button = gtk_tool_button_new_from_stock(ICON_IMAGE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar),GTK_TOOL_ITEM(img_button),2);
   gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(img_button),"ADD IMAGE");
   g_signal_connect(G_OBJECT(img_button),"clicked",
-    G_CALLBACK(cb_add_button),select);
+    G_CALLBACK(cb_add_image),select);
 
   delete_button = gtk_tool_button_new_from_stock(GTK_STOCK_DELETE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar),GTK_TOOL_ITEM(delete_button),3);
@@ -382,6 +495,40 @@ dic_dialog_delete(GtkWidget *widget, gpointer data)
   return TRUE;
 }
 
+static void
+dic_dialog_select_diagram_callback(GtkWidget *widget, gpointer gdata)
+{
+  GList *dia_list;
+  Diagram *dia, *selectdia = NULL;
+  char *filename;
+  char *selectname;
+
+  if (dic_dialog == NULL || dic_dialog->dialog == NULL) {
+    if (!dia_open_diagrams())
+      return; /* shortcut; maybe session end w/o this dialog */
+    else
+      create_dic_dialog();
+  }
+
+  selectname = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dic_dialog->combo));
+
+  dia_list = dia_open_diagrams();
+  while (dia_list != NULL) {
+    dia = (Diagram *) dia_list->data;
+    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
+    if (filename==NULL) {
+      filename = dia->filename;
+    } else {
+      filename++;
+    }
+    if (filename!=NULL && selectname != NULL && !strcmp(filename,selectname)) {
+      selectdia = dia;
+    }
+    dia_list = g_list_next(dia_list);
+  }
+  dic_dialog_set_diagram(selectdia);
+}
+
 void
 create_dic_dialog(void)
 {
@@ -395,7 +542,6 @@ create_dic_dialog(void)
 
   dic_dialog = g_new(struct DicDialog, 1);
   dic_dialog->diagram = NULL;
-  
 
   /* dialog */
   dialog = gtk_dialog_new();
@@ -419,10 +565,9 @@ create_dic_dialog(void)
   label = gtk_label_new(_("Diagram:"));
   gtk_box_pack_start(GTK_BOX(hbox),label,FALSE,FALSE,2);
 
-  combo = gtk_combo_box_new_text();
-  gtk_combo_box_append_text(GTK_COMBO_BOX(combo),"diagram1");
-  gtk_combo_box_append_text(GTK_COMBO_BOX(combo),"diagram2");
-  gtk_combo_box_append_text(GTK_COMBO_BOX(combo),"diagram3");
+  dic_dialog->combo = combo = gtk_combo_box_new_text();
+  g_signal_connect(G_OBJECT(combo),"changed",
+    G_CALLBACK(dic_dialog_select_diagram_callback),NULL);
   gtk_box_pack_start(GTK_BOX(hbox),combo,TRUE,TRUE,2);
 
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
@@ -432,7 +577,7 @@ create_dic_dialog(void)
 
   /* treeview */
   treeview = create_view_and_model();
-  dic_dialog->treeview = treeview;
+  dic_dialog->treeview = GTK_TREE_VIEW(treeview);
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
   g_signal_connect(G_OBJECT(selection),"changed",
     G_CALLBACK(cb_selection_changed),dic_dialog);
@@ -503,9 +648,124 @@ dic_dialog_show()
 void
 dic_dialog_update_diagram_list()
 {
-  /*not implement*/
+  GList *dia_list;
+  Diagram *dia;
+  char *filename;
+  int i;
+  int current_nr;
+  GtkTreeModel *model;
+
+  if (dic_dialog == NULL || dic_dialog->dialog == NULL) {
+    if (!dia_open_diagrams())
+      return; /* shortcut; maybe session end w/o this dialog */
+    else
+      create_dic_dialog();
+  }
+  current_nr = -1;
+
+  model = gtk_combo_box_get_model(GTK_COMBO_BOX(dic_dialog->combo)); 
+  gtk_list_store_clear(GTK_LIST_STORE(model));
+
+  i = 0;
+  dia_list = dia_open_diagrams();
+  while (dia_list != NULL) {
+    dia = (Diagram *) dia_list->data;
+    if (dia == dic_dialog->diagram) {
+      current_nr = i;
+    }
+    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
+    if (filename==NULL) {
+      filename = dia->filename;
+    } else {
+      filename++;
+    }
+    gtk_combo_box_append_text(GTK_COMBO_BOX(dic_dialog->combo),filename);
+    dia_list = g_list_next(dia_list);
+    i++;
+  }
+  if (current_nr != -1) {
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dic_dialog->combo),current_nr);
+  }
+}
+
+static void
+dic_dialog_set_tree_store(GNode *node,GtkTreeIter *iter)
+{
+  GtkTreeStore *model;
+  gchar *icon = ICON_NODE;
+  gchar *used = NULL;
+
+  model = GTK_TREE_STORE(gtk_tree_view_get_model(dic_dialog->treeview));
+  switch(DNODE(node)->type) {
+  case DIC_NODE_TYPE_NODE:
+    icon = ICON_NODE;
+    used = g_strdup("-");
+    break;
+  case DIC_NODE_TYPE_STRING:
+    icon = ICON_STRING;
+    used = g_strdup_printf("%d/%d",
+     dnode_get_n_used_objects(DNODE(node)),
+     dnode_get_n_objects(DNODE(node)));
+    break;
+  case DIC_NODE_TYPE_IMAGE:
+    icon = ICON_STRING;
+    used = g_strdup_printf("%d/%d",
+     dnode_get_n_used_objects(DNODE(node)),
+     dnode_get_n_objects(DNODE(node)));
+    break;
+  default:
+    break;
+  }
+  gtk_tree_store_set(model, iter,
+    COLUMN_ICON, icon,
+    COLUMN_TREE, DNODE(node)->name,
+    COLUMN_OCCURS, DNODE(node)->occurs,
+    COLUMN_USED, used,
+    COLUMN_NODE, node,
+    -1);
+  g_free(used);
+}
+
+static void
+dic_dialog_append_node(GNode *node, GtkTreeIter *iter,GtkTreeIter *parent)
+{
+  GtkTreeStore *model;
+
+  model = GTK_TREE_STORE(gtk_tree_view_get_model(dic_dialog->treeview));
+  gtk_tree_store_append(model,iter,parent);
+  dic_dialog_set_tree_store(node,iter);
+}
+
+static void
+dic_dialog_set_diagram_sub(GNode *node, gpointer data)
+{
+  GtkTreeStore *model;
+  GtkTreeIter iter,*parent;
+
+  parent = (GtkTreeIter*)data;
+  model = GTK_TREE_STORE(gtk_tree_view_get_model(dic_dialog->treeview));
+
+  dic_dialog_append_node(node,&iter,parent);
+
+  g_node_children_foreach(node, G_TRAVERSE_ALL, dic_dialog_set_diagram_sub,
+                          &iter);
 }
 
 void dic_dialog_set_diagram(Diagram *dia)
 {
+  GtkTreeModel *model;
+
+  model = gtk_tree_view_get_model(dic_dialog->treeview);
+  gtk_tree_store_clear(GTK_TREE_STORE(model));
+
+  if (dia == NULL) {
+    return;
+  }
+  dic_dialog->diagram = dia;
+  dtree_dump(DIA_DIAGRAM_DATA(dia)->dtree);
+
+  g_node_children_foreach(G_NODE(DIA_DIAGRAM_DATA(dia)->dtree), G_TRAVERSE_ALL, 
+    dic_dialog_set_diagram_sub,
+    NULL);
+  gtk_tree_view_expand_all(dic_dialog->treeview);
 }

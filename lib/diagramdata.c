@@ -122,6 +122,8 @@ diagram_data_init(DiagramData *data)
 
   data->text_edits = NULL;
   data->active_text_edit = NULL;
+
+  data->dtree = dtree_new();
 }
 
 /** Deallocate memory owned by a DiagramData object.

@@ -107,6 +107,7 @@ diagram_finalize(GObject *object)
   
   open_diagrams = g_list_remove(open_diagrams, dia);
   layer_dialog_update_diagram_list();
+  dic_dialog_update_diagram_list();
 
   if (dia->undo)
     undo_destroy(dia->undo);
@@ -237,8 +238,10 @@ diagram_init(Diagram *dia, const char *filename)
   if (!g_list_find(open_diagrams, dia))
     open_diagrams = g_list_prepend(open_diagrams, dia);
 
-  if (app_is_interactive())
+  if (app_is_interactive()) {
     layer_dialog_update_diagram_list();
+    dic_dialog_update_diagram_list();
+  }
 
   g_free(newfilename);
   return TRUE;
@@ -1503,6 +1506,7 @@ diagram_update_for_filename(Diagram *dia)
   g_free(title);
 
   layer_dialog_update_diagram_list();
+  dic_dialog_update_diagram_list();
 
   diagram_tree_update_name(diagram_tree(), dia);
 }

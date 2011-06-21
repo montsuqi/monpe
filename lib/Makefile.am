@@ -167,6 +167,8 @@ libdia_la_SOURCES =  \
 	        newgroup.h \
 		dialib.c \
 		dialib.h \
+		dtree.c \
+		dtree.h \
 		\
 		diacellrendererproperty.c \
 		diacellrendererproperty.h \

@@ -27,6 +27,7 @@
 #include "geometry.h"
 #include "diavar.h"
 #include "paper.h"
+#include "dtree.h"
 
 G_BEGIN_DECLS
 
@@ -82,6 +83,7 @@ struct _DiagramData {
   /** The focus (from text_edits) that's currently being edited, if any.
    *  Updated by focus.c */
   Focus *active_text_edit;
+  DicTree *dtree;
 };
 
 /**
