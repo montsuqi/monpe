@@ -44,7 +44,6 @@ struct _DicNode
 #define DNODE_PREV(x)     (DNODE(G_NODE(x)->prev))
 #define DNODE_DATA(x)     (DNODE(G_NODE(x)->data))
 
-
 /***** dnode *****/
 DicNode *dnode_new(char *name, 
                    int occurs,
@@ -67,6 +66,8 @@ void dnode_dump(DicNode *node);
 int dnode_get_n_objects(DicNode *node);
 int dnode_get_n_used_objects(DicNode *node);
 
+gboolean dnode_data_is_used(DicNode *node);
+
 /* dtree  */
 DicNode* dtree_new(void);
 void dtree_insert_before(DicNode *parent, DicNode *sibling,
@@ -74,6 +75,9 @@ void dtree_insert_before(DicNode *parent, DicNode *sibling,
 
 void dtree_update(DicNode *tree);
 void dtree_dump(DicNode *node);
+void dtree_unlink(DicNode *node);
+void dtree_move_before(DicNode *node,DicNode *parent,DicNode *sibling);
+void dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling);
 
 #endif 
 

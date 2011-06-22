@@ -34,7 +34,7 @@
 #include <glib/gprintf.h>
 
 #include "intl.h"
-
+#include "message.h"
 #include "dic_dialog.h"
 #include "persistence.h"
 #include "interface.h"
@@ -152,25 +152,47 @@ cb_drag_drop(GtkWidget *widget,
   guint time,
   gpointer data)
 {
+  GtkTreeSelection *selection;
   GtkTreeModel *model;
-  GtkTreePath *dest;
-  GtkTreeIter iter;
+  GtkTreePath *dest_path;
+  GtkTreeIter src_iter,dest_iter;
+  DicNode *src_node, *dest_node;
   GtkTreeViewDropPosition pos;
   gchar *value;
 
-  model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
+  gtk_tree_selection_get_selected(selection, &model, &src_iter);
+  gtk_tree_model_get(model, &src_iter, COLUMN_NODE, &src_node,-1);
+
   if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget),
-        x,y,&dest,&pos)) {
-    if (pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
-        pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER) {
-      if (gtk_tree_model_get_iter(model,&iter,dest)) {
-        gtk_tree_model_get(model, &iter, COLUMN_ICON, &value,-1);
-        if (value != NULL && get_node_item_type(value) != ITEM_TYPE_NODE) {
-          g_free(value);
-          return TRUE;
-        }
+        x,y,&dest_path,&pos)) {
+    gtk_tree_model_get_iter(model,&dest_iter,dest_path);
+    gtk_tree_model_get(model, &dest_iter, 
+      COLUMN_ICON, &value,
+      COLUMN_NODE, &dest_node,
+      -1);
+    switch(pos) {
+    case GTK_TREE_VIEW_DROP_BEFORE:
+      dtree_unlink(src_node);
+      dtree_move_before(src_node,DNODE_PARENT(dest_node),dest_node);
+      break;
+    case GTK_TREE_VIEW_DROP_AFTER:
+      dtree_move_after(src_node,DNODE_PARENT(dest_node),dest_node);
+      break;
+    case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
+      if (get_node_item_type(value) != ITEM_TYPE_NODE) {
+        return TRUE;
       }
+      dtree_move_before(src_node,dest_node,NULL);
+      break;
+    case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
+      if (get_node_item_type(value) != ITEM_TYPE_NODE) {
+        return TRUE;
+      }
+      dtree_move_after(src_node,dest_node,NULL);
+      break;
     }
+    g_free(value);
   }
   return FALSE;
 }
@@ -236,18 +258,50 @@ create_view_and_model (void)
   return view;
 }
 
+
+static gboolean 
+cb_delete_node_sub(DicNode *dnode)
+{
+  DicNode *p;
+
+  if (dnode == NULL) {
+    return FALSE;
+  }
+
+  if (dnode_data_is_used(dnode)) {
+    return FALSE;
+  }
+  for (p = DNODE_CHILDREN(dnode); p != NULL; p = DNODE_NEXT(p)) {
+    if (!cb_delete_node_sub(p)) {
+      return FALSE;
+    }
+  }
+  return TRUE;
+}
+
 static void
-cb_delete_button(GtkToolButton *button,
+cb_delete_node(GtkToolButton *button,
   GtkTreeSelection *select)
 {
   GtkTreeIter iter;
   GtkTreeModel *model;
   GtkTreeStore *store;
+  DicNode *node;
+
+  if (dic_dialog->diagram == NULL) {
+    return;
+  }
 
   if (gtk_tree_selection_get_selected(
       select, &model, &iter)) {
     store = GTK_TREE_STORE(model);
-    gtk_tree_store_remove(store,&iter);
+    gtk_tree_model_get(model, &iter, COLUMN_NODE, &node,  -1);
+    if (!cb_delete_node_sub(node)) {
+      message_error(_("Some node included deleting node are used."));
+    } else {
+      gtk_tree_store_remove(store,&iter);
+      dtree_unlink(node);
+    }
   }
 }
 
@@ -429,7 +483,7 @@ create_toolbar(GtkTreeSelection *select)
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar),GTK_TOOL_ITEM(delete_button),3);
   gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(delete_button),"DELETE ITEM");
   g_signal_connect(G_OBJECT(delete_button),"clicked",
-    G_CALLBACK(cb_delete_button),select);
+    G_CALLBACK(cb_delete_node),select);
 
   return toolbar;
 }

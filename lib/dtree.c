@@ -126,6 +126,7 @@ int
 dnode_get_n_used_objects(DicNode * node)
 {
   int i,n;
+
   if (node->objects == NULL) {
     return 0;
   }
@@ -135,6 +136,22 @@ dnode_get_n_used_objects(DicNode * node)
     }
   }
   return n;
+}
+
+gboolean
+dnode_data_is_used(DicNode *node)
+{
+  int i,n;
+
+  if (node->objects == NULL) {
+    return FALSE;
+  }
+  for(i=n=0;i<node->objects->len;i++){
+    if (g_ptr_array_index(node->objects,i) != NULL) {
+      return TRUE;
+    }
+  }
+  return FALSE;
 }
 
 /* dtree */
@@ -185,6 +202,26 @@ dtree_dump(DicNode *tree)
   printf("-----\n");
   g_node_children_foreach(G_NODE(tree), G_TRAVERSE_ALL, tree_dump_sub,
                           GINT_TO_POINTER(indent));
+}
+
+void
+dtree_unlink(DicNode *tree)
+{
+  g_node_unlink(G_NODE(tree));
+}
+
+void 
+dtree_move_before(DicNode *node,DicNode *parent,DicNode *sibling)
+{
+  dtree_unlink(node);
+  g_node_insert_before(parent,sibling,node);
+}
+
+void 
+dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling)
+{
+  dtree_unlink(node);
+  g_node_insert_after(parent,sibling,node);
 }
 
 
