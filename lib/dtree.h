@@ -20,12 +20,13 @@ struct _DicNode
   /* parent class */
   GNode gnode;
   /* node property  */
+  gboolean istop;
   char *name;
   int occurs;
   DicNodeType type;
   /* leaf property */
   int length;
-  GPtrArray *objects;
+  GList *objects;
 };
 
 /* default */
@@ -33,6 +34,7 @@ struct _DicNode
 #define DNODE_DEFAULT_NAME_NODE   "NODE"
 #define DNODE_DEFAULT_NAME_STRING "STRING"
 #define DNODE_DEFAULT_NAME_IMAGE  "IMAGE"
+#define DNODE_DEFAULT_NODE_OCCURS 10
 #define DNODE_DEFAULT_OCCURS 1
 #define DNODE_DEFAULT_LENGTH 10
 
@@ -65,8 +67,12 @@ void dnode_dump(DicNode *node);
 
 int dnode_get_n_objects(DicNode *node);
 int dnode_get_n_used_objects(DicNode *node);
-
 gboolean dnode_data_is_used(DicNode *node);
+int dnode_calc_total_occurs(DicNode *node);
+
+void dnode_reset_objects(DicNode *node);
+
+GList * dnode_new_objects(int size);
 
 /* dtree  */
 DicNode* dtree_new(void);

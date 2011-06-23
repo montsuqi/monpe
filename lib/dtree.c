@@ -42,12 +42,12 @@ dnode_initialize(DicNode *this, char *name, int occurs,
   g->parent   = NULL;
   g->children = NULL;
   
+  this->istop = FALSE;
   this->name = g_strdup(name);
   this->occurs = occurs;
   this->type = type;
   this->length = length;
   this->objects = NULL;
-
   if (parent != NULL) {
     dtree_insert_before(parent, sibling, this);
   }
@@ -119,7 +119,7 @@ dnode_get_n_objects(DicNode *node)
   if (node->objects == NULL) {
     return 0;
   }
-  return node->objects->len;
+  return g_list_length(node->objects);
 }
 
 int 
@@ -130,28 +130,63 @@ dnode_get_n_used_objects(DicNode * node)
   if (node->objects == NULL) {
     return 0;
   }
-  for(i=n=0;i<node->objects->len;i++){
-    if (g_ptr_array_index(node->objects,i) != NULL) {
+  for(i=n=0;i<g_list_length(node->objects);i++){
+    if (g_list_nth_data(node->objects,i) != NULL) {
       n++;
     }
   }
   return n;
 }
 
+int 
+dnode_calc_total_occurs(DicNode *node)
+{
+  if (node == NULL || DNODE_PARENT(node) == NULL) {
+    return 1;
+  }
+  return node->occurs * dnode_calc_total_occurs(DNODE_PARENT(node));
+}
+
 gboolean
 dnode_data_is_used(DicNode *node)
 {
-  int i,n;
+  int i;
 
   if (node->objects == NULL) {
     return FALSE;
   }
-  for(i=n=0;i<node->objects->len;i++){
-    if (g_ptr_array_index(node->objects,i) != NULL) {
+  for(i;i<g_list_length(node->objects);i++){
+    if (g_list_nth_data(node->objects,i) != NULL) {
       return TRUE;
     }
   }
   return FALSE;
+}
+
+GList *
+dnode_new_objects(int size)
+{
+  GList *list = NULL;
+  int i;
+  
+  for(i=0;i<size;i++) {
+    list = g_list_append(list,NULL);
+  }
+  return list;
+}
+
+void
+dnode_reset_objects(DicNode *node)
+{
+  int i;
+
+  if (node->objects != NULL) {
+    for(i=0;i<g_list_length(node->objects);i++) {
+      /* remove objects */
+    }
+    g_list_free(node->objects);
+  }
+  node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
 }
 
 /* dtree */
@@ -159,7 +194,10 @@ dnode_data_is_used(DicNode *node)
 DicNode *
 dtree_new(void)
 {
-  return dnode_new(NULL, 1, DIC_NODE_TYPE_NODE,0, NULL, NULL);
+  DicNode *node;
+  node = dnode_new(NULL, 1, DIC_NODE_TYPE_NODE,0, NULL, NULL);
+  node->istop = TRUE;
+  return node;
 }
 
 void
@@ -223,7 +261,6 @@ dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling)
   dtree_unlink(node);
   g_node_insert_after(parent,sibling,node);
 }
-
 
 /*************************************************************
  * Local Variables:

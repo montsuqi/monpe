@@ -144,6 +144,14 @@ create_and_fill_model (void)
   return GTK_TREE_MODEL(treestore);
 }
 
+static gchar*
+dnode_get_used_string(DicNode *node)
+{
+  return (gchar*)g_strdup_printf("%d/%d",
+   dnode_get_n_used_objects(DNODE(node)),
+   dnode_get_n_objects(DNODE(node)));
+}
+
 static gboolean
 cb_drag_drop(GtkWidget *widget,
   GdkDragContext *drag_context,
@@ -158,7 +166,7 @@ cb_drag_drop(GtkWidget *widget,
   GtkTreeIter src_iter,dest_iter;
   DicNode *src_node, *dest_node;
   GtkTreeViewDropPosition pos;
-  gchar *value;
+  gchar *value, *used;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   gtk_tree_selection_get_selected(selection, &model, &src_iter);
@@ -191,6 +199,14 @@ cb_drag_drop(GtkWidget *widget,
       }
       dtree_move_after(src_node,dest_node,NULL);
       break;
+    }
+    if (src_node->type != DIC_NODE_TYPE_NODE) {
+      dnode_reset_objects(src_node);
+      used = dnode_get_used_string(src_node);
+      gtk_tree_store_set(GTK_TREE_STORE(model), &src_iter,
+        COLUMN_USED, used,
+        -1);
+      g_free(used);
     }
     g_free(value);
   }
@@ -340,13 +356,13 @@ cb_add_node(GtkToolButton *button,
   }
 
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_NODE);
-  node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_NODE,
+  node = dnode_new(name, DNODE_DEFAULT_NODE_OCCURS,DIC_NODE_TYPE_NODE,
     DNODE_DEFAULT_LENGTH,pnode,snode);
 
   gtk_tree_store_set(store, &new,
     COLUMN_ICON, ICON_NODE,
     COLUMN_TREE, name,
-    COLUMN_OCCURS, 10,
+    COLUMN_OCCURS, DNODE_DEFAULT_NODE_OCCURS,
     COLUMN_USED, "-",
     COLUMN_NODE,node,
     -1);
@@ -360,7 +376,7 @@ cb_add_string(GtkToolButton *button,
   GtkTreeIter iter,new;
   GtkTreeModel *model;
   GtkTreeStore *store;
-  gchar *parent_type, *name;
+  gchar *parent_type, *name, *used;
   DicNode *node, *pnode, *snode;
 
   if (dic_dialog == NULL || dic_dialog->diagram == NULL) {
@@ -390,15 +406,19 @@ cb_add_string(GtkToolButton *button,
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_STRING);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_STRING,
     DNODE_DEFAULT_LENGTH,pnode,snode);
+  node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
+
+  used = dnode_get_used_string(node);
 
   gtk_tree_store_set(store, &new,
     COLUMN_ICON, ICON_STRING,
     COLUMN_TREE, name,
-    COLUMN_OCCURS, 10,
-    COLUMN_USED, "-",
+    COLUMN_OCCURS, DNODE_DEFAULT_OCCURS,
+    COLUMN_USED, used,
     COLUMN_NODE,node,
     -1);
   g_free(name);
+  g_free(used);
 }
 
 
@@ -409,7 +429,7 @@ cb_add_image(GtkToolButton *button,
   GtkTreeIter iter,new;
   GtkTreeModel *model;
   GtkTreeStore *store;
-  gchar *parent_type, *name;
+  gchar *parent_type, *name, *used;
   DicNode *node, *pnode, *snode;
 
   if (dic_dialog == NULL || dic_dialog->diagram == NULL) {
@@ -439,15 +459,19 @@ cb_add_image(GtkToolButton *button,
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_IMAGE);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_IMAGE,
     DNODE_DEFAULT_LENGTH,pnode,snode);
+  node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
+
+  used = dnode_get_used_string(node);
 
   gtk_tree_store_set(store, &new,
     COLUMN_ICON, ICON_IMAGE,
     COLUMN_TREE, name,
-    COLUMN_OCCURS, 10,
-    COLUMN_USED, "-",
+    COLUMN_OCCURS, DNODE_DEFAULT_OCCURS,
+    COLUMN_USED, used,
     COLUMN_NODE,node,
     -1);
   g_free(name);
+  g_free(used);
 }
 
 static GtkWidget*
@@ -757,15 +781,11 @@ dic_dialog_set_tree_store(GNode *node,GtkTreeIter *iter)
     break;
   case DIC_NODE_TYPE_STRING:
     icon = ICON_STRING;
-    used = g_strdup_printf("%d/%d",
-     dnode_get_n_used_objects(DNODE(node)),
-     dnode_get_n_objects(DNODE(node)));
+    used = dnode_get_used_string(DNODE(node));
     break;
   case DIC_NODE_TYPE_IMAGE:
     icon = ICON_STRING;
-    used = g_strdup_printf("%d/%d",
-     dnode_get_n_used_objects(DNODE(node)),
-     dnode_get_n_objects(DNODE(node)));
+    used = dnode_get_used_string(DNODE(node));
     break;
   default:
     break;
