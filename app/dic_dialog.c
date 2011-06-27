@@ -116,6 +116,15 @@ dnode_prop_name_unique_dup(DicNode *node, DicNode *dparent,
   return NULL;
 }
 
+static gchar*
+dnode_prop_name_unique(DicNode *node,DicNode *parent, gchar *name)
+{
+  if (dnode_prop_name_is_unique(node, parent, name)) {
+    return NULL;
+  } 
+  return dnode_prop_name_unique_dup(node,parent,name);
+}
+
 
 static int
 get_node_item_type(gchar *stock)
@@ -145,11 +154,39 @@ create_and_fill_model (void)
 }
 
 static gchar*
-dnode_get_used_string(DicNode *node)
+treeview_get_used_string(DicNode *node)
 {
   return (gchar*)g_strdup_printf("%d/%d",
    dnode_get_n_used_objects(DNODE(node)),
    dnode_get_n_objects(DNODE(node)));
+}
+
+static void
+treeview_update_used_recursive(GtkTreeModel *model,GtkTreeIter *iter)
+{
+  GtkTreeIter child;
+  DicNode *node;
+  gchar *used;
+  int i;
+
+  gtk_tree_model_get(model, iter, 
+      COLUMN_NODE, &node,
+      -1);
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    for(i=0;i< gtk_tree_model_iter_n_children(model,iter);i++) {
+      if (gtk_tree_model_iter_nth_child(model,&child,iter,i)) {
+        treeview_update_used_recursive(model,&child);
+      }
+    }
+  } else {
+      dnode_reset_objects(node);
+      used = treeview_get_used_string(node);
+      gtk_tree_store_set(GTK_TREE_STORE(model), iter,
+        COLUMN_USED, used,
+        -1);
+      g_free(used);
+  }
 }
 
 static gboolean
@@ -164,9 +201,11 @@ cb_drag_drop(GtkWidget *widget,
   GtkTreeModel *model;
   GtkTreePath *dest_path;
   GtkTreeIter src_iter,dest_iter;
-  DicNode *src_node, *dest_node;
+  DicNode *src_node, *dest_node, *pnode;
   GtkTreeViewDropPosition pos;
-  gchar *value, *used;
+  gchar *value, *name;
+
+  pnode = NULL;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   gtk_tree_selection_get_selected(selection, &model, &src_iter);
@@ -179,37 +218,107 @@ cb_drag_drop(GtkWidget *widget,
       COLUMN_ICON, &value,
       COLUMN_NODE, &dest_node,
       -1);
+    if (src_node == dest_node) {
+      return TRUE;
+    }
     switch(pos) {
     case GTK_TREE_VIEW_DROP_BEFORE:
+      pnode = DNODE_PARENT(dest_node);
       dtree_unlink(src_node);
       dtree_move_before(src_node,DNODE_PARENT(dest_node),dest_node);
       break;
     case GTK_TREE_VIEW_DROP_AFTER:
+      pnode = DNODE_PARENT(dest_node);
       dtree_move_after(src_node,DNODE_PARENT(dest_node),dest_node);
       break;
     case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
+      pnode = dest_node;
       if (get_node_item_type(value) != ITEM_TYPE_NODE) {
         return TRUE;
       }
       dtree_move_before(src_node,dest_node,NULL);
       break;
     case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
+      pnode = dest_node;
       if (get_node_item_type(value) != ITEM_TYPE_NODE) {
         return TRUE;
       }
       dtree_move_after(src_node,dest_node,NULL);
       break;
     }
-    if (src_node->type != DIC_NODE_TYPE_NODE) {
-      dnode_reset_objects(src_node);
-      used = dnode_get_used_string(src_node);
+
+    name = dnode_prop_name_unique(src_node, pnode, src_node->name);
+    if (name != NULL) {
       gtk_tree_store_set(GTK_TREE_STORE(model), &src_iter,
-        COLUMN_USED, used,
+        COLUMN_TREE, name,
         -1);
-      g_free(used);
+      g_free(src_node->name);
+      src_node->name = name;
     }
+
+    dnode_reset_objects_recursive(src_node);
+    treeview_update_used_recursive(model,&src_iter);
+
     g_free(value);
   }
+  return FALSE;
+}
+
+static gboolean
+cb_change_button_clicked(GtkWidget *widget,gpointer data)
+{
+  GtkTreeSelection *selection;
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  DicNode *node;
+  gchar *name;
+  int occurs, length;
+
+  selection = gtk_tree_view_get_selection(dic_dialog->treeview);
+  if (gtk_tree_selection_get_selected(
+      selection, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, 
+      COLUMN_NODE, &node,
+      -1);
+    /* change name */
+    name = (gchar*)gtk_entry_buffer_get_text(
+      gtk_entry_get_buffer(GTK_ENTRY(dic_dialog->name_entry)));
+    if (strlen(name) > 0 && g_strcmp0(node->name, name)) {
+      if (dnode_prop_name_is_unique(node, DNODE_PARENT(node),name)) {
+        /* FIXME change object name */
+        g_free(node->name);
+        node->name = g_strdup(name);
+        gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+          COLUMN_TREE, name,
+          -1);
+      } else {
+        message_error(_("Same name node exist."));
+        return FALSE;
+      }
+    }
+    /* change occurs */
+    occurs = gtk_spin_button_get_value_as_int(
+      GTK_SPIN_BUTTON(dic_dialog->occurs_spin));
+    if (node->occurs != occurs) {
+      if (dnode_set_occurs(node,occurs)) {
+        gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+          COLUMN_OCCURS, occurs,
+          -1);
+        treeview_update_used_recursive(model,&iter);
+      } else {
+        message_error(_("cannot change occurs for existence object."));
+        return FALSE;
+      }
+    }
+
+    /* change length */
+    length = gtk_spin_button_get_value_as_int(
+      GTK_SPIN_BUTTON(dic_dialog->length_spin));
+    if (node->type != DIC_NODE_TYPE_NODE && node->length != length) {
+      dnode_set_length(node,length);
+    }
+  }
+
   return FALSE;
 }
 
@@ -346,13 +455,16 @@ cb_add_node(GtkToolButton *button,
       gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
       gtk_tree_store_append(store, &new, &iter);
     } else {
-      gtk_tree_model_get(model, &iter, COLUMN_NODE, &snode,  -1);
-      gtk_tree_store_insert_after(store, &new, NULL, &iter);
+      pnode = NULL;
     }
     g_free(parent_type);
   } else {
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
+  }
+
+  if (pnode == NULL) {
+    return;
   }
 
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_NODE);
@@ -394,8 +506,7 @@ cb_add_string(GtkToolButton *button,
       gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
       gtk_tree_store_append(store, &new, &iter);
     } else {
-      gtk_tree_model_get(model, &iter, COLUMN_NODE, &snode,  -1);
-      gtk_tree_store_insert_after(store, &new, NULL, &iter);
+      pnode = NULL;
     }
     g_free(parent_type);
   } else {
@@ -403,12 +514,16 @@ cb_add_string(GtkToolButton *button,
     gtk_tree_store_append(store, &new, NULL);
   }
 
+  if (pnode == NULL) {
+    return;
+  } 
+
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_STRING);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_STRING,
     DNODE_DEFAULT_LENGTH,pnode,snode);
   node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
 
-  used = dnode_get_used_string(node);
+  used = treeview_get_used_string(node);
 
   gtk_tree_store_set(store, &new,
     COLUMN_ICON, ICON_STRING,
@@ -447,8 +562,7 @@ cb_add_image(GtkToolButton *button,
       gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
       gtk_tree_store_append(store, &new, &iter);
     } else {
-      gtk_tree_model_get(model, &iter, COLUMN_NODE, &snode,  -1);
-      gtk_tree_store_insert_after(store, &new, NULL, &iter);
+      pnode = NULL;
     }
     g_free(parent_type);
   } else {
@@ -456,12 +570,16 @@ cb_add_image(GtkToolButton *button,
     gtk_tree_store_append(store, &new, NULL);
   }
 
+  if (pnode == NULL) {
+    return ;
+  }
+
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_IMAGE);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_IMAGE,
     DNODE_DEFAULT_LENGTH,pnode,snode);
   node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
 
-  used = dnode_get_used_string(node);
+  used = treeview_get_used_string(node);
 
   gtk_tree_store_set(store, &new,
     COLUMN_ICON, ICON_IMAGE,
@@ -519,30 +637,21 @@ cb_selection_changed(GtkTreeSelection *sel,
   struct DicDialog *dic_dialog;
   GtkTreeModel *model;
   GtkTreeIter iter;
+  DicNode *node;
   gchar *icon;
-  gchar *tree;
-  int occurs;
-  gchar *length;
 
   if (gtk_tree_selection_get_selected(sel,&model,&iter)) {
     dic_dialog = (struct DicDialog*)data;
-    gtk_tree_model_get(model, &iter, COLUMN_ICON, &icon,  -1);
-    gtk_tree_model_get(model, &iter, COLUMN_TREE, &tree,  -1);
-    gtk_tree_model_get(model, &iter, COLUMN_OCCURS, &occurs,  -1);
-#if 0
-    gtk_tree_model_get(model, &iter, COLUMN_LENGTH, &length,  -1);
-#else
-    length = g_strdup("10");
-#endif
+    gtk_tree_model_get(model, &iter, 
+      COLUMN_ICON, &icon,
+      COLUMN_NODE, &node,
+      -1);
 
-    gtk_entry_set_text(GTK_ENTRY(dic_dialog->name_entry),tree);
+    gtk_entry_set_text(GTK_ENTRY(dic_dialog->name_entry),node->name);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(dic_dialog->occurs_spin),
-      (gdouble)occurs);
-
-    if (length != NULL) {
-      gtk_spin_button_set_value(GTK_SPIN_BUTTON(dic_dialog->length_spin),
-        (gdouble)atof(length));
-    }
+      (gdouble)node->occurs);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(dic_dialog->length_spin),
+      (gdouble)node->length);
 
     switch(get_node_item_type(icon)) {
     case ITEM_TYPE_NODE:
@@ -558,10 +667,7 @@ cb_selection_changed(GtkTreeSelection *sel,
       gtk_widget_hide(dic_dialog->length_hbox);
       break;
     }   
-    
     g_free(icon);
-    g_free(tree);
-    g_free(length);
   }
 }
 
@@ -702,6 +808,8 @@ create_dic_dialog(void)
   hbox = gtk_hbox_new(FALSE,0);
   change_button = gtk_button_new_with_label(_("Change"));
   gtk_box_pack_end(GTK_BOX(vbox2), change_button, FALSE, FALSE, 0);
+  g_signal_connect(G_OBJECT(change_button),"clicked",
+    G_CALLBACK(cb_change_button_clicked),NULL);
 
   gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
@@ -781,11 +889,11 @@ dic_dialog_set_tree_store(GNode *node,GtkTreeIter *iter)
     break;
   case DIC_NODE_TYPE_STRING:
     icon = ICON_STRING;
-    used = dnode_get_used_string(DNODE(node));
+    used = treeview_get_used_string(DNODE(node));
     break;
   case DIC_NODE_TYPE_IMAGE:
     icon = ICON_STRING;
-    used = dnode_get_used_string(DNODE(node));
+    used = treeview_get_used_string(DNODE(node));
     break;
   default:
     break;

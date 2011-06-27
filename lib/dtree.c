@@ -147,6 +147,32 @@ dnode_calc_total_occurs(DicNode *node)
   return node->occurs * dnode_calc_total_occurs(DNODE_PARENT(node));
 }
 
+int
+dnode_calc_occurs_upto_parent(DicNode *parent,DicNode *node)
+{
+  if (node==NULL || DNODE_PARENT(node)==NULL) {
+    return 1;
+  }
+  if (node == parent) {
+    return node->occurs;
+  }
+  return node->occurs * 
+    dnode_calc_occurs_upto_parent(parent,DNODE_PARENT(node));
+}
+
+int
+dnode_calc_occurs_upto_before_parent(DicNode *parent,DicNode *node)
+{
+  if (node==NULL || DNODE_PARENT(node)==NULL) {
+    return 1;
+  }
+  if (node == parent) {
+    return 1;
+  }
+  return node->occurs * 
+    dnode_calc_occurs_upto_parent(parent,DNODE_PARENT(node));
+}
+
 gboolean
 dnode_data_is_used(DicNode *node)
 {
@@ -155,7 +181,7 @@ dnode_data_is_used(DicNode *node)
   if (node->objects == NULL) {
     return FALSE;
   }
-  for(i;i<g_list_length(node->objects);i++){
+  for(i=0;i<g_list_length(node->objects);i++){
     if (g_list_nth_data(node->objects,i) != NULL) {
       return TRUE;
     }
@@ -182,11 +208,132 @@ dnode_reset_objects(DicNode *node)
 
   if (node->objects != NULL) {
     for(i=0;i<g_list_length(node->objects);i++) {
-      /* remove objects */
+      /* FIXME remove objects */
     }
     g_list_free(node->objects);
   }
   node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
+}
+
+void
+dnode_reset_objects_recursive(DicNode *node)
+{
+  DicNode *child;
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    child = DNODE_CHILDREN(node);
+    while(child != NULL) {
+      dnode_reset_objects_recursive(child);
+      child = DNODE_NEXT(child);
+    }
+  } else {
+    dnode_reset_objects(node);
+  }  
+}
+
+static gboolean
+dnode_is_enable_set_occurs(DicNode *parent,DicNode *node,int occurs)
+{
+  DicNode *child;
+  int total, new, old;
+  int i,j,k;
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    child = DNODE_CHILDREN(node);
+    while(child != NULL) {
+      if (!dnode_is_enable_set_occurs(parent,child,occurs)) {
+        return FALSE;
+      }
+      child = DNODE_NEXT(child);
+    }
+  } else {
+    total = dnode_calc_total_occurs(node);
+    old = dnode_calc_occurs_upto_parent(parent,node);
+    new = dnode_calc_occurs_upto_before_parent(parent,node) * occurs;
+
+    if (old <= new) {
+      return TRUE;
+    }
+    k = 0;
+    for(i=0;i<(total/old);i++) {
+      for(j=0;j<old;j++) {
+        if (new <= j) {
+          if (g_list_nth_data(node->objects,k) != NULL) {
+            return FALSE;
+          }
+        }
+        k++;
+      }
+    }
+  }
+  return TRUE;
+}
+
+static void
+dnode_set_occurs_sub(DicNode *parent,DicNode *node,int occurs)
+{
+  GList *list = NULL;
+  DicNode *child;
+  int total, new, old;
+  int i,j,n;
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    child = DNODE_CHILDREN(node);
+    while(child != NULL) {
+      dnode_set_occurs_sub(parent,child,occurs);
+      child = DNODE_NEXT(child);
+    }
+  } else {
+    total = dnode_calc_total_occurs(node);
+    old = dnode_calc_occurs_upto_parent(parent,node);
+    new = dnode_calc_occurs_upto_before_parent(parent,node) * occurs;
+
+    for(i=0;i<(total/old);i++) {
+      n = i * old;
+      for(j=0;j<new;j++) {
+        if (old < new) {
+          if (j < old) {
+            list = g_list_append(list,
+              g_list_nth_data(node->objects,n));
+          } else {
+            list = g_list_append(list,NULL);
+          }
+        } else {
+          list = g_list_append(list,
+            g_list_nth_data(node->objects,n));
+        }
+        n++;
+      }
+    }
+  }
+}
+
+gboolean
+dnode_set_occurs(DicNode *node,int occurs)
+{
+  if (node->occurs == occurs) {
+    return TRUE;
+  }
+  if (!dnode_is_enable_set_occurs(node,node,occurs)){
+    return FALSE;
+  }
+  dnode_set_occurs_sub(node,node,occurs);
+  node->occurs = occurs;
+  return TRUE;
+}
+
+void
+dnode_set_length(DicNode *node,int length)
+{
+  int i;
+
+  if (node->objects == NULL) {
+    return ;
+  }
+  
+  for(i=0;i<g_list_length(node->objects);i++) {
+    /*FIXME set length*/
+  }
 }
 
 /* dtree */
@@ -252,14 +399,14 @@ void
 dtree_move_before(DicNode *node,DicNode *parent,DicNode *sibling)
 {
   dtree_unlink(node);
-  g_node_insert_before(parent,sibling,node);
+  g_node_insert_before(G_NODE(parent),G_NODE(sibling),G_NODE(node));
 }
 
 void 
 dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling)
 {
   dtree_unlink(node);
-  g_node_insert_after(parent,sibling,node);
+  g_node_insert_after(G_NODE(parent),G_NODE(sibling),G_NODE(node));
 }
 
 /*************************************************************
