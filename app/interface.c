@@ -34,6 +34,7 @@
 #include "diagram.h"
 #include "object.h"
 #include "layer_dialog.h"
+#include "dic_dialog.h"
 #include "interface.h"
 #include "display.h"
 #include "preferences.h"
@@ -62,6 +63,7 @@ enum
 {
   DIA_DND_TYPE_URI_LIST,
   DIA_DND_TYPE_TEXT_PLAIN,
+  DIA_DND_TYPE_DICTIONARY,
 };
 
 static GtkTargetEntry toolbox_target_table[] =
@@ -125,6 +127,7 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
           if (diagram != NULL) {
             diagram_update_extents(diagram);
             layer_dialog_set_diagram(diagram);
+            dic_dialog_set_diagram(diagram);
             
 	    if (diagram->displays == NULL) {
 	      new_display(diagram);
@@ -143,7 +146,8 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
 static const GtkTargetEntry display_target_table[] = {
   { "application/x-dia-object", 0, 0 },
   { "text/uri-list", 0, DIA_DND_TYPE_URI_LIST },
-  { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN }
+  { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN },
+  { "GTK_TREE_MODEL_", 0, DIA_DND_TYPE_TEXT_PLAIN }
 };
 static int display_n_targets = sizeof(display_target_table)/sizeof(display_target_table[0]);
 
