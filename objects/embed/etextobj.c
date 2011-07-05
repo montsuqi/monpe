@@ -34,6 +34,8 @@
 #include "properties.h"
 #include "pixmaps/etext.xpm"
 #include "utils.h"
+#include "dtree.h"
+#include "etextobj.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
@@ -78,7 +80,7 @@ static ObjectChange* textobj_move(ETextobj *textobj, Point *to);
 static void textobj_draw(ETextobj *textobj, DiaRenderer *renderer);
 static void textobj_update_data(ETextobj *textobj);
 static DiaObject *textobj_create(Point *startpoint,
-			      void *user_data,
+			      DicNode *data,
 			      Handle **handle1,
 			      Handle **handle2);
 static void textobj_destroy(ETextobj *textobj);
@@ -326,7 +328,7 @@ textobj_update_data(ETextobj *textobj)
 
 static DiaObject *
 textobj_create(Point *startpoint,
-	       void *user_data,
+	       DicNode *node, 
 	       Handle **handle1,
 	       Handle **handle2)
 {
@@ -335,6 +337,7 @@ textobj_create(Point *startpoint,
   Color col;
   DiaFont *font = NULL;
   real font_height;
+  int index;
   
   textobj = g_malloc0(sizeof(ETextobj));
   obj = &textobj->object;
@@ -358,7 +361,12 @@ textobj_create(Point *startpoint,
   textobj->fill_color = attributes_get_background();
   textobj->show_background = FALSE;
 
-  textobj->embed_id = get_default_embed_id("embed_text");
+  if (node != NULL) {
+  	index = dnode_data_get_empty_index(node);
+    textobj->embed_id = dnode_data_get_longname(node,index);
+  } else {
+    textobj->embed_id = get_default_embed_id("embed_text");
+  }
   textobj->embed_text_size = 10;
   textobj->embed_column_size = 0;
   
@@ -374,6 +382,9 @@ textobj_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
+  if (node != NULL) {
+    dnode_set_object(node,index,&textobj->object);
+  }
   return &textobj->object;
 }
 
@@ -487,4 +498,19 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   textobj_update_data(textobj);
 
   return &textobj->object;
+}
+
+void etextobj_set_name(DiaObject *obj,gchar *name)
+{
+  ETextobj *eobj = (ETextobj*)obj;
+  if (eobj->embed_id != NULL) {
+    g_free(eobj->embed_id);
+  }
+  eobj->embed_id = g_strdup(name);
+}
+
+void etextobj_set_length(DiaObject *obj,gint length)
+{
+  ETextobj *eobj = (ETextobj*)obj;
+  eobj->embed_text_size = length;
 }

@@ -3,9 +3,9 @@ pkglib_LTLIBRARIES = 	libembed_objects.la
 libembed_objects_la_SOURCES = \
 	embed.c \
 	etextobj.c \
+	etextobj.h \
 	eimage.c \
-	etable.c \
-	earray.c \
+	eimage.h \
 	textcircle.c \
 	utils.h \
 	utils.c
@@ -18,6 +18,4 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 EXTRA_DIST = \
 	pixmaps/eimage.xpm \
 	pixmaps/etext.xpm \
-	pixmaps/etable.xpm \
-	pixmaps/earray.xpm \
 	pixmaps/textcircle.xpm

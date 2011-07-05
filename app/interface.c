@@ -147,7 +147,7 @@ static const GtkTargetEntry display_target_table[] = {
   { "application/x-dia-object", 0, 0 },
   { "text/uri-list", 0, DIA_DND_TYPE_URI_LIST },
   { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN },
-  { "GTK_TREE_MODEL_", 0, DIA_DND_TYPE_TEXT_PLAIN }
+  { "DIC_DIALOG_TREEVIEW", GTK_TARGET_SAME_APP, DIA_DND_TYPE_DICTIONARY }
 };
 static int display_n_targets = sizeof(display_target_table)/sizeof(display_target_table[0]);
 
@@ -458,6 +458,57 @@ display_drop_callback(GtkWidget *widget, GdkDragContext *context,
 }
 
 static void
+display_eobj_create(DDisplay *ddisp,gint x,gint y,DicNode *node)
+{
+  DiaObjectType *objtype;
+  DiaObject *obj;
+  gchar *objid = "";
+  Point pt;
+  Point clickedpoint;
+  Handle *handle1, *handle2;
+  int index;
+
+  index = dnode_data_get_empty_index(node);
+  if (index <= -1) {
+    return;
+  }
+  if (node->type != DIC_NODE_TYPE_NODE) {
+    if (dnode_data_get_empty_index(node) == -1) {
+      return;
+    }
+    switch(node->type) {
+    case DIC_NODE_TYPE_TEXT:
+      objid = "Embed - Text";
+      break;
+    case DIC_NODE_TYPE_IMAGE:
+      objid = "Embed - Image";
+      break;
+    default:
+      return;
+      break;
+    }
+    ddisplay_untransform_coords(ddisp, x, y, &pt.x, &pt.y);
+    objtype = object_get_type(objid);
+    if (objtype == NULL) {
+      return;
+    }
+    ddisplay_untransform_coords(ddisp, x, y,
+                                &clickedpoint.x, &clickedpoint.y);
+    snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
+    obj = objtype->ops->create(&clickedpoint, node, &handle1, &handle2);
+    if (obj == NULL) {
+      return;
+    }
+    diagram_add_object(ddisp->diagram,obj);
+    diagram_modified(ddisp->diagram);
+    diagram_remove_all_selected(ddisp->diagram, TRUE);
+    diagram_select(ddisp->diagram, obj);
+
+    diagram_flush(ddisp->diagram);
+  }
+}
+
+static void
 display_data_received_callback (GtkWidget *widget, 
 				GdkDragContext *context,
 				gint x, 
@@ -467,18 +518,34 @@ display_data_received_callback (GtkWidget *widget,
 				guint time, 
 				DDisplay *ddisp)
 {
-  if (data->format == 8 && data->length == sizeof(ToolButtonData *) &&
-      gtk_drag_get_source_widget(context) != NULL) {
-    ToolButtonData *tooldata = *(ToolButtonData **)data->data;
+  switch(info){
+  case 0:
+    if (data->format == 8 && data->length == sizeof(ToolButtonData *) &&
+        gtk_drag_get_source_widget(context) != NULL) {
+      ToolButtonData *tooldata = *(ToolButtonData **)data->data;
 
-    /* g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);*/
-    ddisplay_drop_object(ddisp, x, y,
-			 object_get_type((gchar *)tooldata->extra_data),
-			 tooldata->user_data);
-
-    gtk_drag_finish (context, TRUE, FALSE, time);
-  } else
+      /* g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);*/
+      ddisplay_drop_object(ddisp, x, y,
+      		 object_get_type((gchar *)tooldata->extra_data),
+      		 tooldata->user_data);
+      dic_dialog_update_dialog();
+      gtk_drag_finish (context, TRUE, FALSE, time);
+    }
+    break;
+  case DIA_DND_TYPE_DICTIONARY:
+    if (data->format == 8 && data->length == sizeof(DicNode *) &&
+        gtk_drag_get_source_widget(context) != NULL) {
+      DicNode *node = *(DicNode **)data->data;
+      if (node != NULL) {
+        display_eobj_create(ddisp,x,y,node);
+      }
+      gtk_drag_finish (context, TRUE, FALSE, time);
+    }
+    break;
+  default:
     dia_dnd_file_drag_data_received (widget, context, x, y, data, info, time, ddisp);
+    break;
+  }
 }
 
 /**
@@ -638,7 +705,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                     ddisp);
   
   gtk_drag_dest_set(ddisp->canvas, GTK_DEST_DEFAULT_ALL,
-		    display_target_table, display_n_targets, GDK_ACTION_COPY);
+		    display_target_table, display_n_targets, GDK_ACTION_COPY|GDK_ACTION_MOVE);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",
 		    G_CALLBACK(display_drop_callback), NULL);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",

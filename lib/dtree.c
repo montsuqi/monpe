@@ -102,8 +102,8 @@ dnode_dump(DicNode *node)
   case DIC_NODE_TYPE_NODE:
     printf("\n");
     break;
-  case DIC_NODE_TYPE_STRING:
-    printf("string:%d\n",node->length);
+  case DIC_NODE_TYPE_TEXT:
+    printf("text:%d\n",node->length);
     break;
   case DIC_NODE_TYPE_IMAGE:
     printf("image:%d\n",node->length);
@@ -189,6 +189,90 @@ dnode_data_is_used(DicNode *node)
   return FALSE;
 }
 
+int 
+dnode_data_get_empty_index(DicNode *node)
+{
+  int i;
+  if (node->objects == NULL) {
+    return -1;
+  }
+  for(i=0;i<g_list_length(node->objects);i++){
+    if (g_list_nth_data(node->objects,i) == NULL) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+gchar* 
+dnode_data_get_longname(DicNode *node, int index) 
+{
+  gchar *names[DNODE_MAX_DEPTH];
+  int occurs[DNODE_MAX_DEPTH];
+  int i,j,k,l,depth;
+  gchar *longname,*oldlongname;
+
+  longname = NULL;
+  depth = g_node_depth(G_NODE(node));
+  if (depth >= DNODE_MAX_DEPTH) {
+    fprintf(stderr,"over dnode_max_depth(%d)\n",DNODE_MAX_DEPTH);
+    exit(1);
+  }
+  for (i=depth-1;DNODE_PARENT(node)!=NULL&&i>0;i--) {
+    names[i] = node->name;
+    occurs[i] = node->occurs;
+    node = DNODE_PARENT(node);
+  }
+  for (i=1;i<depth;i++) {
+    k = 1;
+    for(j=i+1;j<depth;j++) {
+      k *= occurs[j];
+    }
+    l = index/k;
+    index -= k*l;
+    if (i==1) {
+      longname = g_strdup_printf("%s[%d]",names[i],l);
+    } else {
+      oldlongname = longname;
+      longname = g_strdup_printf("%s.%s[%d]",longname,names[i],l);
+      g_free(oldlongname);
+    }
+  }
+  return longname;
+}
+
+void dnode_set_object(DicNode *node,int index, gpointer object)
+{
+  if (node->objects == NULL || g_list_length(node->objects) < index) {
+    return;
+  }
+  g_list_nth(node->objects,index)->data = object;
+}
+
+GList *
+dnode_get_objects_recursive(DicNode *node, GList *list)
+{
+  int i;
+  DicNode *child;
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    child = DNODE_CHILDREN(node);
+    while(child != NULL) {
+      list = g_list_concat(list,dnode_get_objects_recursive(child,list));
+      child = DNODE_NEXT(child);
+    }
+  } else {
+    if (node->objects != NULL) {
+      for(i=0;i<g_list_length(node->objects);i++) {
+        if (g_list_nth_data(node->objects,i) != NULL) {
+          list = g_list_append(list,g_list_nth_data(node->objects,i));
+        }
+      }
+    }
+  }
+  return list;
+}
+
 GList *
 dnode_new_objects(int size)
 {
@@ -204,12 +288,7 @@ dnode_new_objects(int size)
 void
 dnode_reset_objects(DicNode *node)
 {
-  int i;
-
   if (node->objects != NULL) {
-    for(i=0;i<g_list_length(node->objects);i++) {
-      /* FIXME remove objects */
-    }
     g_list_free(node->objects);
   }
   node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
@@ -305,6 +384,8 @@ dnode_set_occurs_sub(DicNode *parent,DicNode *node,int occurs)
         n++;
       }
     }
+    g_list_free(node->objects);
+    node->objects = list;
   }
 }
 

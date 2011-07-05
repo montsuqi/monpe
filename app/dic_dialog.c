@@ -38,6 +38,9 @@
 #include "dic_dialog.h"
 #include "persistence.h"
 #include "interface.h"
+#include "object.h"
+#include "diagram_tree.h"
+#include "object_ops.h"
 
 #include "dia-app-icons.h"
 
@@ -66,12 +69,12 @@ enum
 enum
 {
   ITEM_TYPE_NODE = 0,
-  ITEM_TYPE_STRING,
+  ITEM_TYPE_TEXT,
   ITEM_TYPE_IMAGE
 };
 
 #define ICON_NODE GTK_STOCK_DIRECTORY
-#define ICON_STRING GTK_STOCK_BOLD
+#define ICON_TEXT GTK_STOCK_BOLD
 #define ICON_IMAGE GTK_STOCK_CONVERT
 
 static struct DicDialog *dic_dialog = NULL;
@@ -130,8 +133,8 @@ get_node_item_type(gchar *stock)
 {
   if (!strcmp(stock,ICON_NODE)) {
     return ITEM_TYPE_NODE;
-  } else if (!strcmp(stock,ICON_STRING)) {
-    return ITEM_TYPE_STRING;
+  } else if (!strcmp(stock,ICON_TEXT)) {
+    return ITEM_TYPE_TEXT;
   } else if (!strcmp(stock,ICON_IMAGE)) {
     return ITEM_TYPE_IMAGE;
   }
@@ -179,13 +182,51 @@ treeview_update_used_recursive(GtkTreeModel *model,GtkTreeIter *iter)
       }
     }
   } else {
-    dnode_reset_objects(node);
     used = treeview_get_used_string(node);
     gtk_tree_store_set(GTK_TREE_STORE(model), iter,
       COLUMN_USED, used,
       -1);
     g_free(used);
   }
+}
+
+void dic_dialog_update_dialog(void)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+
+  model = gtk_tree_view_get_model(dic_dialog->treeview);
+  if (gtk_tree_model_get_iter_first(model,&iter)) {
+    do {
+      treeview_update_used_recursive(model,&iter);
+    } while(gtk_tree_model_iter_next(model,&iter));
+  }
+}
+
+static void
+cb_drag_data_get (GtkWidget *widget, GdkDragContext *context,
+		    GtkSelectionData *selection_data, guint info,
+		    guint32 time, gpointer user_data)
+{
+  GtkTreeSelection *selection;
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  DicNode *node;
+
+#if 1
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
+
+  if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, 
+      COLUMN_NODE, &node,
+      -1);
+    if (info == 0) {
+      gtk_selection_data_set(selection_data, selection_data->target,
+      		   8, (guchar *)&node, sizeof(DicNode *));
+    }
+  }
+#endif
 }
 
 static gboolean
@@ -254,7 +295,6 @@ gtk_tree_store_move_recursive(GtkTreeStore *model,
   gchar *icon,*name,*used;
   int occurs;
   DicNode *node;
-  int i;
 
   while(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(model),src)) {
     gtk_tree_model_iter_children(GTK_TREE_MODEL(model),&src_child,src);
@@ -295,6 +335,10 @@ cb_drag_data_received(GtkWidget *widget,
   GtkTreeViewDropPosition pos;
   gchar *newname;
   DicNode *src_node, *dest_node, *parent_node = NULL;
+  GList *list=NULL;
+  int i;
+  DiaObject *obj;
+  Layer *layer;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   if (gtk_tree_selection_get_selected(selection, &model, &src_iter)) {
@@ -337,7 +381,21 @@ cb_drag_data_received(GtkWidget *widget,
       }
 
       newname = dnode_prop_name_unique(src_node, parent_node, src_node->name);
+      list = dnode_get_objects_recursive(src_node,NULL);
+      if (list != NULL) {
+        diagram_unselect_objects(dic_dialog->diagram, list);
+        for(i=0;i<g_list_length(list);i++){
+          obj = (DiaObject*)g_list_nth_data(list,i);
+          layer = dia_object_get_parent_layer(obj);
+          layer_remove_object(layer, obj);
+        }
+        object_add_updates_list(list, dic_dialog->diagram);
+        diagram_tree_remove_objects(diagram_tree(), list);
+
+        g_list_free(list);
+      }
       dnode_reset_objects_recursive(src_node);
+
       if (newname != NULL) {
         gtk_tree_store_set(GTK_TREE_STORE(model), &src_iter,
           COLUMN_TREE, newname,
@@ -430,11 +488,13 @@ create_view_and_model (void)
     GDK_BUTTON1_MASK,
     row_targets,
     G_N_ELEMENTS (row_targets),
-    GDK_ACTION_MOVE);
+    GDK_ACTION_COPY);
   gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(view),
     row_targets,
     G_N_ELEMENTS (row_targets),
     GDK_ACTION_MOVE);
+  g_signal_connect(G_OBJECT(view), "drag-data-get",
+    G_CALLBACK(cb_drag_data_get),NULL);
   g_signal_connect(G_OBJECT(view),"drag-drop",
     G_CALLBACK(cb_drag_drop),NULL);
   g_signal_connect(G_OBJECT(view),"drag-data-received",
@@ -620,15 +680,15 @@ cb_add_string(GtkToolButton *button,
     return;
   } 
 
-  name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_STRING);
-  node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_STRING,
+  name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_TEXT);
+  node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_TEXT,
     DNODE_DEFAULT_LENGTH,pnode,snode);
   node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
 
   used = treeview_get_used_string(node);
 
   gtk_tree_store_set(store, &new,
-    COLUMN_ICON, ICON_STRING,
+    COLUMN_ICON, ICON_TEXT,
     COLUMN_TREE, name,
     COLUMN_OCCURS, DNODE_DEFAULT_OCCURS,
     COLUMN_USED, used,
@@ -711,7 +771,7 @@ create_toolbar(GtkTreeSelection *select)
   g_signal_connect(G_OBJECT(node_button),"clicked",
     G_CALLBACK(cb_add_node),select);
 
-  str_button = gtk_tool_button_new_from_stock(ICON_STRING);
+  str_button = gtk_tool_button_new_from_stock(ICON_TEXT);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar),GTK_TOOL_ITEM(str_button),1);
   gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(str_button),"ADD STRING");
   g_signal_connect(G_OBJECT(str_button),"clicked",
@@ -760,7 +820,7 @@ cb_selection_changed(GtkTreeSelection *sel,
       gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("Node"));
       gtk_widget_hide(dic_dialog->length_hbox);
       break;
-    case ITEM_TYPE_STRING:
+    case ITEM_TYPE_TEXT:
       gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("String"));
       gtk_widget_show(dic_dialog->length_hbox);
       break;
@@ -989,12 +1049,12 @@ dic_dialog_set_tree_store(GNode *node,GtkTreeIter *iter)
     icon = ICON_NODE;
     used = g_strdup("-");
     break;
-  case DIC_NODE_TYPE_STRING:
-    icon = ICON_STRING;
+  case DIC_NODE_TYPE_TEXT:
+    icon = ICON_TEXT;
     used = treeview_get_used_string(DNODE(node));
     break;
   case DIC_NODE_TYPE_IMAGE:
-    icon = ICON_STRING;
+    icon = ICON_IMAGE;
     used = treeview_get_used_string(DNODE(node));
     break;
   default:
@@ -1060,23 +1120,4 @@ GtkWidget* dic_dialog_get_treeview(void)
    create_dic_dialog();
  }
  return GTK_WIDGET(dic_dialog->treeview);
-}
-
-DicNode* dic_dialog_get_dnd_node(void)
-{
-  GtkTreeSelection *selection;
-  GtkTreeModel *model;
-  GtkTreeIter iter;
-  DicNode *node;
- 
-  if (dic_dialog == NULL || dic_dialog->dialog == NULL) {
-    return NULL;
-  }
-
-  selection = gtk_tree_view_get_selection(dic_dialog->treeview);
-  if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, COLUMN_NODE, &node,-1);
-    return node;
-  }
-  return NULL;
 }

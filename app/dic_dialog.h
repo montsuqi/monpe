@@ -18,14 +18,18 @@
 #ifndef DIC_DIALOG_H
 #define DIC_DIALOG_H
 
+#include <glib.h>
 #include <gtk/gtk.h>
+
+#include "object.h"
+#include "display.h"
 #include "diagram.h"
 
 void create_dic_dialog(void);
 void dic_dialog_update_diagram_list(void);
+void dic_dialog_update_dialog(void);
 void dic_dialog_show(void);
 void dic_dialog_set_diagram(Diagram *dia);
 GtkWidget * dic_dialog_get_treeview(void);
-DicNode* dic_dialog_get_dnd_node(void);
 
 #endif /* DIC_DIALOG_H */

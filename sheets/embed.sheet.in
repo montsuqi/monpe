@@ -6,12 +6,6 @@
     <object name="Embed - Text">
       <_description>Embed text</_description>
     </object>
-    <object name="Embed - Array">
-      <_description>Embed array</_description>
-    </object>
-    <object name="Embed - Table">
-      <_description>Embed table</_description>
-    </object>
     <object name="Embed - Image">
       <_description>Embed image</_description>
     </object>

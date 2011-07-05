@@ -40,6 +40,8 @@
 #include "properties.h"
 #include "utils.h"
 #include "pixmaps/eimage.xpm"
+#include "eimage.h"
+#include "dtree.h"
 
 
 #define DEFAULT_WIDTH 2.0
@@ -87,7 +89,7 @@ static ObjectChange* image_move(EImage *image, Point *to);
 static void image_draw(EImage *image, DiaRenderer *renderer);
 static void image_update_data(EImage *image);
 static DiaObject *image_create(Point *startpoint,
-			  void *user_data,
+			  DicNode *node,
 			  Handle **handle1,
 			  Handle **handle2);
 static void image_destroy(EImage *image);
@@ -437,7 +439,7 @@ image_update_data(EImage *image)
 
 static DiaObject *
 image_create(Point *startpoint,
-	     void *user_data,
+	     DicNode *node,
 	     Handle **handle1,
 	     Handle **handle2)
 {
@@ -445,6 +447,7 @@ image_create(Point *startpoint,
   Element *elem;
   DiaObject *obj;
   int i;
+  int index;
 
   image = g_malloc0(sizeof(EImage));
   elem = &image->element;
@@ -487,13 +490,22 @@ image_create(Point *startpoint,
   image->draw_border = default_properties.draw_border;
   image->keep_aspect = default_properties.keep_aspect;
 
-  image->embed_id = get_default_embed_id("embed_image");
+  if (node != NULL) {
+  	index = dnode_data_get_empty_index(node);
+    image->embed_id = dnode_data_get_longname(node,index);
+  } else {
+    image->embed_id = get_default_embed_id("embed_image");
+  }
   image->embed_path_size = 1024;
 
   image_update_data(image);
   
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
+
+  if (node != NULL) {
+    dnode_set_object(node,index,&image->element.object);
+  }
   return &image->element.object;
 }
 
@@ -801,4 +813,13 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   image_update_data(image);
 
   return &image->element.object;
+}
+
+void eimage_set_name(DiaObject *obj,gchar *name)
+{
+  EImage *eobj = (EImage*)obj;
+  if (eobj->embed_id != NULL) {
+    g_free(eobj->embed_id);
+  }
+  eobj->embed_id = g_strdup(name);
 }
