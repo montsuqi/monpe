@@ -433,9 +433,7 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
       gtk_entry_get_buffer(GTK_ENTRY(dic_dialog->name_entry)));
     if (strlen(name) > 0 && g_strcmp0(node->name, name)) {
       if (dnode_prop_name_is_unique(node, DNODE_PARENT(node),name)) {
-        /* FIXME change object name */
-        g_free(node->name);
-        node->name = g_strdup(name);
+        dnode_update_node_name(node,name);
         gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
           COLUMN_TREE, name,
           -1);
@@ -447,7 +445,7 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
     /* change occurs */
     occurs = gtk_spin_button_get_value_as_int(
       GTK_SPIN_BUTTON(dic_dialog->occurs_spin));
-    if (node->occurs != occurs) {
+    if (node->occurs != occurs && occurs > 0) {
       if (dnode_set_occurs(node,occurs)) {
         gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
           COLUMN_OCCURS, occurs,
@@ -462,8 +460,10 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
     /* change length */
     length = gtk_spin_button_get_value_as_int(
       GTK_SPIN_BUTTON(dic_dialog->length_spin));
-    if (node->type != DIC_NODE_TYPE_NODE && node->length != length) {
-      dnode_set_length(node,length);
+    if (node->type == DIC_NODE_TYPE_TEXT && 
+          node->length != length && 
+          length > 0) {
+      dnode_text_set_length(node,length);
     }
   }
 
@@ -1112,12 +1112,4 @@ void dic_dialog_set_diagram(Diagram *dia)
     dic_dialog_set_diagram_sub,
     NULL);
   gtk_tree_view_expand_all(dic_dialog->treeview);
-}
-
-GtkWidget* dic_dialog_get_treeview(void)
-{
- if (dic_dialog == NULL || dic_dialog->dialog == NULL) {
-   create_dic_dialog();
- }
- return GTK_WIDGET(dic_dialog->treeview);
 }

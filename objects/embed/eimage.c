@@ -40,7 +40,6 @@
 #include "properties.h"
 #include "utils.h"
 #include "pixmaps/eimage.xpm"
-#include "eimage.h"
 #include "dtree.h"
 
 
@@ -407,7 +406,7 @@ image_update_data(EImage *image)
   if (image->name != NULL) {
     g_free(image->name);
   }
-  image->name = g_strdup_printf("[%s]",image->embed_id);
+  image->name = g_strdup(image->embed_id);
 
   /* Update connections: */
   image->connections[0].pos = elem->corner;
@@ -815,11 +814,3 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   return &image->element.object;
 }
 
-void eimage_set_name(DiaObject *obj,gchar *name)
-{
-  EImage *eobj = (EImage*)obj;
-  if (eobj->embed_id != NULL) {
-    g_free(eobj->embed_id);
-  }
-  eobj->embed_id = g_strdup(name);
-}

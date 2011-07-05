@@ -30,6 +30,5 @@ void dic_dialog_update_diagram_list(void);
 void dic_dialog_update_dialog(void);
 void dic_dialog_show(void);
 void dic_dialog_set_diagram(Diagram *dia);
-GtkWidget * dic_dialog_get_treeview(void);
 
 #endif /* DIC_DIALOG_H */

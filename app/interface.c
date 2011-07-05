@@ -503,8 +503,9 @@ display_eobj_create(DDisplay *ddisp,gint x,gint y,DicNode *node)
     diagram_modified(ddisp->diagram);
     diagram_remove_all_selected(ddisp->diagram, TRUE);
     diagram_select(ddisp->diagram, obj);
-
     diagram_flush(ddisp->diagram);
+
+    dic_dialog_update_dialog();
   }
 }
 

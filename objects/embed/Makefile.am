@@ -3,9 +3,7 @@ pkglib_LTLIBRARIES = 	libembed_objects.la
 libembed_objects_la_SOURCES = \
 	embed.c \
 	etextobj.c \
-	etextobj.h \
 	eimage.c \
-	eimage.h \
 	textcircle.c \
 	utils.h \
 	utils.c

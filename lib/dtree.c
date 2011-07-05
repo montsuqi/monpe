@@ -11,6 +11,10 @@
 /* glib */
 #include <glib.h>
 #include "dtree.h"
+#include "object.h"
+#include "properties.h"
+#include "prop_text.h"
+#include "prop_inttypes.h"
 
 DicNode *
 dnode_new(char *name, int occurs, DicNodeType type, int length,
@@ -241,6 +245,47 @@ dnode_data_get_longname(DicNode *node, int index)
   return longname;
 }
 
+static void dnode_update_object_name(DicNode *node)
+{
+  DicNode *child;
+  DiaObject *obj;
+  Property *prop;
+  GPtrArray *props;
+  int i;
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    child = DNODE_CHILDREN(node);
+    while(child!=NULL) {
+      dnode_update_object_name(child);
+      child = DNODE_NEXT(child);
+    }
+  } else {
+    for(i=0;i<g_list_length(node->objects);i++) {
+      obj = (DiaObject*)g_list_nth_data(node->objects,i);
+      if (obj != NULL) {
+        prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
+        if (prop != NULL) {
+          g_free(((StringProperty*)prop)->string_data);
+          ((StringProperty*)prop)->string_data = 
+            dnode_data_get_longname(node,i);
+          props = g_ptr_array_new();
+          g_ptr_array_add(props,prop);
+          object_apply_props(obj,props);
+        }
+      }
+    }
+  }
+}
+
+void dnode_update_node_name(DicNode *node,gchar *newname)
+{
+  if (node->name != NULL) {
+    g_free(node->name);
+  }
+  node->name = g_strdup(newname);
+  dnode_update_object_name(node);
+}
+
 void dnode_set_object(DicNode *node,int index, gpointer object)
 {
   if (node->objects == NULL || g_list_length(node->objects) < index) {
@@ -404,16 +449,29 @@ dnode_set_occurs(DicNode *node,int occurs)
 }
 
 void
-dnode_set_length(DicNode *node,int length)
+dnode_text_set_length(DicNode *node,int length)
 {
+  DiaObject *obj;
+  Property *prop;
+  GPtrArray *props;
   int i;
 
-  if (node->objects == NULL) {
+  if (node->type != DIC_NODE_TYPE_TEXT || node->objects == NULL) {
     return ;
   }
-  
+  node->length = length;
+
   for(i=0;i<g_list_length(node->objects);i++) {
-    /*FIXME set length*/
+    obj = (DiaObject*)g_list_nth_data(node->objects,i);
+    if (obj != NULL) {
+      prop = object_prop_by_name_type(obj,"embed_text_size",PROP_TYPE_INT);
+      if (prop != NULL) {
+        ((IntProperty*)prop)->int_data = length;
+        props = g_ptr_array_new();
+        g_ptr_array_add(props,prop);
+        object_apply_props(obj,props);
+      }
+    }
   }
 }
 
