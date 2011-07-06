@@ -163,7 +163,7 @@ static PropDescription textobj_props[] = {
     N_("Name"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
-  { "embed_text_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "embed_text_size", PROP_TYPE_INT, 0,
     N_("Embed Text Size"), NULL, &embed_text_size_range },
   { "embed_column_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
     N_("Embed Column Size"), NULL, &embed_column_size_range },

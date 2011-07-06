@@ -156,7 +156,7 @@ static PropDescription image_props[] = {
     N_("Name"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
-  { "embed_path_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "embed_path_size", PROP_TYPE_INT, 0,
     N_("Embed Path Size"), NULL, &embed_path_size_range },
   PROP_DESC_END
 };

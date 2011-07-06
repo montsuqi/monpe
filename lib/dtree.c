@@ -8,8 +8,9 @@
 #include <ctype.h>
 #include <unistd.h>
 
-/* glib */
 #include <glib.h>
+#include <libxml/tree.h>
+
 #include "dtree.h"
 #include "object.h"
 #include "properties.h"
@@ -55,47 +56,6 @@ dnode_initialize(DicNode *this, char *name, int occurs,
   if (parent != NULL) {
     dtree_insert_before(parent, sibling, this);
   }
-}
-
-void
-dnode_update(DicNode *node)
-{
-  /* leaf data arrange*/
-#if 0
-  GList *plist, *ilist;
-  MPtrArray *m;
-
-  /* if node isn't leaf then return */
-  if (!node->is_leaf) return;
-
-  plist = dnode_get_parent_list(node);
-  ilist = dnode_parent_list_to_index_list(plist);
-  g_list_free(plist);
-
-  m = mpary_new_with_list(ilist);
-  g_list_free(ilist);
-
-  if (dleaf_data(node) != NULL) {
-    int index[100];
-    int i, j;
-
-    if (dleaf_data_dim(node) != m->dim || dleaf_data_all(node) == m->all) {
-      /* change structure */
-      mpary_copy(m, dleaf_data(node));
-    } else {
-      /* resize */
-      for (i=0; i<dleaf_data_all(node); i++) {
-        gpointer data;
-        pos2index(dleaf_data(node), index, i);
-        data = mpary_get_data(dleaf_data(node), index);
-        mpary_set_data_with_pos(m, data, index2pos(m, index));
-      }
-      mpary_update(m);
-    }
-    mpary_delete(dleaf_data(node));
-  }
-  node->leaf.objects = m;
-#endif
 }
 
 void
@@ -475,7 +435,47 @@ dnode_text_set_length(DicNode *node,int length)
   }
 }
 
-/* dtree */
+static DicNode *
+dnode_new_with_xml(xmlNodePtr element,DicNode *parent,DicNode *sibling)
+{
+  return NULL;
+}
+
+#define DTREE_C_BUF_SIZE 1024
+
+static xmlNodePtr
+dnode_to_xml(DicNode *node)
+{
+  xmlNodePtr element;
+  gchar buf[DTREE_C_BUF_SIZE];
+
+  element = xmlNewNode(NULL,BAD_CAST(MONPE_XML_DIC_ELEMENT));
+  xmlSetProp(element,BAD_CAST(MONPE_XML_DIC_ELEMENT_NAME),BAD_CAST(node->name));
+  g_snprintf(buf,DTREE_C_BUF_SIZE,"%d",node->occurs);
+  xmlSetProp(element, BAD_CAST(MONPE_XML_DIC_ELEMENT_OCCURS),BAD_CAST(buf));
+  if (node->type != DIC_NODE_TYPE_NODE) {
+    xmlNodePtr appinfo;
+    xmlNodePtr embed;
+
+    appinfo = xmlNewChild(element, NULL, BAD_CAST(MONPE_XML_DIC_APPINFO), NULL);
+    embed = xmlNewChild(appinfo, NULL, BAD_CAST(MONPE_XML_DIC_EMBED), NULL);
+
+    if (node->type == DIC_NODE_TYPE_IMAGE) {
+      xmlSetProp(embed,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ), 
+        BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_IMG));
+    } else if (node->type == DIC_NODE_TYPE_TEXT) {
+      xmlSetProp(embed,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ), 
+        BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT));
+      g_snprintf(buf,DTREE_C_BUF_SIZE,"%d",node->length);
+      xmlSetProp(embed,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT_LEN),BAD_CAST(buf));
+    }
+  }
+  return element;
+}
+
+/**************************************************
+ * dtree 
+ **************************************************/
 
 DicNode *
 dtree_new(void)
@@ -490,18 +490,6 @@ void
 dtree_insert_before(DicNode *parent, DicNode *sibling, DicNode *node)
 {
   g_node_insert_before(G_NODE(parent), G_NODE(sibling), G_NODE(node));
-  dtree_update(node);
-}
-
-void
-dtree_update(DicNode *tree)
-{
-  DicNode *p;
-  
-  dnode_update(tree);
-  for (p = DNODE_CHILDREN(tree); p != NULL; p = DNODE_NEXT(p)) {
-    dtree_update(p);
-  }
 }
 
 static void
@@ -546,6 +534,39 @@ dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling)
 {
   dtree_unlink(node);
   g_node_insert_after(G_NODE(parent),G_NODE(sibling),G_NODE(node));
+}
+
+void
+new_from_xml_sub(xmlNodePtr xnode,DicNode *dnode)
+{
+  xmlNodePtr xchild;
+
+  for(xchild = xnode->children;xchild !=NULL; xchild = xchild->next) {
+    if (!xmlStrcmp(xchild->name,BAD_CAST(MONPE_XML_DIC_ELEMENT))) {
+      new_from_xml_sub(xchild,dnode_new_with_xml(xchild,dnode,NULL));
+    }
+  }
+}
+
+void 
+dtree_new_from_xml(DicNode **dnode,xmlNodePtr xnode)
+{
+  if (*dnode == NULL) {
+    *dnode = dtree_new();
+  }
+  new_from_xml_sub(xnode, *dnode);
+}
+
+void 
+dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode)
+{
+  DicNode *p;
+  for(p = DNODE_CHILDREN(dnode);p != NULL; p= DNODE_NEXT(p)) {
+    xmlNodePtr xchild;
+    xchild = dnode_to_xml(p);
+    xmlAddChild(xnode,xchild);
+    dtree_write_to_xml(xchild,p);
+  }
 }
 
 /*************************************************************

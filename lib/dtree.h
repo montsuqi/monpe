@@ -1,7 +1,8 @@
 #ifndef __DTREE_H_INCLUDED_
 #define __DTREE_H_INCLUDED_
 
-#include <glib.h> /* GNode, gboolean */
+#include <glib.h> 
+#include <libxml/tree.h>
 
 typedef struct _DicNode DicNode;
 typedef DicNode DicTree;
@@ -96,6 +97,9 @@ void dtree_dump(DicNode *node);
 void dtree_unlink(DicNode *node);
 void dtree_move_before(DicNode *node,DicNode *parent,DicNode *sibling);
 void dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling);
+
+void dtree_new_from_xml(DicNode **dnode,xmlNodePtr xnode);
+void dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode);
 
 #endif 
 

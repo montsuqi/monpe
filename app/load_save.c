@@ -146,8 +146,8 @@ read_objects(xmlNodePtr objects,
       
       version = 0;
       if (versionstr != NULL) {
-	version = atoi(versionstr);
-	xmlFree(versionstr);
+        version = atoi(versionstr);
+        xmlFree(versionstr);
       }
 
       type = object_get_type((char *)typestr);
@@ -859,6 +859,15 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
                         (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
 			(const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
+
+  if (data->dtree != NULL &&
+      (DNODE_CHILDREN(data->dtree) != NULL)) {
+    xmlNodePtr dictionary;
+    
+    dictionary = xmlNewChild(doc->xmlRootNode, NULL, 
+      BAD_CAST(MONPE_XML_DICTIONARY), NULL);
+    dtree_write_to_xml(dictionary, data->dtree);
+  }
 
   tree = xmlNewChild(doc->xmlRootNode, name_space, (const xmlChar *)"diagramdata", NULL);
   

@@ -1106,7 +1106,6 @@ void dic_dialog_set_diagram(Diagram *dia)
     return;
   }
   dic_dialog->diagram = dia;
-  dtree_dump(DIA_DIAGRAM_DATA(dia)->dtree);
 
   g_node_children_foreach(G_NODE(DIA_DIAGRAM_DATA(dia)->dtree), G_TRAVERSE_ALL, 
     dic_dialog_set_diagram_sub,
