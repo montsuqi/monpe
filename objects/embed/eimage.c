@@ -41,7 +41,7 @@
 #include "utils.h"
 #include "pixmaps/eimage.xpm"
 #include "dtree.h"
-
+#include "app/diagram.h"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 2.0
@@ -70,6 +70,8 @@ struct _EImage {
   gchar *name;
   gchar *embed_id;
   gint embed_path_size;
+
+  DicNode *node;
 };
 
 static struct _ImageProperties {
@@ -492,8 +494,10 @@ image_create(Point *startpoint,
   if (node != NULL) {
   	index = dnode_data_get_empty_index(node);
     image->embed_id = dnode_data_get_longname(node,index);
+    image->node = node;
   } else {
     image->embed_id = get_default_embed_id("embed_image");
+    image->node = NULL;
   }
   image->embed_path_size = 1024;
 
@@ -510,12 +514,13 @@ image_create(Point *startpoint,
 
 static void 
 image_destroy(EImage *image) {
-  if (image->file != NULL)
+  if (image->file != NULL) {
     g_free(image->file);
+  }
 
-  if (image->image != NULL)
+  if (image->image != NULL) {
     dia_image_unref(image->image);
-
+  }
   element_destroy(&image->element);
 }
 
@@ -657,6 +662,8 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
   char *diafile_dir;
+  Diagram *dia;
+  GList *list;
   
   image = g_malloc0(sizeof(EImage));
   elem = &image->element;
@@ -811,6 +818,17 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   }
   image_update_data(image);
 
+  image->node = NULL;
+  list = dia_open_diagrams();
+  while (list != NULL) {
+    dia = (Diagram *)list->data;
+    if (!g_strcmp0(dia->filename,filename)) {
+      image->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+        image->embed_id,&image->element.object);
+    }
+    list = g_list_next(list);
+  }
+  
   return &image->element.object;
 }
 

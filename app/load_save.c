@@ -401,6 +401,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   int fd;
   GList *list;
   xmlDocPtr doc;
+  xmlNodePtr dictionarydata;
   xmlNodePtr diagramdata;
   xmlNodePtr paperinfo, gridinfo, guideinfo;
   xmlNodePtr layer_node;
@@ -462,6 +463,12 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   /* Destroy the default layer: */
   g_ptr_array_remove(data->layers, data->active_layer);
   layer_destroy(data->active_layer);
+
+  dictionarydata = 
+    find_node_named (doc->xmlRootNode->xmlChildrenNode, MONPE_XML_DICTIONARY);
+  if (dictionarydata != NULL) {
+    dtree_new_from_xml(&(data->dtree),dictionarydata);
+  }
   
   diagramdata = 
     find_node_named (doc->xmlRootNode->xmlChildrenNode, "diagramdata");

@@ -32,6 +32,7 @@
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree.h"
 #include "persistence.h"
+#include "app/dic_dialog.h"
 
 struct _DiagramTree {
   GtkCTree *tree;		/* the tree widget */
@@ -470,6 +471,7 @@ diagram_tree_remove_object(DiagramTree *tree, DiaObject *object)
       if (node) gtk_ctree_remove_node(tree->tree, node);
     }
   }
+  dic_dialog_update_dialog();
 }
 
 void

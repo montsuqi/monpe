@@ -33,6 +33,8 @@
 
 #include "debug.h"
 
+#include "app/dic_dialog.h"
+
 /** Initialize an already allocated object with the given number of handles
  *  and connections.  This does not create the actual Handle and Connection
  *  objects, which are expected to be added later.

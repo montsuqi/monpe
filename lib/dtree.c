@@ -31,30 +31,45 @@ dnode_new(char *name, int occurs, DicNodeType type, int length,
   return node;
 }
 
+static GList *
+dnode_new_objects(int size)
+{
+  GList *list = NULL;
+  int i;
+  
+  for(i=0;i<size;i++) {
+    list = g_list_append(list,NULL);
+  }
+  return list;
+}
+
 void
-dnode_initialize(DicNode *this, char *name, int occurs, 
+dnode_initialize(DicNode *node, char *name, int occurs, 
                  DicNodeType type, int length,
                  DicNode *parent, DicNode *sibling)
 {
   GNode *g;
-  g_assert(this != NULL);
+  g_assert(node != NULL);
 
   /* initialize parent (GNode) */
-  g           = G_NODE(this);
+  g           = G_NODE(node);
   g->data     = NULL;
   g->next     = NULL;    
   g->prev     = NULL;
   g->parent   = NULL;
   g->children = NULL;
   
-  this->istop = FALSE;
-  this->name = g_strdup(name);
-  this->occurs = occurs;
-  this->type = type;
-  this->length = length;
-  this->objects = NULL;
+  node->istop = FALSE;
+  node->name = g_strdup(name);
+  node->occurs = occurs;
+  node->type = type;
+  node->length = length;
+  node->objects = NULL;
   if (parent != NULL) {
-    dtree_insert_before(parent, sibling, this);
+    dtree_insert_before(parent, sibling, node);
+  }
+  if (type != DIC_NODE_TYPE_NODE) {
+    node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
   }
 }
 
@@ -278,17 +293,6 @@ dnode_get_objects_recursive(DicNode *node, GList *list)
   return list;
 }
 
-GList *
-dnode_new_objects(int size)
-{
-  GList *list = NULL;
-  int i;
-  
-  for(i=0;i<size;i++) {
-    list = g_list_append(list,NULL);
-  }
-  return list;
-}
 
 void
 dnode_reset_objects(DicNode *node)
@@ -435,10 +439,81 @@ dnode_text_set_length(DicNode *node,int length)
   }
 }
 
+#define CAST_BAD (gchar*)
+
+static xmlNodePtr
+xml_get_child_node(xmlNodePtr root, const xmlChar *name)
+{
+  xmlNodePtr p;
+  
+  for (p = root->children; p != NULL; p = p->next) {
+    if (xmlStrcmp(p->name, BAD_CAST(name)) == 0) {
+      return p;
+    }
+  }
+  
+  return NULL;
+}
+
+static int
+xml_get_prop_int(xmlNodePtr node, const xmlChar *name, int default_value)
+{
+  xmlChar *wk;
+  int value;
+
+  if (node == NULL) return default_value;
+  wk = xmlGetProp(node, BAD_CAST(name));
+  if (wk != NULL) {
+    value = atoi((const char*)wk);
+    free(wk);
+  }
+  else {
+    value = default_value;
+  }
+
+  return value;
+}
+
 static DicNode *
 dnode_new_with_xml(xmlNodePtr element,DicNode *parent,DicNode *sibling)
 {
-  return NULL;
+  xmlChar *name;
+  xmlChar *type;
+  xmlNodePtr appinfo,embed;
+  DicNode *node = NULL;
+  int occurs, length;
+
+  name = xmlGetProp(element,BAD_CAST(MONPE_XML_DIC_ELEMENT_NAME));
+  if (name == NULL) {
+    return node;
+  }
+
+  occurs = xml_get_prop_int(element,BAD_CAST(MONPE_XML_DIC_ELEMENT_OCCURS),
+    DNODE_DEFAULT_OCCURS);
+  appinfo = xml_get_child_node(element,BAD_CAST(MONPE_XML_DIC_APPINFO));
+  if (appinfo == NULL) {
+    node = dnode_new(CAST_BAD(name),occurs,DIC_NODE_TYPE_NODE,1,parent,sibling);
+  } else {
+    embed = xml_get_child_node(appinfo,BAD_CAST(MONPE_XML_DIC_EMBED));
+    if (embed == NULL) {
+      return node;
+    }
+    type = xmlGetProp(embed, BAD_CAST(MONPE_XML_DIC_EMBED_OBJ));
+    if (type == NULL) {
+      return node;
+    }
+    if (!xmlStrcmp(type,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT))) {
+      length = xml_get_prop_int(embed,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT_LEN),
+        DNODE_DEFAULT_LENGTH);
+      node = dnode_new(CAST_BAD(name),occurs,DIC_NODE_TYPE_TEXT,length,
+        parent,sibling);
+    } else if (!xmlStrcmp(type,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_IMG))) {
+      node = dnode_new(CAST_BAD(name),occurs,DIC_NODE_TYPE_IMAGE,1024,
+        parent,sibling);
+    }
+  }
+
+  return node;
 }
 
 #define DTREE_C_BUF_SIZE 1024
@@ -536,7 +611,7 @@ dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling)
   g_node_insert_after(G_NODE(parent),G_NODE(sibling),G_NODE(node));
 }
 
-void
+static void
 new_from_xml_sub(xmlNodePtr xnode,DicNode *dnode)
 {
   xmlNodePtr xchild;
@@ -561,12 +636,38 @@ void
 dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode)
 {
   DicNode *p;
+
   for(p = DNODE_CHILDREN(dnode);p != NULL; p= DNODE_NEXT(p)) {
     xmlNodePtr xchild;
     xchild = dnode_to_xml(p);
     xmlAddChild(xnode,xchild);
     dtree_write_to_xml(xchild,p);
   }
+}
+
+
+DicNode *
+dtree_set_data_path(DicNode *node,gchar *path,gpointer object)
+{
+  DicNode *p,*ret = NULL;
+  int i;
+  gchar *_path;
+
+  for(p = DNODE_CHILDREN(node);p != NULL; p= DNODE_NEXT(p)) {
+    ret = dtree_set_data_path(p,path,object);
+  }
+  if (node->type != DIC_NODE_TYPE_NODE) {
+    for (i=0;i<dnode_calc_total_occurs(node);i++) {
+      _path = dnode_data_get_longname(node,i);
+      if (!g_strcmp0(path,_path)) {
+        dnode_set_object(node,i,object);
+        g_free(_path);
+        return node;
+      }
+      g_free(_path);
+    }
+  }
+  return ret;
 }
 
 /*************************************************************

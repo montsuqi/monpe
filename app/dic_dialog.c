@@ -40,6 +40,7 @@
 #include "interface.h"
 #include "object.h"
 #include "diagram_tree.h"
+#include "diagram_tree_window.h"
 #include "object_ops.h"
 
 #include "dia-app-icons.h"
@@ -683,7 +684,6 @@ cb_add_string(GtkToolButton *button,
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_TEXT);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_TEXT,
     DNODE_DEFAULT_LENGTH,pnode,snode);
-  node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
 
   used = treeview_get_used_string(node);
 
@@ -739,7 +739,6 @@ cb_add_image(GtkToolButton *button,
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_IMAGE);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_IMAGE,
     DNODE_DEFAULT_LENGTH,pnode,snode);
-  node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
 
   used = treeview_get_used_string(node);
 

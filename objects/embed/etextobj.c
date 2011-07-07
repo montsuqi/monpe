@@ -35,6 +35,7 @@
 #include "pixmaps/etext.xpm"
 #include "utils.h"
 #include "dtree.h"
+#include "app/diagram.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
@@ -62,6 +63,8 @@ struct _ETextobj {
   gchar *embed_id;
   gint embed_text_size;
   gint embed_column_size;
+
+  DicNode *node;
 };
 
 static struct _ETextobjProperties {
@@ -348,8 +351,10 @@ textobj_create(Point *startpoint,
   	index = dnode_data_get_empty_index(node);
     textobj->embed_id = dnode_data_get_longname(node,index);
     textobj->embed_text_size = node->length;
+    textobj->node = node;
   } else {
     textobj->embed_id = get_default_embed_id("embed_text");
+    textobj->node = NULL;
   }
   textobj->embed_column_size = 0;
 
@@ -389,6 +394,16 @@ textobj_create(Point *startpoint,
 static void
 textobj_destroy(ETextobj *textobj)
 {
+#if 0
+  int i;
+  if (textobj->node != NULL) {
+    for (i=0;i<g_list_length(textobj->node->objects);i++) {
+      if (textobj == g_list_nth_data(textobj->node->objects,i)) {
+        dnode_set_object(textobj->node,i,NULL);
+      }
+    }
+  }
+#endif
   text_destroy(textobj->text);
   dia_font_unref(textobj->attrs.font);
   object_destroy(&textobj->object);
@@ -424,6 +439,8 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   DiaObject *obj;
   AttributeNode attr;
   Point startpoint = {0.0, 0.0};
+  Diagram *dia;
+  GList *list;
 
   textobj = g_malloc0(sizeof(ETextobj));
   obj = &textobj->object;
@@ -494,6 +511,17 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   textobj->text_handle.connected_to = NULL;
 
   textobj_update_data(textobj);
+
+  textobj->node = NULL;
+  list = dia_open_diagrams();
+  while (list != NULL) {
+    dia = (Diagram *)list->data;
+    if (!g_strcmp0(dia->filename,filename)) {
+      textobj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+        textobj->embed_id,&textobj->object);
+    }
+    list = g_list_next(list);
+  }
 
   return &textobj->object;
 }

@@ -81,7 +81,6 @@ int dnode_calc_occurs_upto_before_parent(DicNode *parent,DicNode *node);
 void dnode_reset_objects(DicNode *node);
 void dnode_reset_objects_recursive(DicNode *node);
 GList * dnode_get_objects_recursive(DicNode *node,GList *list);
-GList * dnode_new_objects(int size);
 void dnode_set_object(DicNode *node,int index,gpointer object);
 
 gboolean dnode_set_occurs(DicNode *node, int occurs);
@@ -100,6 +99,8 @@ void dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling);
 
 void dtree_new_from_xml(DicNode **dnode,xmlNodePtr xnode);
 void dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode);
+
+DicNode* dtree_set_data_path(DicNode *node,gchar *path,gpointer object);
 
 #endif 
 
