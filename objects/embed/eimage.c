@@ -70,8 +70,6 @@ struct _EImage {
   gchar *name;
   gchar *embed_id;
   gint embed_path_size;
-
-  DicNode *node;
 };
 
 static struct _ImageProperties {
@@ -494,10 +492,8 @@ image_create(Point *startpoint,
   if (node != NULL) {
   	index = dnode_data_get_empty_index(node);
     image->embed_id = dnode_data_get_longname(node,index);
-    image->node = node;
   } else {
     image->embed_id = get_default_embed_id("embed_image");
-    image->node = NULL;
   }
   image->embed_path_size = 1024;
 
@@ -508,6 +504,9 @@ image_create(Point *startpoint,
 
   if (node != NULL) {
     dnode_set_object(node,index,&image->element.object);
+    obj->node = node;
+  } else {
+    obj->node = NULL;
   }
   return &image->element.object;
 }
@@ -818,12 +817,12 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   }
   image_update_data(image);
 
-  image->node = NULL;
+  obj->node = NULL;
   list = dia_open_diagrams();
   while (list != NULL) {
     dia = (Diagram *)list->data;
     if (!g_strcmp0(dia->filename,filename)) {
-      image->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
         image->embed_id,&image->element.object);
     }
     list = g_list_next(list);

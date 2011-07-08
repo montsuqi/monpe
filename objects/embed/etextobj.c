@@ -351,10 +351,8 @@ textobj_create(Point *startpoint,
   	index = dnode_data_get_empty_index(node);
     textobj->embed_id = dnode_data_get_longname(node,index);
     textobj->embed_text_size = node->length;
-    textobj->node = node;
   } else {
     textobj->embed_id = get_default_embed_id("embed_text");
-    textobj->node = NULL;
   }
   textobj->embed_column_size = 0;
 
@@ -385,8 +383,11 @@ textobj_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
-  if (node != NULL) {
+  if (node != NULL) { 
     dnode_set_object(node,index,&textobj->object);
+    obj->node = node;
+  } else {
+    obj->node = NULL;
   }
   return &textobj->object;
 }
@@ -512,12 +513,12 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 
   textobj_update_data(textobj);
 
-  textobj->node = NULL;
+  obj->node = NULL;
   list = dia_open_diagrams();
   while (list != NULL) {
     dia = (Diagram *)list->data;
     if (!g_strcmp0(dia->filename,filename)) {
-      textobj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
         textobj->embed_id,&textobj->object);
     }
     list = g_list_next(list);

@@ -626,7 +626,7 @@ struct DeleteObjectsChange {
 static void
 delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 {
-  GList *list;
+  GList *list,*_list;
   
   DEBUG_PRINTF(("delete_objects_apply()\n"));
   change->applied = 1;
@@ -645,10 +645,35 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
     if (obj->parent) /* Lose references to deleted object */
       obj->parent->children = g_list_remove(obj->parent->children, obj);
 
+    if (obj->node != NULL) {
+      dnode_unset_object(obj->node,obj);
+    }
     list = g_list_next(list);
   }
-
   diagram_tree_remove_objects(diagram_tree(), change->obj_list);
+  _list = NULL;
+  list = change->obj_list;
+  while(list!=NULL) {
+    DiaObject *obj = (DiaObject *)list->data;
+    if (obj->node == NULL) {
+      _list = g_list_append(_list,list);
+    }
+    list = g_list_next(list);
+  }
+  g_list_free(change->obj_list);
+  change->obj_list = _list;
+
+  _list = NULL;
+  list = change->original_objects;
+  while(list!=NULL) {
+    DiaObject *obj = (DiaObject *)list->data;
+    if (obj->node == NULL) {
+      _list = g_list_append(_list,list);
+    }
+    list = g_list_next(list);
+  }
+  g_list_free(change->original_objects);
+  change->original_objects = _list;
 }
 
 static void

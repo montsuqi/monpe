@@ -32,6 +32,7 @@
 #include "objchange.h"
 #include "dia_xml.h"
 #include "text.h"
+#include "dtree.h"
 
 G_BEGIN_DECLS
 
@@ -506,6 +507,7 @@ struct _DiaObject {
   Rectangle         enclosing_box;
   /** Metainfo of the object, should not be manipulated directy */
   GHashTable       *meta;
+  DicNode *node;
 };
 
 /*!

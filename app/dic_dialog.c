@@ -1111,3 +1111,12 @@ void dic_dialog_set_diagram(Diagram *dia)
     NULL);
   gtk_tree_view_expand_all(dic_dialog->treeview);
 }
+
+Diagram *
+dic_dialog_get_diagram(void)
+{
+  if (dic_dialog != NULL) {
+    return dic_dialog->diagram;
+  }
+  return NULL;
+}

@@ -82,6 +82,7 @@ void dnode_reset_objects(DicNode *node);
 void dnode_reset_objects_recursive(DicNode *node);
 GList * dnode_get_objects_recursive(DicNode *node,GList *list);
 void dnode_set_object(DicNode *node,int index,gpointer object);
+void dnode_unset_object(DicNode *node,gpointer object);
 
 gboolean dnode_set_occurs(DicNode *node, int occurs);
 void dnode_text_set_length(DicNode *node, int length);

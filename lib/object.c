@@ -33,8 +33,6 @@
 
 #include "debug.h"
 
-#include "app/dic_dialog.h"
-
 /** Initialize an already allocated object with the given number of handles
  *  and connections.  This does not create the actual Handle and Connection
  *  objects, which are expected to be added later.
@@ -59,6 +57,8 @@ object_init(DiaObject *obj,
     obj->connections = g_malloc0(sizeof(ConnectionPoint *) * num_connections);
   else
     obj->connections = NULL;
+
+  obj->node = NULL;
 }
 
 /** Destroy an objects allocations and disconnect it from everything else.

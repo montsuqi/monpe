@@ -263,10 +263,27 @@ void dnode_update_node_name(DicNode *node,gchar *newname)
 
 void dnode_set_object(DicNode *node,int index, gpointer object)
 {
-  if (node->objects == NULL || g_list_length(node->objects) < index) {
+  if (node == NULL ||
+      node->objects == NULL || 
+      g_list_length(node->objects) < index) {
     return;
   }
   g_list_nth(node->objects,index)->data = object;
+}
+
+void dnode_unset_object(DicNode *node,gpointer object)
+{
+  int i;
+
+  if (node == NULL || 
+      node->objects == NULL) {
+    return;
+  }
+  for(i=0;i<g_list_length(node->objects);i++) {
+    if (g_list_nth_data(node->objects,i) == object) {
+      g_list_nth(node->objects,i)->data = NULL;
+    }
+  }
 }
 
 GList *
@@ -659,7 +676,8 @@ dtree_set_data_path(DicNode *node,gchar *path,gpointer object)
   if (node->type != DIC_NODE_TYPE_NODE) {
     for (i=0;i<dnode_calc_total_occurs(node);i++) {
       _path = dnode_data_get_longname(node,i);
-      if (!g_strcmp0(path,_path)) {
+      if (!g_strcmp0(path,_path) && 
+        g_list_nth_data(node->objects,i) == NULL) {
         dnode_set_object(node,i,object);
         g_free(_path);
         return node;
