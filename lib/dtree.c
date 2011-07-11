@@ -155,11 +155,21 @@ dnode_calc_occurs_upto_before_parent(DicNode *parent,DicNode *node)
 gboolean
 dnode_data_is_used(DicNode *node)
 {
+  DicNode *child;
   int i;
+
+  for(child = DNODE_CHILDREN(node); 
+    child != NULL; 
+    child = DNODE_NEXT(child)) {
+    if (dnode_data_is_used(child)) {
+      return TRUE;
+    }
+  }
 
   if (node->objects == NULL) {
     return FALSE;
   }
+
   for(i=0;i<g_list_length(node->objects);i++){
     if (g_list_nth_data(node->objects,i) != NULL) {
       return TRUE;
