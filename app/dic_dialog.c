@@ -355,8 +355,7 @@ cb_drag_data_received(GtkWidget *widget,
 {
   GtkTreeSelection *selection;
   GtkTreeModel *model;
-  GtkTreePath *src_path, *dest_path;
-  int src_depth,dest_depth;
+  GtkTreePath *dest_path;
   GtkTreeIter src_iter,dest_iter,child_iter;
   GtkTreeViewDropPosition pos;
   gchar *newname;
@@ -365,13 +364,12 @@ cb_drag_data_received(GtkWidget *widget,
   int i;
   DiaObject *obj;
   Layer *layer;
+  gboolean same_parent;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   if (gtk_tree_selection_get_selected(selection, &model, &src_iter)) {
-    src_path = gtk_tree_model_get_path(model,&src_iter);
     if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget),
           x,y,&dest_path,&pos)) {
-
       gtk_tree_model_get_iter(model,&dest_iter,dest_path);
       gtk_tree_model_get(model, &dest_iter, 
         COLUMN_NODE, &dest_node,
@@ -380,6 +378,8 @@ cb_drag_data_received(GtkWidget *widget,
       gtk_tree_model_get(model, &src_iter,
         COLUMN_NODE, &src_node,
         -1);
+    
+      same_parent = DNODE_PARENT(src_node) == DNODE_PARENT(dest_node);
 
       switch(pos) {
       case GTK_TREE_VIEW_DROP_BEFORE:
@@ -407,13 +407,9 @@ cb_drag_data_received(GtkWidget *widget,
         break;
       }
 
-      src_depth = gtk_tree_path_get_depth(src_path);
-      dest_depth = gtk_tree_path_get_depth(dest_path);
-
       if (pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
           pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER  ||
-          src_depth != dest_depth) {
-        newname = dnode_prop_name_unique(src_node, parent_node, src_node->name);
+          !same_parent) {
         list = dnode_get_objects_recursive(src_node,NULL);
         if (list != NULL) {
           diagram_unselect_objects(dic_dialog->diagram, list);
@@ -428,15 +424,17 @@ cb_drag_data_received(GtkWidget *widget,
           g_list_free(list);
         }
         dnode_reset_objects_recursive(src_node);
-
-        if (newname != NULL) {
-          gtk_tree_store_set(GTK_TREE_STORE(model), &src_iter,
-            COLUMN_TREE, newname,
-            -1);
-          g_free(src_node->name);
-          src_node->name = newname;
-        }
       }
+
+      newname = dnode_prop_name_unique(src_node, parent_node, src_node->name);
+      if (newname != NULL) {
+        gtk_tree_store_set(GTK_TREE_STORE(model), &src_iter,
+          COLUMN_TREE, newname,
+          -1);
+        g_free(src_node->name);
+        src_node->name = newname;
+      }
+
       gtk_tree_store_move_recursive(GTK_TREE_STORE(model), 
         &child_iter, &src_iter);
       treeview_update_used_recursive(model,&child_iter);
@@ -503,6 +501,47 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
   return FALSE;
 }
 
+static gboolean
+cb_button_press(GtkTreeView *view,
+  GdkEventButton *event,
+  gpointer data)
+{
+  GtkTreeModel *model;
+  GtkTreePath *path;
+  GtkTreeIter iter;
+  DicNode *node;
+  GList *list;
+  gboolean selected = TRUE;
+  int i;
+
+  model = gtk_tree_view_get_model(view);
+  if (event->button == 3) { /* right button */
+    if (gtk_tree_view_get_path_at_pos(view,event->x,event->y,&path,
+          NULL,NULL,NULL)) {
+      if (gtk_tree_model_get_iter(model,&iter,path)) {
+        gtk_tree_model_get(model, &iter, COLUMN_NODE, &node, -1);
+        list = dnode_get_objects_recursive(node,NULL);
+        for(i=0;i<g_list_length(list);i++) {
+          if (!diagram_is_selected(dic_dialog->diagram,
+                (DiaObject*)g_list_nth_data(list,i))) {
+            selected = FALSE;
+            break;
+          }
+        }
+        diagram_remove_all_selected(dic_dialog->diagram, TRUE);
+        if (!selected) {
+          for(i=0;i<g_list_length(list);i++) {
+            diagram_select(dic_dialog->diagram,
+            (DiaObject*)g_list_nth_data(list,i));
+          }
+        }
+        g_list_free(list);
+      }
+    }
+  }
+  return FALSE;
+}
+
 static GtkWidget *
 create_view_and_model (void)
 {
@@ -532,6 +571,8 @@ create_view_and_model (void)
     G_CALLBACK(cb_drag_drop),NULL);
   g_signal_connect(G_OBJECT(view),"drag-data-received",
     G_CALLBACK(cb_drag_data_received),NULL);
+  g_signal_connect(G_OBJECT(view),"button-press-event",
+    G_CALLBACK(cb_button_press),NULL);
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
   gtk_tree_selection_set_mode(selection,GTK_SELECTION_SINGLE);

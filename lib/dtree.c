@@ -301,11 +301,12 @@ dnode_get_objects_recursive(DicNode *node, GList *list)
 {
   int i;
   DicNode *child;
+  GList *child_list;
 
   if (node->type == DIC_NODE_TYPE_NODE) {
     child = DNODE_CHILDREN(node);
     while(child != NULL) {
-      list = g_list_concat(list,dnode_get_objects_recursive(child,list));
+      list = dnode_get_objects_recursive(child,list);
       child = DNODE_NEXT(child);
     }
   } else {
