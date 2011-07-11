@@ -467,13 +467,16 @@ display_eobj_create(DDisplay *ddisp,gint x,gint y,DicNode *node)
   Point clickedpoint;
   Handle *handle1, *handle2;
   int index;
+  DicNode *child;
 
-  index = dnode_data_get_empty_index(node);
-  if (index <= -1) {
-    return;
-  }
-  if (node->type != DIC_NODE_TYPE_NODE) {
-    if (dnode_data_get_empty_index(node) == -1) {
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    for(child = DNODE_CHILDREN(node);
+      child != NULL; child = DNODE_NEXT(child)) {
+      display_eobj_create(ddisp,x,y+10,child);
+    }
+  } else {
+    index = dnode_data_get_empty_index(node);
+    if (index <= -1) {
       return;
     }
     switch(node->type) {
