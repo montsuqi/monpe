@@ -695,6 +695,7 @@ cb_add_node(GtkToolButton *button,
     }
     g_free(parent_type);
   } else {
+    model = gtk_tree_view_get_model(dic_dialog->treeview);
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
   }
@@ -746,6 +747,7 @@ cb_add_string(GtkToolButton *button,
     }
     g_free(parent_type);
   } else {
+    model = gtk_tree_view_get_model(dic_dialog->treeview);
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
   }
@@ -801,6 +803,7 @@ cb_add_image(GtkToolButton *button,
     }
     g_free(parent_type);
   } else {
+    model = gtk_tree_view_get_model(dic_dialog->treeview);
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
   }
@@ -952,6 +955,7 @@ create_dic_dialog(void)
   GtkWidget *dialog, *vbox;
   GtkWidget *hbox, *label, *combo, *separator;
   GtkWidget *toolbar, *treeview;
+  GtkWidget *scroll;
   GtkTreeSelection *selection; 
   GtkWidget *frame,*vbox2;
   GtkWidget *name_entry,*occurs_spin,*length_spin;
@@ -1010,9 +1014,12 @@ create_dic_dialog(void)
 
   /* toolbar */
   toolbar = create_toolbar(selection);
-
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 1);
-  gtk_box_pack_start(GTK_BOX(vbox), treeview, TRUE, TRUE, 1);
+
+  /* add treeview to scroll */
+  scroll = gtk_scrolled_window_new(NULL,NULL);
+  gtk_container_add(GTK_CONTAINER(scroll),treeview);
+  gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 1);
 
   /* frame */
   frame = gtk_frame_new("");

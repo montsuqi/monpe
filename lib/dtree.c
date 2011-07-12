@@ -149,7 +149,7 @@ dnode_calc_occurs_upto_before_parent(DicNode *parent,DicNode *node)
     return 1;
   }
   return node->occurs * 
-    dnode_calc_occurs_upto_parent(parent,DNODE_PARENT(node));
+    dnode_calc_occurs_upto_before_parent(parent,DNODE_PARENT(node));
 }
 
 gboolean
@@ -220,10 +220,18 @@ dnode_data_get_longname(DicNode *node, int index)
     l = index/k;
     index -= k*l;
     if (i==1) {
-      longname = g_strdup_printf("%s[%d]",names[i],l);
+      if (occurs[i] == 1) {
+        longname = g_strdup_printf("%s",names[i]);
+      } else {
+        longname = g_strdup_printf("%s[%d]",names[i],l);
+      }
     } else {
       oldlongname = longname;
-      longname = g_strdup_printf("%s.%s[%d]",longname,names[i],l);
+      if (occurs[i] == 1) {
+        longname = g_strdup_printf("%s.%s",longname,names[i]);
+      } else {
+        longname = g_strdup_printf("%s.%s[%d]",longname,names[i],l);
+      }
       g_free(oldlongname);
     }
   }
@@ -530,7 +538,8 @@ dnode_new_with_xml(xmlNodePtr element,DicNode *parent,DicNode *sibling)
     if (type == NULL) {
       return node;
     }
-    if (!xmlStrcmp(type,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT))) {
+    if (!xmlStrcmp(type,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT)) ||
+        !xmlStrcmp(type,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_STR)) ) {
       length = xml_get_prop_int(embed,BAD_CAST(MONPE_XML_DIC_EMBED_OBJ_TXT_LEN),
         DNODE_DEFAULT_LENGTH);
       node = dnode_new(CAST_BAD(name),occurs,DIC_NODE_TYPE_TEXT,length,

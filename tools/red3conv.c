@@ -138,135 +138,6 @@ fix_font(xmlNodePtr node)
 
 #define G_ERROR(p) if((p)!=NULL){g_error("%s",(p)->message);}
 
-static gchar*
-escape_for_rec(gchar *id)
-{
-  gchar *buf1,*buf2;
-  GRegex *reg1,*reg2;
-  GError *err = NULL;
-
-  reg1 = g_regex_new("\\[|\\]|-",0,0,&err);
-  G_ERROR(err);
-  reg2 = g_regex_new("\\.",0,0,&err);
-  G_ERROR(err);
-
-  buf1 = g_regex_replace(reg1,id,-1,0,"_",0,NULL);
-  G_ERROR(err);
-  buf2 = g_regex_replace(reg2,buf1,-1,0,"_DOT_",0,NULL);
-  G_ERROR(err);
-
-  g_regex_unref(reg1);
-  g_regex_unref(reg2);
-
-  g_free(buf1);
-
-  return buf2;
-}
-
-static void
-add_unlocated_text(xmlNodePtr node,
-  int idx,
-  DictInfo *info)
-{
-  xmlNodePtr object;
-  xmlNodePtr attr;
-  xmlNodePtr val;
-  gchar *recid;
-
-  recid = escape_for_rec(info->id);
-
-  object = xmlNewTextChild(node,NULL,BAD_CAST("object"),NULL);
-  xmlNewProp(object,BAD_CAST("type"),BAD_CAST("Embed - Text"));
-  xmlNewProp(object,BAD_CAST("version"),BAD_CAST("0"));
-  xmlNewProp(object,BAD_CAST("id"),
-    BAD_CAST(g_strdup_printf("#_%06d_%s#",idx,recid)));
-
-  attr = xmlNewTextChild(object,NULL,BAD_CAST("attribute"),NULL);
-  xmlNewProp(attr,BAD_CAST("name"),BAD_CAST("embed_id"));
-  val = xmlNewTextChild(attr,NULL,BAD_CAST("string"),
-    BAD_CAST(g_strdup_printf("#_%06d_%s#",idx,recid)));
-
-  attr = xmlNewTextChild(object,NULL,BAD_CAST("attribute"),NULL);
-  xmlNewProp(attr,BAD_CAST("name"),BAD_CAST("embed_text_size"));
-  val = xmlNewTextChild(attr,NULL,BAD_CAST("int"),NULL);
-  xmlNewProp(val,BAD_CAST("val"),BAD_CAST(g_strdup_printf("%d",info->length)));
-}
-
-static void
-add_unlocated_image(xmlNodePtr node,
-  int idx,
-  DictInfo *info)
-{
-  xmlNodePtr object;
-  xmlNodePtr attr;
-  xmlNodePtr val;
-  gchar *recid;
-
-  recid = escape_for_rec(info->id);
-
-  object = xmlNewTextChild(node,NULL,BAD_CAST("object"),NULL);
-  xmlNewProp(object,BAD_CAST("type"),BAD_CAST("Embed - Image"));
-  xmlNewProp(object,BAD_CAST("version"),BAD_CAST("0"));
-  xmlNewProp(object,BAD_CAST("id"),
-    BAD_CAST(g_strdup_printf("#_%06d_%s#",idx,recid)));
-
-  attr = xmlNewTextChild(object,NULL,BAD_CAST("attribute"),NULL);
-  xmlNewProp(attr,BAD_CAST("name"),BAD_CAST("embed_id"));
-  val = xmlNewTextChild(attr,NULL,BAD_CAST("string"),
-    BAD_CAST(g_strdup_printf("#_%06d_%s#",idx,recid)));
-
-  attr = xmlNewTextChild(object,NULL,BAD_CAST("attribute"),NULL);
-  xmlNewProp(attr,BAD_CAST("name"),BAD_CAST("embed_path_size"));
-  val = xmlNewTextChild(attr,NULL,BAD_CAST("int"),NULL);
-  xmlNewProp(val,BAD_CAST("val"),
-    BAD_CAST(g_strdup_printf("%d",RED_IMAGE_PATH_SIZE)));
-}
-
-static void
-add_unlocated_object(xmlNodePtr diagram,
-  GList *list)
-{
-  xmlNodePtr layer;
-  DictInfo *info;
-  int i;
-
-  if (diagram == NULL) {
-    return;
-  }
-
-  for (i=0;i<g_list_length(list);i++) {
-    info = g_list_nth_data(list,i);
-    if (info->located == FALSE) {
-      break;
-    }
-    if (i == (g_list_length(list) - 1)) {
-     return;
-    }
-  }
-
-  layer = xmlNewTextChild(diagram,NULL,BAD_CAST("layer"),NULL);
-  xmlNewProp(layer,BAD_CAST("name"),BAD_CAST("unlocated_objects"));
-  xmlNewProp(layer,BAD_CAST("visible"),BAD_CAST("false"));
-  xmlNewProp(layer,BAD_CAST("active"),BAD_CAST("true"));
-
-  for (i=0;i<g_list_length(list);i++) {
-    info = g_list_nth_data(list,i);
-    if (info->located == FALSE) {
-      switch(info->type) {
-      case DICT_TYPE_STRING:
-        add_unlocated_text(layer,i,info);
-        break;
-      case DICT_TYPE_TEXTBOX:
-        add_unlocated_text(layer,i,info);
-        break;
-      case DICT_TYPE_IMAGE:
-        add_unlocated_image(layer,i,info);
-        break;
-      }
-    }
-  }
-}
-
 static void
 modify_embed_image(xmlNodePtr node,
   GList *list)
@@ -288,8 +159,7 @@ modify_embed_image(xmlNodePtr node,
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_id"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("string"),
-        BAD_CAST(g_strdup_printf("#_%06d_%s#",i,
-          CAST_BAD(escape_for_rec(info->id)))));
+        BAD_CAST(g_strdup_printf("#%s#",info->id)));
       /*embed_text_size*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_path_size"));
@@ -324,8 +194,7 @@ modify_embed_text(xmlNodePtr node,
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_id"));
       child2 = xmlNewTextChild(child,NULL,BAD_CAST("string"),
-        BAD_CAST(
-        g_strdup_printf("#_%06d_%s#",i,CAST_BAD(escape_for_rec(info->id)))));
+        BAD_CAST(g_strdup_printf("#%s#",info->id)));
       /*embed_text_size*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_text_size"));
@@ -443,7 +312,7 @@ _get_dict_list(xmlNodePtr node,xmlChar *path,GList *list)
       occurs = 0;
       prop = xmlGetProp(child,BAD_CAST("occurs"));
       if (prop != NULL) {
-        occurs = atoi((const char*)occurs);
+        occurs = atoi((const char*)prop);
       }
       if (occurs <= 1) {
         if (path == NULL) {
@@ -657,9 +526,6 @@ red3conv(char *infile)
 
   /* add embed attribute */
   modify_embed_object(root,list);
-
-  /* add unlocated object for cobol data */
-  add_unlocated_object(root,list);
 
   /* fix font */
   fix_font(root);

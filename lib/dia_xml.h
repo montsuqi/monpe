@@ -50,6 +50,7 @@
 #define MONPE_XML_DIC_EMBED              "embed"
 #define MONPE_XML_DIC_EMBED_OBJ          "object"
 #define MONPE_XML_DIC_EMBED_OBJ_TXT      "text"
+#define MONPE_XML_DIC_EMBED_OBJ_STR      "string"
 #define MONPE_XML_DIC_EMBED_OBJ_TXT_LEN  "length"
 #define MONPE_XML_DIC_EMBED_OBJ_IMG      "image"
 
