@@ -3,6 +3,7 @@
   <_name>Embed</_name>
   <_description>Embed Objects</_description>
   <contents>
+    <!--
     <object name="Embed - Text">
       <_description>Embed text</_description>
     </object>
@@ -12,5 +13,6 @@
     <object name="ORCA - TextCircle">
       <_description>ORCA TextCircle</_description>
     </object>
+    -->
   </contents>
 </sheet>

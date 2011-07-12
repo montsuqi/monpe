@@ -184,6 +184,12 @@ ToolButton tool_data[] =
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
+    N_("TextCircle"),
+    NULL,
+    "ToolsText",
+    { CREATE_OBJECT_TOOL, "ORCA - TextCircle", NULL }
+  },
+  { NULL,
     N_("Box"),
     "R",
     "ToolsBox",
