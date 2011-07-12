@@ -39,6 +39,7 @@
 #include "display.h"
 #include "message.h"
 #include "layer_dialog.h"
+#include "dic_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
 #include "interface.h"
@@ -231,6 +232,7 @@ file_open_response_callback(GtkWidget *fs,
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       layer_dialog_set_diagram(diagram);
+      dic_dialog_set_diagram(diagram);
       
       if (diagram->displays == NULL) {
 /*	GSList *displays = diagram->displays;

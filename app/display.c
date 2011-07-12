@@ -1478,6 +1478,7 @@ display_set_active(DDisplay *ddisp)
 
     /* perform notification here (such as switch layers dialog) */
     layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
+    dic_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
     diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
 
     if (ddisp) {

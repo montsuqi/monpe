@@ -916,10 +916,9 @@ dic_dialog_delete(GtkWidget *widget, gpointer data)
 static void
 dic_dialog_select_diagram_callback(GtkWidget *widget, gpointer gdata)
 {
-  GList *dia_list;
-  Diagram *dia, *selectdia = NULL;
-  char *filename;
-  char *selectname;
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  gpointer p;
 
   if (dic_dialog == NULL || dic_dialog->dialog == NULL) {
     if (!dia_open_diagrams())
@@ -928,23 +927,23 @@ dic_dialog_select_diagram_callback(GtkWidget *widget, gpointer gdata)
       create_dic_dialog();
   }
 
-  selectname = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dic_dialog->combo));
-
-  dia_list = dia_open_diagrams();
-  while (dia_list != NULL) {
-    dia = (Diagram *) dia_list->data;
-    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
-    if (filename==NULL) {
-      filename = dia->filename;
-    } else {
-      filename++;
-    }
-    if (filename!=NULL && selectname != NULL && !strcmp(filename,selectname)) {
-      selectdia = dia;
-    }
-    dia_list = g_list_next(dia_list);
+  if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(dic_dialog->combo),&iter)) {
+    model = gtk_combo_box_get_model(GTK_COMBO_BOX(dic_dialog->combo));
+    gtk_tree_model_get(model,&iter,1,&p,-1);
+    dic_dialog_set_diagram((Diagram*)p);
   }
-  dic_dialog_set_diagram(selectdia);
+}
+
+static void
+combo_renderer_data_func(GtkCellLayout *layout,
+  GtkCellRenderer *renderer,
+  GtkTreeModel *model,
+  GtkTreeIter *iter,
+  gpointer data)
+{
+  gchar *text;
+  gtk_tree_model_get(model,iter,0,&text,-1);
+  g_object_set(G_OBJECT(renderer),"text",text,NULL);
 }
 
 void
@@ -957,6 +956,8 @@ create_dic_dialog(void)
   GtkWidget *frame,*vbox2;
   GtkWidget *name_entry,*occurs_spin,*length_spin;
   GtkWidget *change_button;
+  GtkListStore *combo_list;
+  GtkCellRenderer *renderer;
 
   dic_dialog = g_new(struct DicDialog, 1);
   dic_dialog->diagram = NULL;
@@ -983,10 +984,17 @@ create_dic_dialog(void)
   label = gtk_label_new(_("Diagram:"));
   gtk_box_pack_start(GTK_BOX(hbox),label,FALSE,FALSE,2);
 
-  dic_dialog->combo = combo = gtk_combo_box_new_text();
+  combo_list = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_POINTER);
+
+  dic_dialog->combo = combo = 
+    gtk_combo_box_new_with_model(GTK_TREE_MODEL(combo_list));
   g_signal_connect(G_OBJECT(combo),"changed",
     G_CALLBACK(dic_dialog_select_diagram_callback),NULL);
   gtk_box_pack_start(GTK_BOX(hbox),combo,TRUE,TRUE,2);
+  renderer = gtk_cell_renderer_text_new();
+  gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo),renderer,TRUE);
+  gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(combo),
+    renderer,combo_renderer_data_func,NULL,NULL);
 
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
@@ -1074,6 +1082,7 @@ dic_dialog_update_diagram_list()
   int i;
   int current_nr;
   GtkTreeModel *model;
+  GtkTreeIter iter;
 
   if (dic_dialog == NULL || dic_dialog->dialog == NULL) {
     if (!dia_open_diagrams())
@@ -1099,11 +1108,22 @@ dic_dialog_update_diagram_list()
     } else {
       filename++;
     }
-    gtk_combo_box_append_text(GTK_COMBO_BOX(dic_dialog->combo),filename);
+    gtk_list_store_append(GTK_LIST_STORE(model),&iter);
+    gtk_list_store_set(GTK_LIST_STORE(model),&iter,
+      0,filename,
+      1,dia, 
+      -1);
     dia_list = g_list_next(dia_list);
     i++;
   }
-  if (current_nr != -1) {
+  if (current_nr == -1) {
+    dia = NULL;
+    if (dia_open_diagrams()!=NULL) {
+      dia = (Diagram *) dia_open_diagrams()->data;
+    }
+    dic_dialog_set_diagram(dia);
+    gtk_combo_box_set_active(GTK_COMBO_BOX(dic_dialog->combo),0);
+  } else {
     gtk_combo_box_set_active(GTK_COMBO_BOX(dic_dialog->combo),current_nr);
   }
 }
@@ -1170,6 +1190,8 @@ dic_dialog_set_diagram_sub(GNode *node, gpointer data)
 void dic_dialog_set_diagram(Diagram *dia)
 {
   GtkTreeModel *model;
+  GtkTreeIter iter;
+  gpointer p;
 
   model = gtk_tree_view_get_model(dic_dialog->treeview);
   gtk_tree_store_clear(GTK_TREE_STORE(model));
@@ -1183,6 +1205,18 @@ void dic_dialog_set_diagram(Diagram *dia)
     dic_dialog_set_diagram_sub,
     NULL);
   gtk_tree_view_expand_all(dic_dialog->treeview);
+
+  /*update combo*/
+  model = gtk_combo_box_get_model(GTK_COMBO_BOX(dic_dialog->combo));
+  if (gtk_tree_model_get_iter_first(model,&iter)) {
+    do {
+      gtk_tree_model_get(model,&iter,1,&p,-1);
+      if (dia == (Diagram*)p) {
+        gtk_combo_box_set_active_iter(GTK_COMBO_BOX(dic_dialog->combo),&iter);
+        break;
+      }
+    }while(gtk_tree_model_iter_next(model,&iter));
+  }
 }
 
 Diagram *

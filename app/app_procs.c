@@ -63,6 +63,7 @@
 #include "message.h"
 #include "display.h"
 #include "layer_dialog.h"
+#include "dic_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
 #include "dia_dirs.h"
@@ -584,9 +585,10 @@ handle_initial_diagram(const char *in_file_name,
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       if (app_is_interactive()) {
-	layer_dialog_set_diagram(diagram);
+        layer_dialog_set_diagram(diagram);
+        dic_dialog_set_diagram(diagram);
         /* the display initial diagram holds two references */
-	ddisp = new_display(diagram);
+        ddisp = new_display(diagram);
       } else {
         g_object_unref(diagram);
       }
@@ -992,6 +994,7 @@ app_init (int argc, char **argv)
         /* I think this is done in diagram_init() with a call to 
          * layer_dialog_update_diagram_list() */
         layer_dialog_set_diagram(diagram);
+        dic_dialog_set_diagram(diagram);
         new_display(diagram); 
       }
     }
