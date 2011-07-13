@@ -36,8 +36,12 @@ static void
 print_rec(FILE *fp,int l,DicNode *node)
 {
   DicNode *child;
+  gchar *name;
+
+  name = EscapeNodeName(node->name);
+
   if (node->type == DIC_NODE_TYPE_NODE) {
-    fprintf_tab(fp,l,"%s {\n",node->name);
+    fprintf_tab(fp,l,"%s {\n",name);
     for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
       print_rec(fp,l+1,child);
     }
@@ -49,26 +53,27 @@ print_rec(FILE *fp,int l,DicNode *node)
   } else if(node->type == DIC_NODE_TYPE_TEXT){
     if (node->occurs > 1) {
       fprintf_tab(fp,l,"%s varchar(%d)[%d];\n",
-        node->name,
+        name,
         node->length * multiplier,
         node->occurs);
     } else {
       fprintf_tab(fp,l,"%s varchar(%d);\n",
-        node->name,
+        name,
         node->length * multiplier);
     }
   } else if(node->type == DIC_NODE_TYPE_IMAGE){
     if (node->occurs > 1) {
       fprintf_tab(fp,l,"%s varchar(%d)[%d];\n",
-        node->name,
+        name,
         DNODE_IMAGE_PATH_SIZE,
         node->occurs);
     } else {
       fprintf_tab(fp,l,"%s varchar(%d);\n",
-        node->name,
+        name,
         DNODE_IMAGE_PATH_SIZE);
     }
   }
+  g_free(name);
 }
 
 static void

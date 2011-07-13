@@ -14,6 +14,19 @@
 
 #include "red3lib.h"
 
+gchar*
+EscapeNodeName(gchar *_name)
+{
+  gchar *name;
+  GRegex *reg;
+
+  reg = g_regex_new("-",0,0,NULL);
+  name = g_regex_replace(reg,_name,-1,0,"_",0,NULL);
+  g_regex_unref(reg);
+
+  return name;
+}
+
 xmlNodePtr
 FindNodeByTag (xmlNodePtr p, xmlChar *name)
 {
@@ -151,84 +164,12 @@ GetEmbedInfoText(xmlNodePtr node)
 
   if (id != NULL && text_size != -1 && column_size != -1) {
     info = g_new0(EmbedInfo,1);
-    info->id = CAST_BAD(id);
+    info->id = EscapeNodeName(CAST_BAD(id));
     info->type = EMBED_TYPE_TEXT;
     info->node = node;
     EmbedInfoAttr(info,Text,text_size) = text_size;
     EmbedInfoAttr(info,Text,column_size) = column_size;
   }
-  return info;
-}
-
-static EmbedInfo*
-GetEmbedInfoArray(xmlNodePtr node)
-{
-  EmbedInfo *info = NULL;
-  xmlChar *id;
-  int text_size,column_size, array_size;
-
-  if (node == NULL) {
-    return info;
-  }
-
-  id = GetAttributeString(node,BAD_CAST("embed_id"));
-  text_size = GetAttributeInt(node,BAD_CAST("embed_text_size"));
-  column_size = GetAttributeInt(node,BAD_CAST("embed_column_size"));
-  array_size = GetAttributeInt(node,BAD_CAST("embed_array_size"));
-
-  if (id != NULL && text_size != -1 && column_size != -1 && array_size != -1) {
-    info = g_new0(EmbedInfo,1);
-    info->id = CAST_BAD(id);
-    info->type = EMBED_TYPE_ARRAY;
-    info->node = node;
-    EmbedInfoAttr(info,Array,text_size) = text_size;
-    EmbedInfoAttr(info,Array,column_size) = column_size;
-    EmbedInfoAttr(info,Array,array_size) = array_size;
-  }
-
-  return info;
-}
-
-static EmbedInfo*
-GetEmbedInfoTable(xmlNodePtr node)
-{
-  EmbedInfo *info = NULL;
-  int i;
-  gchar **p;
-  xmlChar *id, *str;
-  int rows, cols;
-
-  if (node == NULL) {
-    return info;
-  }
-
-  id = GetAttributeString(node,BAD_CAST("embed_id"));
-  str = GetAttributeString(node,BAD_CAST("embed_text_sizes"));
-  rows = GetAttributeInt(node,BAD_CAST("grid_rows"));
-  cols = GetAttributeInt(node,BAD_CAST("grid_cols"));
-
-  if (id != NULL && str != NULL && rows != -1 && cols != -1) {
-    info = g_new0(EmbedInfo,1);
-    info->id = CAST_BAD(id);
-    info->type = EMBED_TYPE_TABLE;
-    info->node = node;
-    EmbedInfoAttr(info,Table,rows) = rows;
-    EmbedInfoAttr(info,Table,cols) = cols;
-    for(i=0;i<MAX_ROWS_COLS;i++) {
-      EmbedInfoAttr(info,Table,text_sizes[i]) = 256;
-    }
-
-    p = g_strsplit(CAST_BAD(str),",",MAX_ROWS_COLS);
-    i = 0;
-    while (*(p+i) != NULL) {
-      if (*(p+i) != NULL) {
-        EmbedInfoAttr(info,Table,text_sizes[i]) = atoi(*(p+i));
-      }
-      i++;
-    }
-    g_strfreev(p);
-  }
-
   return info;
 }
 
@@ -248,7 +189,7 @@ GetEmbedInfoImage(xmlNodePtr node)
 
   if (id != NULL && path_size != -1) {
     info = g_new0(EmbedInfo,1);
-    info->id = CAST_BAD(id);
+    info->id = EscapeNodeName(CAST_BAD(id));
     info->type = EMBED_TYPE_IMAGE;
     info->node = node;
     EmbedInfoAttr(info,Image,path_size) = path_size;
@@ -269,10 +210,6 @@ GetEmbedInfo(xmlNodePtr node)
   }
   if (!xmlStrcmp(type,BAD_CAST("Embed - Text"))) {
     info = GetEmbedInfoText(node);
-  } else if (!xmlStrcmp(type,BAD_CAST("Embed - Array"))) {
-    info = GetEmbedInfoArray(node);
-  } else if (!xmlStrcmp(type,BAD_CAST("Embed - Table"))) {
-    info = GetEmbedInfoTable(node);
   } else if (!xmlStrcmp(type,BAD_CAST("Embed - Image"))) {
     info = GetEmbedInfoImage(node);
   }

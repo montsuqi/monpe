@@ -27,8 +27,6 @@
 enum EmbedType
 {
   EMBED_TYPE_TEXT,
-  EMBED_TYPE_ARRAY,
-  EMBED_TYPE_TABLE,
   EMBED_TYPE_IMAGE
 };
 
@@ -42,16 +40,6 @@ typedef struct {
       int column_size;
     } Text;
     struct {
-      int text_size;
-      int column_size;
-      int array_size;
-    } Array;
-    struct {
-      int rows;
-      int cols;
-      int text_sizes[MAX_ROWS_COLS];
-    } Table;
-    struct {
       int path_size;
     } Image;
   } Data;  
@@ -59,6 +47,8 @@ typedef struct {
 
 #define EmbedInfoAttr(p,t,a) ((p)->Data.t.a)
 
+
+gchar* EscapeNodeName(gchar *_name);
 GPtrArray* GetEmbedInfoList(xmlDocPtr doc);
 xmlNodePtr FindNodeByTag(xmlNodePtr p,xmlChar *tag);
 xmlNodePtr GetChildByTag(xmlNodePtr node, xmlChar *tag);

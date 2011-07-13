@@ -145,174 +145,6 @@ embedImage(EmbedInfo *info,
 }
 
 static void
-setArrayContent(xmlNodePtr node,
-  int idx,
-  xmlChar *content)
-{
-  xmlNodePtr n1,n2,n3,n4;
-  xmlChar *name;
-  int i;
-
-  n1 = GetChildByTagAttr(node,
-    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("earray_texts"));
-  if (n1 == NULL) {
-    return;
-  }
-
-  i = 0;
-  n2 = n1->children;
-  while(n2 != NULL) {
-    if (n2->type == XML_ELEMENT_NODE && 
-      !xmlStrcmp(n2->name,BAD_CAST("composite"))) {
-      name = xmlGetProp(n2,BAD_CAST("type"));
-      if (name != NULL && !xmlStrcmp(name,BAD_CAST("text"))) {
-        if (i == idx) {
-          n3 = GetChildByTagAttr(n2,
-            BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("string"));
-          if (n3 == NULL) {
-            return;
-          }
-          n4 = GetChildByTag(n3, BAD_CAST("string"));
-          if (n4 == NULL) {
-            return ;
-          }
-          xmlNodeSetContent(n4,content);
-          return;
-        }
-        i++;
-      }
-    }
-    n2 = n2->next;
-  }
-}
-
-static void
-embedArray(EmbedInfo *info,
-  ValueStruct *array)
-{
-  gchar *content;
-  ValueStruct *value;
-  xmlNodePtr n1,n2;
-  int i,array_size;
-
-  if (array == NULL || ValueType(array) != GL_TYPE_ARRAY) {
-    g_warning("WARNING invalid value type(%d)",ValueType(array));
-    return;
-  }
-  if (EmbedInfoAttr(info,Array,array_size) > ValueArraySize(array)) {
-    array_size = ValueArraySize(array);
-  } else {
-    array_size = EmbedInfoAttr(info,Array,array_size);
-  }
-  for(i=0;i<array_size;i++) {
-    value = ValueArrayItem(array,i);
-    content = foldText(value,
-      EmbedInfoAttr(info,Array,text_size),
-      EmbedInfoAttr(info,Array,column_size));
-    if (content != NULL) {
-      setArrayContent(info->node,i,BAD_CAST(content));
-    }
-  }
-
-  n1 = GetChildByTagAttr(info->node,
-    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("sample"));
-  if (n1 != NULL) {
-    n2 = GetChildByTag(n1, BAD_CAST("string"));
-    if (n2 != NULL) {
-      xmlNodeSetContent(n2,BAD_CAST(g_strdup("##")));
-    }
-  }
-}
-
-static void
-setTableContent(xmlNodePtr node,
-  int idx,
-  xmlChar *content)
-{
-  xmlNodePtr n1,n2;
-  int i;
-
-  n1 = GetChildByTagAttr(node,
-    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("etable_texts"));
-  if (n1 == NULL) {
-    return;
-  }
-
-  i = 0;
-  n2 = n1->children;
-  while(n2 != NULL) {
-    if (n2->type == XML_ELEMENT_NODE && 
-      !xmlStrcmp(n2->name,BAD_CAST("string"))) {
-      if (i == idx) {
-        xmlNodeSetContent(n2,content);
-        return;
-      }
-      i++;
-    }
-    n2 = n2->next;
-  }
-}
-
-static void
-embedTable(EmbedInfo *info,
-  ValueStruct *value)
-{
-  gchar *content;
-  xmlNodePtr n1,n2;
-  int i,j,k;
-  ValueStruct *record,*str;
-
-  if (value == NULL || ValueType(value) != GL_TYPE_ARRAY) {
-    g_warning("WARNING invalid value type(%d)",ValueType(value));
-    return;
-  }
-  if (EmbedInfoAttr(info,Table,rows) != ValueArraySize(value)) {
-    g_warning("WARNING rows are not corresponding (%d,%d)",
-      EmbedInfoAttr(info,Table,rows),
-      ValueArraySize(value));
-    return;
-  }
-  k = 0;
-  for(i=0;i<ValueArraySize(value);i++) {
-    record = ValueArrayItem(value,i);
-    if (record == NULL || !IS_VALUE_RECORD(record)) {
-      g_warning("WARNING invalid value type(%d)",ValueType(record));
-      return;
-    }
-    if (EmbedInfoAttr(info,Table,cols) != ValueRecordSize(record)) {
-      g_warning("WARNING columns are not corresponding (%d,%d)",
-        EmbedInfoAttr(info,Table,rows),
-        ValueArraySize(value));
-      return;
-    }
-    for (j = 0; j < ValueRecordSize(record); j++) {
-      str = GetRecordItem(record,ValueRecordName(record,j));
-      if (str == NULL || !IS_VALUE_STRING(str)) {
-        g_warning("WARNING invalid value type(%d)",ValueType(str));
-        return;
-      }
-      content = foldText(str,
-        EmbedInfoAttr(info,Table,text_sizes[j]),
-        0);
-      if (content != NULL) {
-        setTableContent(info->node,k,BAD_CAST(content));
-      }
-      k++;
-    }
-  }
-
-  n1 = GetChildByTagAttr(info->node,
-    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("sample"));
-  if (n1 != NULL) {
-    n2 = GetChildByTag(n1, BAD_CAST("string"));
-    if (n2 != NULL) {
-      xmlNodeSetContent(n2,BAD_CAST(g_strdup("##")));
-    }
-  }
-
-}
-
-static void
 embed(GPtrArray *array,
   ValueStruct *data)
 {
@@ -322,7 +154,8 @@ embed(GPtrArray *array,
 
   for (i=0;i<array->len;i++) {
     info = (EmbedInfo*)g_ptr_array_index(array,i);
-    v = GetRecordItem(data,info->id);
+    v = GetItemLongName(data,info->id);
+fprintf(stderr,"%s %p\n",info->id,v);
     if (v == NULL) {
       continue;
     } else {
@@ -332,12 +165,6 @@ embed(GPtrArray *array,
         break;
       case EMBED_TYPE_IMAGE:
         embedImage(info,v);
-        break;
-      case EMBED_TYPE_ARRAY:
-        embedArray(info,v);
-        break;
-      case EMBED_TYPE_TABLE:
-        embedTable(info,v);
         break;
       }
     }
