@@ -495,7 +495,7 @@ image_create(Point *startpoint,
   } else {
     image->embed_id = get_default_embed_id("embed_image");
   }
-  image->embed_path_size = 1024;
+  image->embed_path_size = DNODE_IMAGE_PATH_SIZE;
 
   image_update_data(image);
   
@@ -722,7 +722,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   if (attr) {
     image->embed_path_size = data_int( attribute_first_data(attr) );
   } else {
-    image->embed_path_size = 1024;
+    image->embed_path_size = DNODE_IMAGE_PATH_SIZE;
   }
 
   element_init(elem, 8, NUM_CONNECTIONS);

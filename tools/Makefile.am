@@ -4,14 +4,16 @@ bin_PROGRAMS = \
 	red3conv
 
 base_sources =	\
-	red3parser.c	red3parser.h
+	red3lib.c	red3lib.h
 
 base_CFLAGS = \
 	-I$(top_srcdir)		\
+	-I$(top_srcdir)/lib	\
 	$(M3TOOLS_CFLAGS)
 
 base_LDADD = \
 	-lm					\
+	../lib/libdia.la	\
 	$(M3TOOLS_LIBS)
 
 red3rec_SOURCES = red3rec.c \

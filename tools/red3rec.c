@@ -11,20 +11,75 @@
 #include <stdlib.h>
 #include <glib.h>
 
-#include "red3parser.h"
+#include "dtree.h"
+#include "red3lib.h"
 
+static int multiplier = 3;
 static char *outfile = NULL;
 static gboolean use_as_byte = FALSE;
+
+static void
+fprintf_tab(FILE *fp,int l,char *format,...)
+{
+  int i;
+  va_list va;
+
+  for (i=0;i<l;i++) {
+    fprintf(fp,"  ");
+  }
+  va_start(va,format);
+  vfprintf(fp,format,va);
+  va_end(va);
+}
+
+static void
+print_rec(FILE *fp,int l,DicNode *node)
+{
+  DicNode *child;
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    fprintf_tab(fp,l,"%s {\n",node->name);
+    for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
+      print_rec(fp,l+1,child);
+    }
+    if (node->occurs > 1) {
+      fprintf_tab(fp,l,"}[%d];\n",node->occurs);
+    } else {
+      fprintf_tab(fp,l,"};\n");
+    }
+  } else if(node->type == DIC_NODE_TYPE_TEXT){
+    if (node->occurs > 1) {
+      fprintf_tab(fp,l,"%s varchar(%d)[%d];\n",
+        node->name,
+        node->length * multiplier,
+        node->occurs);
+    } else {
+      fprintf_tab(fp,l,"%s varchar(%d);\n",
+        node->name,
+        node->length * multiplier);
+    }
+  } else if(node->type == DIC_NODE_TYPE_IMAGE){
+    if (node->occurs > 1) {
+      fprintf_tab(fp,l,"%s varchar(%d)[%d];\n",
+        node->name,
+        DNODE_IMAGE_PATH_SIZE,
+        node->occurs);
+    } else {
+      fprintf_tab(fp,l,"%s varchar(%d);\n",
+        node->name,
+        DNODE_IMAGE_PATH_SIZE);
+    }
+  }
+}
 
 static void
 red3rec(char *infile)
 {
   xmlDocPtr doc;
-  GPtrArray *array;
-  EmbedInfo *info;
+  xmlNodePtr dict;
+  DicNode *dtree;
+  DicNode *child;
+
   FILE *fp = NULL;
-  int i,j;
-  int multiplier = 3;
 
   if (use_as_byte) {
     multiplier = 1;
@@ -38,12 +93,14 @@ red3rec(char *infile)
     fprintf(stderr, "Error: unable to parse file \"%s\"\n", infile);
     return;
   }
-  array = GetEmbedInfoList(doc);
-
-  if (array->len <= 0) {
-    fprintf(stderr,"no embed object\n");
+  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
+    BAD_CAST(MONPE_XML_DICTIONARY));
+  if (dict == NULL) {
+    fprintf(stderr,"no dictionary data\n");
     exit(1);
   }
+  dtree = dtree_new();
+  dtree_new_from_xml(&dtree,dict);
 
   if (outfile != NULL) {
     fp = fopen(outfile,"w");
@@ -53,31 +110,8 @@ red3rec(char *infile)
   } 
 
   fprintf(fp,"rec {\n");
-  for(i=0;i<array->len;i++) {
-    info = (EmbedInfo*)g_ptr_array_index(array,i);
-    switch(info->type) {
-    case EMBED_TYPE_TEXT:
-      fprintf(fp,"  %s varchar(%d);\n",
-        info->id,EmbedInfoAttr(info,Text,text_size)*multiplier);
-      break;
-    case EMBED_TYPE_ARRAY:
-      fprintf(fp,"  %s varchar(%d)[%d];\n",
-        info->id,EmbedInfoAttr(info,Array,text_size)*multiplier,
-        EmbedInfoAttr(info,Array,array_size));
-      break;
-    case EMBED_TYPE_TABLE:
-      fprintf(fp,"  %s {\n", info->id);
-      for (j = 0; j < EmbedInfoAttr(info,Table,cols);j++) {
-        fprintf(fp,"    col%d varchar(%d);\n",
-          j+1,EmbedInfoAttr(info,Table,text_sizes[j])*multiplier);
-      }
-      fprintf(fp,"  }[%d];\n",EmbedInfoAttr(info,Table,rows));
-      break;
-    case EMBED_TYPE_IMAGE:
-      fprintf(fp,"  %s varchar(%d);\n",
-        info->id,EmbedInfoAttr(info,Image,path_size));
-      break;
-    }
+  for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
+    print_rec(fp,1,child);
   }
   fprintf(fp,"};\n");
 

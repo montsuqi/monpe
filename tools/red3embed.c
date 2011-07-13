@@ -13,7 +13,7 @@
 #include <libmondai.h>
 #include <RecParser.h>
 
-#include "red3parser.h"
+#include "red3lib.h"
 
 static char *outfile = NULL;
 

@@ -4,6 +4,21 @@
 #include <glib.h> 
 #include <libxml/tree.h>
 
+#define MONPE_XML_DICTIONARY "dictionarydata"
+
+#define MONPE_XML_DIC_ELEMENT        "element"
+#define MONPE_XML_DIC_ELEMENT_NAME   "name"
+#define MONPE_XML_DIC_ELEMENT_OCCURS "occurs"
+
+#define MONPE_XML_DIC_APPINFO            "appinfo"
+
+#define MONPE_XML_DIC_EMBED              "embed"
+#define MONPE_XML_DIC_EMBED_OBJ          "object"
+#define MONPE_XML_DIC_EMBED_OBJ_TXT      "text"
+#define MONPE_XML_DIC_EMBED_OBJ_STR      "string"
+#define MONPE_XML_DIC_EMBED_OBJ_TXT_LEN  "length"
+#define MONPE_XML_DIC_EMBED_OBJ_IMG      "image"
+
 typedef struct _DicNode DicNode;
 typedef DicNode DicTree;
 
@@ -38,6 +53,7 @@ struct _DicNode
 #define DNODE_DEFAULT_NODE_OCCURS 10
 #define DNODE_DEFAULT_OCCURS 1
 #define DNODE_DEFAULT_LENGTH 10
+#define DNODE_IMAGE_PATH_SIZE 1024
 
 #define DNODE_MAX_DEPTH 100
 

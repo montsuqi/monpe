@@ -3,8 +3,8 @@
  *
  */
 
-#ifndef	_INC_RED3PARSER_H
-#define	_INC_RED3PARSER_H
+#ifndef	_INC_RED3LIB_H
+#define	_INC_RED3LIB_H
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -60,6 +60,7 @@ typedef struct {
 #define EmbedInfoAttr(p,t,a) ((p)->Data.t.a)
 
 GPtrArray* GetEmbedInfoList(xmlDocPtr doc);
+xmlNodePtr FindNodeByTag(xmlNodePtr p,xmlChar *tag);
 xmlNodePtr GetChildByTag(xmlNodePtr node, xmlChar *tag);
 xmlNodePtr GetChildByTagAttr(xmlNodePtr node, xmlChar *tag, 
   xmlChar *attr, xmlChar *val);

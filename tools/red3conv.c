@@ -19,7 +19,7 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 
-#include "red3parser.h"
+#include "red3lib.h"
 
 #define RED_IMAGE_PATH_SIZE 1024
 

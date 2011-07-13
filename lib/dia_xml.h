@@ -39,21 +39,6 @@
 
 #define DIA_XML_NAME_SPACE_BASE "http://www.lysator.liu.se/~alla/dia/"
 
-#define MONPE_XML_DICTIONARY "dictionarydata"
-
-#define MONPE_XML_DIC_ELEMENT        "element"
-#define MONPE_XML_DIC_ELEMENT_NAME   "name"
-#define MONPE_XML_DIC_ELEMENT_OCCURS "occurs"
-
-#define MONPE_XML_DIC_APPINFO            "appinfo"
-
-#define MONPE_XML_DIC_EMBED              "embed"
-#define MONPE_XML_DIC_EMBED_OBJ          "object"
-#define MONPE_XML_DIC_EMBED_OBJ_TXT      "text"
-#define MONPE_XML_DIC_EMBED_OBJ_STR      "string"
-#define MONPE_XML_DIC_EMBED_OBJ_TXT_LEN  "length"
-#define MONPE_XML_DIC_EMBED_OBJ_IMG      "image"
-
 DIAVAR int pretty_formated_xml;
 
 typedef xmlNodePtr XML_NODE;

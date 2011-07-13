@@ -12,7 +12,15 @@
 #include <string.h>
 #include <assert.h>
 
-#include "red3parser.h"
+#include "red3lib.h"
+
+xmlNodePtr
+FindNodeByTag (xmlNodePtr p, xmlChar *name)
+{
+  while (p && 0 != xmlStrcmp(p->name, name))
+    p = p->next;
+  return p;
+}
 
 xmlNodePtr
 GetChildByTag(xmlNodePtr node,
