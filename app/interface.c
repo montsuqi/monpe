@@ -1715,11 +1715,11 @@ create_integrated_ui (void)
   GtkWidget *layer_view;
 	
 #ifdef GNOME
-  window = gnome_app_new ("Dia", _("Diagram Editor"));
+  window = gnome_app_new ("Monpe", _("Diagram Editor"));
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_ref (window);
-  gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
+  gtk_window_set_title (GTK_WINDOW (window), "Monpe v" VERSION);
 #endif
 
   /* hint to window manager on X so the wm can put the window in the same  
@@ -1846,7 +1846,7 @@ create_toolbox ()
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_ref (window);
-  gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
+  gtk_window_set_title (GTK_WINDOW (window), "Monpe v" VERSION);
 #endif
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);

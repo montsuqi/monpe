@@ -740,16 +740,20 @@ help_about_callback (GtkAction *action)
 
   gtk_about_dialog_set_url_hook (activate_url, NULL, NULL);
   gtk_show_about_dialog (NULL,
+#if 0
 	"logo", logo,
-        "name", "Dia",
+#endif
+        "name", "Monpe",
 	"version", VERSION,
-	"comments", _("A program for drawing structured diagrams."),
-	"copyright", "(C) 1998-2009 The Free Software Foundation and the authors",
-	"website", "http://live.gnome.org/Dia",
+	"comments", _("MONTSUQI Printing Environment"),
+	"copyright", "(C) http://www.montsuqi.org",
+	"website", "http://www.montsuqi.org",
+#if 0
 	"authors", authors,
 	"documenters", documentors,
 	"translator-credits", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
 			? translators : NULL,
+#endif
 	"license", license,
 	NULL);
   g_free (dirname);

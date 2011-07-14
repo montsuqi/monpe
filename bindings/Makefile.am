@@ -51,7 +51,7 @@ _dia_la_SOURCES = \
 _dia_la_CPPFLAGS = $(PYTHON_INCLUDES) -I$(top_srcdir)/lib
 _dia_la_LDFLAGS = -module -avoid-version -export-symbols-regex init_dia
 ## must link ../lib/libdia.la but don't know how;(
-_dia_la_LIBADD = $(PYTHON_LIBS) $(GTK_LIBS) $(top_builddir)/lib/libdia.la
+_dia_la_LIBADD = $(PYTHON_LIBS) $(GTK_LIBS) $(top_builddir)/lib/libmonpe.la
 
 # trial and error adaption from pygimp;)
 #_diadir = $(libdir)/lib

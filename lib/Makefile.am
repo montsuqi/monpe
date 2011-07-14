@@ -29,7 +29,7 @@ stdprop_files = \
 	propdialogs.c  \
 	propregistry.c 
 
-pkglib_LTLIBRARIES =     libdia.la
+pkglib_LTLIBRARIES =     libmonpe.la
 
 ICON_PNG_PAIRS= \
 	dia_broken_icon $(srcdir)/pixmaps/broken.png \
@@ -43,7 +43,7 @@ dia-lib-icons.h:
 
 BUILT_SOURCES = dia-lib-icons.h diamarshal.h diamarshal.c
 
-libdia_la_SOURCES =  \
+libmonpe_la_SOURCES =  \
 		diatypes.h \
 		diavar.h \
 		diamenu.h \
@@ -180,8 +180,8 @@ libdia_la_SOURCES =  \
 #		render.h \
 #		render.c 
 
-libdia_la_LDFLAGS = -avoid-version --export-dynamic
-libdia_la_LIBADD = $(GTK_LIBS)
+libmonpe_la_LDFLAGS = -avoid-version --export-dynamic
+libmonpe_la_LIBADD = $(GTK_LIBS)
 
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
@@ -195,7 +195,7 @@ INCLUDES = -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   -DDIA_SHEETDIR=\"$(sheetdir)\" \
   $(PANGOFT2_CFLAGS) $(LIBART_CFLAGS) $(UNICODE_CFLAGS)
 
-libdia_la_extra_sources = diamarshal.list
+libmonpe_la_extra_sources = diamarshal.list
 
 #
 # rules to generate built sources

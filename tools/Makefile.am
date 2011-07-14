@@ -13,7 +13,7 @@ base_CFLAGS = \
 
 base_LDADD = \
 	-lm					\
-	../lib/libdia.la	\
+	../lib/libmonpe.la	\
 	$(M3TOOLS_LIBS)
 
 red3rec_SOURCES = red3rec.c \

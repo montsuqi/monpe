@@ -18,7 +18,7 @@ check-local: test
 INCLUDES = -g -I$(top_srcdir) -I$(top_srcdir)/lib $(GTK_CFLAGS)
 
 noinst_PROGRAMS = $(TEST_PROGS)
-progs_ldadd = $(top_builddir)/lib/libdia.la $(GTK_LIBS)
+progs_ldadd = $(top_builddir)/lib/libmonpe.la $(GTK_LIBS)
 
 
 

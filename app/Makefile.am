@@ -30,7 +30,7 @@ dia_embedd =
 dia_oafinfo =
 endif
 
-bin_PROGRAMS = dia $(dia_embedd)
+bin_PROGRAMS = monpe $(dia_embedd)
 
 ICON_PNG_PAIRS= \
 	dia_connectable_icon $(srcdir)/pixmaps/connectable.png \
@@ -212,13 +212,13 @@ dia_core_files = \
 	dic_dialog.c \
 	dic_dialog.h
 
-dia_SOURCES = \
+monpe_SOURCES = \
 	$(dia_core_files) \
 	main.c 
 
 EFENCE =
 
-dia_LDADD = ../lib/libdia.la \
+monpe_LDADD = ../lib/libmonpe.la \
 	$(EFENCE) \
 	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS) $(XML_LIBS) $(LIBART_LIBS) $(GLIB_LIBS)
 
@@ -229,14 +229,14 @@ dia_embedd_SOURCES = \
 	$(dia_core_files) \
 	dia_embedd.c
 
-dia_embedd_LDADD = ../lib/libdia.la \
+dia_embedd_LDADD = ../lib/libmonpe.la \
 	$(EFENCE) \
 	$(APP_LIBS) $(PNG_LIBS) $(GTK_LIBS) $(INTLLIBS) 
 #$(BONOBO_LIBS)
 
 if HAVE_GCC
 # OS X would like += rather than =, but Linux automake no like that.  Grrr.
-dia_LDFLAGS = -export-dynamic
+monpe_LDFLAGS = -export-dynamic
 endif
 
 EXTRA_DIST = \

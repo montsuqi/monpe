@@ -39,7 +39,7 @@ libuml_objects_la_SOURCES = \
 			umlformalparameter.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
-libuml_objects_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libdia.la
+libuml_objects_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libmonpe.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)

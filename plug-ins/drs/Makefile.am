@@ -14,7 +14,7 @@ EXTRA_DIST = \
 libdrs_filter_la_SOURCES = $(plugin_sources)
 
 libdrs_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
-libdrs_filter_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libdia.la
+libdrs_filter_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libmonpe.la
 
 INCLUDES = -I$(srcdir)/../../lib $(GTK_CFLAGS) $(DEBUG_FLAGS)
 

@@ -894,8 +894,10 @@ app_init (int argc, char **argv)
   if (dia_is_interactive) {
     create_user_dirs();
 
+#if 0
     if (!nosplash)
       app_splash_init("");
+#endif
 
     /* Init cursors: */
     default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
@@ -1102,10 +1104,10 @@ app_exit(void)
 	       _("Quitting without saving modified diagrams"));
     gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
 		 _("Modified diagrams exist. "
-		 "Are you sure you want to quit Dia "
+		 "Are you sure you want to quit Monpe "
  		 "without saving them?"));
 
-    gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
+    gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Monpe"));
   
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
     gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
