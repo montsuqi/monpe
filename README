@@ -1,3 +1,11 @@
+Monpe
+=====
+
+MONPEはDiaをベースとして埋め込み機能を追加した帳票印刷システムです。
+
+Original Dia README
+-------------------
+
 Dia is a program for drawing structured diagrams.
 
 Dia is a GNU program, and is Free Software.  See the COPYING file for
