@@ -155,7 +155,6 @@ embed(GPtrArray *array,
   for (i=0;i<array->len;i++) {
     info = (EmbedInfo*)g_ptr_array_index(array,i);
     v = GetItemLongName(data,info->id);
-fprintf(stderr,"%s %p\n",info->id,v);
     if (v == NULL) {
       continue;
     } else {
