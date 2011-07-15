@@ -1034,7 +1034,7 @@ diagram_data_save(DiagramData *data, const char *user_filename)
     g_free(dirname);
     dirname = g_strdup("." G_DIR_SEPARATOR_S);
   }
-  tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
+  tmpname = g_strconcat(dirname,"__monpeXXXXXX",NULL);
   bakname = g_strconcat(filename,"~",NULL);
 
 #if GLIB_CHECK_VERSION(2,8,0) && !defined G_OS_WIN32
@@ -1174,14 +1174,14 @@ export_native(DiagramData *data, const gchar *filename,
   diagram_data_save(data, filename);
 }
 
-static const gchar *extensions[] = { "dia", NULL };
+static const gchar *extensions[] = { "red2", NULL };
 DiaExportFilter dia_export_filter = {
-  N_("Dia Diagram File"),
+  N_("Monpe Diagram File"),
   extensions,
   export_native
 };
 DiaImportFilter dia_import_filter = {
-  N_("Dia Diagram File"),
+  N_("Monpe Diagram File"),
   extensions,
   diagram_data_load
 };
