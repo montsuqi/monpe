@@ -87,7 +87,7 @@ begin_render(DiaRenderer *self)
     g_assert (renderer->cr);
 
   cairo_scale (renderer->cr, renderer->scale, renderer->scale);
-  cairo_translate (renderer->cr, -renderer->dia->extents.left, -renderer->dia->extents.top);
+  cairo_translate (renderer->cr, renderer->dia->extents.left, renderer->dia->extents.top);
 
   /* clear background */
   if (renderer->with_alpha)

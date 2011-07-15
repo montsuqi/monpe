@@ -113,31 +113,14 @@ draw_page (GtkPrintOperation *operation,
   if (data->paper.fitto) {
     x = page_nr % data->paper.fitwidth;
     y = page_nr / data->paper.fitwidth;
-    
-/* prevent top and left margin is removed */
-#if 0
-    bounds.left = dp_width * x + data->extents.left;
-    bounds.top = dp_height * y + data->extents.top;
-#else
-    bounds.left = dp_width * x ;
-    bounds.top = dp_height * y ;
-#endif
-    bounds.right = bounds.left + dp_width;
-    bounds.bottom = bounds.top + dp_height;
   } else {
     int nx = ceil((data->extents.right - data->extents.left) / dp_width);
     x = page_nr % nx;
     y = page_nr / nx; 
   }
 
-/* prevent top and left margin is removed */
-#if 0
-  bounds.left = dp_width * x + data->extents.left;
-  bounds.top = dp_height * y + data->extents.top;
-#else
-  bounds.left = dp_width * x;
-  bounds.top = dp_height * y;
-#endif
+  bounds.left = dp_width * x + data->x_offset;
+  bounds.top = dp_height * y + data->y_offset;
   bounds.right = bounds.left + dp_width;
   bounds.bottom = bounds.top + dp_height;
 
@@ -171,7 +154,7 @@ draw_page (GtkPrintOperation *operation,
 
   {
     Rectangle extents = data->extents;
-
+    
     data->extents = bounds;
     /* render only the region, FIXME: better way than modifying DiagramData ?  */
     data_render(data, print_data->renderer, &bounds, NULL, NULL);

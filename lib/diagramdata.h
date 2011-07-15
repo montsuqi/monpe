@@ -84,6 +84,8 @@ struct _DiagramData {
    *  Updated by focus.c */
   Focus *active_text_edit;
   DicTree *dtree;
+  gfloat x_offset;
+  gfloat y_offset;
 };
 
 /**

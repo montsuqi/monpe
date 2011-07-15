@@ -80,6 +80,9 @@
 #include "dialib.h"
 #include "diaerror.h"
 
+static double x_offset = 0.0;
+static double y_offset = 0.0;
+
 static gboolean
 handle_initial_diagram(const char *input_file_name, 
 		       const char *export_file_name,
@@ -364,6 +367,9 @@ do_convert(const char *infname,
 
   /* recalculate before export */
   data_update_extents(diagdata);
+
+  diagdata->x_offset = (gfloat)x_offset;
+  diagdata->y_offset = (gfloat)y_offset;
 
   /* Do our best in providing the size to the filter, but don't abuse user_data 
    * too much for it. It _must not_ be changed after initialization and there 
@@ -732,12 +738,18 @@ app_init (int argc, char **argv)
      N_("Directory containing input files"), N_("DIRECTORY")},
     {"output-directory", 'O', 0, G_OPTION_ARG_CALLBACK, _check_option_output_directory,
      N_("Directory containing output files"), N_("DIRECTORY")},
+#if 0
     {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
      N_("Display credits list and exit"), NULL },
+#endif
     {"verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
      N_("Generate verbose output"), NULL },
     {"version", 'v', 0, G_OPTION_ARG_NONE, &version,
      N_("Display version and exit"), NULL },
+    {"x-offset", 'x', 0, G_OPTION_ARG_DOUBLE, &x_offset,
+     N_("The x cordinate to paper offset[cm]"), NULL },
+    {"y-offset", 'y', 0, G_OPTION_ARG_DOUBLE, &y_offset,
+     N_("The y cordinate to paper offset[cm]"), NULL },
     { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, NULL /* &filenames */,
       NULL, NULL },
     { NULL }
@@ -751,8 +763,8 @@ app_init (int argc, char **argv)
   options[1].description = export_format_string;
   options[2].arg_data = &size;
   options[3].arg_data = &show_layers;
-  g_assert (strcmp (options[13].long_name, G_OPTION_REMAINING) == 0);
-  options[13].arg_data = (void*)&filenames;
+  g_assert (strcmp (options[14].long_name, G_OPTION_REMAINING) == 0);
+  options[14].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
