@@ -22,6 +22,7 @@ app/filedlg.c
 app/find-and-replace.c
 app/interface.c
 app/layer_dialog.c
+app/dic_dialog.c
 app/linewidth_area.c
 app/load_save.c
 app/menus.c
@@ -65,6 +66,7 @@ lib/proplist.c
 lib/sheet.c
 lib/text.c
 lib/widgets.c
+lib/dtree.c
 installer/win32/gennsh.c
 objects/AADL/aadl.c
 objects/AADL/aadlbox.c

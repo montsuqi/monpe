@@ -7,246 +7,255 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
-"POT-Creation-Date: 2009-05-27 07:33+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-15 16:38+0900\n"
 "PO-Revision-Date: 2009-06-03 18:52+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:214
+#: ../app/app_procs.c:213
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "ଚେତାବନୀ: ଅବୈଧ ସ୍ତର ପରିସର %lu - %lu\n"
 
-#: ../app/app_procs.c:226
+#: ../app/app_procs.c:225
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr ""
 
-#: ../app/app_procs.c:252
+#: ../app/app_procs.c:251
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr ""
 
-#: ../app/app_procs.c:261
+#: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:343
+#: ../app/app_procs.c:342
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:352
+#: ../app/app_procs.c:351
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
 
-#: ../app/app_procs.c:360
+#: ../app/app_procs.c:359
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr ""
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:390
 #, c-format
 msgid "%s --> %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:560
+#: ../app/app_procs.c:565
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr ""
 
+#: ../app/app_procs.c:636
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr ""
+
+#: ../app/app_procs.c:653
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr ""
+
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:638
+#: ../app/app_procs.c:703
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr ""
 
 #. &export_file_name
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:721
 msgid "Export loaded file and exit"
 msgstr ""
 
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:721
 msgid "OUTPUT"
 msgstr ""
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:723
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:725
 msgid "Export graphics size"
 msgstr ""
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:725
 msgid "WxH"
 msgstr "WxH"
 
-#: ../app/app_procs.c:662
+#: ../app/app_procs.c:727
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: ../app/app_procs.c:663
+#: ../app/app_procs.c:728
 msgid "LAYER,LAYER,..."
 msgstr "LAYER,LAYER,..."
 
-#: ../app/app_procs.c:665
+#: ../app/app_procs.c:730
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: ../app/app_procs.c:667
+#: ../app/app_procs.c:732
 msgid "Don't create empty diagram"
 msgstr ""
 
-#: ../app/app_procs.c:669
+#: ../app/app_procs.c:734
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr ""
 
-#: ../app/app_procs.c:671
+#: ../app/app_procs.c:736
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 
-#. &input_directory
-#: ../app/app_procs.c:673
+#: ../app/app_procs.c:738
 msgid "Directory containing input files"
 msgstr ""
 
-#: ../app/app_procs.c:673 ../app/app_procs.c:675
+#: ../app/app_procs.c:738 ../app/app_procs.c:740
 msgid "DIRECTORY"
 msgstr "ଡିରେକ୍ଟୋରି"
 
-#. &output_directory
-#: ../app/app_procs.c:675
+#: ../app/app_procs.c:740
 msgid "Directory containing output files"
 msgstr ""
 
-#: ../app/app_procs.c:677
+#: ../app/app_procs.c:743
 msgid "Display credits list and exit"
 msgstr ""
 
-#: ../app/app_procs.c:679
+#: ../app/app_procs.c:746
 msgid "Generate verbose output"
 msgstr ""
 
-#: ../app/app_procs.c:681
+#: ../app/app_procs.c:748
 msgid "Display version and exit"
 msgstr ""
 
-#: ../app/app_procs.c:738
+#: ../app/app_procs.c:750
+msgid "The x cordinate to paper offset[cm]"
+msgstr ""
+
+#: ../app/app_procs.c:752
+msgid "The y cordinate to paper offset[cm]"
+msgstr ""
+
+#: ../app/app_procs.c:775
+msgid "[FILE...]"
+msgstr "[ଫାଇଲ ...]"
+
+#: ../app/app_procs.c:787
+#, c-format
+msgid "Invalid option?"
+msgstr ""
+
+#: ../app/app_procs.c:810
+#, c-format
+msgid "Filename conversion failed: %s\n"
+msgstr ""
+
+#: ../app/app_procs.c:823
+#, c-format
+msgid "Missing input: %s\n"
+msgstr ""
+
+#: ../app/app_procs.c:848
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:778
+#: ../app/app_procs.c:888
 #, c-format
-msgid "Dia version %s, compiled %s %s\n"
+msgid "Monpe version %s, compiled %s %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:780
+#: ../app/app_procs.c:890
 #, c-format
-msgid "Dia version %s\n"
+msgid "Monpe version %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:818
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+#: ../app/app_procs.c:930
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 
-#: ../app/app_procs.c:820
+#: ../app/app_procs.c:932
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
 
-#: ../app/app_procs.c:886
-msgid "Diagram1.dia"
-msgstr ""
-
-#: ../app/app_procs.c:930
+#: ../app/app_procs.c:1037
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 
-#: ../app/app_procs.c:945
+#: ../app/app_procs.c:1052
 msgid "Exiting Dia"
 msgstr ""
 
 #. no standard buttons
-#: ../app/app_procs.c:1009
+#: ../app/app_procs.c:1116
 msgid "Quitting without saving modified diagrams"
 msgstr ""
 
-#: ../app/app_procs.c:1011
+#: ../app/app_procs.c:1118
 msgid ""
-"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"Modified diagrams exist. Are you sure you want to quit Monpe without saving "
 "them?"
 msgstr ""
 
-#: ../app/app_procs.c:1015
-msgid "Quit Dia"
+#: ../app/app_procs.c:1122
+msgid "Quit Monpe"
 msgstr ""
 
-#: ../app/app_procs.c:1084 ../app/app_procs.c:1091
+#: ../app/app_procs.c:1191 ../app/app_procs.c:1198
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: ../app/app_procs.c:1094
+#: ../app/app_procs.c:1201
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: ../app/app_procs.c:1117
+#: ../app/app_procs.c:1224
 msgid "Objects and filters internal to dia"
 msgstr ""
 
-#: ../app/app_procs.c:1150
-msgid "[FILE...]"
-msgstr "[ଫାଇଲ ...]"
-
-#: ../app/app_procs.c:1170
-#, c-format
-msgid "Input-directory '%s' must exist!\n"
-msgstr ""
-
-#: ../app/app_procs.c:1175
-#, c-format
-msgid "Output-directory '%s' must exist!\n"
-msgstr ""
-
-#: ../app/app_procs.c:1181
-#, c-format
-msgid "'%s' not found!\n"
-msgstr ""
-
-#: ../app/app_procs.c:1189
-#, c-format
-msgid "'%s' not found in '%s'!\n"
-msgstr ""
-
-#: ../app/app_procs.c:1238
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1243
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -254,7 +263,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1248
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -262,7 +271,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1253
+#: ../app/app_procs.c:1295
 #, c-format
 msgid ""
 "\n"
@@ -288,35 +297,30 @@ msgstr ""
 msgid "Select background color"
 msgstr ""
 
-#: ../app/commands.c:130
+#: ../app/commands.c:131
 msgid "No print plug-in found!"
 msgstr ""
 
-#: ../app/commands.c:150
-#, c-format
-msgid "Diagram%d.dia"
-msgstr ""
-
-#: ../app/commands.c:343
+#: ../app/commands.c:344
 msgid "No existing object to paste.\n"
 msgstr ""
 
-#: ../app/commands.c:646 ../app/commands.c:684
+#: ../app/commands.c:647 ../app/commands.c:685
 msgid "Could not find help directory"
 msgstr ""
 
-#: ../app/commands.c:653
+#: ../app/commands.c:654
 #, c-format
 msgid ""
 "Could not open help directory:\n"
 "%s"
 msgstr ""
 
-#: ../app/commands.c:720
+#: ../app/commands.c:721
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: ../app/commands.c:722
+#: ../app/commands.c:723
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -333,8 +337,8 @@ msgid ""
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: ../app/commands.c:745
-msgid "A program for drawing structured diagrams."
+#: ../app/commands.c:748
+msgid "MONTSUQI Printing Environment"
 msgstr ""
 
 #: ../app/confirm.c:69
@@ -349,7 +353,8 @@ msgstr ""
 
 #: ../app/confirm.c:73
 #, c-format
-msgid "You are about to export a diagram which may require %s of memory.(%d pages)."
+msgid ""
+"You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr ""
 
 #: ../app/confirm.c:81
@@ -460,20 +465,20 @@ msgstr "Y ସ୍ଥିତି"
 msgid "Y position of child widget"
 msgstr ""
 
-#: ../app/diagram.c:222
+#: ../app/diagram.c:223
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr ""
 
-#: ../app/diagram.c:225 ../lib/message.c:90 ../lib/message.c:293
+#: ../app/diagram.c:226 ../lib/message.c:90 ../lib/message.c:293
 msgid "Error"
 msgstr "ତ୍ରୁଟି"
 
-#: ../app/diagram.c:1209
+#: ../app/diagram.c:1212
 msgid "Trying to group with no selected objects."
 msgstr ""
 
-#: ../app/diagram.c:1219
+#: ../app/diagram.c:1222
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -630,7 +635,12 @@ msgstr ""
 msgid "Properties..."
 msgstr "ବିଶେଷତାଗୁଡିକ..."
 
-#: ../app/disp_callbacks.c:1067
+#: ../app/disp_callbacks.c:248
+#, fuzzy
+msgid "Selection"
+msgstr "କାହାକୁ ମଧ୍ଯ ଚୟନ କରନ୍ତୁ ନାହିଁ"
+
+#: ../app/disp_callbacks.c:1072
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -701,12 +711,13 @@ msgid "Save"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:123 ../app/plugin-manager.c:262
-#: ../objects/Database/table.c:138 ../objects/Database/table.c:181
-#: ../objects/SISSI/sissi_dialog.c:734 ../objects/UML/association.c:234
-#: ../objects/UML/class.c:144 ../objects/UML/large_package.c:139
-#: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
-#: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
+#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1031
+#: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
+#: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
+#: ../objects/UML/association.c:234 ../objects/UML/class.c:144
+#: ../objects/UML/large_package.c:139 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
+#: ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "ନାମ"
 
@@ -726,44 +737,44 @@ msgstr "କାହାକୁ ମଧ୍ଯ ଚୟନ କରନ୍ତୁ ନାହ�
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr ""
 
-#: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:746 ../lib/widgets.c:1488
+#: ../app/filedlg.c:145 ../app/filedlg.c:153 ../app/filedlg.c:169
+#: ../app/filedlg.c:748 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr ""
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:604
+#: ../app/filedlg.c:193 ../app/filedlg.c:606
 msgid "By extension"
 msgstr "ଅନୁଲଗ୍ନ ଦ୍ୱାରା"
 
-#: ../app/filedlg.c:281
+#: ../app/filedlg.c:283
 msgid "Open Diagram"
 msgstr ""
 
-#: ../app/filedlg.c:309
+#: ../app/filedlg.c:311
 msgid "Open Options"
 msgstr ""
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:728
+#: ../app/filedlg.c:319 ../app/filedlg.c:730
 msgid "Determine file type:"
 msgstr ""
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
+#: ../app/filedlg.c:339 ../app/filedlg.c:743 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "ସମସ୍ତ ଫାଇଲ"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:372 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:651
+#: ../app/filedlg.c:382 ../app/filedlg.c:653
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "ଫାଇଲ ପୂର୍ବରୁ ରହିଛି"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../app/filedlg.c:384 ../app/filedlg.c:655
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -771,34 +782,34 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:438
 msgid "Save Diagram"
 msgstr ""
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:447
+#: ../app/filedlg.c:449
 msgid "Compress diagram files"
 msgstr ""
 
-#: ../app/filedlg.c:457 ../app/filedlg.c:462
+#: ../app/filedlg.c:459 ../app/filedlg.c:464
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 
-#: ../app/filedlg.c:677
+#: ../app/filedlg.c:679
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
 
-#: ../app/filedlg.c:704
+#: ../app/filedlg.c:706
 msgid "Export Diagram"
 msgstr ""
 
-#: ../app/filedlg.c:720
+#: ../app/filedlg.c:722
 msgid "Export Options"
 msgstr ""
 
@@ -826,7 +837,7 @@ msgstr ""
 msgid "Find"
 msgstr "ଖୋଜନ୍ତୁ"
 
-#: ../app/find-and-replace.c:542 ../app/menus.c:267
+#: ../app/find-and-replace.c:542 ../app/menus.c:268
 msgid "Replace"
 msgstr "ବଦଳାନ୍ତୁ"
 
@@ -841,151 +852,157 @@ msgstr "ସବୁ ବଦଳାନ୍ତୁ (_A)"
 msgid "_Replace"
 msgstr "ବଦଳାନ୍ତୁ (_R)"
 
-#: ../app/interface.c:153
+#: ../app/interface.c:157
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
 
-#: ../app/interface.c:159
+#: ../app/interface.c:163
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:165 ../app/menus.c:229 ../objects/FS/function.c:988
+#: ../app/interface.c:169 ../app/menus.c:230 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "ବଡଆକାରକର"
 
-#: ../app/interface.c:171
+#: ../app/interface.c:175
 msgid "Scroll around the diagram"
 msgstr ""
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:177 ../app/menus.c:232 ../lib/properties.c:80
-#: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:153
-#: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
-#: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
-#: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:161
-#: ../objects/UML/node.c:130 ../objects/UML/node.c:132
-#: ../objects/UML/note.c:124 ../objects/UML/object.c:151
-#: ../objects/UML/small_package.c:135 ../objects/UML/state.c:154
-#: ../objects/UML/usecase.c:142 ../objects/custom/custom_object.c:236
-#: ../objects/network/basestation.c:135 ../objects/network/radiocell.c:127
+#: ../app/interface.c:181 ../app/dic_dialog.c:899 ../app/menus.c:233
+#: ../lib/properties.c:80 ../lib/properties.h:530
+#: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
+#: ../objects/UML/classicon.c:149 ../objects/UML/component.c:130
+#: ../objects/UML/component_feature.c:161 ../objects/UML/node.c:130
+#: ../objects/UML/node.c:132 ../objects/UML/note.c:124
+#: ../objects/UML/object.c:151 ../objects/UML/small_package.c:135
+#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:142
+#: ../objects/custom/custom_object.c:236 ../objects/network/basestation.c:135
+#: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "ପାଠ୍ୟ"
 
-#: ../app/interface.c:183 ../app/menus.c:233
+#: ../app/interface.c:187
+#, fuzzy
+msgid "TextCircle"
+msgstr "ବୃତ୍ତ"
+
+#: ../app/interface.c:193 ../app/menus.c:234
 msgid "Box"
 msgstr "ବାକ୍ସ"
 
-#: ../app/interface.c:189 ../app/menus.c:234
+#: ../app/interface.c:199 ../app/menus.c:235
 msgid "Ellipse"
 msgstr "ବୃତ୍ତାଭାସ"
 
-#: ../app/interface.c:195 ../app/menus.c:235
+#: ../app/interface.c:205 ../app/menus.c:236
 msgid "Polygon"
 msgstr "ବହୁଭୂଜ"
 
-#: ../app/interface.c:201 ../app/menus.c:236
+#: ../app/interface.c:211 ../app/menus.c:237
 msgid "Beziergon"
 msgstr ""
 
-#: ../app/interface.c:207 ../app/menus.c:238 ../objects/standard/line.c:229
+#: ../app/interface.c:217 ../app/menus.c:239 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "ରେଖା"
 
-#: ../app/interface.c:213 ../app/menus.c:239
+#: ../app/interface.c:223 ../app/menus.c:240
 msgid "Arc"
 msgstr "ବୃତ୍ତ ଚାପ"
 
-#: ../app/interface.c:219 ../app/menus.c:240
+#: ../app/interface.c:229 ../app/menus.c:241
 msgid "Zigzagline"
 msgstr ""
 
-#: ../app/interface.c:225 ../app/menus.c:241
+#: ../app/interface.c:235 ../app/menus.c:242
 msgid "Polyline"
 msgstr "ପୋଲିଲାଇନ"
 
-#: ../app/interface.c:231 ../app/menus.c:242
+#: ../app/interface.c:241 ../app/menus.c:243
 msgid "Bezierline"
 msgstr ""
 
-#: ../app/interface.c:237 ../app/menus.c:245
+#: ../app/interface.c:247 ../app/dic_dialog.c:903 ../app/menus.c:246
 msgid "Image"
 msgstr "ପ୍ରତିଛବି"
 
-#: ../app/interface.c:244 ../app/menus.c:243
+#: ../app/interface.c:254 ../app/menus.c:244
 msgid "Outline"
 msgstr "ବାହ୍ଯରେଖା"
 
-#: ../app/interface.c:621 ../app/interface.c:857
+#: ../app/interface.c:704 ../app/interface.c:940
 msgid "Pops up the Navigation window."
 msgstr ""
 
-#: ../app/interface.c:819
+#: ../app/interface.c:902
 msgid "Diagram menu."
 msgstr ""
 
-#: ../app/interface.c:922
+#: ../app/interface.c:1005
 msgid "Zoom"
 msgstr "ଛୋଟବଡ଼ କରନ୍ତୁ"
 
-#: ../app/interface.c:937
+#: ../app/interface.c:1020
 msgid "Toggles snap-to-grid for this window."
 msgstr ""
 
-#: ../app/interface.c:948
+#: ../app/interface.c:1031
 msgid "Toggles object snapping for this window."
 msgstr ""
 
-#: ../app/interface.c:1338
+#: ../app/interface.c:1421
 #, c-format
 msgid "No sheet named %s"
 msgstr ""
 
-#: ../app/interface.c:1376
+#: ../app/interface.c:1459
 msgid "Other sheets"
 msgstr ""
 
-#: ../app/interface.c:1436 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1519 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "ଫ୍ଲୋ ଚାର୍ଟ"
 
-#: ../app/interface.c:1496
+#: ../app/interface.c:1579
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
 
-#: ../app/interface.c:1511
+#: ../app/interface.c:1594
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 
-#: ../app/interface.c:1554
+#: ../app/interface.c:1637
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1559
+#: ../app/interface.c:1642
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1575
+#: ../app/interface.c:1658
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1635 ../app/interface.c:1762
+#: ../app/interface.c:1718 ../app/interface.c:1845
 msgid "Diagram Editor"
 msgstr ""
 
@@ -1013,7 +1030,7 @@ msgstr ""
 msgid "Layers"
 msgstr "ସ୍ତରଗୁଡ଼ିକ"
 
-#: ../app/layer_dialog.c:400
+#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:988
 msgid "Diagram:"
 msgstr ""
 
@@ -1038,6 +1055,51 @@ msgstr "ସ୍ତର ୟୋଗ କରନ୍ତୁ"
 msgid "Layer name:"
 msgstr ""
 
+#: ../app/dic_dialog.c:300
+msgid ""
+"When Node is moved,the objects are deleted.\n"
+"Do you move?"
+msgstr ""
+
+#: ../app/dic_dialog.c:472
+msgid "Same name node exist."
+msgstr ""
+
+#: ../app/dic_dialog.c:486
+msgid "cannot change occurs for existence object."
+msgstr ""
+
+#: ../app/dic_dialog.c:661
+msgid "Some node included deleting node are used."
+msgstr ""
+
+#: ../app/dic_dialog.c:895 ../sheets/UML.sheet.in.h:22
+#, fuzzy
+msgid "Node"
+msgstr "ନୋଡ"
+
+#: ../app/dic_dialog.c:973
+#, fuzzy
+msgid "Dictionary"
+msgstr "ଦିଗ"
+
+#: ../app/dic_dialog.c:1039
+msgid "Occurs"
+msgstr ""
+
+#: ../app/dic_dialog.c:1047
+#, fuzzy
+msgid "Length"
+msgstr "ବାମ"
+
+#. Translators: Menu item Verb/Control Magnitude/Change
+#. Translators: Menu item Verb/Control Magnitude/Change/Change
+#: ../app/dic_dialog.c:1058 ../objects/FS/function.c:976
+#: ../objects/FS/function.c:978
+#, fuzzy
+msgid "Change"
+msgstr "ପରିବର୍ତ୍ତନକର"
+
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
@@ -1048,57 +1110,57 @@ msgstr "ରେଖା ଓସାର"
 msgid "Line width:"
 msgstr ""
 
-#: ../app/load_save.c:295
+#: ../app/load_save.c:296
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
 
-#: ../app/load_save.c:299
+#: ../app/load_save.c:300
 #, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection handle %d does not exist on '%s'."
 msgstr ""
 
-#: ../app/load_save.c:327
+#: ../app/load_save.c:328
 #, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %d does not exist on '%s'."
 msgstr ""
 
-#: ../app/load_save.c:367
+#: ../app/load_save.c:368
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr ""
 
-#: ../app/load_save.c:416
+#: ../app/load_save.c:418
 msgid "You must specify a file, not a directory.\n"
 msgstr ""
 
-#: ../app/load_save.c:423 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:425 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr ""
 
-#: ../app/load_save.c:441 ../app/load_save.c:447
+#: ../app/load_save.c:443 ../app/load_save.c:449
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
 
-#: ../app/load_save.c:455
+#: ../app/load_save.c:457
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
 
-#: ../app/load_save.c:672
+#: ../app/load_save.c:680
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1106,25 +1168,25 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr ""
 
-#: ../app/load_save.c:995
+#: ../app/load_save.c:1012
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr ""
 
-#: ../app/load_save.c:1027
+#: ../app/load_save.c:1044
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr ""
 
-#: ../app/load_save.c:1049 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1066 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
-#: ../plug-ins/libart/export_png.c:157
+#: ../plug-ins/libart/export_png.c:159
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
-#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
+#: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -1132,18 +1194,18 @@ msgstr ""
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1060
+#: ../app/load_save.c:1077
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr ""
 
-#: ../app/load_save.c:1071
+#: ../app/load_save.c:1088
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr ""
 
-#: ../app/load_save.c:1162 ../app/load_save.c:1167
-msgid "Dia Diagram File"
+#: ../app/load_save.c:1179 ../app/load_save.c:1184
+msgid "Monpe Diagram File"
 msgstr ""
 
 #: ../app/menus.c:63
@@ -1252,11 +1314,11 @@ msgstr "ଛୋଟବଡ଼ କରନ୍ତୁ (_Z)"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:154 ../app/menus.c:573
+#: ../app/menus.c:154 ../app/menus.c:574
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:155 ../app/menus.c:574
+#: ../app/menus.c:155 ../app/menus.c:575
 msgid "400%"
 msgstr "400%"
 
@@ -1383,7 +1445,7 @@ msgstr "ଚୟନ କରନ୍ତୁ (_S)"
 msgid "All"
 msgstr "ସମସ୍ତ"
 
-#: ../app/menus.c:206 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:206 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "କିଛି ନୁହେଁ"
@@ -1417,116 +1479,121 @@ msgstr "ନିବେଶ ପ୍ରଣାଳୀ (_I)"
 msgid "D_ialogs"
 msgstr ""
 
-#: ../app/menus.c:221
+#: ../app/menus.c:220
+#, fuzzy
+msgid "Dictionary..."
+msgstr "ଦିଗ"
+
+#: ../app/menus.c:222
 msgid "D_ebug"
 msgstr ""
 
-#: ../app/menus.c:227
+#: ../app/menus.c:228
 msgid "_Tools"
 msgstr "ସାଧନ (_T)"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:229
 msgid "Modify"
 msgstr "ପରିବର୍ତ୍ତନ କରନ୍ତୁ"
 
-#: ../app/menus.c:230
+#: ../app/menus.c:231
 msgid "Edit text"
 msgstr ""
 
-#: ../app/menus.c:231
+#: ../app/menus.c:232
 msgid "Scroll"
 msgstr ""
 
-#: ../app/menus.c:254
+#: ../app/menus.c:255
 msgid "Fullscr_een"
 msgstr "ସପୂର୍ଣ ପରଦା (_e)"
 
-#: ../app/menus.c:256
+#: ../app/menus.c:257
 msgid "_AntiAliased"
 msgstr ""
 
-#: ../app/menus.c:257
+#: ../app/menus.c:258
 msgid "Show _Grid"
 msgstr ""
 
-#: ../app/menus.c:258
+#: ../app/menus.c:259
 msgid "_Snap To Grid"
 msgstr ""
 
-#: ../app/menus.c:259
+#: ../app/menus.c:260
 msgid "Snap To _Objects"
 msgstr ""
 
-#: ../app/menus.c:260
+#: ../app/menus.c:261
 msgid "Show _Rulers"
 msgstr ""
 
-#: ../app/menus.c:261
+#: ../app/menus.c:262
 msgid "Show _Connection Points"
 msgstr ""
 
-#: ../app/menus.c:268
+#: ../app/menus.c:269
 msgid "Union"
 msgstr "ସଂଘ"
 
-#: ../app/menus.c:269
+#: ../app/menus.c:270
 msgid "Intersection"
 msgstr "ପ୍ରତିଚ୍ଛେଦ"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:270 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:271 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "ହଟାଅ"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:272
+#: ../app/menus.c:273
 msgid "Inverse"
 msgstr ""
 
-#: ../app/menus.c:336
+#: ../app/menus.c:337
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: ../app/menus.c:575
+#: ../app/menus.c:576
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:576
+#: ../app/menus.c:577
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:577
+#: ../app/menus.c:578
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:578
+#: ../app/menus.c:579
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:579
+#: ../app/menus.c:580
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:580
+#: ../app/menus.c:581
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:581
+#: ../app/menus.c:582
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:582
+#: ../app/menus.c:583
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:608
+#: ../app/menus.c:609
 msgid "Toggles snap-to-grid."
 msgstr ""
 
-#: ../app/menus.c:620
+#: ../app/menus.c:621
 msgid "Toggles object snapping."
 msgstr ""
 
@@ -1682,7 +1749,7 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
 #: ../app/preferences.c:221 ../objects/FS/function.c:698
-#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:323
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
 msgid "Export"
 msgstr "ରତ୍ପାନୀ କରନ୍ତୁ"
 
@@ -2026,148 +2093,148 @@ msgstr ""
 msgid "Edit your Diagrams"
 msgstr ""
 
-#: ../lib/arrows.c:1883
+#: ../lib/arrows.c:1885
 msgid "Lines"
 msgstr "ରେଖାଗୁଡିକ"
 
-#: ../lib/arrows.c:1884
+#: ../lib/arrows.c:1886
 msgid "Hollow Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:1885
+#: ../lib/arrows.c:1887
 msgid "Filled Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:1886
+#: ../lib/arrows.c:1888
 msgid "Unfilled Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:1887
+#: ../lib/arrows.c:1889
 msgid "Hollow Diamond"
 msgstr ""
 
-#: ../lib/arrows.c:1888
+#: ../lib/arrows.c:1890
 msgid "Filled Diamond"
 msgstr ""
 
-#: ../lib/arrows.c:1889
+#: ../lib/arrows.c:1891
 msgid "Half Diamond"
 msgstr ""
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1892
 msgid "Half Head"
 msgstr ""
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1893
 msgid "Slashed Cross"
 msgstr ""
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1894
 msgid "Filled Ellipse"
 msgstr ""
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1895
 msgid "Hollow Ellipse"
 msgstr ""
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1896
 msgid "Filled Dot"
 msgstr ""
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1897
 msgid "Dimension Origin"
 msgstr ""
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1898
 msgid "Blanked Dot"
 msgstr ""
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1899
 msgid "Double Hollow Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1900
 msgid "Double Filled Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1901
 msgid "Filled Dot and Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1902
 msgid "Filled Box"
 msgstr ""
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1903
 msgid "Blanked Box"
 msgstr ""
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1904
 msgid "Slashed"
 msgstr ""
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1905
 msgid "Integral Symbol"
 msgstr ""
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1906
 msgid "Crow Foot"
 msgstr ""
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1907
 msgid "Cross"
 msgstr "କ୍ରସ"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1908
 msgid "1-or-many"
 msgstr ""
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1909
 msgid "0-or-many"
 msgstr ""
 
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1910
 msgid "1-or-0"
 msgstr ""
 
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1911
 msgid "1 exactly"
 msgstr ""
 
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1912
 msgid "Filled Concave"
 msgstr ""
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1913
 msgid "Blanked Concave"
 msgstr ""
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1914
 msgid "Round"
 msgstr "ଗୋଲ"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1915
 msgid "Open Round"
 msgstr ""
 
-#: ../lib/arrows.c:1914
+#: ../lib/arrows.c:1916
 msgid "Backslash"
 msgstr "Backslash"
 
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1917
 msgid "Infinite Line"
 msgstr ""
 
-#: ../lib/arrows.c:2043
+#: ../lib/arrows.c:2045
 msgid "Arrow head of unknown type"
 msgstr ""
 
-#: ../lib/arrows.c:2051
+#: ../lib/arrows.c:2053
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr ""
 
-#: ../lib/arrows.c:2184
+#: ../lib/arrows.c:2186
 msgid "unknown arrow"
 msgstr ""
 
@@ -2178,7 +2245,7 @@ msgstr ""
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:145
 msgid "Can't find standard object"
 msgstr ""
 
@@ -2234,7 +2301,7 @@ msgstr ""
 msgid "Error parsing bezpoint p3."
 msgstr ""
 
-#: ../lib/diaarrowchooser.c:352
+#: ../lib/diaarrowchooser.c:361
 msgid "Arrow Properties"
 msgstr ""
 
@@ -2616,7 +2683,8 @@ msgstr ""
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
-msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
 
 #: ../objects/AADL/aadl.c:52
@@ -2926,7 +2994,8 @@ msgstr ""
 #: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
+#: ../objects/UML/transition.c:172 ../objects/standard/bezier.c:731
+#: ../objects/standard/beziergon.c:495 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
 msgstr ""
 
@@ -2935,7 +3004,8 @@ msgstr ""
 #: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
-#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
+#: ../objects/UML/transition.c:173 ../objects/standard/bezier.c:732
+#: ../objects/standard/beziergon.c:496 ../objects/standard/zigzagline.c:381
 msgid "Delete segment"
 msgstr ""
 
@@ -3634,13 +3704,6 @@ msgstr "ସୀମା"
 #, fuzzy
 msgid "Interrupt"
 msgstr "ବାଧାଦିଅ"
-
-#. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:976 ../objects/FS/function.c:978
-#, fuzzy
-msgid "Change"
-msgstr "ପରିବର୍ତ୍ତନକର"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:980
@@ -5690,24 +5753,18 @@ msgid "Custom XML shapes loader"
 msgstr ""
 
 #: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
+#: ../objects/custom/custom_object.c:1780
 #, fuzzy
 msgid "Flip horizontal"
 msgstr "ଦିଗବଳୀଯଭାବରେ ଆଘାତ କର"
 
 #: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
+#: ../objects/custom/custom_object.c:1781
 msgid "Flip vertical"
 msgstr ""
 
 #: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
-msgstr ""
-
-#: ../objects/custom/custom_object.c:1780
-msgid "Flip Horizontal"
-msgstr ""
-
-#: ../objects/custom/custom_object.c:1781
-msgid "Flip Vertical"
 msgstr ""
 
 #: ../objects/custom/custom_object.c:1818
@@ -5771,7 +5828,7 @@ msgstr "ବ୍ଯାସାର୍ଦ୍ଧ"
 msgid "Width"
 msgstr "ଓସାର"
 
-#: ../objects/standard/arc.c:142
+#: ../objects/standard/arc.c:143
 msgid "Curve distance"
 msgstr ""
 
@@ -5789,15 +5846,6 @@ msgstr ""
 #: ../objects/standard/polyline.c:141
 msgid "Absolute end gap"
 msgstr ""
-
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:495
-msgid "Add Segment"
-msgstr ""
-
-#: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:496
-#, fuzzy
-msgid "Delete Segment"
-msgstr "ଖଣ୍ଡ ବିଲୋପ କରନ୍ତୁ"
 
 #: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 msgid "Symmetric control"
@@ -5994,11 +6042,11 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 
-#: ../plug-ins/cgm/cgm.c:1361
+#: ../plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr ""
 
-#: ../plug-ins/cgm/cgm.c:1386
+#: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr ""
 
@@ -6040,32 +6088,32 @@ msgstr ""
 msgid "Libart based rendering"
 msgstr ""
 
-#: ../plug-ins/libart/export_png.c:165
+#: ../plug-ins/libart/export_png.c:167
 msgid "Could not create PNG write structure"
 msgstr ""
 
-#: ../plug-ins/libart/export_png.c:174
+#: ../plug-ins/libart/export_png.c:176
 msgid "Could not create PNG header info structure"
 msgstr ""
 
-#: ../plug-ins/libart/export_png.c:182
+#: ../plug-ins/libart/export_png.c:184
 msgid "Error occurred while writing PNG"
 msgstr ""
 
 #. Create a dialog
-#: ../plug-ins/libart/export_png.c:322
+#: ../plug-ins/libart/export_png.c:327
 msgid "PNG Export Options"
 msgstr ""
 
-#: ../plug-ins/libart/export_png.c:328
+#: ../plug-ins/libart/export_png.c:333
 msgid "Image width:"
 msgstr ""
 
-#: ../plug-ins/libart/export_png.c:331
+#: ../plug-ins/libart/export_png.c:336
 msgid "Image height:"
 msgstr ""
 
-#: ../plug-ins/libart/export_png.c:377
+#: ../plug-ins/libart/export_png.c:382
 msgid "PNG (anti-aliased)"
 msgstr ""
 
@@ -6140,8 +6188,7 @@ msgid "Could not run command '%s': %s"
 msgstr ""
 
 #: ../plug-ins/postscript/paginate_psprint.c:459
-#, c-format
-#, fuzzy
+#, fuzzy, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "ଖୋଲି ପାରିଲା ନାହିଁ '%s' ଲେଖିବା ପାଇଁ: %s"
 
@@ -6196,11 +6243,11 @@ msgstr ""
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:485
-msgid "Can't export png without libart!"
+#: ../plug-ins/shape/shape-export.c:488
+msgid "Can't export png icon without export plug-in!"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:510
+#: ../plug-ins/shape/shape-export.c:512
 msgid "Dia Shape File"
 msgstr ""
 
@@ -6232,53 +6279,53 @@ msgstr ""
 msgid "Couldn't read file %s"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-export.c:1905
+#: ../plug-ins/vdx/vdx-export.c:1912
 msgid "Visio XML format"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:227 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:540
+#: ../plug-ins/vdx/vdx-import.c:541
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:1047
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1060
+#: ../plug-ins/vdx/vdx-import.c:1061
 msgid "Can't rotate ellipse\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1391
+#: ../plug-ins/vdx/vdx-import.c:1392
 msgid "MoveTo not at start of Bezier\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1739
+#: ../plug-ins/vdx/vdx-import.c:1740
 msgid "Invalid NURBS formula"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1983
+#: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't write file %s"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:2068 ../plug-ins/vdx/vdx-import.c:2081
+#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:2109
+#: ../plug-ins/vdx/vdx-import.c:2110
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:3090
+#: ../plug-ins/vdx/vdx-import.c:3100
 msgid "Visio XML File Format"
 msgstr ""
 
@@ -8803,11 +8850,6 @@ msgstr ""
 msgid "Message"
 msgstr "ସନ୍ଦେଶ"
 
-#: ../sheets/UML.sheet.in.h:22
-#, fuzzy
-msgid "Node"
-msgstr "ନୋଡ"
-
 #: ../sheets/UML.sheet.in.h:23
 #, fuzzy
 msgid "Note"
@@ -10527,3 +10569,10 @@ msgstr ""
 msgid "Sybase replication server"
 msgstr ""
 
+#, fuzzy
+#~ msgid "String"
+#~ msgstr "ଅନ୍ତରଦେବା"
+
+#, fuzzy
+#~ msgid "Delete Segment"
+#~ msgstr "ଖଣ୍ଡ ବିଲୋପ କରନ୍ତୁ"

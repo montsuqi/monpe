@@ -148,7 +148,7 @@ file_new_callback (GtkAction *action)
   static int untitled_nr = 1;
   gchar *name, *filename;
 
-  name = g_strdup_printf(_("Diagram%d.red2"), untitled_nr++);
+  name = g_strdup_printf("Diagram%d.red2", untitled_nr++);
   filename = g_filename_from_utf8(name, -1, NULL, NULL, NULL);
   dia = new_diagram(filename);
   ddisp = new_display(dia);

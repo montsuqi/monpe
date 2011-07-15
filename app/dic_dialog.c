@@ -896,7 +896,7 @@ cb_selection_changed(GtkTreeSelection *sel,
       gtk_widget_hide(dic_dialog->length_hbox);
       break;
     case ITEM_TYPE_TEXT:
-      gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("String"));
+      gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("Text"));
       gtk_widget_show(dic_dialog->length_hbox);
       break;
     case ITEM_TYPE_IMAGE:

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
-"POT-Creation-Date: 2009-06-16 12:26+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-15 16:38+0900\n"
 "PO-Revision-Date: 2009-06-30 15:14+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
@@ -18,82 +18,92 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:214
+#: ../app/app_procs.c:213
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "सावधान: अवैध थर क्षेत्र %lu - %lu\n"
 
-#: ../app/app_procs.c:226
+#: ../app/app_procs.c:225
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "सावधान: थर %lu (%s) एकापेक्षा जास्त वेळ नीवडले गेले.\n"
 
-#: ../app/app_procs.c:252
+#: ../app/app_procs.c:251
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "सावधान: थर %d (%s) एकापेक्षा जास्तवेळी नीवडले गेले.\n"
 
-#: ../app/app_procs.c:261
+#: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "सावधान: %s नामांकीत थर आढळले नाही\n"
 
-#: ../app/app_procs.c:343
+#: ../app/app_procs.c:342
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s त्रुटी: %s अंतर्गत कशाचे स्वरूप बदलवायचे ते माहित नाही\n"
 
-#: ../app/app_procs.c:352
+#: ../app/app_procs.c:351
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s त्रुटी: इनपुट व आऊटपुट फाइलचे नाव एक सारखेच आहे: %s"
 
-#: ../app/app_procs.c:360
+#: ../app/app_procs.c:359
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s त्रुटी: वैध इनपुट फाइल %s आवश्यक आहे\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:390
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:560
+#: ../app/app_procs.c:565
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "आऊटपुट स्वरूप/फिल्टर %s आढळले नाही\n"
 
+#: ../app/app_procs.c:636
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr "इनपुट-डिरेक्ट्री '%s' अस्तित्वात असायला हवी!\n"
+
+#: ../app/app_procs.c:653
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr "आऊटपुट-डिरेक्ट्री '%s' अस्तित्वात असायला हवी!\n"
+
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:638
+#: ../app/app_procs.c:703
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "यापैकी फिल्टर/स्वरूप नीवडा: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:721
 msgid "Export loaded file and exit"
 msgstr "दाखल झालेल्या फाइलचे स्वरूप बदला व बाहेर पडा"
 
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:721
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:723
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:725
 msgid "Export graphics size"
 msgstr "चित्रलेख आकारचे स्वरूप बदला"
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:725
 msgid "WxH"
 msgstr "WxH"
 
-#: ../app/app_procs.c:662
+#: ../app/app_procs.c:727
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -101,83 +111,106 @@ msgstr ""
 "फक्त निश्चित थर दाखवा (उ.दा. स्वरूप बदलवतेवेळी). थराचे नाव किंवा थर क्रमांकाचे क्षेत्र (X-"
 "Y) असू शकते"
 
-#: ../app/app_procs.c:663
+#: ../app/app_procs.c:728
 msgid "LAYER,LAYER,..."
 msgstr "LAYER,LAYER,..."
 
-#: ../app/app_procs.c:665
+#: ../app/app_procs.c:730
 msgid "Don't show the splash screen"
 msgstr "स्पलॅश स्क्रीन दाखवू नका"
 
-#: ../app/app_procs.c:667
+#: ../app/app_procs.c:732
 msgid "Don't create empty diagram"
 msgstr "रिकामी आकृती बनवू नका"
 
-#: ../app/app_procs.c:669
+#: ../app/app_procs.c:734
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr "एकत्रीत वापरकर्ता संवाद सुरू करा (टॅबस् मध्ये आकृती)"
 
-#: ../app/app_procs.c:671
+#: ../app/app_procs.c:736
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "संवाद दाखवण्याऐवजी त्रुटी संदेश stderr कडे पाठवा."
 
-#. &input_directory
-#: ../app/app_procs.c:673
+#: ../app/app_procs.c:738
 msgid "Directory containing input files"
 msgstr "इनपुट फाइल समावेष असलेली डिरेक्ट्री"
 
-#: ../app/app_procs.c:673 ../app/app_procs.c:675
+#: ../app/app_procs.c:738 ../app/app_procs.c:740
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#. &output_directory
-#: ../app/app_procs.c:675
+#: ../app/app_procs.c:740
 msgid "Directory containing output files"
 msgstr "आऊटपुट फाइल समावेष असलेली डिरेक्ट्री"
 
-#: ../app/app_procs.c:677
+#: ../app/app_procs.c:743
 msgid "Display credits list and exit"
 msgstr "श्रेय यादी दाखवा व बाहेर पडा"
 
-#: ../app/app_procs.c:679
+#: ../app/app_procs.c:746
 msgid "Generate verbose output"
 msgstr "वाचनजोगी आऊटपुट बनवा"
 
-#: ../app/app_procs.c:681
+#: ../app/app_procs.c:748
 msgid "Display version and exit"
 msgstr "आवृत्ती दाखवा व बाहेर पडा"
 
-#: ../app/app_procs.c:738
+#: ../app/app_procs.c:750
+msgid "The x cordinate to paper offset[cm]"
+msgstr ""
+
+#: ../app/app_procs.c:752
+msgid "The y cordinate to paper offset[cm]"
+msgstr ""
+
+#: ../app/app_procs.c:775
+msgid "[FILE...]"
+msgstr "[FILE...]"
+
+#: ../app/app_procs.c:787
+#, c-format
+msgid "Invalid option?"
+msgstr ""
+
+#: ../app/app_procs.c:810
+#, fuzzy, c-format
+msgid "Filename conversion failed: %s\n"
+msgstr "Dia आवृत्ती %s, %s %s कंपाईल केले\n"
+
+#: ../app/app_procs.c:823
+#, c-format
+msgid "Missing input: %s\n"
+msgstr ""
+
+#: ../app/app_procs.c:848
 msgid "Can't connect to session manager!\n"
 msgstr "सत्र व्यवस्थापकाशी जुळवणी करा!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:778
-#, c-format
-msgid "Dia version %s, compiled %s %s\n"
+#: ../app/app_procs.c:888
+#, fuzzy, c-format
+msgid "Monpe version %s, compiled %s %s\n"
 msgstr "Dia आवृत्ती %s, %s %s कंपाईल केले\n"
 
-#: ../app/app_procs.c:780
-#, c-format
-msgid "Dia version %s\n"
+#: ../app/app_procs.c:890
+#, fuzzy, c-format
+msgid "Monpe version %s\n"
 msgstr "Dia आवृत्ती %s\n"
 
-#: ../app/app_procs.c:818
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+#: ../app/app_procs.c:930
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "object-libs करीता शोधतेवेळी मानक घटक आढळले नाही; बाहेर पडत आहे...\n"
 
-#: ../app/app_procs.c:820
+#: ../app/app_procs.c:932
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr "'%s' मधिल object-libs करीता शोधतेवेळी मानक घटक आढळले नाही; बाहेर पडत आहे...\n"
+msgstr ""
+"'%s' मधिल object-libs करीता शोधतेवेळी मानक घटक आढळले नाही; बाहेर पडत आहे...\n"
 
-#: ../app/app_procs.c:886
-msgid "Diagram1.dia"
-msgstr "Diagram1.dia"
-
-#: ../app/app_procs.c:930
+#: ../app/app_procs.c:1037
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -185,30 +218,31 @@ msgstr ""
 "असे व्हायला नाही पाहिजे.  कृपया bugzilla.gnome.org येथे त्रुटी अहवाल दाखल करा व \n"
 "हा संदेश कसे दर्शवायचे त्याचे वर्णन करा.\n"
 
-#: ../app/app_procs.c:945
+#: ../app/app_procs.c:1052
 msgid "Exiting Dia"
 msgstr "Dia पासून बाहेर पडत आहे"
 
 #. no standard buttons
-#: ../app/app_procs.c:1009
+#: ../app/app_procs.c:1116
 msgid "Quitting without saving modified diagrams"
 msgstr "संपादीत आकृती न साठवता बाहेर पडत आहे"
 
-#: ../app/app_procs.c:1011
+#: ../app/app_procs.c:1118
+#, fuzzy
 msgid ""
-"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"Modified diagrams exist. Are you sure you want to quit Monpe without saving "
 "them?"
 msgstr "संपादीत आकृती अस्तित्वात आहे. तुम्हाला नक्की न साठवता Dia पासून बाहेर पडायचे?"
 
-#: ../app/app_procs.c:1015
-msgid "Quit Dia"
-msgstr "Dia पासून बाहेर पडा"
+#: ../app/app_procs.c:1122
+msgid "Quit Monpe"
+msgstr ""
 
-#: ../app/app_procs.c:1084 ../app/app_procs.c:1091
+#: ../app/app_procs.c:1191 ../app/app_procs.c:1198
 msgid "Could not create per-user Dia config directory"
 msgstr "प्रत्येक-वापरकर्ता Dia संयोजना डिरेकट्री बनवणे अशक्य"
 
-#: ../app/app_procs.c:1094
+#: ../app/app_procs.c:1201
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -216,35 +250,11 @@ msgstr ""
 "प्रत्येक-वापरकर्ता Dia संयोजना डिरेकट्री बनवणे अशक्य. कृपया एन्वार्यनमेंट वेरियेबल HOME "
 "अस्तित्वातील डिरेक्ट्री करीता निर्देशीत आहे याची खात्री करा."
 
-#: ../app/app_procs.c:1117
+#: ../app/app_procs.c:1224
 msgid "Objects and filters internal to dia"
 msgstr "dia करीता आंतरीक ऑबजेक्ट व फिल्टर"
 
-#: ../app/app_procs.c:1150
-msgid "[FILE...]"
-msgstr "[FILE...]"
-
-#: ../app/app_procs.c:1170
-#, c-format
-msgid "Input-directory '%s' must exist!\n"
-msgstr "इनपुट-डिरेक्ट्री '%s' अस्तित्वात असायला हवी!\n"
-
-#: ../app/app_procs.c:1175
-#, c-format
-msgid "Output-directory '%s' must exist!\n"
-msgstr "आऊटपुट-डिरेक्ट्री '%s' अस्तित्वात असायला हवी!\n"
-
-#: ../app/app_procs.c:1181
-#, c-format
-msgid "'%s' not found!\n"
-msgstr "'%s' आढळले नाही!\n"
-
-#: ../app/app_procs.c:1189
-#, c-format
-msgid "'%s' not found in '%s'!\n"
-msgstr "'%2$s' मध्ये '%1$s' आडळले नाही!\n"
-
-#: ../app/app_procs.c:1238
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -253,7 +263,7 @@ msgstr ""
 "Dia चे मुळ लेखक यानुरूप आहेत:\n"
 "\n"
 
-#: ../app/app_procs.c:1243
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -264,7 +274,7 @@ msgstr ""
 "Dia चे वर्तमान मालक यानुरूप आहेत:\n"
 "\n"
 
-#: ../app/app_procs.c:1248
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -275,7 +285,7 @@ msgstr ""
 "इतर लेखक यानुरूप आहेत:\n"
 "\n"
 
-#: ../app/app_procs.c:1253
+#: ../app/app_procs.c:1295
 #, c-format
 msgid ""
 "\n"
@@ -306,24 +316,19 @@ msgstr "अग्रभूमी रंग नीवडा"
 msgid "Select background color"
 msgstr "पार्श्वभूमी रंग नीवडा"
 
-#: ../app/commands.c:130
+#: ../app/commands.c:131
 msgid "No print plug-in found!"
 msgstr "छपाई प्लग-इन आढळला नाही!"
 
-#: ../app/commands.c:150
-#, c-format
-msgid "Diagram%d.dia"
-msgstr "Diagram%d.dia"
-
-#: ../app/commands.c:343
+#: ../app/commands.c:344
 msgid "No existing object to paste.\n"
 msgstr "चिकटवण्याकरीता अस्तित्वातील ऑबजेक्ट आढळला नाही.\n"
 
-#: ../app/commands.c:646 ../app/commands.c:684
+#: ../app/commands.c:647 ../app/commands.c:685
 msgid "Could not find help directory"
 msgstr "मदत डिरेक्ट्री आढळले नाही"
 
-#: ../app/commands.c:653
+#: ../app/commands.c:654
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -332,11 +337,11 @@ msgstr ""
 "मदत डिरेक्ट्री उघडणे अशक्य:\n"
 "%s"
 
-#: ../app/commands.c:720
+#: ../app/commands.c:721
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "संदिप शेडमाके <sandeep.shedmake@gmail.com>, 2009."
 
-#: ../app/commands.c:722
+#: ../app/commands.c:723
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -366,9 +371,9 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:745
-msgid "A program for drawing structured diagrams."
-msgstr "रचनाकृत आकृती काढण्याकरीता कार्यक्रम."
+#: ../app/commands.c:748
+msgid "MONTSUQI Printing Environment"
+msgstr ""
 
 #: ../app/confirm.c:69
 #, c-format
@@ -382,7 +387,8 @@ msgstr "तुम्ही %d पाने असणाऱ्या आकृत
 
 #: ../app/confirm.c:73
 #, c-format
-msgid "You are about to export a diagram which may require %s of memory.(%d pages)."
+msgid ""
+"You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr "तुम्ही आकृतीचे स्वरूप बदलवणार आहात ज्यांस %s स्मृतीची आवश्यकता आहे.(%d पाने)."
 
 #: ../app/confirm.c:81
@@ -496,20 +502,20 @@ msgstr "Y ठिकाण"
 msgid "Y position of child widget"
 msgstr "उप नियंत्रण घटकाचे Y ठिकाण"
 
-#: ../app/diagram.c:222
+#: ../app/diagram.c:223
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "फाइलनाव '%s' ला UTF-8 नुरूप रूपांतरीत करण्यास अशक्य: %s\n"
 
-#: ../app/diagram.c:225 ../lib/message.c:90 ../lib/message.c:293
+#: ../app/diagram.c:226 ../lib/message.c:90 ../lib/message.c:293
 msgid "Error"
 msgstr "त्रुटी"
 
-#: ../app/diagram.c:1209
+#: ../app/diagram.c:1212
 msgid "Trying to group with no selected objects."
 msgstr "नीवडलेल्या ऑबजेक्ट सह गट बनवण्याचा प्रयत्न करत आहे."
 
-#: ../app/diagram.c:1219
+#: ../app/diagram.c:1222
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -668,7 +674,12 @@ msgstr ""
 msgid "Properties..."
 msgstr "गुणधर्म..."
 
-#: ../app/disp_callbacks.c:1067
+#: ../app/disp_callbacks.c:248
+#, fuzzy
+msgid "Selection"
+msgstr "काहिच नीवडू नका"
+
+#: ../app/disp_callbacks.c:1072
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -743,12 +754,13 @@ msgid "Save"
 msgstr "साठवा"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:123 ../app/plugin-manager.c:262
-#: ../objects/Database/table.c:138 ../objects/Database/table.c:181
-#: ../objects/SISSI/sissi_dialog.c:734 ../objects/UML/association.c:234
-#: ../objects/UML/class.c:144 ../objects/UML/large_package.c:139
-#: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
-#: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
+#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1031
+#: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
+#: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
+#: ../objects/UML/association.c:234 ../objects/UML/class.c:144
+#: ../objects/UML/large_package.c:139 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
+#: ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "नाव"
 
@@ -768,32 +780,32 @@ msgstr "काहिच नीवडू नका"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "साठवण्याकरीता काहिच नीवडले नाही.  तुम्हाला पुन्हा प्रयत्न करायचे?"
 
-#: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:746 ../lib/widgets.c:1488
+#: ../app/filedlg.c:145 ../app/filedlg.c:153 ../app/filedlg.c:169
+#: ../app/filedlg.c:748 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "समर्थीत स्वरूप"
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:604
+#: ../app/filedlg.c:193 ../app/filedlg.c:606
 msgid "By extension"
 msgstr "वाढ नुरूप"
 
-#: ../app/filedlg.c:281
+#: ../app/filedlg.c:283
 msgid "Open Diagram"
 msgstr "आकृती उघडा"
 
-#: ../app/filedlg.c:309
+#: ../app/filedlg.c:311
 msgid "Open Options"
 msgstr "पर्याय उघडा"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:728
+#: ../app/filedlg.c:319 ../app/filedlg.c:730
 msgid "Determine file type:"
 msgstr "फाइल प्रकार ओळखा:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
+#: ../app/filedlg.c:339 ../app/filedlg.c:743 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "सर्व फाइल"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:372 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -803,12 +815,12 @@ msgstr ""
 "स्थानीय एन्कोडींग नुरूपही नाही.\n"
 "काहिक गोष्टी सदोषीत आहेत."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:651
+#: ../app/filedlg.c:382 ../app/filedlg.c:653
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "फाइल आधिपासूनच अस्तित्वात आहे"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../app/filedlg.c:384 ../app/filedlg.c:655
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -818,17 +830,17 @@ msgstr ""
 "फाइल '%s' आधिपासूनच अस्तित्वात आहे.\n"
 "तुम्हाला खोडून पुन्हा लिहायचे?"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:438
 msgid "Save Diagram"
 msgstr "आकृती साठवा"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:447
+#: ../app/filedlg.c:449
 msgid "Compress diagram files"
 msgstr "आकृती फाइल संकोचीत करा"
 
-#: ../app/filedlg.c:457 ../app/filedlg.c:462
+#: ../app/filedlg.c:459 ../app/filedlg.c:464
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -836,7 +848,7 @@ msgstr ""
 "संकोचनमुळे फाइल आकार 1/10th आकार पेक्षा कमी होतो ज्यामुळे दाखलन व साठवणे गतिशील होते.  "
 "काहिक पाठ्य कार्यक्रम संकोचीत फाइल मध्ये बदल करू शकत नाही."
 
-#: ../app/filedlg.c:677
+#: ../app/filedlg.c:679
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -845,11 +857,11 @@ msgstr ""
 "'%s' साठवण्याकरीता एक्सपोर्ट\n"
 "फिल्टर ठरवू शकले नाही"
 
-#: ../app/filedlg.c:704
+#: ../app/filedlg.c:706
 msgid "Export Diagram"
 msgstr "स्वरूप बदल आकृती"
 
-#: ../app/filedlg.c:720
+#: ../app/filedlg.c:722
 msgid "Export Options"
 msgstr "स्वरूप बदल पर्याय"
 
@@ -877,7 +889,7 @@ msgstr "सर्व गुणधर्म जुळवा (_a) (फक्त �
 msgid "Find"
 msgstr "शोधा"
 
-#: ../app/find-and-replace.c:542 ../app/menus.c:267
+#: ../app/find-and-replace.c:542 ../app/menus.c:268
 msgid "Replace"
 msgstr "बदला"
 
@@ -892,7 +904,7 @@ msgstr "सर्व बदला (_A)"
 msgid "_Replace"
 msgstr "बदला (_R)"
 
-#: ../app/interface.c:153
+#: ../app/interface.c:157
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -900,7 +912,7 @@ msgstr ""
 "घटक संपादीत करा\n"
 "या व इतर साधन अंतर्गत बदल टॉगल करण्याकरीता <Space> वापरा"
 
-#: ../app/interface.c:159
+#: ../app/interface.c:163
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -909,107 +921,113 @@ msgstr ""
 "हे साधन सोडण्याकरीता <Esc> वापरा"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:165 ../app/menus.c:229 ../objects/FS/function.c:988
+#: ../app/interface.c:169 ../app/menus.c:230 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "मोठे करा"
 
-#: ../app/interface.c:171
+#: ../app/interface.c:175
 msgid "Scroll around the diagram"
 msgstr "आकृती भोवती स्क्रोल करा"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:177 ../app/menus.c:232 ../lib/properties.c:80
-#: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:153
-#: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
-#: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
-#: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:161
-#: ../objects/UML/node.c:130 ../objects/UML/node.c:132
-#: ../objects/UML/note.c:124 ../objects/UML/object.c:151
-#: ../objects/UML/small_package.c:135 ../objects/UML/state.c:154
-#: ../objects/UML/usecase.c:142 ../objects/custom/custom_object.c:236
-#: ../objects/network/basestation.c:135 ../objects/network/radiocell.c:127
+#: ../app/interface.c:181 ../app/dic_dialog.c:899 ../app/menus.c:233
+#: ../lib/properties.c:80 ../lib/properties.h:530
+#: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
+#: ../objects/UML/classicon.c:149 ../objects/UML/component.c:130
+#: ../objects/UML/component_feature.c:161 ../objects/UML/node.c:130
+#: ../objects/UML/node.c:132 ../objects/UML/note.c:124
+#: ../objects/UML/object.c:151 ../objects/UML/small_package.c:135
+#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:142
+#: ../objects/custom/custom_object.c:236 ../objects/network/basestation.c:135
+#: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "पाठ्य"
 
-#: ../app/interface.c:183 ../app/menus.c:233
+#: ../app/interface.c:187
+#, fuzzy
+msgid "TextCircle"
+msgstr "गोलाकार"
+
+#: ../app/interface.c:193 ../app/menus.c:234
 msgid "Box"
 msgstr "पेटी"
 
-#: ../app/interface.c:189 ../app/menus.c:234
+#: ../app/interface.c:199 ../app/menus.c:235
 msgid "Ellipse"
 msgstr "लंबवर्तुळाकार"
 
-#: ../app/interface.c:195 ../app/menus.c:235
+#: ../app/interface.c:205 ../app/menus.c:236
 msgid "Polygon"
 msgstr "बहुभुजाकृती"
 
-#: ../app/interface.c:201 ../app/menus.c:236
+#: ../app/interface.c:211 ../app/menus.c:237
 msgid "Beziergon"
 msgstr "बेझैरगॉन"
 
-#: ../app/interface.c:207 ../app/menus.c:238 ../objects/standard/line.c:229
+#: ../app/interface.c:217 ../app/menus.c:239 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "रेघ"
 
-#: ../app/interface.c:213 ../app/menus.c:239
+#: ../app/interface.c:223 ../app/menus.c:240
 msgid "Arc"
 msgstr "कंस"
 
-#: ../app/interface.c:219 ../app/menus.c:240
+#: ../app/interface.c:229 ../app/menus.c:241
 msgid "Zigzagline"
 msgstr "झिगझॅगरेष"
 
-#: ../app/interface.c:225 ../app/menus.c:241
+#: ../app/interface.c:235 ../app/menus.c:242
 msgid "Polyline"
 msgstr "बहुभुजारेष"
 
-#: ../app/interface.c:231 ../app/menus.c:242
+#: ../app/interface.c:241 ../app/menus.c:243
 msgid "Bezierline"
 msgstr "बाईजररेष"
 
-#: ../app/interface.c:237 ../app/menus.c:245
+#: ../app/interface.c:247 ../app/dic_dialog.c:903 ../app/menus.c:246
 msgid "Image"
 msgstr "प्रतिमा"
 
-#: ../app/interface.c:244 ../app/menus.c:243
+#: ../app/interface.c:254 ../app/menus.c:244
 msgid "Outline"
 msgstr "रूपरेषा"
 
-#: ../app/interface.c:621 ../app/interface.c:857
+#: ../app/interface.c:704 ../app/interface.c:940
 msgid "Pops up the Navigation window."
 msgstr "संचारन खिडकी पॉप अप करतो."
 
-#: ../app/interface.c:819
+#: ../app/interface.c:902
 msgid "Diagram menu."
 msgstr "आकृती मेन्यू."
 
-#: ../app/interface.c:922
+#: ../app/interface.c:1005
 msgid "Zoom"
 msgstr "दृष्य बदल"
 
-#: ../app/interface.c:937
+#: ../app/interface.c:1020
 msgid "Toggles snap-to-grid for this window."
 msgstr "या खिडकी करीता ग्रीड-नुरूप टॉगल करतो."
 
-#: ../app/interface.c:948
+#: ../app/interface.c:1031
 msgid "Toggles object snapping for this window."
 msgstr "या खिडकी करीता घटक स्नॅपींग टॉगल करतो."
 
-#: ../app/interface.c:1338
+#: ../app/interface.c:1421
 #, c-format
 msgid "No sheet named %s"
 msgstr "%s नामांकीत तुकडा आढळला नाही"
 
-#: ../app/interface.c:1376
+#: ../app/interface.c:1459
 msgid "Other sheets"
 msgstr "इतर तुकडे"
 
-#: ../app/interface.c:1436 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1519 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "फ्लोचार्ट"
 
-#: ../app/interface.c:1496
+#: ../app/interface.c:1579
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1018,7 +1036,7 @@ msgstr ""
 "नवीन घटक करीता अग्रभूमी & पार्श्वभूमी रंग.  लहान काळे व पांढरे चौरस रंग स्वच्छ करतो.  "
 "लहान बाण रंग स्वॅप करतो.  रंग बदलण्याकरीता दोनवेळा क्लिक करा."
 
-#: ../app/interface.c:1511
+#: ../app/interface.c:1594
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1026,7 +1044,7 @@ msgstr ""
 "रेष रूंदी.  नवीन घटक करीता मुलभूत रेष निश्चित करण्यासाठी रेषवर क्लिक करा.  अधिक "
 "अचूकरित्या रेषाची रूंदी निश्चित करण्याकरीता दोनवेळा-क्लिक करा."
 
-#: ../app/interface.c:1554
+#: ../app/interface.c:1637
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1034,7 +1052,7 @@ msgstr ""
 "नवीन ओळींच्या सुरवातीस बाणाची शैली.  बाण नीवडण्याकरीता क्लिक करा, किंवा बाणाचे बाब "
 "तपशील सह निश्चित करा..."
 
-#: ../app/interface.c:1559
+#: ../app/interface.c:1642
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1042,7 +1060,7 @@ msgstr ""
 "नवीन रेष करीता रेष शैली.  रेष शैली नीवडण्याकरीता क्लिक करा, किंवा रेष शैली बाब तपशील "
 "सह निश्चित करा..."
 
-#: ../app/interface.c:1575
+#: ../app/interface.c:1658
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1050,7 +1068,7 @@ msgstr ""
 "नवीन ओळच्या शेवटी बाण शैली.  बाण नीवडण्याकरीता क्लिक करा, किंवा बाणाचे बाब तपशील सह "
 "निश्चित करा..."
 
-#: ../app/interface.c:1635 ../app/interface.c:1762
+#: ../app/interface.c:1718 ../app/interface.c:1845
 msgid "Diagram Editor"
 msgstr "आकृती संपादक"
 
@@ -1078,7 +1096,7 @@ msgstr "थर:"
 msgid "Layers"
 msgstr "थर"
 
-#: ../app/layer_dialog.c:400
+#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:988
 msgid "Diagram:"
 msgstr "आकृती:"
 
@@ -1102,6 +1120,49 @@ msgstr "थर समावेष करा"
 #: ../app/layer_dialog.c:1215
 msgid "Layer name:"
 msgstr "थराचे नाव:"
+
+#: ../app/dic_dialog.c:300
+msgid ""
+"When Node is moved,the objects are deleted.\n"
+"Do you move?"
+msgstr ""
+
+#: ../app/dic_dialog.c:472
+msgid "Same name node exist."
+msgstr ""
+
+#: ../app/dic_dialog.c:486
+msgid "cannot change occurs for existence object."
+msgstr ""
+
+#: ../app/dic_dialog.c:661
+msgid "Some node included deleting node are used."
+msgstr ""
+
+#: ../app/dic_dialog.c:895 ../sheets/UML.sheet.in.h:22
+msgid "Node"
+msgstr "केंद्र"
+
+#: ../app/dic_dialog.c:973
+#, fuzzy
+msgid "Dictionary"
+msgstr "दिशा"
+
+#: ../app/dic_dialog.c:1039
+msgid "Occurs"
+msgstr ""
+
+#: ../app/dic_dialog.c:1047
+#, fuzzy
+msgid "Length"
+msgstr "लांबी एकक:"
+
+#. Translators: Menu item Verb/Control Magnitude/Change
+#. Translators: Menu item Verb/Control Magnitude/Change/Change
+#: ../app/dic_dialog.c:1058 ../objects/FS/function.c:976
+#: ../objects/FS/function.c:978
+msgid "Change"
+msgstr "बदलवा"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
 #: ../objects/chronogram/chronoline.c:183
@@ -1144,18 +1205,18 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "%2$s घटकाचे मुख्य घटक %1$s आढळले नाही\n"
 
-#: ../app/load_save.c:417
+#: ../app/load_save.c:418
 msgid "You must specify a file, not a directory.\n"
 msgstr "तुम्ही फाइल निश्चित केली पाहिजे, डिरेक्ट्री नाही.\n"
 
-#: ../app/load_save.c:424 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:425 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "उघडणे अशक्य: वाचण करीता '%s'.\n"
 
-#: ../app/load_save.c:442 ../app/load_save.c:448
+#: ../app/load_save.c:443 ../app/load_save.c:449
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1164,7 +1225,7 @@ msgstr ""
 "आकृती %s दाखल करतेवेळी त्रुटी.\n"
 "अपरिचीत फाइल प्रकार."
 
-#: ../app/load_save.c:456
+#: ../app/load_save.c:457
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1173,7 +1234,7 @@ msgstr ""
 "आकृती %s दाखल करतेवेळी त्रुटी आढळली.\n"
 "Dia फाइल नाही."
 
-#: ../app/load_save.c:673
+#: ../app/load_save.c:680
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1184,25 +1245,25 @@ msgstr ""
 "%s.\n"
 "वैध Dia फाइल किमान एक थर निश्चित करतो."
 
-#: ../app/load_save.c:996
+#: ../app/load_save.c:1012
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "आऊटपुट फाइल %s करीता लेखनसाठी परवानगी नाही\n"
 
-#: ../app/load_save.c:1028
+#: ../app/load_save.c:1044
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "%s मध्ये तात्पुर्ती फाइलच्या लेखन करीता परवानगी नाही\n"
 
-#: ../app/load_save.c:1050 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1066 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
-#: ../plug-ins/libart/export_png.c:157
+#: ../plug-ins/libart/export_png.c:159
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
-#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
+#: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -1210,18 +1271,19 @@ msgstr "आऊटपुट फाइल %s उघडणे अशक्य: %s\n
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1061
+#: ../app/load_save.c:1077
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "%2$s करीता लिहतेवेळी आंतरीक त्रुटी %1$d आढळली\n"
 
-#: ../app/load_save.c:1072
+#: ../app/load_save.c:1088
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "%1$s याचे शेवटची आऊटपुट फाइल %2$s नुरूप पुन्हनामांकन अशक्य: %3$s\n"
 
-#: ../app/load_save.c:1163 ../app/load_save.c:1168
-msgid "Dia Diagram File"
+#: ../app/load_save.c:1179 ../app/load_save.c:1184
+#, fuzzy
+msgid "Monpe Diagram File"
 msgstr "Dia आकृती फाइल"
 
 #: ../app/menus.c:63
@@ -1330,11 +1392,11 @@ msgstr "दृष्य बदल (_Z)"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:154 ../app/menus.c:573
+#: ../app/menus.c:154 ../app/menus.c:574
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:155 ../app/menus.c:574
+#: ../app/menus.c:155 ../app/menus.c:575
 msgid "400%"
 msgstr "400%"
 
@@ -1495,116 +1557,121 @@ msgstr "Input Methods (_I)"
 msgid "D_ialogs"
 msgstr "संवाद (_i)"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:220
+#, fuzzy
+msgid "Dictionary..."
+msgstr "दिशा"
+
+#: ../app/menus.c:222
 msgid "D_ebug"
 msgstr "डीबग (_e)"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:228
 msgid "_Tools"
 msgstr "साधन (_T)"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:229
 msgid "Modify"
 msgstr "संपादीत करा"
 
-#: ../app/menus.c:230
+#: ../app/menus.c:231
 msgid "Edit text"
 msgstr "पाठ्य संपादीत करा"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:232
 msgid "Scroll"
 msgstr "स्क्रोल करा"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:255
 msgid "Fullscr_een"
 msgstr "पूर्ण पडदा (_e)"
 
-#: ../app/menus.c:256
+#: ../app/menus.c:257
 msgid "_AntiAliased"
 msgstr ""
 
-#: ../app/menus.c:257
+#: ../app/menus.c:258
 msgid "Show _Grid"
 msgstr "ग्रीड दाखवा (_G)"
 
-#: ../app/menus.c:258
+#: ../app/menus.c:259
 msgid "_Snap To Grid"
 msgstr ""
 
-#: ../app/menus.c:259
+#: ../app/menus.c:260
 msgid "Snap To _Objects"
 msgstr ""
 
-#: ../app/menus.c:260
+#: ../app/menus.c:261
 msgid "Show _Rulers"
 msgstr ""
 
-#: ../app/menus.c:261
+#: ../app/menus.c:262
 msgid "Show _Connection Points"
 msgstr ""
 
-#: ../app/menus.c:268
+#: ../app/menus.c:269
 msgid "Union"
 msgstr ""
 
-#: ../app/menus.c:269
+#: ../app/menus.c:270
 msgid "Intersection"
 msgstr "विच्छेदन"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:270 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:271 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "काढूण टाका"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:272
+#: ../app/menus.c:273
 msgid "Inverse"
 msgstr ""
 
-#: ../app/menus.c:336
+#: ../app/menus.c:337
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: ../app/menus.c:575
+#: ../app/menus.c:576
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:576
+#: ../app/menus.c:577
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:577
+#: ../app/menus.c:578
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:578
+#: ../app/menus.c:579
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:579
+#: ../app/menus.c:580
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:580
+#: ../app/menus.c:581
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:581
+#: ../app/menus.c:582
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:582
+#: ../app/menus.c:583
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:608
+#: ../app/menus.c:609
 msgid "Toggles snap-to-grid."
 msgstr ""
 
-#: ../app/menus.c:620
+#: ../app/menus.c:621
 msgid "Toggles object snapping."
 msgstr ""
 
@@ -1760,7 +1827,7 @@ msgstr "एन्टीअलायस अवलोकन"
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
 #: ../app/preferences.c:221 ../objects/FS/function.c:698
-#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:326
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
 msgid "Export"
 msgstr "एक्सपोर्ट"
 
@@ -2268,7 +2335,7 @@ msgstr "आंतरिक त्रुटी: bezier च्या एन्ड�
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:145
 msgid "Can't find standard object"
 msgstr "मानक घटक शोधणे अशक्य"
 
@@ -2326,7 +2393,7 @@ msgstr "bezpoint p2 वाचन करेतेवेळी त्रुटी.
 msgid "Error parsing bezpoint p3."
 msgstr "bezpoint p3 वाचन करेतेवेळी त्रुटी."
 
-#: ../lib/diaarrowchooser.c:352
+#: ../lib/diaarrowchooser.c:361
 msgid "Arrow Properties"
 msgstr "बाणाचे गुणधर्म"
 
@@ -2622,14 +2689,18 @@ msgstr "मेन्यू स्वच्छ करा"
 msgid ""
 "GTK+ is not installed. Please use the full installer. It is available from "
 "http://dia-installer.de."
-msgstr "GTK+ प्रतिष्ठापीत नाही. कृपया संपूर्ण प्रतिष्ठापक वापरा. ते http://dia-installer.de पासून उपलब्ध होईल."
+msgstr ""
+"GTK+ प्रतिष्ठापीत नाही. कृपया संपूर्ण प्रतिष्ठापक वापरा. ते http://dia-installer.de "
+"पासून उपलब्ध होईल."
 
 #. Installer message: Don't install over pre 0.95 versions
 #: ../installer/win32/gennsh.c:41
 msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
-msgstr "कृपया जुणे Dia प्रतिष्ठापन संपूर्णपणे काढूण टाका किंवा Dia यांस वेगळ्या ठिकाणी प्रतिष्ठापीत करा."
+msgstr ""
+"कृपया जुणे Dia प्रतिष्ठापन संपूर्णपणे काढूण टाका किंवा Dia यांस वेगळ्या ठिकाणी प्रतिष्ठापीत "
+"करा."
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
@@ -2641,7 +2712,9 @@ msgstr "पुढे >"
 msgid ""
 "$(^Name) is released under the GPL license. The license is provided here for "
 "information purposes only. $_CLICK"
-msgstr "$(^Name) GPL परवाना अंतर्गत वितरीत केले आहे. परवाना येथे फक्त माहिती करीता पुरवले गेले आहे. $_CLICK"
+msgstr ""
+"$(^Name) GPL परवाना अंतर्गत वितरीत केले आहे. परवाना येथे फक्त माहिती करीता पुरवले गेले "
+"आहे. $_CLICK"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:50
@@ -2673,7 +2746,9 @@ msgstr "Python प्लग-इन"
 msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
-msgstr "Python Scripting Language 2.3 करीता समर्थन. Python प्रतिष्ठापीत नसल्यास याला नीवडू नका."
+msgstr ""
+"Python Scripting Language 2.3 करीता समर्थन. Python प्रतिष्ठापीत नसल्यास याला "
+"नीवडू नका."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:68
@@ -2692,8 +2767,9 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
-"तुमची जुणी Dia डिरेक्ट्री नष्ट होणार आहे. तुम्हाला पुढे जायचे आहे?$\r"
-"$\rटिप: तुमच्या द्वारे प्रतिष्ठापीत मानक नसलेले कुठलेही प्लगइन नष्ट केले जातिल.$\rDia वापरकर्ता संयोजना प्रभावीत होणार नाही."
+"तुमची जुणी Dia डिरेक्ट्री नष्ट होणार आहे. तुम्हाला पुढे जायचे आहे?$\r$\rटिप: तुमच्या द्वारे "
+"प्रतिष्ठापीत मानक नसलेले कुठलेही प्लगइन नष्ट केले जातिल.$\rDia वापरकर्ता संयोजना प्रभावीत "
+"होणार नाही."
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2701,8 +2777,8 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
-"तुमच्या द्वारे निश्चित केलेली प्रतिष्ठापन डिरेक्ट्री आधिपासूनच अस्तित्वात आहे. कुठलिही अंतर्भूत माहिती$\r "
-"नष्ट केली जाईल. तुम्हाला पुढे जायचे?"
+"तुमच्या द्वारे निश्चित केलेली प्रतिष्ठापन डिरेक्ट्री आधिपासूनच अस्तित्वात आहे. कुठलिही अंतर्भूत "
+"माहिती$\r नष्ट केली जाईल. तुम्हाला पुढे जायचे?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
 #: ../installer/win32/gennsh.c:80
@@ -2710,8 +2786,8 @@ msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
 msgstr ""
-"uninstaller ला Dia करीता registry entries आढळले नाही.$\rअसे होऊ शकते "
-"की इतर वापरकर्त्याने ऍप्लिकेशन प्रतिष्ठापीत केली असावी."
+"uninstaller ला Dia करीता registry entries आढळले नाही.$\rअसे होऊ शकते की इतर "
+"वापरकर्त्याने ऍप्लिकेशन प्रतिष्ठापीत केली असावी."
 
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:83
@@ -2721,16 +2797,13 @@ msgstr "या ऍप्लिकेशनचे प्रतिष्ठाप�
 #. Installer message: Uninstallation warning. Keep $INSTDIR
 #: ../installer/win32/gennsh.c:86
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
-msgstr ""
-"यामुळे संपूर्ण $INSTDIR व सर्व उप डिरेक्ट्री नष्ट होईल. "
-"पुढे जायचे?"
+msgstr "यामुळे संपूर्ण $INSTDIR व सर्व उप डिरेक्ट्री नष्ट होईल. पुढे जायचे?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
-msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
-msgstr ""
-"यामुळे संपूर्ण $PROFILE\\.dia व सर्व उप डिरेक्ट्री नष्ट होईल. "
-"पुढे जायचे?"
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgstr "यामुळे संपूर्ण $PROFILE\\.dia व सर्व उप डिरेक्ट्री नष्ट होईल. पुढे जायचे?"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -3039,7 +3112,8 @@ msgstr "समाप्ति वर्णन"
 #: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
+#: ../objects/UML/transition.c:172 ../objects/standard/bezier.c:731
+#: ../objects/standard/beziergon.c:495 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
 msgstr "खंड समावेष करा"
 
@@ -3048,7 +3122,8 @@ msgstr "खंड समावेष करा"
 #: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
-#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
+#: ../objects/UML/transition.c:173 ../objects/standard/bezier.c:732
+#: ../objects/standard/beziergon.c:496 ../objects/standard/zigzagline.c:381
 msgid "Delete segment"
 msgstr "खंड नष्ट करा"
 
@@ -3734,12 +3809,6 @@ msgstr "मर्यादा"
 #: ../objects/FS/function.c:974
 msgid "Interrupt"
 msgstr "व्यत्यय"
-
-#. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:976 ../objects/FS/function.c:978
-msgid "Change"
-msgstr "बदलवा"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:980
@@ -4638,7 +4707,9 @@ msgstr "आपोआप उभे प्रवाह ग्रे करा:"
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr "वाचन सुधारणा सोपे करण्याकरीता, प्रवाह जे उभेरित्या प्रारंब व समाप्त होतात, त्यांस ग्रे असे दर्शवणे शक्य आहे"
+msgstr ""
+"वाचन सुधारणा सोपे करण्याकरीता, प्रवाह जे उभेरित्या प्रारंब व समाप्त होतात, त्यांस ग्रे असे "
+"दर्शवणे शक्य आहे"
 
 #: ../objects/SADT/arrow.c:465
 msgid "SADT Arrow"
@@ -5632,9 +5703,12 @@ msgid ""
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 "@ वेळ    पॉईन्टरला absolute time करीता निश्चित करतो.\n"
-"( duration  संकेतला up असे निश्चित करतो, व त्यानंतर 'duration' करीता प्रतिक्षा करतो.\n"
-") duration  संकेतला down असे निश्चित करतो, व त्यानंतर 'duration' करीता प्रतिक्षा करतो.\n"
-"u duration  संकेतला \"unknown\" स्थर यानुरूप निश्चित करतो, व त्यानंतर 'duration' प्रतिक्षा करतो.\n"
+"( duration  संकेतला up असे निश्चित करतो, व त्यानंतर 'duration' करीता प्रतिक्षा "
+"करतो.\n"
+") duration  संकेतला down असे निश्चित करतो, व त्यानंतर 'duration' करीता प्रतिक्षा "
+"करतो.\n"
+"u duration  संकेतला \"unknown\" स्थर यानुरूप निश्चित करतो, व त्यानंतर 'duration' "
+"प्रतिक्षा करतो.\n"
 "उदाहरणार्थ : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: ../objects/chronogram/chronoline.c:166
@@ -5697,24 +5771,18 @@ msgid "Custom XML shapes loader"
 msgstr "स्वपसंत XML आकार दाखलकर्ता"
 
 #: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
+#: ../objects/custom/custom_object.c:1780
 msgid "Flip horizontal"
 msgstr "आडवे पलटवा"
 
 #: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
+#: ../objects/custom/custom_object.c:1781
 msgid "Flip vertical"
 msgstr "उभे पलटवा"
 
 #: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
 msgstr "उपआकारांचे प्रमाण"
-
-#: ../objects/custom/custom_object.c:1780
-msgid "Flip Horizontal"
-msgstr "आडवे पलटवा"
-
-#: ../objects/custom/custom_object.c:1781
-msgid "Flip Vertical"
-msgstr "उभे पलटवा"
 
 #: ../objects/custom/custom_object.c:1818
 #: ../objects/custom_lines/custom_linetypes.c:263
@@ -5794,14 +5862,6 @@ msgstr ""
 #: ../objects/standard/polyline.c:141
 msgid "Absolute end gap"
 msgstr ""
-
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:495
-msgid "Add Segment"
-msgstr "खंड समावेष करा"
-
-#: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:496
-msgid "Delete Segment"
-msgstr "खंड नष्ट करा"
 
 #: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 msgid "Symmetric control"
@@ -5997,11 +6057,11 @@ msgstr ""
 "प्रतिमा ओळ लांबी कमाल cell array पेक्षा जास्त आहे.\n"
 "प्रतिमा CGM करीता एक्सपोर्ट करणे अशक्य."
 
-#: ../plug-ins/cgm/cgm.c:1361
+#: ../plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1386
+#: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export फिल्टर"
 
@@ -6043,32 +6103,32 @@ msgstr "HP Graphics Language export फिल्टर"
 msgid "Libart based rendering"
 msgstr "Libart आधारीत रेन्डरींग"
 
-#: ../plug-ins/libart/export_png.c:165
+#: ../plug-ins/libart/export_png.c:167
 msgid "Could not create PNG write structure"
 msgstr "PNG write structure बनवणे अशक्य"
 
-#: ../plug-ins/libart/export_png.c:174
+#: ../plug-ins/libart/export_png.c:176
 msgid "Could not create PNG header info structure"
 msgstr "PNG header info structure बनवणे अशक्य"
 
-#: ../plug-ins/libart/export_png.c:182
+#: ../plug-ins/libart/export_png.c:184
 msgid "Error occurred while writing PNG"
 msgstr "PNG लिहतेवेळी त्रुटी आढळली"
 
 #. Create a dialog
-#: ../plug-ins/libart/export_png.c:325
+#: ../plug-ins/libart/export_png.c:327
 msgid "PNG Export Options"
 msgstr "PNG Export पर्याय"
 
-#: ../plug-ins/libart/export_png.c:331
+#: ../plug-ins/libart/export_png.c:333
 msgid "Image width:"
 msgstr "प्रतिमा रूंदी:"
 
-#: ../plug-ins/libart/export_png.c:334
+#: ../plug-ins/libart/export_png.c:336
 msgid "Image height:"
 msgstr "प्रतिमा ऊंची:"
 
-#: ../plug-ins/libart/export_png.c:380
+#: ../plug-ins/libart/export_png.c:382
 msgid "PNG (anti-aliased)"
 msgstr "PNG (anti-aliased)"
 
@@ -6196,13 +6256,15 @@ msgstr "Python स्क्रिप्टींग समर्थन"
 
 #: ../plug-ins/shape/shape-export.c:474
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
-msgstr "Shape फाइल .shape नुरूप समाप्त व्हायला हवे, किंवा ते Dia द्वारे दाखल करणे अशक्य आहे"
+msgstr ""
+"Shape फाइल .shape नुरूप समाप्त व्हायला हवे, किंवा ते Dia द्वारे दाखल करणे अशक्य आहे"
 
-#: ../plug-ins/shape/shape-export.c:485
-msgid "Can't export png without libart!"
+#: ../plug-ins/shape/shape-export.c:488
+#, fuzzy
+msgid "Can't export png icon without export plug-in!"
 msgstr "libart विना png export अशक्य!"
 
-#: ../plug-ins/shape/shape-export.c:510
+#: ../plug-ins/shape/shape-export.c:512
 msgid "Dia Shape File"
 msgstr "Dia आकार फाइल"
 
@@ -6236,53 +6298,53 @@ msgstr "Scalable Vector Graphics import व export फिल्टर"
 msgid "Couldn't read file %s"
 msgstr "फाइल %s वाचणे अशक्य"
 
-#: ../plug-ins/vdx/vdx-export.c:1905
+#: ../plug-ins/vdx/vdx-export.c:1912
 msgid "Visio XML format"
 msgstr "Visio XML स्वरूप"
 
-#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:227 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "रंग वाचणे अशक्य: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:540
+#: ../plug-ins/vdx/vdx-import.c:541
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "आकार %d आढळले नाही\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:1047
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "अनपेक्षीत Ellipse घटक: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1060
+#: ../plug-ins/vdx/vdx-import.c:1061
 msgid "Can't rotate ellipse\n"
 msgstr "लंबवर्तुळाकार फिरवणे अशक्य\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1391
+#: ../plug-ins/vdx/vdx-import.c:1392
 msgid "MoveTo not at start of Bezier\n"
 msgstr "Bezier च्या सुरवातीस MoveTo आढळले नाही\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1739
+#: ../plug-ins/vdx/vdx-import.c:1740
 msgid "Invalid NURBS formula"
 msgstr "अवैध NURBS नियम"
 
-#: ../plug-ins/vdx/vdx-import.c:1983
+#: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "फाइल %s चे लेखन अशक्य"
 
-#: ../plug-ins/vdx/vdx-import.c:2068 ../plug-ins/vdx/vdx-import.c:2081
+#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "foreign घटक प्रकार %s हाताळणी अशक्य"
 
-#: ../plug-ins/vdx/vdx-import.c:2109
+#: ../plug-ins/vdx/vdx-import.c:2110
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "घटक dir %s बनवणे अशक्य"
 
-#: ../plug-ins/vdx/vdx-import.c:3090
+#: ../plug-ins/vdx/vdx-import.c:3100
 msgid "Visio XML File Format"
 msgstr "Visio XML फाइल स्वरूप"
 
@@ -6359,7 +6421,8 @@ msgstr "XFig स्वरूप"
 #: ../plug-ins/xfig/xfig-import.c:111
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr "रंग निर्देशांक %d खूप जास्त आहे, फक्त 512 रंग स्वीकार्य आहे. त्याऐवजी काळा वापरत आहे."
+msgstr ""
+"रंग निर्देशांक %d खूप जास्त आहे, फक्त 512 रंग स्वीकार्य आहे. त्याऐवजी काळा वापरत आहे."
 
 #: ../plug-ins/xfig/xfig-import.c:138
 msgid "Patterns are not supported by Dia"
@@ -8755,10 +8818,6 @@ msgstr "कार्यकाळ"
 msgid "Message"
 msgstr "संदेश"
 
-#: ../sheets/UML.sheet.in.h:22
-msgid "Node"
-msgstr "केंद्र"
-
 #: ../sheets/UML.sheet.in.h:23
 msgid "Note"
 msgstr "टिप"
@@ -10451,3 +10510,38 @@ msgstr "Sybase डेटासर्वर"
 msgid "Sybase replication server"
 msgstr "Sybase रेप्लिकेशन सर्वर"
 
+#, fuzzy
+#~ msgid "String"
+#~ msgstr "स्ट्रेन"
+
+#, fuzzy
+#~ msgid "Diagram0.red2"
+#~ msgstr "Diagram1.dia"
+
+#, fuzzy
+#~ msgid "Diagram%d.red2"
+#~ msgstr "Diagram%d.dia"
+
+#~ msgid "Quit Dia"
+#~ msgstr "Dia पासून बाहेर पडा"
+
+#~ msgid "'%s' not found!\n"
+#~ msgstr "'%s' आढळले नाही!\n"
+
+#~ msgid "'%s' not found in '%s'!\n"
+#~ msgstr "'%2$s' मध्ये '%1$s' आडळले नाही!\n"
+
+#~ msgid "A program for drawing structured diagrams."
+#~ msgstr "रचनाकृत आकृती काढण्याकरीता कार्यक्रम."
+
+#~ msgid "Flip Horizontal"
+#~ msgstr "आडवे पलटवा"
+
+#~ msgid "Flip Vertical"
+#~ msgstr "उभे पलटवा"
+
+#~ msgid "Add Segment"
+#~ msgstr "खंड समावेष करा"
+
+#~ msgid "Delete Segment"
+#~ msgstr "खंड नष्ट करा"

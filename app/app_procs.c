@@ -885,9 +885,9 @@ app_init (int argc, char **argv)
   if (version) {
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
-    printf(g_locale_from_utf8(_("Dia version %s, compiled %s %s\n"), -1, NULL, NULL, NULL), VERSION, __TIME__, __DATE__);
+    printf(g_locale_from_utf8(_("Monpe version %s, compiled %s %s\n"), -1, NULL, NULL, NULL), VERSION, __TIME__, __DATE__);
 #else
-    printf(g_locale_from_utf8(_("Dia version %s\n"), -1, NULL, NULL, NULL), VERSION);
+    printf(g_locale_from_utf8(_("Monpe version %s\n"), -1, NULL, NULL, NULL), VERSION);
 #endif
     if (verbose)
       dump_dependencies();
@@ -998,7 +998,7 @@ app_init (int argc, char **argv)
     }
     else
     {
-      gchar *filename = g_filename_from_utf8(_("Diagram0.red2"), -1, NULL, NULL, NULL);
+      gchar *filename = g_filename_from_utf8("Diagram0.red2", -1, NULL, NULL, NULL);
       Diagram *diagram = new_diagram (filename);
       g_free(filename);
     

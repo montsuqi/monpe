@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arabic\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-31 11:06+0100\n"
+"POT-Creation-Date: 2011-07-15 16:38+0900\n"
 "PO-Revision-Date: 2008-01-01 12:19+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabeyes <doc@arabeyes.org>\n"
@@ -17,204 +17,247 @@ msgstr ""
 "X-Poedit-Bookmarks: 2024,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:200
+#: ../app/app_procs.c:213
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "تنبيه: مجال طبقي غير صحيح %lu - %lu\n"
 
-#: ../app/app_procs.c:212
+#: ../app/app_procs.c:225
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "تنبيه: تم ّ انتقاء الطّبقة %lu (%s) أكثر من مرّة. \n"
 
-#: ../app/app_procs.c:238
+#: ../app/app_procs.c:251
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "تنبيه: تم ّ انتقاء الطّبقة %d (%s) أكثر من مرّة. \n"
 
-#: ../app/app_procs.c:247
+#: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "تنبيه: ليس هناك أي طبقة بالإسم %s\n"
 
-#: ../app/app_procs.c:329
+#: ../app/app_procs.c:342
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s خطأ: لا أعرف كيف أصدّر إلى %s\n"
 
-#: ../app/app_procs.c:338
+#: ../app/app_procs.c:351
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s خطأ: ملف الدخل و المخرج هما نفس الملفّ %s"
 
-#: ../app/app_procs.c:346
+#: ../app/app_procs.c:359
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s خطأ: ملف دخل صحيح مطلوب %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:371
+#: ../app/app_procs.c:390
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:542
+#: ../app/app_procs.c:565
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "لم يمكن إيجاد مرشح المخرج %s\n"
 
+#: ../app/app_procs.c:636
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr ""
+
+#: ../app/app_procs.c:653
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr ""
+
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:618
+#: ../app/app_procs.c:703
 #, fuzzy, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "<p>اختر هنا هيئة ملف الصورة الهدف.<p>"
 
 #. &export_file_name
-#: ../app/app_procs.c:636
+#: ../app/app_procs.c:721
 #, fuzzy
 msgid "Export loaded file and exit"
 msgstr "صدّر اسم الملف"
 
-#: ../app/app_procs.c:636
+#: ../app/app_procs.c:721
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:638
+#: ../app/app_procs.c:723
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../app/app_procs.c:640
+#: ../app/app_procs.c:725
 #, fuzzy
 msgid "Export graphics size"
 msgstr "_حجم خط داشر"
 
-#: ../app/app_procs.c:640
+#: ../app/app_procs.c:725
 msgid "WxH"
 msgstr "WxH"
 
-#: ../app/app_procs.c:642
+#: ../app/app_procs.c:727
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: ../app/app_procs.c:643
+#: ../app/app_procs.c:728
 msgid "LAYER,LAYER,..."
 msgstr "طبقة، طبقة،..."
 
-#: ../app/app_procs.c:645
+#: ../app/app_procs.c:730
 #, fuzzy
 msgid "Don't show the splash screen"
 msgstr "أظهر شاشة البدأ عند _تسجيل الدخول"
 
-#: ../app/app_procs.c:647
+#: ../app/app_procs.c:732
 #, fuzzy
 msgid "Don't create empty diagram"
 msgstr "انشيء مجلد جديد فارغ داخل هذا المجلد"
 
-#: ../app/app_procs.c:649
+#: ../app/app_procs.c:734
+msgid "Start integrated user interface (diagrams in tabs)"
+msgstr ""
+
+#: ../app/app_procs.c:736
 #, fuzzy
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "أرسِل رسالة للمراسَلين المنتقين."
 
-#: ../app/app_procs.c:651
+#: ../app/app_procs.c:738
+msgid "Directory containing input files"
+msgstr ""
+
+#: ../app/app_procs.c:738 ../app/app_procs.c:740
+#, fuzzy
+msgid "DIRECTORY"
+msgstr "DIRECTORY"
+
+#: ../app/app_procs.c:740
+msgid "Directory containing output files"
+msgstr ""
+
+#: ../app/app_procs.c:743
 #, fuzzy
 msgid "Display credits list and exit"
 msgstr "اعرض الإصدار و اخرج"
 
-#: ../app/app_procs.c:653
+#: ../app/app_procs.c:746
 #, fuzzy
 msgid "Generate verbose output"
 msgstr "فعّل خرْج مسهِب"
 
-#: ../app/app_procs.c:655
+#: ../app/app_procs.c:748
 #, fuzzy
 msgid "Display version and exit"
 msgstr "اعرض الإصدار و اخرج"
 
-#: ../app/app_procs.c:707
+#: ../app/app_procs.c:750
+msgid "The x cordinate to paper offset[cm]"
+msgstr ""
+
+#: ../app/app_procs.c:752
+msgid "The y cordinate to paper offset[cm]"
+msgstr ""
+
+#: ../app/app_procs.c:775
+msgid "[FILE...]"
+msgstr "[ملف...]"
+
+#: ../app/app_procs.c:787
+#, fuzzy, c-format
+msgid "Invalid option?"
+msgstr "عمليّة غير مدعومة"
+
+#: ../app/app_procs.c:810
+#, fuzzy, c-format
+msgid "Filename conversion failed: %s\n"
+msgstr "جُمِّعَ مع التنقيح."
+
+#: ../app/app_procs.c:823
+#, c-format
+msgid "Missing input: %s\n"
+msgstr ""
+
+#: ../app/app_procs.c:848
 #, fuzzy
 msgid "Can't connect to session manager!\n"
 msgstr "لم يمكن الاتصال بمدير الجلسات"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:747
+#: ../app/app_procs.c:888
 #, fuzzy, c-format
-msgid "Dia version %s, compiled %s %s\n"
+msgid "Monpe version %s, compiled %s %s\n"
 msgstr "جُمِّعَ مع التنقيح."
 
-#: ../app/app_procs.c:749
-#, c-format
-msgid "Dia version %s\n"
+#: ../app/app_procs.c:890
+#, fuzzy, c-format
+msgid "Monpe version %s\n"
 msgstr "نسخة ديّا %s\n"
 
-#: ../app/app_procs.c:785
+#: ../app/app_procs.c:930
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 
-#: ../app/app_procs.c:787
+#: ../app/app_procs.c:932
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
 
-#: ../app/app_procs.c:846
-msgid "Diagram1.dia"
-msgstr "مخطّط1.dia"
-
-#: ../app/app_procs.c:889
+#: ../app/app_procs.c:1037
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 
-#: ../app/app_procs.c:904
+#: ../app/app_procs.c:1052
 msgid "Exiting Dia"
 msgstr "يجري الخروج من ديا"
 
 #. no standard buttons
-#: ../app/app_procs.c:956
+#: ../app/app_procs.c:1116
 msgid "Quitting without saving modified diagrams"
 msgstr ""
 
-#: ../app/app_procs.c:958
+#: ../app/app_procs.c:1118
+#, fuzzy
 msgid ""
-"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"Modified diagrams exist. Are you sure you want to quit Monpe without saving "
 "them?"
 msgstr "تمّ تغيير بع المخطّطات المفتوحة، هل تريد الخروج من ديّا دون حفظها؟"
 
-#: ../app/app_procs.c:962
-msgid "Quit Dia"
-msgstr "أخرج من ديا"
+#: ../app/app_procs.c:1122
+#, fuzzy
+msgid "Quit Monpe"
+msgstr "عمليّة هادئة"
 
-#: ../app/app_procs.c:1031 ../app/app_procs.c:1038
+#: ../app/app_procs.c:1191 ../app/app_procs.c:1198
 msgid "Could not create per-user Dia config directory"
 msgstr "لم يمكن إنشاء دليل اعداد ديّا الخاص بكل مستخدم"
 
-#: ../app/app_procs.c:1041
+#: ../app/app_procs.c:1201
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: ../app/app_procs.c:1064
+#: ../app/app_procs.c:1224
 msgid "Objects and filters internal to dia"
 msgstr ""
 
-#: ../app/app_procs.c:1096
-msgid "[FILE...]"
-msgstr "[ملف...]"
-
-#: ../app/app_procs.c:1117
-#, c-format
-msgid "'%s' not found!\n"
-msgstr "'%s' غير موجود!\n"
-
-#: ../app/app_procs.c:1161
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -223,7 +266,7 @@ msgstr ""
 "المؤلف الأصلي لـ ديّا:\n"
 "\n"
 
-#: ../app/app_procs.c:1166
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -231,7 +274,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1171
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -242,7 +285,7 @@ msgstr ""
 "المؤلفون الآخرون::\n"
 "\n"
 
-#: ../app/app_procs.c:1176
+#: ../app/app_procs.c:1295
 #, c-format
 msgid ""
 "\n"
@@ -271,24 +314,19 @@ msgstr "اختر اللون الأمامي"
 msgid "Select background color"
 msgstr "اختر اللون الخلفي"
 
-#: ../app/commands.c:124
+#: ../app/commands.c:131
 msgid "No print plug-in found!"
 msgstr ""
 
-#: ../app/commands.c:152
-#, c-format
-msgid "Diagram%d.dia"
-msgstr "تخطيط%d.dia"
-
-#: ../app/commands.c:345
+#: ../app/commands.c:344
 msgid "No existing object to paste.\n"
 msgstr "لا جسم مفتوح لللّصق.\n"
 
-#: ../app/commands.c:649 ../app/commands.c:687
+#: ../app/commands.c:647 ../app/commands.c:685
 msgid "Could not find help directory"
 msgstr "لم يمكن إيجاد دليل المساعدة"
 
-#: ../app/commands.c:656
+#: ../app/commands.c:654
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -297,11 +335,11 @@ msgstr ""
 "لم يمكن إيجاد دليل المساعدة:\n"
 "%s"
 
-#: ../app/commands.c:723
+#: ../app/commands.c:721
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "جهاد عفيفي <djihed@gmail.com>"
 
-#: ../app/commands.c:725
+#: ../app/commands.c:723
 #, fuzzy
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
@@ -329,10 +367,44 @@ msgstr ""
 "- 1307, USA"
 
 #: ../app/commands.c:748
-msgid "A program for drawing structured diagrams."
+msgid "MONTSUQI Printing Environment"
 msgstr ""
 
-#: ../app/defaults.c:43 ../app/defaults.c:145
+#: ../app/confirm.c:69
+#, c-format
+msgid "You are about to print a diagram with %d pages."
+msgstr ""
+
+#: ../app/confirm.c:71
+#, c-format
+msgid "You are about to export a diagram with %d pages."
+msgstr ""
+
+#: ../app/confirm.c:73
+#, c-format
+msgid ""
+"You are about to export a diagram which may require %s of memory.(%d pages)."
+msgstr ""
+
+#: ../app/confirm.c:81
+msgid ""
+"You can adjust the size of the diagram by changing the 'Scaling' in the "
+"'Page Setup' dialog.\n"
+"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
+"the intended bounds."
+msgstr ""
+
+#: ../app/confirm.c:85
+#, fuzzy
+msgid "Confirm Diagram Size"
+msgstr "ملف مخطط دِيا"
+
+#: ../app/create_object.c:71
+#, fuzzy, c-format
+msgid "'%s' creation failed"
+msgstr "إنتقي ملف"
+
+#: ../app/defaults.c:43 ../app/defaults.c:150
 msgid "Object defaults"
 msgstr "إفتراضيات الجسم"
 
@@ -341,7 +413,7 @@ msgstr "إفتراضيات الجسم"
 msgid "This object has no defaults."
 msgstr "كائن الكينونة ليس له خاصّيّة %s"
 
-#: ../app/defaults.c:110
+#: ../app/defaults.c:115
 msgid "Defaults: "
 msgstr "الإفتراضي:"
 
@@ -370,7 +442,7 @@ msgid "Visible spacing"
 msgstr "المباعدة المرئية"
 
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:192
+#: ../app/dia-props.c:177 ../app/preferences.c:242
 msgid "Hex grid"
 msgstr "الشبكة الثّمانيّة"
 
@@ -382,11 +454,11 @@ msgstr "حجم الشبكة الثمانيّة"
 msgid "Grid"
 msgstr "الشبكة"
 
-#: ../app/dia-props.c:209 ../lib/diagramdata.c:113
+#: ../app/dia-props.c:209 ../lib/diagramdata.c:112
 msgid "Background"
 msgstr "الخلفية"
 
-#: ../app/dia-props.c:220 ../app/preferences.c:110
+#: ../app/dia-props.c:220 ../app/preferences.c:122
 msgid "Grid Lines"
 msgstr "خطوط الشبكة"
 
@@ -424,26 +496,20 @@ msgstr "موقع ص"
 msgid "Y position of child widget"
 msgstr "موقع ص للقطعة الابنة"
 
-#: ../app/diagram.c:222
+#: ../app/diagram.c:223
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "لم يمكن تحويل '%s' إلى UTF-8: %s\n"
 
-#: ../app/diagram.c:225 ../lib/message.c:88 ../lib/message.c:291
+#: ../app/diagram.c:226 ../lib/message.c:90 ../lib/message.c:293
 msgid "Error"
 msgstr "خطأ"
 
-#: ../app/diagram.c:274
-msgid ""
-"You have loaded a non-Dia file.  The file has become an element in a new "
-"diagram, and if you save it, it will be saved as a Dia diagram."
-msgstr ""
-
-#: ../app/diagram.c:1180
+#: ../app/diagram.c:1212
 msgid "Trying to group with no selected objects."
 msgstr "محاولة التجميع من دون أجسام منتقاة."
 
-#: ../app/diagram.c:1190
+#: ../app/diagram.c:1222
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -529,7 +595,7 @@ msgstr "/_خصائص"
 msgid "/_Hide this type"
 msgstr "/_اخف هذا النوع"
 
-#: ../app/diagram_tree_window.c:80 ../app/preferences.c:111
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:123
 msgid "Diagram Tree"
 msgstr "شجرة المخطّط"
 
@@ -590,18 +656,23 @@ msgstr ""
 msgid "Page Setup"
 msgstr "إعداد الصفحة"
 
-#: ../app/disp_callbacks.c:84 ../app/properties.c:152
+#: ../app/disp_callbacks.c:95 ../app/properties-dialog.c:157
 #, fuzzy
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr "لا يدعم هذا الخادم معلومات مخطّط LDAPv3."
 
-#: ../app/disp_callbacks.c:119
+#: ../app/disp_callbacks.c:130
 msgid "Properties..."
 msgstr "خصائص..."
 
-#: ../app/disp_callbacks.c:937
+#: ../app/disp_callbacks.c:248
+#, fuzzy
+msgid "Selection"
+msgstr "لا تنتق أي شيئ"
+
+#: ../app/disp_callbacks.c:1072
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -610,44 +681,44 @@ msgstr ""
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:109
+#: ../app/display.c:115
 #, fuzzy, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "مميّز الجسم (%s)"
 msgstr[1] "نمط الانتقاء"
 
-#: ../app/display.c:119
+#: ../app/display.c:125
 #, c-format
 msgid "Selected '%s'"
 msgstr "انتقي '%s'"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1034
+#: ../app/display.c:1081
 msgid "No anti-aliased renderer found"
 msgstr ""
 
-#: ../app/display.c:1179
+#: ../app/display.c:1219
 msgid "<unnamed>"
 msgstr "<غير مسمّى>"
 
 #. no standard buttons
-#: ../app/display.c:1185
+#: ../app/display.c:1225
 msgid "Closing diagram without saving"
 msgstr "يجري الخروج دون حفظ أيّة تغييرات"
 
-#: ../app/display.c:1187
+#: ../app/display.c:1227
 #, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
 
-#: ../app/display.c:1189
+#: ../app/display.c:1229
 msgid "Close Diagram"
 msgstr "اغلق المخطّط"
 
-#: ../app/display.c:1194
+#: ../app/display.c:1234
 msgid "_Discard Changes"
 msgstr "أ_همل التغييرات"
 
@@ -667,79 +738,76 @@ msgstr "احفظ المنتقى"
 msgid "The following are not saved:"
 msgstr "الملفات التّالية غير محفوظة:"
 
-#: ../app/exit_dialog.c:114
+#: ../app/exit_dialog.c:113
 msgid "Save"
 msgstr "احفظ"
 
-#: ../app/exit_dialog.c:115
-msgid "active"
-msgstr "نشط"
-
 #. *** board of value **************
-#: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
-#: ../objects/Database/table.c:136 ../objects/Database/table.c:179
-#: ../objects/SISSI/sissi_dialog.c:619 ../objects/UML/association.c:236
-#: ../objects/UML/class.c:141 ../objects/UML/large_package.c:133
-#: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
-#: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
+#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1031
+#: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
+#: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
+#: ../objects/UML/association.c:234 ../objects/UML/class.c:144
+#: ../objects/UML/large_package.c:139 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
+#: ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "اسم"
 
-#: ../app/exit_dialog.c:130
+#: ../app/exit_dialog.c:129
 msgid "Path"
 msgstr "المسار"
 
-#: ../app/exit_dialog.c:143
+#: ../app/exit_dialog.c:142
 msgid "Select All"
 msgstr "انتق الكل"
 
-#: ../app/exit_dialog.c:151
+#: ../app/exit_dialog.c:150
 msgid "Select None"
 msgstr "لا تنتق أي شيئ"
 
-#: ../app/exit_dialog.c:229
+#: ../app/exit_dialog.c:236
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr ""
 
-#: ../app/filedlg.c:141 ../app/filedlg.c:149 ../app/filedlg.c:165
-#: ../app/filedlg.c:739 ../lib/widgets.c:1488
+#: ../app/filedlg.c:145 ../app/filedlg.c:153 ../app/filedlg.c:169
+#: ../app/filedlg.c:748 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "التنسيقات المتوفّرة"
 
-#: ../app/filedlg.c:189 ../app/filedlg.c:599
+#: ../app/filedlg.c:193 ../app/filedlg.c:606
 msgid "By extension"
 msgstr "حسب الامتداد"
 
-#: ../app/filedlg.c:278
+#: ../app/filedlg.c:283
 msgid "Open Diagram"
 msgstr "افتح تخطيطا"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:311
 msgid "Open Options"
 msgstr "افتح الخيارات"
 
-#: ../app/filedlg.c:315 ../app/filedlg.c:721
+#: ../app/filedlg.c:319 ../app/filedlg.c:730
 msgid "Determine file type:"
 msgstr "حدّد نوع الملفّ:"
 
-#: ../app/filedlg.c:335 ../app/filedlg.c:734 ../lib/widgets.c:1493
+#: ../app/filedlg.c:339 ../app/filedlg.c:743 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "كل الملفّات"
 
-#: ../app/filedlg.c:368 ../plug-ins/postscript/paginate_psprint.c:409
+#: ../app/filedlg.c:372 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 
-#: ../app/filedlg.c:378 ../app/filedlg.c:646
-#: ../plug-ins/postscript/paginate_psprint.c:424
+#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "الملف موجود مسبّقا"
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:648
-#: ../plug-ins/postscript/paginate_psprint.c:416
+#: ../app/filedlg.c:384 ../app/filedlg.c:655
+#: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -748,66 +816,70 @@ msgstr ""
 "الملف '%s'  موجود حاليا ،\n"
 "هل تريد الكتابة فوقه؟"
 
-#: ../app/filedlg.c:434
+#: ../app/filedlg.c:438
 msgid "Save Diagram"
 msgstr "احفظ التخطيط"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:446
+#: ../app/filedlg.c:449
 #, fuzzy
 msgid "Compress diagram files"
 msgstr "خواتم وقت للملفات الجديدة"
 
-#: ../app/filedlg.c:456 ../app/filedlg.c:461
+#: ../app/filedlg.c:459 ../app/filedlg.c:464
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 
-#: ../app/filedlg.c:672
+#: ../app/filedlg.c:679
 #, fuzzy, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr "تعذّر فتح المُحوِّل من '%s' الى '%s'"
 
-#: ../app/filedlg.c:696
+#: ../app/filedlg.c:706
 msgid "Export Diagram"
 msgstr "صدّر التخطيط"
 
-#: ../app/filedlg.c:713
+#: ../app/filedlg.c:722
 msgid "Export Options"
 msgstr "خيارات التّصدير"
 
-#: ../app/find-and-replace.c:283
+#: ../app/find-and-replace.c:454
 msgid "_Search for:"
 msgstr ""
 
-#: ../app/find-and-replace.c:296
+#: ../app/find-and-replace.c:467
 #, fuzzy
 msgid "Replace _with:"
 msgstr "استبدل"
 
-#: ../app/find-and-replace.c:306
+#: ../app/find-and-replace.c:477
 #, fuzzy
 msgid "_Match case"
 msgstr "حدد حجم الخطوة"
 
-#: ../app/find-and-replace.c:310
+#: ../app/find-and-replace.c:481
 msgid "Match _entire word only"
 msgstr ""
 
-#: ../app/find-and-replace.c:335
+#: ../app/find-and-replace.c:485
+msgid "Match _all properties (not just object name)"
+msgstr ""
+
+#: ../app/find-and-replace.c:510
 #, fuzzy
 msgid "Find"
 msgstr "النوع"
 
-#: ../app/find-and-replace.c:367 ../app/menus.c:258
+#: ../app/find-and-replace.c:542 ../app/menus.c:268
 msgid "Replace"
 msgstr "استبدل"
 
-#: ../app/find-and-replace.c:370
+#: ../app/find-and-replace.c:545
 #, fuzzy
 msgid "Replace _All"
 msgstr "استبدل"
@@ -815,167 +887,166 @@ msgstr "استبدل"
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:375
+#: ../app/find-and-replace.c:550
 #, fuzzy
 msgid "_Replace"
 msgstr "استبدل"
 
-#: ../app/interface.c:145
+#: ../app/interface.c:157
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
 
-#: ../app/interface.c:151
+#: ../app/interface.c:163
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:157 ../app/menus.c:220 ../objects/FS/function.c:988
+#: ../app/interface.c:169 ../app/menus.c:230 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "كبّر"
 
-#: ../app/interface.c:163
+#: ../app/interface.c:175
 #, fuzzy
 msgid "Scroll around the diagram"
 msgstr "برنامج لرسم التّخطيطات."
 
-#. backward compatibility
+#. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#. backward compatibility
-#. new name matching "same name, same type"  rule
-#: ../app/interface.c:169 ../app/menus.c:223 ../lib/properties.c:79
-#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:157
-#: ../objects/AADL/aadlbox.c:159 ../objects/Jackson/requirement.c:144
-#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:124
-#: ../objects/UML/classicon.c:148 ../objects/UML/component.c:130
+#: ../app/interface.c:181 ../app/dic_dialog.c:899 ../app/menus.c:233
+#: ../lib/properties.c:80 ../lib/properties.h:530
+#: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
+#: ../objects/UML/classicon.c:149 ../objects/UML/component.c:130
 #: ../objects/UML/component_feature.c:161 ../objects/UML/node.c:130
-#: ../objects/UML/node.c:132 ../objects/UML/note.c:123
-#: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
-#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:232 ../objects/network/basestation.c:135
+#: ../objects/UML/node.c:132 ../objects/UML/note.c:124
+#: ../objects/UML/object.c:151 ../objects/UML/small_package.c:135
+#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:142
+#: ../objects/custom/custom_object.c:236 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "نص"
 
-#: ../app/interface.c:175 ../app/menus.c:224
+#: ../app/interface.c:187
+#, fuzzy
+msgid "TextCircle"
+msgstr "دائرة"
+
+#: ../app/interface.c:193 ../app/menus.c:234
 msgid "Box"
 msgstr "صندوق"
 
-#: ../app/interface.c:181 ../app/menus.c:225
+#: ../app/interface.c:199 ../app/menus.c:235
 msgid "Ellipse"
 msgstr "بيضوي"
 
-#: ../app/interface.c:187 ../app/menus.c:226
+#: ../app/interface.c:205 ../app/menus.c:236
 msgid "Polygon"
 msgstr "مضلع"
 
-#: ../app/interface.c:193 ../app/menus.c:227
+#: ../app/interface.c:211 ../app/menus.c:237
 msgid "Beziergon"
 msgstr "شكل قابل للتّمايل"
 
-#: ../app/interface.c:199 ../app/menus.c:229 ../objects/standard/line.c:229
+#: ../app/interface.c:217 ../app/menus.c:239 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "خط"
 
-#: ../app/interface.c:205 ../app/menus.c:230
+#: ../app/interface.c:223 ../app/menus.c:240
 msgid "Arc"
 msgstr "قوس"
 
-#: ../app/interface.c:211 ../app/menus.c:231
+#: ../app/interface.c:229 ../app/menus.c:241
 msgid "Zigzagline"
 msgstr "خط منكسر"
 
-#: ../app/interface.c:217 ../app/menus.c:232
+#: ../app/interface.c:235 ../app/menus.c:242
 msgid "Polyline"
 msgstr "شكل متعدد الخطوط"
 
-#: ../app/interface.c:223 ../app/menus.c:233
+#: ../app/interface.c:241 ../app/menus.c:243
 msgid "Bezierline"
 msgstr "خط قابل للتّمايل"
 
-#: ../app/interface.c:229 ../app/menus.c:236
+#: ../app/interface.c:247 ../app/dic_dialog.c:903 ../app/menus.c:246
 msgid "Image"
 msgstr "صورة"
 
-#: ../app/interface.c:235 ../app/menus.c:234
+#: ../app/interface.c:254 ../app/menus.c:244
 msgid "Outline"
 msgstr "حدود خارجية"
 
-#: ../app/interface.c:609 ../app/interface.c:845
+#: ../app/interface.c:704 ../app/interface.c:940
 #, fuzzy
 msgid "Pops up the Navigation window."
 msgstr "مصنع بريمج تصفح النوافذ"
 
-#: ../app/interface.c:807
+#: ../app/interface.c:902
 msgid "Diagram menu."
 msgstr "قائمة المخطط."
 
-#: ../app/interface.c:911
+#: ../app/interface.c:1005
 msgid "Zoom"
 msgstr "تكبير"
 
-#: ../app/interface.c:926
+#: ../app/interface.c:1020
 #, fuzzy
 msgid "Toggles snap-to-grid for this window."
 msgstr "أيقونة لهذه النافذة"
 
-#: ../app/interface.c:937
+#: ../app/interface.c:1031
 #, fuzzy
 msgid "Toggles object snapping for this window."
 msgstr "اسم أيقونة هذه النافذة"
 
-#: ../app/interface.c:1000
-msgid "NULL tooldata in tool_select_update"
-msgstr ""
-
-#: ../app/interface.c:1327
+#: ../app/interface.c:1421
 #, fuzzy, c-format
 msgid "No sheet named %s"
 msgstr "خطأ: لم يُعثر على مربّع مُسمّى \"%s\"."
 
-#: ../app/interface.c:1365
+#: ../app/interface.c:1459
 msgid "Other sheets"
 msgstr "الصفحات الأخرى"
 
-#: ../app/interface.c:1425 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1519 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "شكل بياني"
 
-#: ../app/interface.c:1485
+#: ../app/interface.c:1579
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
 
-#: ../app/interface.c:1500
+#: ../app/interface.c:1594
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 
-#: ../app/interface.c:1543
+#: ../app/interface.c:1637
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1548
+#: ../app/interface.c:1642
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1564
+#: ../app/interface.c:1658
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1624 ../app/interface.c:1753
+#: ../app/interface.c:1718 ../app/interface.c:1845
 msgid "Diagram Editor"
 msgstr "محرّر المخطّط"
 
@@ -995,37 +1066,86 @@ msgstr "خفض الطبقة"
 msgid "Delete Layer"
 msgstr "احذف طبقة"
 
-#: ../app/layer_dialog.c:305
+#: ../app/layer_dialog.c:306
 #, fuzzy
 msgid "Layers:"
 msgstr "الطبقات"
 
-#: ../app/layer_dialog.c:385
+#: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "الطبقات"
 
-#: ../app/layer_dialog.c:399
+#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:988
 msgid "Diagram:"
 msgstr "مخطط:"
 
-#: ../app/layer_dialog.c:513
+#: ../app/layer_dialog.c:514 ../app/layer_dialog.c:1225
 #, c-format
 msgid "New layer %d"
 msgstr "طبقة جديدة %d"
 
-#: ../app/layer_dialog.c:730
+#: ../app/layer_dialog.c:729
 msgid "none"
 msgstr "لاشيء"
 
-#: ../app/layer_dialog.c:1155
-msgid "Edit Layer Attributes"
-msgstr "حرر صفات الطبقة"
+#: ../app/layer_dialog.c:1196
+#, fuzzy
+msgid "Edit Layer"
+msgstr "رفع الطبقة"
 
-#: ../app/layer_dialog.c:1174
+#: ../app/layer_dialog.c:1196
+#, fuzzy
+msgid "Add Layer"
+msgstr "طبقة جديدة"
+
+#: ../app/layer_dialog.c:1215
 msgid "Layer name:"
 msgstr "اسم الطّبقة:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:483 ../lib/properties.h:486
+#: ../app/dic_dialog.c:300
+msgid ""
+"When Node is moved,the objects are deleted.\n"
+"Do you move?"
+msgstr ""
+
+#: ../app/dic_dialog.c:472
+msgid "Same name node exist."
+msgstr ""
+
+#: ../app/dic_dialog.c:486
+msgid "cannot change occurs for existence object."
+msgstr ""
+
+#: ../app/dic_dialog.c:661
+msgid "Some node included deleting node are used."
+msgstr ""
+
+#: ../app/dic_dialog.c:895 ../sheets/UML.sheet.in.h:22
+msgid "Node"
+msgstr "نقطة اتّصال"
+
+#: ../app/dic_dialog.c:973
+#, fuzzy
+msgid "Dictionary"
+msgstr "الإتجاه:"
+
+#: ../app/dic_dialog.c:1039
+msgid "Occurs"
+msgstr ""
+
+#: ../app/dic_dialog.c:1047
+#, fuzzy
+msgid "Length"
+msgstr "وحدة الطّول:"
+
+#. Translators: Menu item Verb/Control Magnitude/Change
+#. Translators: Menu item Verb/Control Magnitude/Change/Change
+#: ../app/dic_dialog.c:1058 ../objects/FS/function.c:976
+#: ../objects/FS/function.c:978
+msgid "Change"
+msgstr "غيّر"
+
+#: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
 msgid "Line width"
@@ -1035,68 +1155,58 @@ msgstr "عرض الخط"
 msgid "Line width:"
 msgstr "عرض خط:"
 
-#: ../app/load_save.c:307
+#: ../app/load_save.c:296
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
 
-#: ../app/load_save.c:311
-msgid ""
-"Error loading diagram.\n"
-"connection handle does not exist."
-msgstr ""
-
-#: ../app/load_save.c:338
+#: ../app/load_save.c:300
 #, c-format
 msgid ""
 "Error loading diagram.\n"
-"connection point %s does not exist."
+"connection handle %d does not exist on '%s'."
 msgstr ""
 
-#: ../app/load_save.c:378
+#: ../app/load_save.c:328
+#, c-format
+msgid ""
+"Error loading diagram.\n"
+"connection point %d does not exist on '%s'."
+msgstr ""
+
+#: ../app/load_save.c:368
 #, fuzzy, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "%s: لم أجد مستخدم GDM '%s'.إلغاء!"
 
-#: ../app/load_save.c:424 ../objects/SISSI/area.c:209
-#: ../objects/SISSI/faraday.c:209 ../objects/SISSI/room.c:209
-#: ../objects/SISSI/sissi_object.c:202 ../objects/SISSI/site.c:212
+#: ../app/load_save.c:418
 #, fuzzy
 msgid "You must specify a file, not a directory.\n"
 msgstr "يجب أن تحدّد دليلاً ومضيفاً"
 
-#: ../app/load_save.c:431 ../objects/SISSI/area.c:215
-#: ../objects/SISSI/faraday.c:215 ../objects/SISSI/room.c:215
-#: ../objects/SISSI/sissi_object.c:209 ../objects/SISSI/site.c:218
-#: ../plug-ins/dxf/dxf-import.c:1341 ../plug-ins/wpg/wpg.c:1177
-#: ../plug-ins/xfig/xfig-import.c:1270 ../plug-ins/xslt/xslt.c:91
+#: ../app/load_save.c:425 ../plug-ins/dxf/dxf-import.c:1309
+#: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
+#: ../plug-ins/xslt/xslt.c:91
 #, fuzzy, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "لا يمكن فتح جلسة لـ%s"
 
-#: ../app/load_save.c:449 ../app/load_save.c:455 ../objects/SISSI/area.c:224
-#: ../objects/SISSI/area.c:230 ../objects/SISSI/faraday.c:224
-#: ../objects/SISSI/faraday.c:230 ../objects/SISSI/room.c:224
-#: ../objects/SISSI/room.c:230 ../objects/SISSI/sissi_object.c:219
-#: ../objects/SISSI/sissi_object.c:225 ../objects/SISSI/site.c:227
-#: ../objects/SISSI/site.c:233
+#: ../app/load_save.c:443 ../app/load_save.c:449
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
 
-#: ../app/load_save.c:463 ../objects/SISSI/area.c:238
-#: ../objects/SISSI/faraday.c:238 ../objects/SISSI/room.c:238
-#: ../objects/SISSI/sissi_object.c:233 ../objects/SISSI/site.c:241
+#: ../app/load_save.c:457
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
 
-#: ../app/load_save.c:669
+#: ../app/load_save.c:680
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1104,24 +1214,25 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr ""
 
-#: ../app/load_save.c:978
+#: ../app/load_save.c:1012
 #, fuzzy, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "لم يمكن الكتابة للملف باستعمال طوْر الصوت '%s'."
 
-#: ../app/load_save.c:1000
+#: ../app/load_save.c:1044
 #, fuzzy, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "خطاء لا يمكننى تكوين ملف مؤقت:%s\n"
 
-#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:122
-#: ../plug-ins/cgm/cgm.c:1153 ../plug-ins/dxf/dxf-export.c:547
-#: ../plug-ins/hpgl/hpgl.c:710 ../plug-ins/libart/export_png.c:157
+#: ../app/load_save.c:1066 ../plug-ins/cairo/diacairo.c:121
+#: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
+#: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
+#: ../plug-ins/libart/export_png.c:159
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:188
-#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
+#: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
+#: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -1129,397 +1240,427 @@ msgstr "لا يمكن فتح ملف الخرج %s: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1033
+#: ../app/load_save.c:1077
 #, fuzzy, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "خطأ كتابة ملف الجلسة '%s': %s\n"
 
-#: ../app/load_save.c:1047
+#: ../app/load_save.c:1088
 #, fuzzy, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr ""
 "غير قادر عل انشاء ملف الخرج: %s:\n"
 " %s"
 
-#: ../app/load_save.c:1135 ../app/load_save.c:1140
-msgid "Dia Diagram File"
+#: ../app/load_save.c:1179 ../app/load_save.c:1184
+#, fuzzy
+msgid "Monpe Diagram File"
 msgstr "ملف مخطط دِيا"
 
-#: ../app/menus.c:58
+#: ../app/menus.c:63
 msgid "Fit"
 msgstr "ملائمة"
 
-#: ../app/menus.c:76
+#: ../app/menus.c:81
 msgid "_File"
 msgstr "_ملف"
 
-#: ../app/menus.c:80
+#: ../app/menus.c:85
 msgid "_Help"
 msgstr "م_ساعدة"
 
-#: ../app/menus.c:88
+#: ../app/menus.c:93
 msgid "Sheets and Objects..."
 msgstr "صفحات و أجسام..."
 
-#: ../app/menus.c:90
+#: ../app/menus.c:95
 msgid "Plugins..."
 msgstr "ملحقات..."
 
-#: ../app/menus.c:96
+#: ../app/menus.c:101
 msgid "_Diagram tree..."
 msgstr "_شجرة المخطّط..."
 
-#: ../app/menus.c:102
+#: ../app/menus.c:107
 msgid "Show Toolbar"
 msgstr "اعرض شريط الأدوات"
 
-#: ../app/menus.c:103
+#: ../app/menus.c:108
 msgid "Show Statusbar"
 msgstr "أظهر شريط الحالة."
 
-#: ../app/menus.c:104
+#: ../app/menus.c:109
 #, fuzzy
 msgid "Show Layers"
 msgstr "خفض الطبقة"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:117
 msgid "_Export ..."
 msgstr "_تصدير..."
 
-#: ../app/menus.c:113
+#: ../app/menus.c:118
+#, fuzzy
+msgid "_Diagram Properties"
+msgstr "خصائص التخطيط"
+
+#: ../app/menus.c:119
 msgid "Page Set_up..."
 msgstr "إ_عداد الصفحة.."
 
-#: ../app/menus.c:117 ../app/sheets_dialog.c:236
+#: ../app/menus.c:123 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "_حرّر"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:130
 msgid "_Duplicate"
 msgstr "م_ضاعفة"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
-#: ../app/menus.c:132
+#: ../app/menus.c:138
 msgid "Copy Text"
 msgstr "انسخ النص"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:139
 msgid "Cut Text"
 msgstr "قص النص"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:140
 msgid "Paste _Text"
 msgstr "الصق النص"
 
-#: ../app/menus.c:136
-msgid "_Diagram"
-msgstr "م_خطّط"
+#: ../app/menus.c:142
+#, fuzzy
+msgid "_Layers"
+msgstr "الطبقات"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:143
+#, fuzzy
+msgid "Add Layer..."
+msgstr "_طبقات..."
+
+#: ../app/menus.c:144
+#, fuzzy
+msgid "Rename Layer..."
+msgstr "رفع الطبقة"
+
+#: ../app/menus.c:145
+msgid "Move selection to layer above"
+msgstr ""
+
+#: ../app/menus.c:146
+msgid "Move selection to layer below"
+msgstr ""
+
+#: ../app/menus.c:147
 msgid "_Layers..."
 msgstr "_طبقات..."
 
-#: ../app/menus.c:140
+#: ../app/menus.c:149
 msgid "_View"
 msgstr "_عرض"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:152
 msgid "_Zoom"
 msgstr "تح_جيم"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:153
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145 ../app/menus.c:564
+#: ../app/menus.c:154 ../app/menus.c:574
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146 ../app/menus.c:565
+#: ../app/menus.c:155 ../app/menus.c:575
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:156
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:157
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:158
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:160
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:161
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:162
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:163
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:164
 msgid "25"
 msgstr "25"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:161
+#: ../app/menus.c:170
 msgid "New _View"
 msgstr "_عرض جديد"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:171
 #, fuzzy
 msgid "C_lone View"
 msgstr "وضعية _ العرض"
 
-#: ../app/menus.c:165
+#: ../app/menus.c:174
 msgid "_Objects"
 msgstr "أّ_جسام"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:175
 #, fuzzy
 msgid "Send to _Back"
 msgstr "الرجوع للطبقة"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:176
 #, fuzzy
 msgid "Bring to _Front"
 msgstr "رُقِّي للصفحة الرئيسية"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:177
 msgid "Send Backwards"
 msgstr "ارسل إلى ال_خلف"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:178
 msgid "Bring Forwards"
 msgstr "ارسل إلى الأ_مام"
 
-#: ../app/menus.c:171
+#: ../app/menus.c:180
 msgid "_Group"
 msgstr "م_جموعة"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:173
+#: ../app/menus.c:182
 msgid "_Ungroup"
 msgstr "ال_غ التّجميع"
 
-#: ../app/menus.c:175
+#: ../app/menus.c:184
 msgid "_Parent"
 msgstr "أ_ب"
 
-#: ../app/menus.c:176
+#: ../app/menus.c:185
 #, fuzzy
 msgid "_Unparent"
 msgstr "أب"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:186
 #, fuzzy
 msgid "_Unparent Children"
 msgstr "لا يوجد أبناء"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:179 ../objects/FS/function.c:808
+#: ../app/menus.c:188 ../objects/FS/function.c:808
 msgid "Align"
 msgstr "حاذي"
 
-#: ../app/menus.c:184 ../objects/standard/textobj.c:134
+#: ../app/menus.c:193 ../objects/standard/textobj.c:137
 msgid "Top"
 msgstr "أعلى"
 
-#: ../app/menus.c:185
+#: ../app/menus.c:194
 msgid "Middle"
 msgstr "وسط"
 
-#: ../app/menus.c:186 ../objects/standard/textobj.c:133
+#: ../app/menus.c:195 ../objects/standard/textobj.c:136
 msgid "Bottom"
 msgstr "أسفل"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:197
 #, fuzzy
 msgid "Spread Out Horizontally"
 msgstr "عدد الصفحات أفقيا"
 
-#: ../app/menus.c:189
+#: ../app/menus.c:198
 #, fuzzy
 msgid "Spread Out Vertically"
 msgstr "عدد الصفحات عموديا"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:199
 msgid "Adjacent"
 msgstr "محاذي"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:200
 msgid "Stacked"
 msgstr "مكدّس"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:204
 msgid "_Select"
 msgstr "تحديد"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:205
 msgid "All"
 msgstr "الكل"
 
-#: ../app/menus.c:197 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:223 ../objects/UML/association.c:229
+#: ../app/menus.c:206 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
+#: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "لاشيء"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:207
 msgid "Invert"
 msgstr "قلب"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:209
 msgid "Transitive"
 msgstr "متعدي"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:210
 msgid "Connected"
 msgstr "متَّصل"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:211
 msgid "Same Type"
 msgstr "نفس النّوع"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:206
+#: ../app/menus.c:215
 msgid "Select By"
 msgstr "اختر بـ"
 
-#: ../app/menus.c:208
+#: ../app/menus.c:217
 msgid "_Input Methods"
 msgstr "طرق ال_إدخال"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:219
 msgid "D_ialogs"
 msgstr "ح_وارات"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:220
+#, fuzzy
+msgid "Dictionary..."
+msgstr "الإتجاه:"
+
+#: ../app/menus.c:222
 msgid "D_ebug"
 msgstr "ن_قّح"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:228
 msgid "_Tools"
 msgstr "أد_وات"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:229
 msgid "Modify"
 msgstr "عدّل"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:231
 msgid "Edit text"
 msgstr "حرّر النّصّ"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:232
 msgid "Scroll"
 msgstr "لف"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:255
 msgid "Fullscr_een"
 msgstr "ملء الشاشة"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:257
 #, fuzzy
 msgid "_AntiAliased"
 msgstr "الحواف المحسّنة"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:258
 #, fuzzy
 msgid "Show _Grid"
 msgstr "عرض الشبكة"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:259
 msgid "_Snap To Grid"
 msgstr "ال_صق بالشبكة"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:260
 msgid "Snap To _Objects"
 msgstr "الصق بالأجسام"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:261
 msgid "Show _Rulers"
 msgstr "اعرض الأ_سطر"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:262
 msgid "Show _Connection Points"
 msgstr "اعرض_نقاط الإتّصال"
 
-#: ../app/menus.c:259
+#: ../app/menus.c:269
 msgid "Union"
 msgstr "الإتحاد"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:270
 msgid "Intersection"
 msgstr "التقاطع"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:261 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:271 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "احذف"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:263
+#: ../app/menus.c:273
 msgid "Inverse"
 msgstr "العكس"
 
-#: ../app/menus.c:327
+#: ../app/menus.c:337
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: ../app/menus.c:566
+#: ../app/menus.c:576
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:567
+#: ../app/menus.c:577
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:568
+#: ../app/menus.c:578
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:579
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:580
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:581
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:582
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:583
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:599
+#: ../app/menus.c:609
 msgid "Toggles snap-to-grid."
 msgstr "تغيّر الإلصاق بالشّبكة."
 
-#: ../app/menus.c:611
+#: ../app/menus.c:621
 msgid "Toggles object snapping."
 msgstr "تغيّر الإلصاق بالأجسام."
 
-#: ../app/modify_tool.c:350
+#: ../app/modify_tool.c:392
 msgid "Couldn't get GTK settings"
 msgstr "لم يمكن الحصول على إعدادات GTK"
 
@@ -1531,8 +1672,8 @@ msgstr "ملحقات"
 msgid "Loaded"
 msgstr "محمل"
 
-#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:615
-#: ../objects/SISSI/sissi_dialog.c:767
+#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:730
+#: ../objects/SISSI/sissi_dialog.c:882
 msgid "Description"
 msgstr "وصف"
 
@@ -1544,192 +1685,238 @@ msgstr "حمّل عند بدأ التشغيل"
 msgid "File Name"
 msgstr "إسم الملف"
 
-#: ../app/preferences.c:107
+#: ../app/preferences.c:99 ../app/preferences.c:144
+#, fuzzy
+msgid "any"
+msgstr "اليوم"
+
+#: ../app/preferences.c:118
 msgid "User Interface"
 msgstr "واجهة المستخدم"
 
-#: ../app/preferences.c:108
+#: ../app/preferences.c:119
 msgid "Diagram Defaults"
 msgstr "إفتراضات المخطّط"
 
-#: ../app/preferences.c:109
+#: ../app/preferences.c:120
 msgid "View Defaults"
 msgstr "اعرض الإفتراضات"
 
-#: ../app/preferences.c:126
+#: ../app/preferences.c:121
+#, fuzzy
+msgid "Favorites"
+msgstr "يساهم"
+
+#: ../app/preferences.c:165
 #, fuzzy
 msgid "Reset tools after create"
 msgstr "أ_عد تشغيل إيفُليوشن بعد الاستعادة"
 
-#: ../app/preferences.c:129
+#: ../app/preferences.c:168
 msgid "Number of undo levels:"
 msgstr "عدد مستويات التراجع"
 
-#: ../app/preferences.c:132
+#: ../app/preferences.c:171
 #, fuzzy
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
 msgstr "يجري حذف الكائنات المنتقاة"
 
-#: ../app/preferences.c:135
+#: ../app/preferences.c:174
 msgid "Recent documents list size:"
 msgstr "حجم قائمة المستندات الحديثة:"
 
-#: ../app/preferences.c:138
+#: ../app/preferences.c:177
 msgid "Use menu bar"
 msgstr "استعمل شريط القوائم"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:180
 msgid "Keep tool box on top of diagram windows"
 msgstr ""
 
-#: ../app/preferences.c:144
+#: ../app/preferences.c:183
 msgid "Length unit:"
 msgstr "وحدة الطّول:"
 
-#: ../app/preferences.c:147
+#: ../app/preferences.c:186
 msgid "Font-size unit:"
 msgstr "وحدة بحجم الخطّ:"
 
-#: ../app/preferences.c:151
-msgid "Integrated UI"
-msgstr "واجهة متكاملة"
-
-#: ../app/preferences.c:154
+#: ../app/preferences.c:189
 msgid "New diagram:"
 msgstr "نوع المخطّط:"
 
-#: ../app/preferences.c:155
+#: ../app/preferences.c:190
 msgid "Portrait"
 msgstr "رسم صورة"
 
-#: ../app/preferences.c:157
+#: ../app/preferences.c:192
 msgid "Paper type:"
 msgstr "نوع الورق:"
 
-#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
 msgstr "لون الخلفية:"
 
-#: ../app/preferences.c:161
+#: ../app/preferences.c:196
 msgid "Compress saved files"
 msgstr "اضغط الملفّات المحفوظة"
 
-#: ../app/preferences.c:164
-msgid "New window:"
-msgstr "نافذة جديدة:"
-
-#: ../app/preferences.c:165
-msgid "Width:"
-msgstr "العرض:"
-
-#: ../app/preferences.c:166
-msgid "Height:"
-msgstr "الإرتفاع:"
-
-#: ../app/preferences.c:167
-msgid "Magnify:"
-msgstr "كبّر:"
-
-#: ../app/preferences.c:170
+#: ../app/preferences.c:199
 msgid "Connection Points:"
 msgstr "نقاط الإتّصال:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:171 ../app/preferences.c:175 ../app/preferences.c:185
+#: ../app/preferences.c:200 ../app/preferences.c:211 ../app/preferences.c:235
 msgid "Visible"
 msgstr "مرئي"
 
-#: ../app/preferences.c:174
+#: ../app/preferences.c:201
+#, fuzzy
+msgid "Snap to object"
+msgstr "الصق بالأجسام"
+
+#: ../app/preferences.c:204
+msgid "New window:"
+msgstr "نافذة جديدة:"
+
+#: ../app/preferences.c:205
+msgid "Width:"
+msgstr "العرض:"
+
+#: ../app/preferences.c:206
+msgid "Height:"
+msgstr "الإرتفاع:"
+
+#: ../app/preferences.c:207
+msgid "Magnify:"
+msgstr "كبّر:"
+
+#: ../app/preferences.c:210
 msgid "Page breaks:"
 msgstr "فواصل الصفحات:"
 
-#: ../app/preferences.c:176 ../app/preferences.c:190
+#: ../app/preferences.c:212 ../app/preferences.c:240
 msgid "Color:"
 msgstr "لون:"
 
-#: ../app/preferences.c:177
+#: ../app/preferences.c:213
 msgid "Solid lines"
 msgstr "خطوط صلبة"
 
-#: ../app/preferences.c:180
+#: ../app/preferences.c:216
 #, fuzzy
 msgid "Antialias:"
 msgstr "الحواف المحسّنة"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:217
 #, fuzzy
 msgid "view antialised"
 msgstr "PNG (غير مسنّن)"
 
-#: ../app/preferences.c:186
+#. Favored Filter
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: ../app/preferences.c:221 ../objects/FS/function.c:698
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
+msgid "Export"
+msgstr "صدِّر"
+
+#: ../app/preferences.c:223
+#, fuzzy
+msgid "Portable Network Graphics"
+msgstr "فعّل رسم حِمْل الشبكة"
+
+#: ../app/preferences.c:225 ../plug-ins/svg/render_svg.c:515
+#: ../plug-ins/svg/svg-import.c:884
+#, fuzzy
+msgid "Scalable Vector Graphics"
+msgstr "تخصيص التّهيئة الرّسوميّة"
+
+#: ../app/preferences.c:227
+#, fuzzy
+msgid "PostScript"
+msgstr "Cairo PostScript"
+
+#: ../app/preferences.c:229
+#, fuzzy
+msgid "Windows MetaFile"
+msgstr "ملف ويندوز Meta"
+
+#: ../app/preferences.c:231
+#, fuzzy
+msgid "Enhanced MetaFile"
+msgstr "ملف مطوّر Meta"
+
+#: ../app/preferences.c:236
 msgid "Snap to"
 msgstr "الصق ب_"
 
-#: ../app/preferences.c:187
+#: ../app/preferences.c:237
 #, fuzzy
 msgid "Dynamic grid resizing"
 msgstr "خيارات تحجيم الصور"
 
-#: ../app/preferences.c:188
+#: ../app/preferences.c:238
 msgid "X Size:"
 msgstr "حجم س:"
 
-#: ../app/preferences.c:189
+#: ../app/preferences.c:239
 msgid "Y Size:"
 msgstr "حجم ع:"
 
-#: ../app/preferences.c:191
+#: ../app/preferences.c:241
 msgid "Lines per major line"
 msgstr ""
 
-#: ../app/preferences.c:193
+#: ../app/preferences.c:243
 #, fuzzy
 msgid "Hex Size:"
 msgstr "<b>حجم العرض:</b>"
 
-#: ../app/preferences.c:209
+#. There's really no reason to not pretty format it, and allowing non-pretty
+#. can lead to problems with long lines, CVS etc.
+#. { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
+#. &default_true,0,"pretty formated xml",NULL, TRUE},
+#.
+#: ../app/preferences.c:255
 #, fuzzy
 msgid "Diagram tree window:"
 msgstr "إرساء نافذة البرنامج"
 
-#: ../app/preferences.c:211
+#: ../app/preferences.c:257
 #, fuzzy
 msgid "Save hidden object types"
 msgstr "نوع جسم الشريط"
 
-#: ../app/preferences.c:418 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:485 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "نعم"
 
-#: ../app/preferences.c:418 ../app/preferences.c:429
+#: ../app/preferences.c:485 ../app/preferences.c:496
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "لا"
 
-#: ../app/preferences.c:525
+#: ../app/preferences.c:591
 msgid "Preferences"
 msgstr "تفضيلات"
 
-#: ../app/preferences.c:712
-msgid "User Interface type settings change will take after restart"
-msgstr ""
-
-#: ../app/properties.c:56
+#: ../app/properties-dialog.c:56
 msgid "Object properties"
 msgstr "خصائص الجسم"
 
-#: ../app/properties.c:81
+#: ../app/properties-dialog.c:81
 #, fuzzy
 msgid "This object has no properties."
 msgstr "كائن الكينونة ليس له خاصّيّة %s"
 
-#: ../app/properties.c:224
+#: ../app/properties-dialog.c:245
 msgid "Properties: "
 msgstr "خصائص"
 
-#: ../app/properties.c:228
+#: ../app/properties-dialog.c:249
 msgid "Object properties:"
 msgstr "خصائص الجسم:"
 
@@ -1801,10 +1988,10 @@ msgid "New"
 msgstr "جديد"
 
 #: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
-#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:146
+#: ../objects/Database/table.c:140 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
-#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:242
+#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:240
 #: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
@@ -1845,10 +2032,10 @@ msgstr "الوصف:"
 
 #: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:695
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
-#: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:148
-#: ../objects/KAOS/metaandorrel.c:168 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1140 ../objects/UML/class_dialog.c:2003
-#: ../objects/UML/class_dialog.c:2239 ../objects/UML/class_dialog.c:2839
+#: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:146
+#: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
+#: ../objects/UML/class_dialog.c:1159 ../objects/UML/class_dialog.c:2025
+#: ../objects/UML/class_dialog.c:2261 ../objects/UML/class_dialog.c:2864
 msgid "Type:"
 msgstr "النّوع:"
 
@@ -1859,8 +2046,8 @@ msgstr "الصفحة"
 #: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
 #: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/class_dialog.c:1129 ../objects/UML/class_dialog.c:1992
-#: ../objects/UML/class_dialog.c:2228 ../objects/UML/class_dialog.c:2828
+#: ../objects/UML/class_dialog.c:1148 ../objects/UML/class_dialog.c:2014
+#: ../objects/UML/class_dialog.c:2250 ../objects/UML/class_dialog.c:2853
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
@@ -1944,36 +2131,36 @@ msgstr "غير قادر على حفظ ملف التوقيع."
 msgid "Sheet must have a Name"
 msgstr "يجب أن تحتوي الصّفحة اسم ملفّ"
 
-#: ../app/sheets_dialog_callbacks.c:1619 ../app/sheets_dialog_callbacks.c:1626
+#: ../app/sheets_dialog_callbacks.c:1621 ../app/sheets_dialog_callbacks.c:1628
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "لم يمكن فتح '%s': %s"
 
-#: ../app/sheets_dialog_callbacks.c:1678
+#: ../app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "لم يمكن فتح '%s' للكتابة"
 
-#: ../app/sheets_dialog_callbacks.c:1688
+#: ../app/sheets_dialog_callbacks.c:1690
 msgid "a user"
 msgstr "مستخدم"
 
-#: ../app/sheets_dialog_callbacks.c:1701
+#: ../app/sheets_dialog_callbacks.c:1703
 #, c-format
 msgid "File: %s"
 msgstr "الملف: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1704
+#: ../app/sheets_dialog_callbacks.c:1706
 #, c-format
 msgid "Date: %s"
 msgstr "التاريخ: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1708
+#: ../app/sheets_dialog_callbacks.c:1710
 #, c-format
 msgid "For: %s"
 msgstr "لـ: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1725
+#: ../app/sheets_dialog_callbacks.c:1727
 msgid "add shapes here"
 msgstr "ضف أشكالا هنا"
 
@@ -1994,155 +2181,155 @@ msgstr "محرّر المخطّطات ديّا"
 msgid "Edit your Diagrams"
 msgstr "حرّر مخطّطاتك"
 
-#: ../lib/arrows.c:1883
+#: ../lib/arrows.c:1885
 msgid "Lines"
 msgstr "سطور"
 
-#: ../lib/arrows.c:1884
+#: ../lib/arrows.c:1886
 msgid "Hollow Triangle"
 msgstr "مثلث مجوّف"
 
-#: ../lib/arrows.c:1885
+#: ../lib/arrows.c:1887
 msgid "Filled Triangle"
 msgstr "مثلث ممتليء"
 
-#: ../lib/arrows.c:1886
+#: ../lib/arrows.c:1888
 msgid "Unfilled Triangle"
 msgstr "مثلث غير ممتليء"
 
-#: ../lib/arrows.c:1887
+#: ../lib/arrows.c:1889
 msgid "Hollow Diamond"
 msgstr "مربّع مائل مجوّف"
 
-#: ../lib/arrows.c:1888
+#: ../lib/arrows.c:1890
 msgid "Filled Diamond"
 msgstr "مربّع مائل ممتليء"
 
-#: ../lib/arrows.c:1889
+#: ../lib/arrows.c:1891
 msgid "Half Diamond"
 msgstr "نصف مربّع مائل"
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1892
 msgid "Half Head"
 msgstr "نسف رأس"
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1893
 msgid "Slashed Cross"
 msgstr "صليب مقطّع"
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1894
 msgid "Filled Ellipse"
 msgstr "اهليلج ممتليء"
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1895
 msgid "Hollow Ellipse"
 msgstr "اهليلج مجوّف"
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1896
 msgid "Filled Dot"
 msgstr "نقطة مملوءة"
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1897
 msgid "Dimension Origin"
 msgstr "مبدأ البعد"
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1898
 msgid "Blanked Dot"
 msgstr "نقطة فارغة"
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1899
 msgid "Double Hollow Triangle"
 msgstr "مثلث مضاعف مجوّف"
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1900
 msgid "Double Filled Triangle"
 msgstr "مثلث مضاعف ممتليء"
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1901
 msgid "Filled Dot and Triangle"
 msgstr "نقطة ممتلئة و مثلّث"
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1902
 msgid "Filled Box"
 msgstr "صندوق ممتلئ"
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1903
 msgid "Blanked Box"
 msgstr "صندوق فارغ"
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1904
 msgid "Slashed"
 msgstr "مقطوع"
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1905
 #, fuzzy
 msgid "Integral Symbol"
 msgstr "رمز and"
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1906
 #, fuzzy
 msgid "Crow Foot"
 msgstr "حا&شية سفلية"
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1907
 msgid "Cross"
 msgstr "صليب"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1908
 msgid "1-or-many"
 msgstr "1 أو أكثر"
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1909
 msgid "0-or-many"
 msgstr "0 أو أكثر"
 
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1910
 msgid "1-or-0"
 msgstr "1-أو-0"
 
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1911
 msgid "1 exactly"
 msgstr "1 بالضّبط"
 
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1912
 #, fuzzy
 msgid "Filled Concave"
 msgstr "كثافة السطور المملوءة"
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1913
 #, fuzzy
 msgid "Blanked Concave"
 msgstr "قفل الشاشة حينما تمسح"
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1914
 msgid "Round"
 msgstr "دائري"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1915
 #, fuzzy
 msgid "Open Round"
 msgstr "نسبة التدوير"
 
-#: ../lib/arrows.c:1914
+#: ../lib/arrows.c:1916
 #, fuzzy
 msgid "Backslash"
 msgstr "الشّرطة"
 
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1917
 msgid "Infinite Line"
 msgstr "سطر غير منهي"
 
-#: ../lib/arrows.c:2043
+#: ../lib/arrows.c:2045
 #, fuzzy
 msgid "Arrow head of unknown type"
 msgstr "%s لنوعيّة محفّز مجهولة"
 
-#: ../lib/arrows.c:2051
+#: ../lib/arrows.c:2053
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr ""
 
-#: ../lib/arrows.c:2184
+#: ../lib/arrows.c:2186
 #, fuzzy
 msgid "unknown arrow"
 msgstr "فراغ الأسهم"
@@ -2154,17 +2341,17 @@ msgstr ""
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:246 ../plug-ins/vdx/vdx-import.c:140
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:145
 #, fuzzy
 msgid "Can't find standard object"
 msgstr "%s: لم أجد مستخدم GDM '%s'.إلغاء!"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/dia_dirs.c:242
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s <محارف غير صالحة>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:273
 #, fuzzy, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr "هناك الكثير من جلسات X تعمل."
@@ -2176,34 +2363,46 @@ msgid ""
 "assuming it is encoded in %s"
 msgstr ""
 
-#: ../lib/dia_xml.c:593
+#: ../lib/dia_xml.c:597
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: ../lib/dia_xml.c:604
+#: ../lib/dia_xml.c:608
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: ../lib/dia_xml.c:611
+#: ../lib/dia_xml.c:615
 #, fuzzy
 msgid "Error parsing point."
 msgstr "خطأ أثناء ترجمة المرشِّح: %s: %s"
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:619
+#: ../lib/dia_xml.c:623
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: ../lib/dia_xml.c:1091
-msgid ""
-"Your local character set is UTF-8. Because of issues with libxml1 and the "
-"support of files generated by previous versions of dia, you will encounter  "
-"problems. Please report to dia-list@gnome.org if you see this message."
+#: ../lib/dia_xml.c:640
+msgid "Taking bezpoint value of non-point node."
 msgstr ""
 
-#: ../lib/diaarrowchooser.c:352
+#: ../lib/dia_xml.c:658
+#, fuzzy
+msgid "Error parsing bezpoint p1."
+msgstr "خطأ أثناء ترجمة المرشِّح: %s: %s"
+
+#: ../lib/dia_xml.c:672
+#, fuzzy
+msgid "Error parsing bezpoint p2."
+msgstr "خطأ أثناء ترجمة المرشِّح: %s: %s"
+
+#: ../lib/dia_xml.c:686
+#, fuzzy
+msgid "Error parsing bezpoint p3."
+msgstr "خطأ أثناء ترجمة المرشِّح: %s: %s"
+
+#: ../lib/diaarrowchooser.c:361
 msgid "Arrow Properties"
 msgstr "خصائص السّهم"
 
@@ -2212,7 +2411,7 @@ msgstr "خصائص السّهم"
 msgid "Line Style Properties"
 msgstr "طراز الخط المستخدم للشبكة."
 
-#: ../lib/dialinechooser.c:332
+#: ../lib/dialinechooser.c:339
 msgid "Details..."
 msgstr "التفاصيل..."
 
@@ -2224,35 +2423,35 @@ msgstr "موافق"
 msgid "Cancel"
 msgstr "إلغي"
 
-#: ../lib/filter.c:137
+#: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr ""
 
-#: ../lib/font.c:106
+#: ../lib/font.c:84
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "لا يمكن تحميل الخط %s.\n"
 
-#: ../lib/message.c:90 ../lib/message.c:276
+#: ../lib/message.c:92 ../lib/message.c:278
 msgid "Warning"
 msgstr "تحذير"
 
-#: ../lib/message.c:117
+#: ../lib/message.c:119
 msgid "There is one similar message."
 msgstr "هناك رسالة مشابهة واحدة."
 
-#: ../lib/message.c:122
+#: ../lib/message.c:124
 #, fuzzy
 msgid "Show repeated messages"
 msgstr "أظهر الرسائل الم_خفية"
 
-#: ../lib/message.c:143
+#: ../lib/message.c:145
 #, fuzzy
 msgid "Don't show this message again"
 msgstr "لا تُرِني هذا مجدداً"
 
-#: ../lib/message.c:201
+#: ../lib/message.c:203
 #, fuzzy, c-format
 msgid "There are %d similar messages."
 msgstr ""
@@ -2260,7 +2459,7 @@ msgstr ""
 "\n"
 "ها هي رسائل التبليغ :\n"
 
-#: ../lib/message.c:260
+#: ../lib/message.c:262
 msgid "Notice"
 msgstr "ملاحظة"
 
@@ -2279,103 +2478,126 @@ msgstr "خطأ عند تحميل دفتر العناوين الإفتراضي."
 msgid "???"
 msgstr "؟؟؟"
 
-#: ../lib/plug-ins.c:185
+#: ../lib/plug-ins.c:186
 #, c-format
 msgid "Missing dependencies for '%s'?"
 msgstr ""
 
-#: ../lib/plug-ins.c:196
+#: ../lib/plug-ins.c:197
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr ""
 
-#: ../lib/plug-ins.c:204 ../lib/plug-ins.c:212
+#: ../lib/plug-ins.c:205 ../lib/plug-ins.c:213
 msgid "dia_plugin_init() call failed"
 msgstr ""
 
-#: ../lib/plug-ins.c:231
+#: ../lib/plug-ins.c:232
 #, fuzzy, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "لم يمكن إيجاد “%s”"
 
-#: ../lib/plug-ins.c:302
+#: ../lib/plug-ins.c:303
 #, fuzzy, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr "لم يمكن فتح \"%s\""
 
-#: ../lib/prop_inttypes.c:559
+#: ../lib/prop_dict.c:43
+#, fuzzy
+msgid "Author"
+msgstr "ممثّل"
+
+#: ../lib/prop_dict.c:44
+#, fuzzy
+msgid "Identifier"
+msgstr "تمييز:"
+
+#: ../lib/prop_dict.c:45
+#, fuzzy
+msgid "Creation date"
+msgstr "بيانات العملية"
+
+#: ../lib/prop_dict.c:46
+msgid "Modification date"
+msgstr ""
+
+#: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:880
+msgid "URL"
+msgstr "عنوان"
+
+#: ../lib/prop_inttypes.c:558
 msgid "Property cast from int to enum out of range"
 msgstr ""
 
-#: ../lib/prop_text.c:466
+#: ../lib/prop_text.c:469
 #, fuzzy, c-format
 msgid "Group with %d objects"
 msgstr "انشيء محفوضة بالأجسام المختارة"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:724
+#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:724
 msgid "Left"
 msgstr "يسار"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:730
-#: ../objects/standard/textobj.c:135
+#: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
+#: ../objects/standard/textobj.c:138
 msgid "Center"
 msgstr "وسط"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:736
+#: ../lib/properties.c:67 ../lib/properties.h:479 ../lib/widgets.c:736
 msgid "Right"
 msgstr "يمين"
 
-#: ../lib/properties.c:73 ../lib/properties.h:489 ../lib/properties.h:492
+#: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "لون الخطّ"
 
-#: ../lib/properties.c:74 ../lib/properties.h:495 ../lib/properties.h:498
+#: ../lib/properties.c:75 ../lib/properties.h:503 ../lib/properties.h:506
 msgid "Line style"
 msgstr "نوع الخطّ"
 
-#: ../lib/properties.c:75 ../lib/properties.h:502 ../lib/properties.h:505
+#: ../lib/properties.c:76 ../lib/properties.h:510 ../lib/properties.h:513
 msgid "Fill color"
 msgstr "لون التّعبئة"
 
-#: ../lib/properties.c:76 ../lib/properties.h:508 ../lib/properties.h:511
+#: ../lib/properties.c:77 ../lib/properties.h:516 ../lib/properties.h:519
 msgid "Draw background"
 msgstr "ارسم الخلفيّة"
 
-#: ../lib/properties.c:77 ../lib/properties.h:515
+#: ../lib/properties.c:78 ../lib/properties.h:523
 #, fuzzy
 msgid "Start arrow"
 msgstr "فراغ الأسهم"
 
-#: ../lib/properties.c:78 ../lib/properties.h:518
+#: ../lib/properties.c:79 ../lib/properties.h:526
 #, fuzzy
 msgid "End arrow"
 msgstr "فراغ الأسهم"
 
-#: ../lib/properties.c:80 ../lib/properties.h:528
+#: ../lib/properties.c:81 ../lib/properties.h:536
 msgid "Text alignment"
 msgstr "ترصيف النّصّ"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:533
+#: ../lib/properties.c:82 ../lib/properties.h:541
 #: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
-#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:171
-#: ../objects/UML/class_dialog.c:558 ../objects/chronogram/chronoline.c:185
+#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
+#: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font"
 msgstr "الخط"
 
-#: ../lib/properties.c:82 ../lib/properties.h:541
+#: ../lib/properties.c:83 ../lib/properties.h:549
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/step.c:169
 #: ../objects/GRAFCET/transition.c:146 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Font size"
 msgstr "حجم الخطّ"
 
-#: ../lib/properties.c:83 ../lib/properties.h:547
+#: ../lib/properties.c:84 ../lib/properties.h:555
 #: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
 #: ../objects/chronogram/chronoref.c:170
 msgid "Text color"
@@ -2384,6 +2606,28 @@ msgstr "لون النص"
 #: ../lib/proplist.c:163
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
+msgstr ""
+
+#: ../lib/sheet.c:69 ../lib/sheet.c:84
+#, c-format
+msgid ""
+"DiaObject '%s' needed in sheet '%s' was not found.\n"
+"It will not be available for use."
+msgstr ""
+
+#: ../lib/sheet.c:314
+#, c-format
+msgid ""
+"The system sheet '%s' appears to be more recent than your custom\n"
+"version and has been loaded as '%s' for this session.\n"
+"\n"
+"Move new objects (if any) from '%s' into your custom sheet\n"
+"or remove '%s', using the 'Sheets and Objects' dialog."
+msgstr ""
+
+#: ../lib/sheet.c:371
+#, c-format
+msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
 
 #: ../lib/widgets.c:441
@@ -2454,119 +2698,229 @@ msgstr "تصفّح"
 msgid "Reset menu"
 msgstr "أعد ضبط القائمة"
 
+#. Installer message if no GTK+ was found
+#: ../installer/win32/gennsh.c:38
+msgid ""
+"GTK+ is not installed. Please use the full installer. It is available from "
+"http://dia-installer.de."
+msgstr ""
+
+#. Installer message: Don't install over pre 0.95 versions
+#: ../installer/win32/gennsh.c:41
+msgid ""
+"Please remove old Dia installations completely or install Dia to a different "
+"location."
+msgstr ""
+
+#. Installer message:  License Page
+#: ../installer/win32/gennsh.c:44
+#, fuzzy
+msgid "Next >"
+msgstr "نص"
+
+#. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
+#: ../installer/win32/gennsh.c:47
+msgid ""
+"$(^Name) is released under the GPL license. The license is provided here for "
+"information purposes only. $_CLICK"
+msgstr ""
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:50
+#, fuzzy
+msgid "Dia Diagram Editor (required)"
+msgstr "محرّر المخطّطات ديّا"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:53
+#, fuzzy
+msgid "Translations"
+msgstr "ترجمة"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:56
+msgid "Optional translations of the Dia user interface"
+msgstr ""
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:59
+msgid "Core Dia files and dlls"
+msgstr ""
+
+#. Installer message: Component name
+#: ../installer/win32/gennsh.c:62
+#, fuzzy
+msgid "Python plug-in"
+msgstr "ملحقات"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:65
+msgid ""
+"Support for the Python Scripting Language 2.3. Do not select this if Python "
+"is not installed."
+msgstr ""
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:68
+msgid "Visit the Dia for Windows Web Page"
+msgstr ""
+
+#. Installer message: Dia uninstaller entry in Control Panel
+#: ../installer/win32/gennsh.c:71
+msgid "Dia (remove only)"
+msgstr ""
+
+#. Installer message: confirmation question. Keep $\r
+#: ../installer/win32/gennsh.c:74
+msgid ""
+"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
+"$\rNote: Any non-standard plugins that you may have installed will be "
+"deleted.$\rDia user settings will not be affected."
+msgstr ""
+
+#. Installer message: confirmatin question. Keep $\r
+#: ../installer/win32/gennsh.c:77
+msgid ""
+"The installation directory you specified already exists. Any contents$\rwill "
+"be deleted. Would you like to continue?"
+msgstr ""
+
+#. Installer message: Uninstall Section Prompts. Keep $\r
+#: ../installer/win32/gennsh.c:80
+msgid ""
+"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
+"another user installed this application."
+msgstr ""
+
+#. Installer message: Uninstall error message
+#: ../installer/win32/gennsh.c:83
+msgid "You do not have permission to uninstall this application."
+msgstr ""
+
+#. Installer message: Uninstallation warning. Keep $INSTDIR
+#: ../installer/win32/gennsh.c:86
+msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
+msgstr ""
+
+#. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
+#: ../installer/win32/gennsh.c:89
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgstr ""
+
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:150
+#: ../objects/AADL/aadlbox.c:147
 msgid "Declaration"
 msgstr "إعلان"
 
-#: ../objects/AADL/aadlbox.c:367
+#: ../objects/AADL/aadlbox.c:358
 #, fuzzy
 msgid "Add Access Provider"
 msgstr "تعذّر الوصول إلى  المهملات."
 
-#: ../objects/AADL/aadlbox.c:369
+#: ../objects/AADL/aadlbox.c:360
 #, fuzzy
 msgid "Add Access Requirer"
 msgstr "تعذّر الوصول إلى  المهملات."
 
-#: ../objects/AADL/aadlbox.c:371
+#: ../objects/AADL/aadlbox.c:362
 #, fuzzy
 msgid "Add In Data Port"
 msgstr "بيانات زائدة في الملف"
 
-#: ../objects/AADL/aadlbox.c:373
+#: ../objects/AADL/aadlbox.c:364
 #, fuzzy
 msgid "Add In Event Port"
 msgstr "أدخل بنسق اسم المضيف(:المنفذ)"
 
-#: ../objects/AADL/aadlbox.c:375
+#: ../objects/AADL/aadlbox.c:366
 msgid "Add In Event Data Port"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:377
+#: ../objects/AADL/aadlbox.c:368
 #, fuzzy
 msgid "Add Out Data Port"
 msgstr "فشلت إضافة البيانات للمشفّر"
 
-#: ../objects/AADL/aadlbox.c:379
+#: ../objects/AADL/aadlbox.c:370
 msgid "Add Out Event Port"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:381
+#: ../objects/AADL/aadlbox.c:372
 msgid "Add Out Event Data Port"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:383
+#: ../objects/AADL/aadlbox.c:374
 msgid "Add In Out Data Port"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:385
+#: ../objects/AADL/aadlbox.c:376
 msgid "Add In Out Event Port"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:387
+#: ../objects/AADL/aadlbox.c:378
 msgid "Add In Out Event Data Port"
 msgstr ""
 
-#: ../objects/AADL/aadlbox.c:389
+#: ../objects/AADL/aadlbox.c:380
 #, fuzzy
 msgid "Add Port Group"
 msgstr "أضف إلى المجموعة"
 
-#: ../objects/AADL/aadlbox.c:391
+#: ../objects/AADL/aadlbox.c:382
 #, fuzzy
 msgid "Add Connection Point"
 msgstr "لا يمكن إضافة اتصال VPN"
 
-#: ../objects/AADL/aadlbox.c:395
+#: ../objects/AADL/aadlbox.c:386
 #, fuzzy
 msgid "Delete Port"
 msgstr "منفذ الاستماع"
 
-#: ../objects/AADL/aadlbox.c:396
+#: ../objects/AADL/aadlbox.c:387
 #, fuzzy
 msgid "Edit Port Declaration"
 msgstr "مدى منافذ TCP"
 
-#: ../objects/AADL/aadlbox.c:400
+#: ../objects/AADL/aadlbox.c:391
 #, fuzzy
 msgid "Delete Connection Point"
 msgstr "حذف اتصال VPN \"%s\"؟"
 
-#: ../objects/Database/compound.c:197
+#: ../objects/Database/compound.c:198
 #, fuzzy
 msgid "Number of arms"
 msgstr "رقم ال_حساب:"
 
-#: ../objects/Database/compound.c:219
+#: ../objects/Database/compound.c:221
 #, fuzzy
 msgid "Flip arms verticaly"
 msgstr "ا_قلب النتائج النهائية"
 
-#: ../objects/Database/compound.c:221
+#: ../objects/Database/compound.c:223
 #, fuzzy
 msgid "Flip arms horizontaly"
 msgstr "ا_قلب النتائج النهائية"
 
-#: ../objects/Database/compound.c:223
+#: ../objects/Database/compound.c:225
 #, fuzzy
 msgid "Center mount point verticaly"
 msgstr "مكان التّجهيز قيد الاستخدام"
 
-#: ../objects/Database/compound.c:225
+#: ../objects/Database/compound.c:227
 #, fuzzy
 msgid "Center mount point horizontaly"
 msgstr "مكان التّجهيز قيد الاستخدام"
 
-#: ../objects/Database/compound.c:227
+#: ../objects/Database/compound.c:229
 #, fuzzy
 msgid "Center mount point"
 msgstr "نقطة تجهيز غير صالحة"
 
-#: ../objects/Database/compound.c:232
+#: ../objects/Database/compound.c:234
 #, fuzzy
 msgid "Compound"
 msgstr "المركّب"
@@ -2575,92 +2929,92 @@ msgstr "المركّب"
 msgid "Entity/Relationship table diagram objects"
 msgstr ""
 
-#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
-#: ../objects/Database/table.c:198 ../objects/UML/class.c:145
-#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:589
+#: ../objects/Database/table.c:142 ../objects/Database/table.c:183
+#: ../objects/Database/table.c:200 ../objects/UML/class.c:148
+#: ../objects/UML/class.c:189 ../objects/UML/class_dialog.c:595
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 #, fuzzy
 msgid "Comment"
 msgstr "ملاحظة"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:144
 #, fuzzy
 msgid "Primary key"
 msgstr "تشفير المفتاح"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:146
 msgid "Nullable"
 msgstr ""
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:148
 msgid "Unique"
 msgstr "فريد"
 
-#: ../objects/Database/table.c:183
+#: ../objects/Database/table.c:185
 #, fuzzy
 msgid "Visible comments"
 msgstr "_تعليقات القرص:"
 
-#: ../objects/Database/table.c:185 ../objects/UML/class.c:168
+#: ../objects/Database/table.c:187 ../objects/UML/class.c:171
 #, fuzzy
 msgid "Comment tagging"
 msgstr "التّعليق يحتوي"
 
-#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:976
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 #, fuzzy
 msgid "Underline primary keys"
 msgstr "استيراد المفاتيح: غير مضمّن"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:981
+#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
 msgstr ""
 
 #. property rows
-#: ../objects/Database/table.c:194 ../objects/SADT/arrow.c:136
-#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:564
+#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "عادي"
 
-#: ../objects/Database/table.c:196
+#: ../objects/Database/table.c:198
 #, fuzzy
 msgid "Tablename"
 msgstr "جدول"
 
-#: ../objects/Database/table.c:201 ../objects/Database/table.c:203
-#: ../objects/Database/table.c:205 ../objects/Database/reference.c:120
-#: ../objects/UML/association.c:247 ../objects/UML/association.c:258
-#: ../objects/UML/association.c:260 ../objects/UML/association.c:262
-#: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:190 ../objects/UML/class.c:192
-#: ../objects/UML/class.c:194 ../objects/UML/class.c:196
-#: ../objects/UML/class.c:198 ../objects/UML/class.c:200
+#: ../objects/Database/table.c:203 ../objects/Database/table.c:205
+#: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
+#: ../objects/UML/association.c:245 ../objects/UML/association.c:256
+#: ../objects/UML/association.c:258 ../objects/UML/association.c:260
+#: ../objects/UML/association.c:262 ../objects/UML/association.c:264
+#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
+#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:201 ../objects/UML/class.c:203
 msgid " "
 msgstr "  "
 
-#: ../objects/Database/table.c:209 ../objects/UML/class.c:206
-#: ../objects/UML/object.c:156
+#: ../objects/Database/table.c:211 ../objects/UML/class.c:209
+#: ../objects/UML/object.c:157
 msgid "Attributes"
 msgstr "الصّفات"
 
-#: ../objects/Database/table.c:246
+#: ../objects/Database/table.c:248
 msgid "Show comments"
 msgstr "اظهر التعليقات"
 
 #. init data
-#: ../objects/Database/table.c:251 ../objects/Database/table.c:354
+#: ../objects/Database/table.c:253 ../objects/Database/table.c:356
 #: ../sheets/Database.sheet.in.h:5
 msgid "Table"
 msgstr "جدول"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1062
+#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1081
 msgid "_Attributes"
 msgstr "_صفات"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:624
-#: ../objects/SISSI/sissi_dialog.c:756
+#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "_جديد"
 
@@ -2679,15 +3033,15 @@ msgstr "تحرّك للأعلى"
 msgid "Move down"
 msgstr "تحرّك للأسفل"
 
-#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1119
+#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1138
 msgid "Attribute data"
 msgstr "بيانات الصّفات"
 
 #: ../objects/Database/table_dialog.c:707
 #: ../objects/Database/table_dialog.c:946
-#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:448
-#: ../objects/UML/class_dialog.c:1162 ../objects/UML/class_dialog.c:2089
-#: ../objects/UML/class_dialog.c:2261
+#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
+#: ../objects/UML/class_dialog.c:1181 ../objects/UML/class_dialog.c:2111
+#: ../objects/UML/class_dialog.c:2283
 msgid "Comment:"
 msgstr "تعليق:"
 
@@ -2718,13 +3072,13 @@ msgstr "إسم الجدول:"
 msgid "Comment visible"
 msgstr "الملاحظة مرئية"
 
-#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:518
+#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
 #, fuzzy
-msgid "Show documenation tag"
+msgid "Show documentation tag"
 msgstr "قوائم العلامة المتوفرة"
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:545
+#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:551
 msgid "_Style"
 msgstr "_نمط"
 
@@ -2733,12 +3087,12 @@ msgid "Border width:"
 msgstr "عرض الحافة:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:555
+#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:561
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "النوع"
 
-#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:560
+#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:566
 msgid "Size"
 msgstr "الحجم"
 
@@ -2787,12 +3141,19 @@ msgstr "انه الوصف"
 #: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:379
+#: ../objects/UML/transition.c:172 ../objects/standard/bezier.c:731
+#: ../objects/standard/beziergon.c:495 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
 msgstr "ضف قطعة"
 
-#: ../objects/Database/reference.c:145
-msgid "Delete segement"
+#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
+#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
+#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
+#: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
+#: ../objects/UML/transition.c:173 ../objects/standard/bezier.c:732
+#: ../objects/standard/beziergon.c:496 ../objects/standard/zigzagline.c:381
+msgid "Delete segment"
 msgstr "احذف قطعة"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
@@ -2839,15 +3200,6 @@ msgstr ""
 #: ../objects/ER/participation.c:118
 msgid "Total:"
 msgstr "المجموع:"
-
-#: ../objects/ER/participation.c:409 ../objects/FS/flow-ortho.c:627
-#: ../objects/GRAFCET/vector.c:315 ../objects/SADT/arrow.c:460
-#: ../objects/UML/association.c:855 ../objects/UML/component_feature.c:191
-#: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
-#: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:173
-#: ../objects/standard/zigzagline.c:380
-msgid "Delete segment"
-msgstr "احذف قطعة"
 
 #: ../objects/ER/relationship.c:144
 msgid "Left Cardinality:"
@@ -2951,13 +3303,6 @@ msgstr "شكّل مدخلا"
 #: ../objects/FS/function.c:696 ../objects/FS/function.c:930
 msgid "Capture"
 msgstr "سجّل"
-
-#. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
-#: ../objects/FS/function.c:698 ../objects/FS/function.c:700
-#: ../plug-ins/libart/export_png.c:323
-msgid "Export"
-msgstr "صدِّر"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
@@ -3497,12 +3842,6 @@ msgstr "الحدّ"
 msgid "Interrupt"
 msgstr "قاطِع"
 
-#. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:976 ../objects/FS/function.c:978
-msgid "Change"
-msgstr "غيّر"
-
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:980
 msgid "Increase"
@@ -3535,7 +3874,7 @@ msgstr "ضرب"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:994 ../objects/Misc/measure.c:187
+#: ../objects/FS/function.c:994 ../objects/Misc/measure.c:186
 msgid "Scale"
 msgstr "حجّم"
 
@@ -3770,7 +4109,7 @@ msgid "Force"
 msgstr "قوة"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:202
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:206
 msgid "Rotation"
 msgstr "دوران"
 
@@ -4105,8 +4444,11 @@ msgstr "نوع التّنبيه"
 msgid "Add connection point"
 msgstr "ضف نقطة إتصال"
 
-#: ../objects/GRAFCET/vergent.c:408
-msgid "Delete  connection point"
+#: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
+#: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
+#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/standard/line.c:224
+msgid "Delete connection point"
 msgstr "احذف نقطة الإتصال"
 
 #: ../objects/GRAFCET/vergent.c:412
@@ -4122,7 +4464,7 @@ msgstr "غير محدّد"
 msgid "Agent"
 msgstr "وكيل"
 
-#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:249
+#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:247
 msgid "Role"
 msgstr "الدّور"
 
@@ -4146,7 +4488,7 @@ msgstr "برنامج لرسم التّخطيطات."
 
 #: ../objects/Istar/link.c:151
 #, fuzzy
-msgid "Positive Contrib"
+msgid "Positive contrib"
 msgstr "الموقع"
 
 #: ../objects/Istar/link.c:152
@@ -4174,12 +4516,6 @@ msgstr "المورد"
 #: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "مهمَّة"
-
-#: ../objects/Istar/other.c:472 ../objects/Jackson/domain.c:534
-#: ../objects/KAOS/goal.c:575 ../objects/KAOS/other.c:528
-#: ../objects/SADT/box.c:450 ../objects/standard/line.c:224
-msgid "Delete connection point"
-msgstr "احذف نقطة الإتصال"
 
 #: ../objects/Istar/other.c:477
 msgid "i* other"
@@ -4244,12 +4580,10 @@ msgstr "مشترك"
 msgid "Requirement"
 msgstr "متطلّب"
 
-#. backward compatibility
+#. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#. backward compatibility
-#. new name matching "same name, same type"  rule
-#: ../objects/Jackson/phenomenon.c:144 ../objects/Jackson/phenomenon.c:146
-#: ../objects/UML/message.c:153 ../objects/UML/message.c:155
+#: ../objects/Jackson/phenomenon.c:144 ../objects/UML/message.c:153
+#: ../objects/UML/message.c:155
 msgid "Message:"
 msgstr "الرسالة:"
 
@@ -4293,9 +4627,7 @@ msgstr "ال_منظّم:"
 msgid "Operationalization"
 msgstr "المنظّمة"
 
-#. backward compatibility
-#. new name matching "same name, same type"  rule
-#: ../objects/KAOS/metaandorrel.c:163 ../objects/KAOS/metaandorrel.c:165
+#: ../objects/KAOS/metaandorrel.c:163
 msgid "Text:"
 msgstr "النّص:"
 
@@ -4360,57 +4692,79 @@ msgstr "عرض سهم الثواني"
 msgid "Show hours"
 msgstr "اظهر السّاعات"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/grid_object.c:140
+#, fuzzy
+msgid "Rows"
+msgstr "تصفّح"
+
+# #-#-#-#-#  gnome-icon-theme.gnome-2-18.ar.po (gnome-icon-theme.gnome-2-16.ar)  #-#-#-#-#
+# 48x48/emblems/emblem-documents.icon.in.h:1
+#: ../objects/Misc/grid_object.c:142
+#, fuzzy
+msgid "Columns"
+msgstr "مستندات"
+
+#: ../objects/Misc/grid_object.c:144
+#, fuzzy
+msgid "Gridline color"
+msgstr "لون الخطّ"
+
+#: ../objects/Misc/grid_object.c:146
+#, fuzzy
+msgid "Gridline width"
+msgstr "عرض الخط"
+
+#: ../objects/Misc/libmisc.c:41
 #, fuzzy
 msgid "Miscellaneous objects"
 msgstr "جاري تحديث الكائِنات"
 
-#: ../objects/Misc/measure.c:170
+#: ../objects/Misc/measure.c:169
 msgid "cm"
 msgstr ""
 
-#: ../objects/Misc/measure.c:171
+#: ../objects/Misc/measure.c:170
 msgid "dm"
 msgstr ""
 
-#: ../objects/Misc/measure.c:172
+#: ../objects/Misc/measure.c:171
 #, fuzzy
 msgid "ft"
 msgstr "يسار"
 
-#: ../objects/Misc/measure.c:173
+#: ../objects/Misc/measure.c:172
 #, fuzzy
 msgid "in"
 msgstr "خط"
 
-#: ../objects/Misc/measure.c:174
+#: ../objects/Misc/measure.c:173
 msgid "m"
 msgstr ""
 
-#: ../objects/Misc/measure.c:175
+#: ../objects/Misc/measure.c:174
 msgid "mm"
 msgstr ""
 
-#: ../objects/Misc/measure.c:176
+#: ../objects/Misc/measure.c:175
 msgid "pt"
 msgstr ""
 
-#: ../objects/Misc/measure.c:177
+#: ../objects/Misc/measure.c:176
 #, fuzzy
 msgid "pi"
 msgstr "لف"
 
 #. PROP_FLAG_VISIBLE|
-#: ../objects/Misc/measure.c:186 ../sheets/ChemEng.sheet.in.h:28
+#: ../objects/Misc/measure.c:185 ../sheets/ChemEng.sheet.in.h:28
 msgid "Measurement"
 msgstr "قياس"
 
-#: ../objects/Misc/measure.c:188
+#: ../objects/Misc/measure.c:187
 #, fuzzy
 msgid "Unit"
 msgstr "الإتحاد"
 
-#: ../objects/Misc/measure.c:189
+#: ../objects/Misc/measure.c:188
 #, fuzzy
 msgid "Precision"
 msgstr "قرار"
@@ -4465,9 +4819,9 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "فراغ الأسهم"
 
-#: ../objects/SADT/box.c:139 ../objects/flowchart/box.c:154
-#: ../objects/flowchart/diamond.c:152 ../objects/flowchart/ellipse.c:151
-#: ../objects/flowchart/parallelogram.c:156
+#: ../objects/SADT/box.c:139 ../objects/custom/custom_object.c:226
+#: ../objects/flowchart/box.c:154 ../objects/flowchart/diamond.c:152
+#: ../objects/flowchart/ellipse.c:151 ../objects/flowchart/parallelogram.c:156
 msgid "Text padding"
 msgstr "حشو النّص"
 
@@ -4490,16 +4844,16 @@ msgstr "_صندوق البريد:"
 msgid "SADT diagram objects"
 msgstr "جاري حذف الكائنات المنتقاة"
 
-#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:219
+#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi_dialog.c:42
 msgid "No Protection"
 msgstr "لا حماية"
 
-#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:220
+#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi_dialog.c:43
 #, fuzzy
 msgid "Restricted Diffusion"
 msgstr "NAT محدد"
 
-#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:221
+#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi_dialog.c:44
 #, fuzzy
 msgid "Special Country Confidential"
 msgstr "صنف كخصوصي"
@@ -4508,15 +4862,15 @@ msgstr "صنف كخصوصي"
 msgid "Confidential"
 msgstr "خصوصي"
 
-#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:222
+#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
 msgstr "خصوصي NATO"
 
-#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:223
+#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
 msgstr "خصوصي شخصي"
 
-#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:224
+#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
 msgstr "خصوصي طبّي"
 
@@ -4528,7 +4882,7 @@ msgstr "خصوصي صناعيّ"
 msgid "Defense Confidential"
 msgstr "خصوصي دفاعيّ"
 
-#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:226
+#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
 msgid "Secret"
 msgstr "سر"
 
@@ -4536,717 +4890,739 @@ msgstr "سر"
 msgid "Defense Secret"
 msgstr "سرّ الدّفاع"
 
-#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:227
+#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 #, fuzzy
 msgid "Secret special country"
 msgstr "HTML - محارف خاصة"
 
-#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:228
+#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
 msgstr "سرّ NATO"
 
-#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:229
+#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
 msgstr "سرّي للغاية"
 
-#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:230
+#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 #, fuzzy
 msgid "NATO Very Secret"
 msgstr "أودع المفتاح السرى؟"
 
-#: ../objects/SISSI/sissi.c:64
+#: ../objects/SISSI/sissi.c:66
 #, fuzzy
 msgid "SISSI diagram"
 msgstr "برنامج لرسم التّخطيطات."
 
-#: ../objects/SISSI/sissi.h:225
+#: ../objects/SISSI/sissi.c:923
+#, fuzzy, c-format
+msgid ""
+"Error loading object.\n"
+"Not a regular file: %s"
+msgstr "خطأ عند تحميل دفتر العناوين الإفتراضي."
+
+#: ../objects/SISSI/sissi.c:928 ../objects/SISSI/sissi.c:932
+#, fuzzy, c-format
+msgid ""
+"Error loading object.\n"
+"Incorrect file type: %s"
+msgstr "خطأ أثناء قراءة ملف البريد: %s"
+
+#: ../objects/SISSI/sissi.c:940
+#, fuzzy, c-format
+msgid ""
+"Error loading object.\n"
+"Not a Dia file: %s"
+msgstr "خطأ عند تحميل دفتر العناوين الإفتراضي."
+
+#: ../objects/SISSI/sissi_dialog.c:48
 #, fuzzy
 msgid "Industrial Confidential"
 msgstr "تيكنو-اندستريال"
 
-#: ../objects/SISSI/sissi.h:235
+#: ../objects/SISSI/sissi_dialog.c:58
 #, fuzzy
 msgid "No integrity"
 msgstr "لا "
 
-#: ../objects/SISSI/sissi.h:236
+#: ../objects/SISSI/sissi_dialog.c:59
 #, fuzzy
 msgid "Low integrity"
 msgstr "ا_ختبر السلامة"
 
-#: ../objects/SISSI/sissi.h:237
+#: ../objects/SISSI/sissi_dialog.c:60
 #, fuzzy
 msgid "Average software integrity"
 msgstr "خصّص خيارات البرامج"
 
-#: ../objects/SISSI/sissi.h:238
+#: ../objects/SISSI/sissi_dialog.c:61
 #, fuzzy
 msgid "High software integrity"
 msgstr "خصّص خيارات البرامج"
 
-#: ../objects/SISSI/sissi.h:239
+#: ../objects/SISSI/sissi_dialog.c:62
 #, fuzzy
 msgid "Average hardware integrity"
 msgstr "حجم جهاز آلي"
 
-#: ../objects/SISSI/sissi.h:240
+#: ../objects/SISSI/sissi_dialog.c:63
 #, fuzzy
 msgid "High hardware integrity"
 msgstr "حجم جهاز آلي"
 
-#: ../objects/SISSI/sissi.h:245
+#: ../objects/SISSI/sissi_dialog.c:68
 #, fuzzy
 msgid "Millisecond"
 msgstr "جزء من الألف من الثانية"
 
-#: ../objects/SISSI/sissi.h:246
+#: ../objects/SISSI/sissi_dialog.c:69
 msgid "Second"
 msgstr "الثّانية"
 
-#: ../objects/SISSI/sissi.h:247
+#: ../objects/SISSI/sissi_dialog.c:70
 msgid "Minute"
 msgstr "الدّقيقة"
 
-#: ../objects/SISSI/sissi.h:248
+#: ../objects/SISSI/sissi_dialog.c:71
 msgid "Hour"
 msgstr "السّاعة"
 
-#: ../objects/SISSI/sissi.h:249
+#: ../objects/SISSI/sissi_dialog.c:72
 msgid "Day"
 msgstr "اليوم"
 
-#: ../objects/SISSI/sissi.h:250
+#: ../objects/SISSI/sissi_dialog.c:73
 msgid "Week"
 msgstr "الأسبوع"
 
-#: ../objects/SISSI/sissi.h:255
+#: ../objects/SISSI/sissi_dialog.c:78
 msgid "SYSTEM"
 msgstr "نظام"
 
-#: ../objects/SISSI/sissi.h:256
+#: ../objects/SISSI/sissi_dialog.c:79
 #, fuzzy
 msgid "Internet access device"
 msgstr "جهاز تحكم ترحيل الإطارات"
 
-#: ../objects/SISSI/sissi.h:257
+#: ../objects/SISSI/sissi_dialog.c:80
 #, fuzzy
 msgid "Electronic messaging"
 msgstr "<b>التراسل الفوري</b>"
 
-#: ../objects/SISSI/sissi.h:258
+#: ../objects/SISSI/sissi_dialog.c:81
 msgid "Intranet"
 msgstr "شبكة محلّيّة"
 
-#: ../objects/SISSI/sissi.h:259
+#: ../objects/SISSI/sissi_dialog.c:82
 #, fuzzy
 msgid "Company directory"
 msgstr "دليل المستخدمين"
 
-#: ../objects/SISSI/sissi.h:260
+#: ../objects/SISSI/sissi_dialog.c:83
 #, fuzzy
 msgid "External portal"
 msgstr "إعدادت Portal"
 
-#: ../objects/SISSI/sissi.h:265
+#: ../objects/SISSI/sissi_dialog.c:88
 #, fuzzy
 msgid "ORGANISATION"
 msgstr "المنظمة"
 
-#: ../objects/SISSI/sissi.h:266
+#: ../objects/SISSI/sissi_dialog.c:89
 #, fuzzy
 msgid "Higher-tier organisation"
 msgstr "لا يمكن رفع الطبقة أعلى"
 
-#: ../objects/SISSI/sissi.h:267
+#: ../objects/SISSI/sissi_dialog.c:90
 #, fuzzy
 msgid "Structure of the organisation"
 msgstr "ØªØ±ÙÙØ¨ Ø§ÙÙØ·Ø§Ø¹"
 
-#: ../objects/SISSI/sissi.h:268
+#: ../objects/SISSI/sissi_dialog.c:91
 #, fuzzy
 msgid "Project or system organisation"
 msgstr "حالة النّظام، أو جواب مساعدة النّظام"
 
-#: ../objects/SISSI/sissi.h:269
+#: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:274
+#: ../objects/SISSI/sissi_dialog.c:97
 #, fuzzy
 msgid "SITE"
 msgstr "موقع الإنترنت:"
 
-#: ../objects/SISSI/sissi.h:275
+#: ../objects/SISSI/sissi_dialog.c:98
 msgid "Places"
 msgstr "أماكن"
 
-#: ../objects/SISSI/sissi.h:276
+#: ../objects/SISSI/sissi_dialog.c:99
 #, fuzzy
 msgid "External environment"
 msgstr "مجال تعليق"
 
-#: ../objects/SISSI/sissi.h:277
+#: ../objects/SISSI/sissi_dialog.c:100
 #, fuzzy
 msgid "Premises"
 msgstr "المباني"
 
-#: ../objects/SISSI/sissi.h:278
+#: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
 msgstr "نِطاق"
 
-#: ../objects/SISSI/sissi.h:279
+#: ../objects/SISSI/sissi_dialog.c:102
 msgid "Essential Services"
 msgstr "الخدمات اللّازمة"
 
-#: ../objects/SISSI/sissi.h:280
+#: ../objects/SISSI/sissi_dialog.c:103
 msgid "Communication"
 msgstr "الإتصال"
 
-#: ../objects/SISSI/sissi.h:281
+#: ../objects/SISSI/sissi_dialog.c:104
 msgid "Power"
 msgstr "الطاقة"
 
-#: ../objects/SISSI/sissi.h:282
+#: ../objects/SISSI/sissi_dialog.c:105
 #, fuzzy
 msgid "Cooling / Pollution"
 msgstr "تبريد بالماء"
 
-#: ../objects/SISSI/sissi.h:286
+#: ../objects/SISSI/sissi_dialog.c:109
 msgid "Thermal detection"
 msgstr "إكتشاف الحرارة"
 
-#: ../objects/SISSI/sissi.h:290
+#: ../objects/SISSI/sissi_dialog.c:113
 msgid "Fire detection"
 msgstr "إكتشاف النّار"
 
-#: ../objects/SISSI/sissi.h:294
+#: ../objects/SISSI/sissi_dialog.c:117
 msgid "Water detection"
 msgstr "إكتشاف الماء"
 
-#: ../objects/SISSI/sissi.h:298
+#: ../objects/SISSI/sissi_dialog.c:121
 msgid "Air detection"
 msgstr "إكتشاف الهواء"
 
-#: ../objects/SISSI/sissi.h:302
+#: ../objects/SISSI/sissi_dialog.c:125
 msgid "Energy detection"
 msgstr "إكتشاف الطّاقة"
 
-#: ../objects/SISSI/sissi.h:306
+#: ../objects/SISSI/sissi_dialog.c:129
 msgid "Intrusion detection"
 msgstr "اكتشاف التّدخّل"
 
-#: ../objects/SISSI/sissi.h:310
+#: ../objects/SISSI/sissi_dialog.c:133
 msgid "Thermal action"
 msgstr "عمل الحرارة"
 
-#: ../objects/SISSI/sissi.h:314
+#: ../objects/SISSI/sissi_dialog.c:137
 msgid "Fire action"
 msgstr "عمل النّار"
 
-#: ../objects/SISSI/sissi.h:318
+#: ../objects/SISSI/sissi_dialog.c:141
 msgid "Water action"
 msgstr "عمل الماء"
 
-#: ../objects/SISSI/sissi.h:322
+#: ../objects/SISSI/sissi_dialog.c:145
 msgid "Air action"
 msgstr "عمل الهواء"
 
-#: ../objects/SISSI/sissi.h:326
+#: ../objects/SISSI/sissi_dialog.c:149
 msgid "Energy action"
 msgstr "عمل الطّاقة"
 
-#: ../objects/SISSI/sissi.h:330
+#: ../objects/SISSI/sissi_dialog.c:153
 msgid "Intrusion action"
 msgstr "عمل التّدخّل"
 
-#: ../objects/SISSI/sissi.h:335
+#: ../objects/SISSI/sissi_dialog.c:158
 msgid "Personal"
 msgstr "شخصي"
 
-#: ../objects/SISSI/sissi.h:336
+#: ../objects/SISSI/sissi_dialog.c:159
 #, fuzzy
 msgid "Decision maker"
 msgstr "ملحوظة المركّب"
 
-#: ../objects/SISSI/sissi.h:337
+#: ../objects/SISSI/sissi_dialog.c:160
 #, fuzzy
 msgid "SSI Responsible"
 msgstr "هوية الإجابة"
 
-#: ../objects/SISSI/sissi.h:338
+#: ../objects/SISSI/sissi_dialog.c:161
 msgid "Users"
 msgstr "مستخدمون"
 
-#: ../objects/SISSI/sissi.h:339
+#: ../objects/SISSI/sissi_dialog.c:162
 #, fuzzy
 msgid "Functional administrator"
 msgstr "مدير النظام"
 
-#: ../objects/SISSI/sissi.h:340
+#: ../objects/SISSI/sissi_dialog.c:163
 #, fuzzy
 msgid "Technical administrator"
 msgstr "مدير النظام"
 
-#: ../objects/SISSI/sissi.h:341
+#: ../objects/SISSI/sissi_dialog.c:164
 #, fuzzy
 msgid "SSI administrator"
 msgstr "مدير النظام"
 
-#: ../objects/SISSI/sissi.h:342
+#: ../objects/SISSI/sissi_dialog.c:165
 msgid "Developer"
 msgstr "مطوّر"
 
-#: ../objects/SISSI/sissi.h:343
+#: ../objects/SISSI/sissi_dialog.c:166
 #, fuzzy
 msgid "Operator / Maintenance"
 msgstr "صيانة الموقع"
 
-#: ../objects/SISSI/sissi.h:348 ../sheets/network.sheet.in.h:20
+#: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "شبكة"
 
-#: ../objects/SISSI/sissi.h:349
+#: ../objects/SISSI/sissi_dialog.c:172
 #, fuzzy
 msgid "Medium and support"
 msgstr "التّحجيم و دعم SVG:"
 
-#: ../objects/SISSI/sissi.h:350
+#: ../objects/SISSI/sissi_dialog.c:173
 #, fuzzy
 msgid "Passive or active relay"
 msgstr "تأخير الإخفاء الآلي للشريط"
 
-#: ../objects/SISSI/sissi.h:351
+#: ../objects/SISSI/sissi_dialog.c:174
 #, fuzzy
 msgid "Communication interface"
 msgstr "واجهة الشبكة"
 
-#: ../objects/SISSI/sissi.h:356 ../sheets/SISSI.sheet.in.h:54
+#: ../objects/SISSI/sissi_dialog.c:179 ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
 msgstr "برنامج"
 
-#: ../objects/SISSI/sissi.h:357
+#: ../objects/SISSI/sissi_dialog.c:180
 msgid "Operating System"
 msgstr "نظام تشغيل"
 
-#: ../objects/SISSI/sissi.h:358
+#: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:359
+#: ../objects/SISSI/sissi_dialog.c:182
 #, fuzzy
 msgid "Packaged software or standard software"
 msgstr "دليل أو حوض صندوق بريد mbox يونكس قياسي"
 
-#: ../objects/SISSI/sissi.h:360
+#: ../objects/SISSI/sissi_dialog.c:183
 #, fuzzy
 msgid "Business application"
 msgstr "<b>خيارات البرنامج:</b>"
 
-#: ../objects/SISSI/sissi.h:361
+#: ../objects/SISSI/sissi_dialog.c:184
 #, fuzzy
 msgid "Standard business application"
 msgstr "إرساء نافذة البرنامج"
 
-#: ../objects/SISSI/sissi.h:362
+#: ../objects/SISSI/sissi_dialog.c:185
 #, fuzzy
 msgid "Specific business application"
 msgstr "إرساء نافذة البرنامج"
 
-#: ../objects/SISSI/sissi.h:367
+#: ../objects/SISSI/sissi_dialog.c:190
 msgid "HARDWARE"
 msgstr "عتاد"
 
-#: ../objects/SISSI/sissi.h:368
+#: ../objects/SISSI/sissi_dialog.c:191
 #, fuzzy
 msgid "Data-processing equipment (active)"
 msgstr "غير مضغوط (نشط)"
 
-#: ../objects/SISSI/sissi.h:369
+#: ../objects/SISSI/sissi_dialog.c:192
 msgid "Mobile equipment"
 msgstr "عتاد متنقّل"
 
-#: ../objects/SISSI/sissi.h:370
+#: ../objects/SISSI/sissi_dialog.c:193
 #, fuzzy
 msgid "Fixed equipment"
 msgstr "ثابت ال_عرض:"
 
-#: ../objects/SISSI/sissi.h:371
+#: ../objects/SISSI/sissi_dialog.c:194
 #, fuzzy
 msgid "Peripheral processing"
 msgstr "أوقِف المعالجة"
 
-#: ../objects/SISSI/sissi.h:372
+#: ../objects/SISSI/sissi_dialog.c:195
 #, fuzzy
 msgid "Electronic medium"
 msgstr "glines|متوسط"
 
-#: ../objects/SISSI/sissi.h:373
+#: ../objects/SISSI/sissi_dialog.c:196
 #, fuzzy
 msgid "Other media"
 msgstr "وسيط الخرْج"
 
-#: ../objects/SISSI/sissi.h:374
+#: ../objects/SISSI/sissi_dialog.c:197
 #, fuzzy
 msgid "Data medium (passive)"
 msgstr "نقل الملف السلبى "
 
 #. Class page:
-#: ../objects/SISSI/sissi_dialog.c:186
+#: ../objects/SISSI/sissi_dialog.c:301
 msgid "_Menace"
 msgstr "_خطر"
 
 #. ********* label of board *********
-#: ../objects/SISSI/sissi_dialog.c:202 ../objects/SISSI/sissi_dialog.c:211
+#: ../objects/SISSI/sissi_dialog.c:317 ../objects/SISSI/sissi_dialog.c:326
 msgid "Menace"
 msgstr "خطر"
 
-#: ../objects/SISSI/sissi_dialog.c:204 ../objects/SISSI/sissi_dialog.c:213
+#: ../objects/SISSI/sissi_dialog.c:319 ../objects/SISSI/sissi_dialog.c:328
 msgid "P Action"
 msgstr "حدث ب"
 
-#: ../objects/SISSI/sissi_dialog.c:206 ../objects/SISSI/sissi_dialog.c:215
+#: ../objects/SISSI/sissi_dialog.c:321 ../objects/SISSI/sissi_dialog.c:330
 msgid "P Detection"
 msgstr "كشف ب"
 
-#: ../objects/SISSI/sissi_dialog.c:208 ../objects/SISSI/sissi_dialog.c:217
+#: ../objects/SISSI/sissi_dialog.c:323 ../objects/SISSI/sissi_dialog.c:332
 msgid "Vulnerability"
 msgstr "ضعف"
 
 #. Other properties of page:
-#: ../objects/SISSI/sissi_dialog.c:373
+#: ../objects/SISSI/sissi_dialog.c:488
 msgid "Other properties"
 msgstr "خصائص أخرى"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
-#: ../objects/SISSI/sissi_dialog.c:611
+#: ../objects/SISSI/sissi_dialog.c:726
 msgid "Label"
 msgstr "تسمية"
 
-#: ../objects/SISSI/sissi_dialog.c:613
+#: ../objects/SISSI/sissi_dialog.c:728
 msgid "value"
 msgstr "قيمة"
 
 # #-#-#-#-#  gnome-icon-theme.gnome-2-18.ar.po (gnome-icon-theme.gnome-2-16.ar)  #-#-#-#-#
 # 48x48/emblems/emblem-documents.icon.in.h:1
 #. Other properties of page
-#: ../objects/SISSI/sissi_dialog.c:747
+#: ../objects/SISSI/sissi_dialog.c:862
 msgid "Documents"
 msgstr "مستندات"
 
-#: ../objects/SISSI/sissi_dialog.c:763
+#: ../objects/SISSI/sissi_dialog.c:878
 msgid "Document title"
 msgstr "عنوان المستند"
 
-#: ../objects/SISSI/sissi_dialog.c:765
-msgid "URL"
-msgstr "عنوان"
-
-#: ../objects/UML/actor.c:351 ../objects/UML/actor.c:353
+#: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "ممثّل"
 
-#: ../objects/UML/association.c:224
+#: ../objects/UML/association.c:222
 msgid "From A to B"
 msgstr "من أ إلى ب"
 
-#: ../objects/UML/association.c:225
+#: ../objects/UML/association.c:223
 msgid "From B to A"
 msgstr "من ب إلى أ"
 
-#: ../objects/UML/association.c:230
+#: ../objects/UML/association.c:228
 #, fuzzy
 msgid "Aggregation"
 msgstr "مركب"
 
-#: ../objects/UML/association.c:231
+#: ../objects/UML/association.c:229
 msgid "Composition"
 msgstr "تَرْكِيب"
 
-#: ../objects/UML/association.c:238
+#: ../objects/UML/association.c:236
 #, fuzzy
 msgid "Direction"
 msgstr "الإتجاه:"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 #, fuzzy
 msgid "Show direction"
 msgstr "لا حماية"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show the small arrow denoting the reading direction"
 msgstr ""
 
-#: ../objects/UML/association.c:247
+#: ../objects/UML/association.c:245
 msgid "Side A"
 msgstr "الجانب أ"
 
-#: ../objects/UML/association.c:251
+#: ../objects/UML/association.c:249
 #, fuzzy
 msgid "Multiplicity"
 msgstr "التعدّد:"
 
-#: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
+#: ../objects/UML/association.c:251 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "الرؤية"
 
-#: ../objects/UML/association.c:255
+#: ../objects/UML/association.c:253
 msgid "Show arrow"
 msgstr "اعرض السهم"
 
-#: ../objects/UML/association.c:258
+#: ../objects/UML/association.c:256
 msgid "Side B"
 msgstr "الجانب ب"
 
-#: ../objects/UML/class.c:139 ../objects/UML/class.c:310
-#: ../objects/UML/class.c:1760 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:142 ../objects/UML/class.c:325
+#: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "الصف"
 
-#. backward compatibility
-#. one name, one type
-#: ../objects/UML/class.c:143 ../objects/UML/classicon.c:140
+#. how it used to be before 0.96+SVN
+#. one name, one type: but breaks forward-compatibiliy so kind of reverted
+#: ../objects/UML/class.c:146 ../objects/UML/classicon.c:140
 #: ../objects/UML/classicon.c:142 ../objects/UML/component.c:126
-#: ../objects/UML/large_package.c:131 ../objects/UML/object.c:152
-#: ../objects/UML/small_package.c:126 ../objects/UML/umloperation.c:68
+#: ../objects/UML/large_package.c:137 ../objects/UML/object.c:153
+#: ../objects/UML/small_package.c:131 ../objects/UML/umloperation.c:68
 #, fuzzy
 msgid "Stereotype"
 msgstr "القالب الجاهز"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class.c:180
-#: ../objects/UML/class_dialog.c:464 ../objects/UML/class_dialog.c:574
-#: ../objects/UML/class_dialog.c:2065 ../objects/UML/uml.c:110
+#: ../objects/UML/class.c:150 ../objects/UML/class.c:183
+#: ../objects/UML/class_dialog.c:468 ../objects/UML/class_dialog.c:580
+#: ../objects/UML/class_dialog.c:2087 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "مبسط"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:1757
+#: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
 msgid "Template"
 msgstr "قالب"
 
-#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:473
+#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
 msgstr "لا تعرض الخصائص"
 
-#: ../objects/UML/class.c:154
+#: ../objects/UML/class.c:157
 msgid "Suppress Operations"
 msgstr "لا تعرض العمليّات"
 
-#: ../objects/UML/class.c:156
+#: ../objects/UML/class.c:159
 msgid "Visible Attributes"
 msgstr "خصائص معروضة"
 
-#: ../objects/UML/class.c:158
+#: ../objects/UML/class.c:161
 msgid "Visible Operations"
 msgstr "عمليات معروضة"
 
-#: ../objects/UML/class.c:160
+#: ../objects/UML/class.c:163
 msgid "Visible Comments"
 msgstr "تعليقات معروضة"
 
-#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:489
+#: ../objects/UML/class.c:165 ../objects/UML/class_dialog.c:493
 msgid "Wrap Operations"
 msgstr "لف العمليّات"
 
-#: ../objects/UML/class.c:164
+#: ../objects/UML/class.c:167
 msgid "Wrap after char"
 msgstr "لف بعد المحرف"
 
-#: ../objects/UML/class.c:166
+#: ../objects/UML/class.c:169
 msgid "Comment line length"
 msgstr "طول سطر التّعليق "
 
-#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:569
+#: ../objects/UML/class.c:181 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
 msgstr "متعدّد الأشكال"
 
-#: ../objects/UML/class.c:182
+#: ../objects/UML/class.c:185
 msgid "Classname"
 msgstr "اسم الصنف"
 
-#: ../objects/UML/class.c:184
+#: ../objects/UML/class.c:187
 msgid "Abstract Classname"
 msgstr "اسم صنف مجرد"
 
-#: ../objects/UML/class.c:208
+#: ../objects/UML/class.c:211
 msgid "Operations"
 msgstr "عمليات"
 
-#: ../objects/UML/class.c:211
+#: ../objects/UML/class.c:214
 #, fuzzy
 msgid "Template Parameters"
 msgstr "باراميترات غير صالحة"
 
-#: ../objects/UML/class.c:305
+#: ../objects/UML/class.c:320
 msgid "Show Comments"
 msgstr "إظهر التّعليقات"
 
 #. Class page:
-#: ../objects/UML/class_dialog.c:425
+#: ../objects/UML/class_dialog.c:429
 msgid "_Class"
 msgstr "_صنف"
 
-#: ../objects/UML/class_dialog.c:433
+#: ../objects/UML/class_dialog.c:437
 msgid "Class name:"
 msgstr "اسم الصنف:"
 
-#: ../objects/UML/class_dialog.c:441 ../objects/UML/class_dialog.c:2014
+#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2036
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 #, fuzzy
 msgid "Stereotype:"
 msgstr "القالب الجاهز"
 
-#: ../objects/UML/class_dialog.c:470
+#: ../objects/UML/class_dialog.c:474
 msgid "Attributes visible"
 msgstr "الخصائص معروضة"
 
-#: ../objects/UML/class_dialog.c:479
+#: ../objects/UML/class_dialog.c:483
 msgid "Operations visible"
 msgstr "العمليات معروضة"
 
-#: ../objects/UML/class_dialog.c:482
+#: ../objects/UML/class_dialog.c:486
 msgid "Suppress operations"
 msgstr "لا تعرض العمليّات"
 
-#: ../objects/UML/class_dialog.c:496
+#: ../objects/UML/class_dialog.c:500
 msgid "Wrap after this length: "
 msgstr "لفّ بعد هذا الطّول"
 
-#: ../objects/UML/class_dialog.c:504
+#: ../objects/UML/class_dialog.c:508
 msgid "Comments visible"
 msgstr "التعليقات معروضة"
 
-#: ../objects/UML/class_dialog.c:511
+#: ../objects/UML/class_dialog.c:515
 msgid "Wrap comment after this length: "
 msgstr ""
 
-#: ../objects/UML/class_dialog.c:579
+#: ../objects/UML/class_dialog.c:585
 msgid "Class Name"
 msgstr "اسم الصّنف"
 
-#: ../objects/UML/class_dialog.c:584
+#: ../objects/UML/class_dialog.c:590
 msgid "Abstract Class"
 msgstr "صنف مجرد"
 
 #. should probably be refactored too.
-#: ../objects/UML/class_dialog.c:601
+#: ../objects/UML/class_dialog.c:607
+#, fuzzy
+msgid "Line Width"
+msgstr "عرض الخط"
+
+#: ../objects/UML/class_dialog.c:616
 msgid "Text Color"
 msgstr "لون النص"
 
-#: ../objects/UML/class_dialog.c:609
+#: ../objects/UML/class_dialog.c:624
 msgid "Foreground Color"
 msgstr "لون الأماميّة"
 
-#: ../objects/UML/class_dialog.c:617
+#: ../objects/UML/class_dialog.c:632
 msgid "Background Color"
 msgstr "لون الخلفية"
 
-#: ../objects/UML/class_dialog.c:1151
+#: ../objects/UML/class_dialog.c:1170
 msgid "Value:"
 msgstr "القيمة:"
 
-#: ../objects/UML/class_dialog.c:1184 ../objects/UML/class_dialog.c:2026
+#: ../objects/UML/class_dialog.c:1203 ../objects/UML/class_dialog.c:2048
 msgid "Visibility:"
 msgstr "مدى الرؤية:"
 
-#: ../objects/UML/class_dialog.c:1193 ../objects/UML/class_dialog.c:2035
+#: ../objects/UML/class_dialog.c:1212 ../objects/UML/class_dialog.c:2057
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "عام"
 
-#: ../objects/UML/class_dialog.c:1196 ../objects/UML/class_dialog.c:2038
+#: ../objects/UML/class_dialog.c:1215 ../objects/UML/class_dialog.c:2060
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "خاص"
 
-#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2041
+#: ../objects/UML/class_dialog.c:1218 ../objects/UML/class_dialog.c:2063
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "محمي"
 
-#: ../objects/UML/class_dialog.c:1202 ../objects/UML/class_dialog.c:2044
+#: ../objects/UML/class_dialog.c:1221 ../objects/UML/class_dialog.c:2066
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "تطبيق"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1218 ../objects/UML/class_dialog.c:2081
+#: ../objects/UML/class_dialog.c:1237 ../objects/UML/class_dialog.c:2103
 msgid "Class scope"
 msgstr "مجال الصّنف"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:2056
+#: ../objects/UML/class_dialog.c:2078
 msgid "Inheritance type:"
 msgstr "نوع الإرث (برمجة):"
 
-#: ../objects/UML/class_dialog.c:2068 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2090 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "متعدّد الأشكال (خيالي)"
 
-#: ../objects/UML/class_dialog.c:2071 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2093 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "ورقة (نهائي)"
 
-#: ../objects/UML/class_dialog.c:2085
+#: ../objects/UML/class_dialog.c:2107
 msgid "Query"
 msgstr "استعلم"
 
-#: ../objects/UML/class_dialog.c:2132
+#: ../objects/UML/class_dialog.c:2154
 msgid "Parameters:"
 msgstr "معاملات:"
 
-#: ../objects/UML/class_dialog.c:2217
+#: ../objects/UML/class_dialog.c:2239
 #, fuzzy
 msgid "Parameter data"
 msgstr "البيانات الشخصية"
 
-#: ../objects/UML/class_dialog.c:2250
+#: ../objects/UML/class_dialog.c:2272
 #, fuzzy
 msgid "Def. value:"
 msgstr "قيمة التحجيم"
 
-#: ../objects/UML/class_dialog.c:2284
+#: ../objects/UML/class_dialog.c:2306
 msgid "Direction:"
 msgstr "الإتجاه:"
 
-#: ../objects/UML/class_dialog.c:2293 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2315 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "غير معرّف"
 
-#: ../objects/UML/class_dialog.c:2296 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2318 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "داخل"
 
-#: ../objects/UML/class_dialog.c:2299 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2321 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "خارج"
 
-#: ../objects/UML/class_dialog.c:2302 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2324 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "داخل و خارج"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2337
+#: ../objects/UML/class_dialog.c:2359
 msgid "_Operations"
 msgstr "_عمليات"
 
-#: ../objects/UML/class_dialog.c:2395
+#: ../objects/UML/class_dialog.c:2417
 msgid "Operation data"
 msgstr "بيانات العملية"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2755
+#: ../objects/UML/class_dialog.c:2780
 msgid "_Templates"
 msgstr "قوالب"
 
-#: ../objects/UML/class_dialog.c:2761 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2786 ../sheets/UML.sheet.in.h:29
 #, fuzzy
 msgid "Template class"
 msgstr "قائمة الأصناف"
 
-#: ../objects/UML/class_dialog.c:2818
+#: ../objects/UML/class_dialog.c:2843
 #, fuzzy
 msgid "Formal parameter data"
 msgstr "جاري استيراد بيانات إلم"
@@ -5255,7 +5631,7 @@ msgstr "جاري استيراد بيانات إلم"
 msgid "Boundary"
 msgstr "حدّ"
 
-#: ../objects/UML/classicon.c:144
+#: ../objects/UML/classicon.c:145
 msgid "Is object"
 msgstr "هو جسم"
 
@@ -5284,8 +5660,8 @@ msgstr "قيد:"
 msgid "Show arrow:"
 msgstr "اعرض السّهم"
 
-#. backward compatibility
-#. new name matching "same name, same type"  rule
+#. how it used to be before 0.96+SVN
+#. new name matching "same name, same type"  rule - reverted, forward compatibility seems more important
 #: ../objects/UML/implements.c:131 ../objects/UML/implements.c:133
 msgid "Interface:"
 msgstr "الواجهة:"
@@ -5357,23 +5733,23 @@ msgstr "أرسِل"
 msgid "Recursive"
 msgstr "تكرار"
 
-#: ../objects/UML/message.c:157
+#: ../objects/UML/message.c:158
 msgid "Message type:"
 msgstr "نوع الرسالة:"
 
-#: ../objects/UML/object.c:154
+#: ../objects/UML/object.c:155
 msgid "Explicit state"
 msgstr "حالة صريحة"
 
-#: ../objects/UML/object.c:159
+#: ../objects/UML/object.c:160
 msgid "Active object"
 msgstr "جسم نشط"
 
-#: ../objects/UML/object.c:161
+#: ../objects/UML/object.c:162
 msgid "Show attributes"
 msgstr "اعرض الخصائص"
 
-#: ../objects/UML/object.c:163
+#: ../objects/UML/object.c:164
 #, fuzzy
 msgid "Multiple instance"
 msgstr "تعريف النسخة"
@@ -5458,11 +5834,11 @@ msgstr "رمز const"
 msgid "Parameters"
 msgstr "الضوابط"
 
-#: ../objects/UML/usecase.c:134
+#: ../objects/UML/usecase.c:136
 msgid "Text outside"
 msgstr "نص خارج"
 
-#: ../objects/UML/usecase.c:136
+#: ../objects/UML/usecase.c:138
 msgid "Collaboration"
 msgstr "تعاون"
 
@@ -5559,27 +5935,21 @@ msgstr "مخصّص"
 msgid "Custom XML shapes loader"
 msgstr "ترويسة مخصصة"
 
-#: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:235
+#: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
+#: ../objects/custom/custom_object.c:1780
 msgid "Flip horizontal"
 msgstr "اقلب أفقيا"
 
-#: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:237
+#: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
+#: ../objects/custom/custom_object.c:1781
 msgid "Flip vertical"
 msgstr "اقلب عموديّا"
 
-#: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:240
+#: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
 msgstr ""
 
-#: ../objects/custom/custom_object.c:1757
-msgid "Flip Horizontal"
-msgstr "اقلب أفقيا"
-
-#: ../objects/custom/custom_object.c:1758
-msgid "Flip Vertical"
-msgstr "اقلب عموديّا"
-
-#: ../objects/custom/custom_object.c:1795
+#: ../objects/custom/custom_object.c:1818
 #: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -5625,7 +5995,7 @@ msgstr "قائمة ال_زوايا"
 msgid "Sectors"
 msgstr "قطاعات"
 
-#: ../objects/network/basestation.c:398 ../objects/network/basestation.c:400
+#: ../objects/network/basestation.c:401 ../objects/network/basestation.c:403
 #, fuzzy
 msgid "Base Station"
 msgstr "كولدج ستيشن"
@@ -5643,7 +6013,7 @@ msgstr "نصف-القطر"
 msgid "Width"
 msgstr "العرض"
 
-#: ../objects/standard/arc.c:142
+#: ../objects/standard/arc.c:143
 #, fuzzy
 msgid "Curve distance"
 msgstr "وحدة المسافة"
@@ -5666,27 +6036,17 @@ msgstr "ابدأ خادم بيجل"
 msgid "Absolute end gap"
 msgstr "سبب إنهاء المكالمة"
 
-#: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:495
-#, fuzzy
-msgid "Add Segment"
-msgstr "أقسام الشفرة"
-
-#: ../objects/standard/bezier.c:733 ../objects/standard/beziergon.c:496
-#, fuzzy
-msgid "Delete Segment"
-msgstr "أقسام الشفرة"
-
-#: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:498
+#: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 #, fuzzy
 msgid "Symmetric control"
 msgstr "<b>أسلوب التحكّم:</b>"
 
-#: ../objects/standard/bezier.c:737 ../objects/standard/beziergon.c:500
+#: ../objects/standard/bezier.c:736 ../objects/standard/beziergon.c:500
 #, fuzzy
 msgid "Smooth control"
 msgstr "<b>أسلوب التحكّم:</b>"
 
-#: ../objects/standard/bezier.c:739 ../objects/standard/beziergon.c:502
+#: ../objects/standard/bezier.c:738 ../objects/standard/beziergon.c:502
 #, fuzzy
 msgid "Cusp control"
 msgstr "<b>أسلوب التحكّم:</b>"
@@ -5707,37 +6067,37 @@ msgstr "مربع"
 msgid "Aspect ratio"
 msgstr "نسبة العرض"
 
-#: ../objects/standard/box.c:695 ../objects/standard/ellipse.c:670
+#: ../objects/standard/box.c:695 ../objects/standard/ellipse.c:673
 #, fuzzy
 msgid "Free aspect"
 msgstr "ن_سبة العرض"
 
-#: ../objects/standard/box.c:697 ../objects/standard/ellipse.c:672
+#: ../objects/standard/box.c:697 ../objects/standard/ellipse.c:675
 #, fuzzy
 msgid "Fixed aspect"
 msgstr "نسبة مظهر ثابتة"
 
-#: ../objects/standard/ellipse.c:135 ../objects/standard/ellipse.c:674
+#: ../objects/standard/ellipse.c:135 ../objects/standard/ellipse.c:677
 msgid "Circle"
 msgstr "دائرة"
 
-#: ../objects/standard/image.c:138
+#: ../objects/standard/image.c:139
 msgid "Image file"
 msgstr "ملف الصورة"
 
-#: ../objects/standard/image.c:140
+#: ../objects/standard/image.c:141
 #, fuzzy
 msgid "Draw border"
 msgstr "ارسم الحدّ"
 
-#: ../objects/standard/image.c:142
+#: ../objects/standard/image.c:143
 #, fuzzy
 msgid "Keep aspect ratio"
 msgstr "ح&افظ على نسبة الارتفاع إلى العرض"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:695 ../objects/standard/image.c:706
+#: ../objects/standard/image.c:697 ../objects/standard/image.c:708
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5745,7 +6105,7 @@ msgid ""
 msgstr ""
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:712 ../objects/standard/image.c:734
+#: ../objects/standard/image.c:714 ../objects/standard/image.c:736
 #, fuzzy, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "لم يعثر على ملف اﻹعدادات `%s': %s"
@@ -5762,20 +6122,20 @@ msgstr "نقطة البدأ"
 msgid "End point"
 msgstr "نقطة النّهاية"
 
-#: ../objects/standard/outline.c:200
+#: ../objects/standard/outline.c:204
 msgid "Text content"
 msgstr "محتوى النّصّ"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:206
 #, fuzzy
 msgid "Angle to rotate the outline"
 msgstr "أضف إلى إطار الكتاب"
 
-#: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:614
+#: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:616
 msgid "Add Corner"
 msgstr "ضِف زاوية"
 
-#: ../objects/standard/polygon.c:463 ../objects/standard/polyline.c:615
+#: ../objects/standard/polygon.c:463 ../objects/standard/polyline.c:617
 msgid "Delete Corner"
 msgstr "احذف زاوية"
 
@@ -5783,168 +6143,138 @@ msgstr "احذف زاوية"
 msgid "Standard objects"
 msgstr "الكائِنات المعياريّة"
 
-#: ../objects/standard/textobj.c:136
+#: ../objects/standard/textobj.c:139
 #, fuzzy
 msgid "First Line"
 msgstr "السّطر الأوّل"
 
-#: ../objects/standard/textobj.c:143
+#: ../objects/standard/textobj.c:146
 #, fuzzy
 msgid "Vertical text alignment"
 msgstr "محاذاة رأسية للخلية"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:257
-#: ../plug-ins/cairo/diacairo-interactive.c:258
+#: ../plug-ins/cairo/diacairo-interactive.c:263
+#: ../plug-ins/cairo/diacairo-interactive.c:264
 #, fuzzy
 msgid "Zoom pointer"
 msgstr "مؤشر مجهول"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:264
-#: ../plug-ins/cairo/diacairo-interactive.c:265
+#: ../plug-ins/cairo/diacairo-interactive.c:270
+#: ../plug-ins/cairo/diacairo-interactive.c:271
 #, fuzzy
 msgid "Visible rect pointer"
 msgstr "المؤشر الإفتراضي - الحالي"
 
-#: ../plug-ins/cairo/diacairo.c:114
+#: ../plug-ins/cairo/diacairo.c:129
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
 "Please choose a different name to save with cairo.\n"
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:252 ../plug-ins/cairo/diacairo.c:268
+#: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
 #, fuzzy, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "لا يمكن الكتابة على %s: %s"
 
-#: ../plug-ins/cairo/diacairo.c:294 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1389
+#: ../plug-ins/cairo/diacairo.c:285
+msgid "Clipboard copy failed"
+msgstr ""
+
+#: ../plug-ins/cairo/diacairo.c:311 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/wmf/wmf.cpp:1388
 #, fuzzy
 msgid "Nothing to print"
 msgstr "النقطة الشمالية"
 
-#: ../plug-ins/cairo/diacairo.c:305
+#: ../plug-ins/cairo/diacairo.c:322
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:312
+#: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:323
+#: ../plug-ins/cairo/diacairo.c:340
 #, fuzzy
 msgid "Cairo Portable Document Format"
 msgstr "هيئة مستند الـ DVI غير صحيحة"
 
-#: ../plug-ins/cairo/diacairo.c:338
+#: ../plug-ins/cairo/diacairo.c:355
 msgid "Cairo Scalable Vector Graphics"
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:349
+#: ../plug-ins/cairo/diacairo.c:366
 msgid "Cairo PNG"
 msgstr "كايرو PNG"
 
-#: ../plug-ins/cairo/diacairo.c:357
+#: ../plug-ins/cairo/diacairo.c:374
 msgid "Cairo PNG (with alpha)"
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:367
+#: ../plug-ins/cairo/diacairo.c:384
 #, fuzzy
 msgid "Cairo EMF"
 msgstr "كايرو WMF"
 
-#: ../plug-ins/cairo/diacairo.c:377
+#: ../plug-ins/cairo/diacairo.c:394
 msgid "Cairo WMF"
 msgstr "كايرو WMF"
 
-#: ../plug-ins/cairo/diacairo.c:389
-msgid "Cairo Clipboard"
-msgstr "ذاكرة النّصوص لكايرو"
+#: ../plug-ins/cairo/diacairo.c:416
+#, fuzzy
+msgid "Copy _Diagram"
+msgstr "اغلق المخطّط"
 
-#: ../plug-ins/cairo/diacairo.c:400
+#: ../plug-ins/cairo/diacairo.c:426
 msgid "Print (GTK) ..."
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:445
+#: ../plug-ins/cairo/diacairo.c:471
 msgid "Cairo based Rendering"
 msgstr "رسم مبنيّ على كايرو"
 
-#: ../plug-ins/cgm/cgm.c:1105
+#: ../plug-ins/cgm/cgm.c:1106
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
 
-#: ../plug-ins/cgm/cgm.c:1360
+#: ../plug-ins/cgm/cgm.c:1362
 #, fuzzy
 msgid "Computer Graphics Metafile"
 msgstr "مصنع ملفات نوتلس الملخصة"
 
-#: ../plug-ins/cgm/cgm.c:1385
+#: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr ""
 
-#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1434
+#: ../plug-ins/drs/dia-render-script.c:153
+msgid "DiaRenderScript"
+msgstr ""
+
+#: ../plug-ins/drs/dia-render-script.c:164
+msgid "DiaRenderScript filter"
+msgstr ""
+
+#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1402
 #, fuzzy
 msgid "Drawing Interchange File"
 msgstr "احفظ الملف كـ"
 
-#. better than complaining?
-#: ../plug-ins/dxf/dxf-import.c:503 ../plug-ins/dxf/dxf-import.c:521
-#, fuzzy
-msgid "Bad vertex bulge\n"
-msgstr "رسالة إجتماع رديئة"
-
-#: ../plug-ins/dxf/dxf-import.c:1079
-#, c-format
-msgid "Scale: %f\n"
-msgstr "مقياس: %f\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1351
+#: ../plug-ins/dxf/dxf-import.c:1319
 #, fuzzy, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "فشل DMXAddScreen \"%s\" على \"%s\"\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1359
+#: ../plug-ins/dxf/dxf-import.c:1326
 #, fuzzy, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "توليد PDF غير مدعوم"
 
-#: ../plug-ins/dxf/dxf-import.c:1400
-#, fuzzy, c-format
-msgid "Unknown dxf code %d\n"
-msgstr "رمز خروج غير معروف."
-
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr ""
-
-#: ../plug-ins/gprint/diagnomeprint.c:81
-#, c-format
-msgid ""
-"GNOME Print Backend\n"
-" '%s'\n"
-" not available"
-msgstr ""
-
-#: ../plug-ins/gprint/diagnomeprint.c:112
-#, fuzzy
-msgid "GNOME PostScript"
-msgstr "مستندات PostScript"
-
-#: ../plug-ins/gprint/diagnomeprint.c:121
-#, fuzzy
-msgid "GNOME Portable Document Format"
-msgstr "هيئة مستند الـ DVI غير صحيحة"
-
-#: ../plug-ins/gprint/diagnomeprint.c:131
-msgid "GNOME Scalable Vector Graphic"
-msgstr ""
-
-#: ../plug-ins/gprint/diagnomeprint.c:164
-#, fuzzy
-msgid "GNOME Print based Rendering"
-msgstr "تطبيق عقد مؤتمرات H323 عن بعد المبني على جينوم"
 
 #: ../plug-ins/hpgl/hpgl.c:751
 #, fuzzy
@@ -5960,35 +6290,35 @@ msgstr ""
 msgid "Libart based rendering"
 msgstr "رسم مبنيّ على كايرو"
 
-#: ../plug-ins/libart/export_png.c:165
+#: ../plug-ins/libart/export_png.c:167
 #, fuzzy
 msgid "Could not create PNG write structure"
 msgstr "لا يمكن إنشاء المحفوظة"
 
-#: ../plug-ins/libart/export_png.c:174
+#: ../plug-ins/libart/export_png.c:176
 #, fuzzy
 msgid "Could not create PNG header info structure"
 msgstr "لا يمكن انشاء ملف خرْج لـGStreamer"
 
-#: ../plug-ins/libart/export_png.c:182
+#: ../plug-ins/libart/export_png.c:184
 #, fuzzy
 msgid "Error occurred while writing PNG"
 msgstr "حدث خطأ عند استخراج الملفات."
 
 #. Create a dialog
-#: ../plug-ins/libart/export_png.c:322
+#: ../plug-ins/libart/export_png.c:327
 msgid "PNG Export Options"
 msgstr "خيارات تصدير PNG"
 
-#: ../plug-ins/libart/export_png.c:328
+#: ../plug-ins/libart/export_png.c:333
 msgid "Image width:"
 msgstr "عرض الصورة:"
 
-#: ../plug-ins/libart/export_png.c:331
+#: ../plug-ins/libart/export_png.c:336
 msgid "Image height:"
 msgstr "ارتفاع الصورة:"
 
-#: ../plug-ins/libart/export_png.c:377
+#: ../plug-ins/libart/export_png.c:382
 msgid "PNG (anti-aliased)"
 msgstr "PNG (غير مسنّن)"
 
@@ -5997,11 +6327,11 @@ msgstr "PNG (غير مسنّن)"
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gok: مواصفات هندسية غير مدعومة\n"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1474
+#: ../plug-ins/libart/dialibartrenderer.c:1476
 msgid "Renderer transformation"
 msgstr ""
 
-#: ../plug-ins/libart/dialibartrenderer.c:1475
+#: ../plug-ins/libart/dialibartrenderer.c:1477
 #, fuzzy
 msgid "Transform pointer"
 msgstr "الانتقال"
@@ -6059,22 +6389,22 @@ msgstr "ملف"
 msgid "OK"
 msgstr "موافق"
 
-#: ../plug-ins/postscript/paginate_psprint.c:464
+#: ../plug-ins/postscript/paginate_psprint.c:456
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "تعذّر تشغيل الأمر '%s': %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:467
+#: ../plug-ins/postscript/paginate_psprint.c:459
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "تعذر فتح '%s' للكتابة: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:489
+#: ../plug-ins/postscript/paginate_psprint.c:481
 #, fuzzy, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "خطأ صياغي، أمر غير معروف"
 
-#: ../plug-ins/postscript/paginate_psprint.c:500
+#: ../plug-ins/postscript/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr ""
@@ -6109,7 +6439,7 @@ msgstr ""
 msgid "TeX PSTricks macros"
 msgstr "كلمات "
 
-#: ../plug-ins/python/pydia-render.c:719
+#: ../plug-ins/python/pydia-render.c:779
 #, fuzzy, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "لا يمكن فتح %s للكتابة"
@@ -6119,15 +6449,15 @@ msgstr "لا يمكن فتح %s للكتابة"
 msgid "Python scripting support"
 msgstr "_تفعيل دعم الفيديو"
 
-#: ../plug-ins/shape/shape-export.c:473
+#: ../plug-ins/shape/shape-export.c:474
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:484
-msgid "Can't export png without libart!"
+#: ../plug-ins/shape/shape-export.c:488
+msgid "Can't export png icon without export plug-in!"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:509
+#: ../plug-ins/shape/shape-export.c:512
 #, fuzzy
 msgid "Dia Shape File"
 msgstr "احفظ الملف كـ"
@@ -6136,22 +6466,17 @@ msgstr "احفظ الملف كـ"
 msgid "dia shape export filter"
 msgstr ""
 
-#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:767
-#, fuzzy
-msgid "Scalable Vector Graphics"
-msgstr "تخصيص التّهيئة الرّسوميّة"
-
-#: ../plug-ins/svg/svg-import.c:237
+#: ../plug-ins/svg/svg-import.c:258
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:690
+#: ../plug-ins/svg/svg-import.c:806
 msgid "Expected SVG Namespace not found in file"
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:710
+#: ../plug-ins/svg/svg-import.c:826
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr ""
@@ -6165,56 +6490,56 @@ msgstr ""
 msgid "Couldn't read file %s"
 msgstr "تعذّرت قراءة الملف"
 
-#: ../plug-ins/vdx/vdx-export.c:1905
+#: ../plug-ins/vdx/vdx-export.c:1912
 #, fuzzy
 msgid "Visio XML format"
 msgstr "تنسيق '%s' غير صحيح"
 
-#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:227 ../plug-ins/xfig/xfig-import.c:1046
 #, fuzzy, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "لم يمكن القراءة من ´%s': %s"
 
-#: ../plug-ins/vdx/vdx-import.c:513
+#: ../plug-ins/vdx/vdx-import.c:541
 #, fuzzy, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "لم أستطع العثور أو تحميل الملف "
 
-#: ../plug-ins/vdx/vdx-import.c:987
+#: ../plug-ins/vdx/vdx-import.c:1047
 #, fuzzy, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "لم يوجد الكائن"
 
-#: ../plug-ins/vdx/vdx-import.c:1001
+#: ../plug-ins/vdx/vdx-import.c:1061
 #, fuzzy
 msgid "Can't rotate ellipse\n"
 msgstr "استدر _ضد عقارب الساعة"
 
-#: ../plug-ins/vdx/vdx-import.c:1317
+#: ../plug-ins/vdx/vdx-import.c:1392
 msgid "MoveTo not at start of Bezier\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1650
+#: ../plug-ins/vdx/vdx-import.c:1740
 #, fuzzy
 msgid "Invalid NURBS formula"
 msgstr "ليس دليل مستخدمين صحيح"
 
-#: ../plug-ins/vdx/vdx-import.c:1886
+#: ../plug-ins/vdx/vdx-import.c:1984
 #, fuzzy, c-format
 msgid "Couldn't write file %s"
 msgstr "تعذّر الكتابة في ملف BMP "
 
-#: ../plug-ins/vdx/vdx-import.c:1971 ../plug-ins/vdx/vdx-import.c:1984
+#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:2012
+#: ../plug-ins/vdx/vdx-import.c:2110
 #, fuzzy, c-format
 msgid "Couldn't make object dir %s"
 msgstr "تعذر فتح مجلد الأشكال : %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2959
+#: ../plug-ins/vdx/vdx-import.c:3100
 #, fuzzy
 msgid "Visio XML File Format"
 msgstr "تعذّر تحديد تهيئة الملف %s"
@@ -6233,31 +6558,31 @@ msgstr "لا يمكن الكتابة على %s: %s"
 msgid "Visio XML Format import and export filter"
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:504
+#: ../plug-ins/wmf/wmf.cpp:506
 #, c-format
 msgid ""
 "Can not render unknown font:\n"
 "%s"
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:1262
+#: ../plug-ins/wmf/wmf.cpp:1265
 #, fuzzy, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "لا يمكن فتح %s للكتابة"
 
-#: ../plug-ins/wmf/wmf.cpp:1365
+#: ../plug-ins/wmf/wmf.cpp:1364
 msgid "Windows Meta File"
 msgstr "ملف ويندوز Meta"
 
-#: ../plug-ins/wmf/wmf.cpp:1374
+#: ../plug-ins/wmf/wmf.cpp:1373
 msgid "Enhanced Meta File"
 msgstr "ملف مطوّر Meta"
 
-#: ../plug-ins/wmf/wmf.cpp:1396
+#: ../plug-ins/wmf/wmf.cpp:1395
 msgid "Print (GDI) ..."
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:1411
+#: ../plug-ins/wmf/wmf.cpp:1410
 msgid "WMF export filter"
 msgstr "مرشِّح تصدير WMF"
 
@@ -6529,20 +6854,20 @@ msgstr "خطأ أثناء إعراب أمر البحث."
 msgid "XSL Transformation filter"
 msgstr "سجّل إجراءات المرشِّح"
 
-#: ../plug-ins/xslt/xslt.c:359
+#: ../plug-ins/xslt/xslt.c:362
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 
-#: ../plug-ins/xslt/xsltdialog.c:96
+#: ../plug-ins/xslt/xsltdialog.c:97
 #, fuzzy
 msgid "Export through XSLT"
 msgstr "تشطيب النص"
 
-#: ../plug-ins/xslt/xsltdialog.c:111
+#: ../plug-ins/xslt/xsltdialog.c:112
 msgid "From:"
 msgstr "من:"
 
-#: ../plug-ins/xslt/xsltdialog.c:146
+#: ../plug-ins/xslt/xsltdialog.c:147
 msgid "To:"
 msgstr "إلى:"
 
@@ -8398,20 +8723,24 @@ msgid "New-style group object, for testing"
 msgstr ""
 
 #: ../sheets/Misc.sheet.in.h:7
+msgid "Resizable grid"
+msgstr ""
+
+#: ../sheets/Misc.sheet.in.h:8
 #, fuzzy
 msgid "Traditional clock"
 msgstr "نسبة التردد"
 
-#: ../sheets/Misc.sheet.in.h:8
+#: ../sheets/Misc.sheet.in.h:9
 msgid "Tree"
 msgstr "شجرة"
 
-#: ../sheets/Misc.sheet.in.h:9
+#: ../sheets/Misc.sheet.in.h:10
 #, fuzzy
 msgid "expended node"
 msgstr "عقدة حشد"
 
-#: ../sheets/Misc.sheet.in.h:10
+#: ../sheets/Misc.sheet.in.h:11
 #, fuzzy
 msgid "expensible node"
 msgstr "عقدة حشد"
@@ -8946,10 +9275,6 @@ msgstr "حبل الحياة"
 #: ../sheets/UML.sheet.in.h:21
 msgid "Message"
 msgstr "رسالة"
-
-#: ../sheets/UML.sheet.in.h:22
-msgid "Node"
-msgstr "نقطة اتّصال"
 
 #: ../sheets/UML.sheet.in.h:23
 msgid "Note"
@@ -10798,6 +11123,82 @@ msgstr "خادم قاعدة بيانات سيبايس"
 msgid "Sybase replication server"
 msgstr "خادم مضاعفة سيبايس"
 
+#, fuzzy
+#~ msgid "String"
+#~ msgstr "شدّ"
+
+#, fuzzy
+#~ msgid "Diagram0.red2"
+#~ msgstr "مخطّط1.dia"
+
+#, fuzzy
+#~ msgid "Diagram%d.red2"
+#~ msgstr "تخطيط%d.dia"
+
+#~ msgid "Quit Dia"
+#~ msgstr "أخرج من ديا"
+
+#~ msgid "'%s' not found!\n"
+#~ msgstr "'%s' غير موجود!\n"
+
+#~ msgid "active"
+#~ msgstr "نشط"
+
+#~ msgid "Edit Layer Attributes"
+#~ msgstr "حرر صفات الطبقة"
+
+#~ msgid "_Diagram"
+#~ msgstr "م_خطّط"
+
+#~ msgid "Integrated UI"
+#~ msgstr "واجهة متكاملة"
+
+#~ msgid "Delete segement"
+#~ msgstr "احذف قطعة"
+
+#~ msgid "Delete  connection point"
+#~ msgstr "احذف نقطة الإتصال"
+
+#~ msgid "Flip Horizontal"
+#~ msgstr "اقلب أفقيا"
+
+#~ msgid "Flip Vertical"
+#~ msgstr "اقلب عموديّا"
+
+#, fuzzy
+#~ msgid "Add Segment"
+#~ msgstr "أقسام الشفرة"
+
+#, fuzzy
+#~ msgid "Delete Segment"
+#~ msgstr "أقسام الشفرة"
+
+#~ msgid "Cairo Clipboard"
+#~ msgstr "ذاكرة النّصوص لكايرو"
+
+#, fuzzy
+#~ msgid "Bad vertex bulge\n"
+#~ msgstr "رسالة إجتماع رديئة"
+
+#~ msgid "Scale: %f\n"
+#~ msgstr "مقياس: %f\n"
+
+#, fuzzy
+#~ msgid "Unknown dxf code %d\n"
+#~ msgstr "رمز خروج غير معروف."
+
+#, fuzzy
+#~ msgid "GNOME PostScript"
+#~ msgstr "مستندات PostScript"
+
+#, fuzzy
+#~ msgid "GNOME Portable Document Format"
+#~ msgstr "هيئة مستند الـ DVI غير صحيحة"
+
+#, fuzzy
+#~ msgid "GNOME Print based Rendering"
+#~ msgstr "تطبيق عقد مؤتمرات H323 عن بعد المبني على جينوم"
+
 #~ msgid "Show this help message"
 #~ msgstr "أظهر هذه المساعدة"
 
@@ -10819,9 +11220,6 @@ msgstr "خادم مضاعفة سيبايس"
 
 #~ msgid "Export file name to use"
 #~ msgstr "اسم الملف المُصدَّر المستعمل"
-
-#~ msgid "Quiet operation"
-#~ msgstr "عمليّة هادئة"
 
 #~ msgid ""
 #~ "Error: No arguments found.\n"
@@ -10906,10 +11304,6 @@ msgstr "خادم مضاعفة سيبايس"
 #~ msgstr "كايرو WMF قديم"
 
 #, fuzzy
-#~ msgid "Portable Network Graphics"
-#~ msgstr "فعّل رسم حِمْل الشبكة"
-
-#, fuzzy
 #~ msgid "Unit for lengths:"
 #~ msgstr "الشدة:"
 
@@ -10924,10 +11318,6 @@ msgstr "خادم مضاعفة سيبايس"
 #, fuzzy
 #~ msgid "Service Essentiel"
 #~ msgstr "اعدادات الخدمات"
-
-#, fuzzy
-#~ msgid "FIRE ACTION"
-#~ msgstr "DIRECTORY"
 
 #, fuzzy
 #~ msgid "AIR ACTION"
