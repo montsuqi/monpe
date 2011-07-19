@@ -12,7 +12,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include "red3lib.h"
+#include "red2lib.h"
 
 gchar*
 EscapeNodeName(gchar *_name)

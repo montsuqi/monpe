@@ -3,8 +3,8 @@
  *
  */
 
-#ifndef	_INC_RED3LIB_H
-#define	_INC_RED3LIB_H
+#ifndef	_INC_RED2LIB_H
+#define	_INC_RED2LIB_H
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>

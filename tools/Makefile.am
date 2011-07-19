@@ -1,10 +1,10 @@
 bin_PROGRAMS = \
-	red3rec \
-	red3embed \
-	red3conv
+	red2rec \
+	red2embed \
+	red2conv
 
 base_sources =	\
-	red3lib.c	red3lib.h
+	red2lib.c	red2lib.h
 
 base_CFLAGS = \
 	-I$(top_srcdir)		\
@@ -16,29 +16,29 @@ base_LDADD = \
 	../lib/libmonpe.la	\
 	$(M3TOOLS_LIBS)
 
-red3rec_SOURCES = red3rec.c \
+red2rec_SOURCES = red2rec.c \
 	$(base_sources)
 
-red3rec_CFLAGS = \
+red2rec_CFLAGS = \
 	$(base_CFLAGS)
 
-red3rec_LDADD = \
+red2rec_LDADD = \
 	$(base_LDADD)
 
-red3embed_SOURCES = red3embed.c \
+red2embed_SOURCES = red2embed.c \
 	$(base_sources)
 
-red3embed_CFLAGS = \
+red2embed_CFLAGS = \
 	$(base_CFLAGS)
 
-red3embed_LDADD = \
+red2embed_LDADD = \
 	$(base_LDADD)
 
-red3conv_SOURCES = red3conv.c \
+red2conv_SOURCES = red2conv.c \
 	$(base_sources)
 
-red3conv_CFLAGS = \
+red2conv_CFLAGS = \
 	$(base_CFLAGS)
 
-red3conv_LDADD = \
+red2conv_LDADD = \
 	$(base_LDADD)

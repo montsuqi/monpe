@@ -12,7 +12,7 @@
 #include <glib.h>
 
 #include "dtree.h"
-#include "red3lib.h"
+#include "red2lib.h"
 
 static int multiplier = 3;
 static char *outfile = NULL;
