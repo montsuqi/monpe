@@ -1,8 +1,6 @@
 
 SUBDIRS = icons
 
-pkgdata_DATA = dia-splash.png
-
 uidir = $(uidatadir)
 ui_DATA = 			\
 	display-ui.xml	\

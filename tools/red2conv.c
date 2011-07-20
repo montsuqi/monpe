@@ -487,7 +487,7 @@ read_red(gchar *fname)
 }
 
 static void
-red3conv(char *infile)
+red2conv(char *infile)
 {
   xmlDocPtr doc;
   xmlNodePtr root;
@@ -562,6 +562,6 @@ int main(int argc, char *argv[])
     g_print("%s",g_option_context_get_help(ctx,TRUE,NULL));
     exit(1);
   }
-  red3conv(argv[1]);
+  red2conv(argv[1]);
   return 0;
 }

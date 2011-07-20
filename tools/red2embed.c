@@ -171,8 +171,7 @@ embed(GPtrArray *array,
 }
 
 static void
-red3embed(char *diafile,
-  char *recfile,
+red2embed(char *diafile,
   char *datafile)
 {
   xmlDocPtr doc;
@@ -185,6 +184,7 @@ red3embed(char *diafile,
   CONVOPT *conv;
   xmlChar *outmem;
   int outsize;
+  GString *rec;
 
   xmlInitParser();
   LIBXML_TEST_VERSION
@@ -195,16 +195,17 @@ red3embed(char *diafile,
     return;
   }
   array = GetEmbedInfoList(doc);
+  rec = red2rec(doc);
 
   RecParserInit();
-  value = RecParseValue(recfile,&vname);
+  value = RecParseValueMem(rec->str,&vname);
   if (value == NULL) {
-    g_warning("Error: unable to read rec file:%s\n",recfile);
+    g_warning("Error: unable to read rec\n");
     return;
   }
   if (!IS_VALUE_RECORD(value)) {
-    g_warning("Error: invalid value type:%d rec file:%s\n",
-      ValueType(value),recfile);
+    g_warning("Error: invalid value type:%d\n",
+      ValueType(value));
     return;
   }
 
@@ -240,16 +241,16 @@ int main(int argc, char *argv[])
   GError *error = NULL;
   GOptionContext *ctx;
 
-  ctx = g_option_context_new("<.red3> <.rec> <.dat>");
+  ctx = g_option_context_new("<.red2> <.dat>");
   g_option_context_add_main_entries(ctx, entries, NULL);
   if (!g_option_context_parse(ctx,&argc,&argv,&error)) {
     g_print("option parsing failed:%s\n",error->message);
     exit(1);
   }
-  if (argc < 4) {
+  if (argc < 3) {
     g_print("%s",g_option_context_get_help(ctx,TRUE,NULL));
     exit(1);
   }
-  red3embed(argv[1],argv[2],argv[3]);
+  red2embed(argv[1],argv[2]);
   return 0;
 }

@@ -828,7 +828,7 @@ create_display_shell(DDisplay *ddisp,
     ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
     gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
-    gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
+    gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "monpe");
     gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
     /* set_icon_name needs registered theme icons, not always available: provide fallback */
     if (!gtk_window_get_icon (GTK_WINDOW (ddisp->shell))) {
@@ -1685,7 +1685,7 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
 static void
 app_set_icon (GtkWindow *window)
 {
-  gtk_window_set_icon_name (window, "dia");
+  gtk_window_set_icon_name (window, "monpe");
   if (!gtk_window_get_icon (window)) {
     GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
     if (pixbuf) {

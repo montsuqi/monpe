@@ -11,50 +11,50 @@ applicationsdir = $(datadir)/applications
 #applications_DATA = $(desktop_files)
 pkgdata_DATA =
 
-CLEANFILES = core-translation-report dia.keys dia.desktop 
+CLEANFILES = core-translation-report monpe.keys monpe.desktop 
 
 #DISTCLEANFILES = $(desktop_files)
 
 #--- Adapted from http://svn.xfce.org/svn/xfce/libexo/trunk/exo-helper/helpers/Makefile.am
 
 desktopdir = $(datadir)/applications
-desktop_in_files = dia.desktop.in
+desktop_in_files = monpe.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 DISTCLEANFILES =							\
 	$(desktop_DATA) $(desktop_in_files)
 
 #---
-dia.desktop.in: $(top_srcdir)/dia.desktop.in.in $(wildcard $(top_srcdir)/po/*.po)
+monpe.desktop.in: $(top_srcdir)/monpe.desktop.in.in $(wildcard $(top_srcdir)/po/*.po)
 	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $(@) -d -u -c $(top_srcdir)/po/.intltool-merge-cachemake
 
 # I'd love to have automake do this substitution for me, but then it'd happen
 # before intltool above, and that one doesn't understand builddir and so can't
 # use the output.
-dia.desktop: dia.desktop.in
+monpe.desktop: monpe.desktop.in
 	sed -e 's/@VERSION/@'$(VERSION)'/;' < $< > $@
 
 distclean-local:
-	rm -f dia.keys
+	rm -f monpe.keys
 	rm -f intltool-extract
 	rm -f intltool-merge
 	rm -f intltool-update
 
 mimedir = $(gnomedatadir)/mime-info
-mime_DATA = dia.mime dia.keys
+mime_DATA = monpe.mime monpe.keys
 
-po/dia.pot: 
-	(cd po ; $(MAKE) dia.pot)
+po/monpe.pot: 
+	(cd po ; $(MAKE) monpe.pot)
 
 po/Makefile: po/Makefile.in
 	(cd po ; make -f Makefile.in Makefile ; make) # gettext hack
 
-core-translation-report: po/dia.pot $(srcdir)/po-checktrans.py $(srcdir)/po-checktrans
+core-translation-report: po/monpe.pot $(srcdir)/po-checktrans.py $(srcdir)/po-checktrans
 	if [ ! "$(srcdir)" -ef "." ]; then    \
 	  cp $(srcdir)/po-checktrans .;    \
 	  cp $(srcdir)/po-checktrans.py .; \
 	fi
-	./po-checktrans po/dia.pot $(srcdir)/po/*.po
+	./po-checktrans po/monpe.pot $(srcdir)/po/*.po
 	if [ ! "$(srcdir)" -ef "." ]; then    \
 	  rm -f ./po-checktrans ./po-checktrans.py; \
 	fi
@@ -73,8 +73,8 @@ distuninstallcheck_listfiles = find . -type f -print | grep -v '^\./var/scrollke
 #distuninstallcheck:
 #	@:
 
-EXTRA_DIST = dia.desktop.in.in KNOWN_BUGS $(pkgdata_DATA) \
-	dia.mime dia.keys.in po-checktrans.py po-checktrans \
+EXTRA_DIST = monpe.desktop.in.in KNOWN_BUGS $(pkgdata_DATA) \
+	monpe.mime monpe.keys.in po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \
 	RELEASE-PROCESS autogen.sh makefile.msc \
 	config.h.win32 readme.win32 AUTHORS MAINTAINERS THANKS \

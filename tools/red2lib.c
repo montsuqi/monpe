@@ -289,3 +289,90 @@ GetEmbedInfoList(xmlDocPtr doc)
   g_ptr_array_sort(array,(GCompareFunc)EmbedInfoCompare);
   return array;
 }
+
+static void
+tabprint(GString *rec,int l,char *format,...)
+{
+  int i;
+  va_list va;
+
+  for (i=0;i<l;i++) {
+    g_string_append_printf(rec,"  ");
+  }
+  va_start(va,format);
+  g_string_append_vprintf(rec,format,va);
+  va_end(va);
+}
+
+static void
+print_rec(GString *rec,int l,DicNode *node)
+{
+  DicNode *child;
+  gchar *name;
+
+  name = EscapeNodeName(node->name);
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    tabprint(rec,l,"%s {\n",name);
+    for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
+      print_rec(rec,l+1,child);
+    }
+    if (node->occurs > 1) {
+      tabprint(rec,l,"}[%d];\n",node->occurs);
+    } else {
+      tabprint(rec,l,"};\n");
+    }
+  } else if(node->type == DIC_NODE_TYPE_TEXT){
+    if (node->occurs > 1) {
+      tabprint(rec,l,"%s varchar(%d)[%d];\n",
+        name,
+        node->length,
+        node->occurs);
+    } else {
+      tabprint(rec,l,"%s varchar(%d);\n",
+        name,
+        node->length);
+    }
+  } else if(node->type == DIC_NODE_TYPE_IMAGE){
+    if (node->occurs > 1) {
+      tabprint(rec,l,"%s varchar(%d)[%d];\n",
+        name,
+        DNODE_IMAGE_PATH_SIZE,
+        node->occurs);
+    } else {
+      tabprint(rec,l,"%s varchar(%d);\n",
+        name,
+        DNODE_IMAGE_PATH_SIZE);
+    }
+  }
+  g_free(name);
+}
+
+GString*
+red2rec(xmlDocPtr doc)
+{
+  xmlNodePtr dict;
+  DicNode *dtree;
+  DicNode *child;
+  GString *rec;
+
+  if (doc == NULL) {
+    fprintf(stderr, "Error: xmlDocPtr doc is NULL\n");
+    exit(1);
+  }
+  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
+    BAD_CAST(MONPE_XML_DICTIONARY));
+  if (dict == NULL) {
+    fprintf(stderr,"no dictionary data\n");
+    exit(1);
+  }
+  dtree = dtree_new();
+  dtree_new_from_xml(&dtree,dict);
+
+  rec = g_string_new("red2rec {\n");
+  for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
+    print_rec(rec,1,child);
+  }
+  g_string_append_printf(rec,"};\n");
+  return rec;
+}

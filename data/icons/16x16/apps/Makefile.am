@@ -5,11 +5,8 @@ context = apps
 iconsdir = $(themedir)/$(size)/$(context)
 
 icons_DATA = \
-	dia.png
+	monpe.png
 
-noinst_DATA = \
-	dia.svg
 
 EXTRA_DIST = \
-	$(icons_DATA) \
-	$(noinst_DATA)
+	$(icons_DATA)

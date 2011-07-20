@@ -20,6 +20,8 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 
+#include "dtree.h"
+
 #define CAST_BAD (gchar*)
 
 #define MAX_ROWS_COLS 100
@@ -56,5 +58,6 @@ xmlNodePtr GetChildByTagAttr(xmlNodePtr node, xmlChar *tag,
   xmlChar *attr, xmlChar *val);
 xmlChar* GetAttributeString(xmlNodePtr node, xmlChar *propname);
 int GetAttributeInt(xmlNodePtr node, xmlChar *propname);
+GString *red2rec(xmlDocPtr);
 
 #endif
