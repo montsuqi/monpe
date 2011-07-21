@@ -89,6 +89,7 @@ int dnode_get_n_used_objects(DicNode *node);
 gboolean dnode_data_is_used(DicNode *node);
 int dnode_data_get_empty_index(DicNode *node);
 gchar* dnode_data_get_longname(DicNode *node,int i);
+void dnode_update_object_name(DicNode *node);
 void dnode_update_node_name(DicNode *node,gchar *name);
 int dnode_calc_total_occurs(DicNode *node);
 int dnode_calc_occurs_upto_parent(DicNode *parent,DicNode *node);
@@ -118,6 +119,7 @@ void dtree_new_from_xml(DicNode **dnode,xmlNodePtr xnode);
 void dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode);
 
 DicNode* dtree_set_data_path(DicNode *node,gchar *path,gpointer object);
+gboolean dtree_is_valid_node(DicNode *dtree,DicNode *node);
 
 #endif 
 

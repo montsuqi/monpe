@@ -446,6 +446,7 @@ diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, DiaObject *object)
 	create_object_node(tree, dnode, object);
     }
   }
+  dic_dialog_update_dialog();
 }
 
 void

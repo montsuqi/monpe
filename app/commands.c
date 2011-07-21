@@ -282,7 +282,7 @@ edit_copy_callback (GtkAction *action)
   } else {
     copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
     
-    cnp_store_objects(object_copy_list(copy_list), 1);
+    cnp_store_objects(object_copy_list(copy_list), 1, ddisp);
     g_list_free(copy_list);
     
     ddisplay_do_update_menu_sensitivity(ddisp);
@@ -305,7 +305,7 @@ edit_cut_callback (GtkAction *action)
 
     cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
 
-    cnp_store_objects(object_copy_list(cut_list), 0);
+    cnp_store_objects(object_copy_list(cut_list), 0, ddisp);
 
     change = undo_delete_objects_children(ddisp->diagram, cut_list);
     (change->apply)(change, ddisp->diagram);
@@ -345,7 +345,10 @@ edit_paste_callback (GtkAction *action)
       return;
     }
   
-    paste_list = cnp_get_stored_objects(&generation); /* Gets a copy */
+    paste_list = cnp_get_stored_objects(&generation,ddisp); /* Gets a copy */
+    if (paste_list == NULL) {
+      return;
+    }
 
     paste_corner = object_list_corner(paste_list);
   
@@ -371,6 +374,7 @@ edit_paste_callback (GtkAction *action)
     diagram_update_extents(ddisp->diagram);
     diagram_flush(ddisp->diagram);
   }
+  dic_dialog_update_dialog();
 }
 
 /*

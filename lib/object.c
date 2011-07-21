@@ -705,7 +705,9 @@ dia_object_get_parent_with_flags(DiaObject *obj, guint flags)
 gboolean
 dia_object_is_selectable(DiaObject *obj)
 {
-  if (obj->parent_layer == NULL) {
+  if (obj->parent_layer == NULL ||
+      obj->parent_layer->parent_diagram == NULL
+  ) {
     return FALSE;
   }
   return obj->parent_layer == obj->parent_layer->parent_diagram->active_layer

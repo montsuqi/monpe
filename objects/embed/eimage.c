@@ -529,13 +529,14 @@ image_copy(EImage *image)
   int i;
   EImage *newimage;
   Element *elem, *newelem;
-  DiaObject *newobj;
+  DiaObject *newobj, *oldobj;
   
   elem = &image->element;
   
   newimage = g_malloc0(sizeof(EImage));
   newelem = &newimage->element;
   newobj = &newelem->object;
+  oldobj = &image->element.object;
 
   element_copy(elem, newelem);
 
@@ -562,6 +563,7 @@ image_copy(EImage *image)
 
   newimage->embed_id = get_default_embed_id("embed_image");
   newimage->embed_path_size = image->embed_path_size;
+  newobj->node = oldobj->node;
 
   return &newimage->element.object;
 }

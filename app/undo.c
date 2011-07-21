@@ -28,6 +28,8 @@
 #include "diagram_tree_window.h"
 #include "textedit.h"
 #include "parent.h"
+#include "properties.h"
+#include "prop_text.h"
 
 #if 0
 #define DEBUG_PRINTF(args) printf args
@@ -626,7 +628,7 @@ struct DeleteObjectsChange {
 static void
 delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 {
-  GList *list,*_list;
+  GList *list;
   
   DEBUG_PRINTF(("delete_objects_apply()\n"));
   change->applied = 1;
@@ -645,59 +647,64 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
     if (obj->parent) /* Lose references to deleted object */
       obj->parent->children = g_list_remove(obj->parent->children, obj);
 
-    if (obj->node != NULL) {
+    /* unregister object from node */
+    if (obj->node != NULL &&
+        dtree_is_valid_node(DIA_DIAGRAM_DATA(dia)->dtree,obj->node)) {
       dnode_unset_object(obj->node,obj);
     }
     list = g_list_next(list);
   }
   diagram_tree_remove_objects(diagram_tree(), change->obj_list);
-  _list = NULL;
-  list = change->obj_list;
-  while(list!=NULL) {
-    DiaObject *obj = (DiaObject *)list->data;
-    if (obj->node == NULL) {
-      _list = g_list_append(_list,list);
-    }
-    list = g_list_next(list);
-  }
-  g_list_free(change->obj_list);
-  change->obj_list = _list;
-
-  _list = NULL;
-  list = change->original_objects;
-  while(list!=NULL) {
-    DiaObject *obj = (DiaObject *)list->data;
-    if (obj->node == NULL) {
-      _list = g_list_append(_list,list);
-    }
-    list = g_list_next(list);
-  }
-  g_list_free(change->original_objects);
-  change->original_objects = _list;
 }
 
 static void
 delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 {
-  GList *list;
+  GList *list,*_list;
+
   DEBUG_PRINTF(("delete_objects_revert()\n"));
   change->applied = 0;
+
+  _list = NULL;
+  list = change->obj_list;
+  while (list)
+  {
+    DiaObject *obj = (DiaObject *) list->data;
+    Property *prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
+    if (prop != NULL) {
+      gchar *embed_id = ((StringProperty*)prop)->string_data;
+      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+        embed_id,obj);
+      if (obj->node != NULL) {
+        _list = g_list_append(_list,obj);
+      }
+    } else {
+      _list = g_list_append(_list,obj);
+    }
+    list = g_list_next(list);
+  }
+/*FIXME*/
+#if 0
+  g_list_free(change->obj_list);
+#endif
+  change->obj_list = _list;
+
   layer_set_object_list(change->layer,
 			g_list_copy(change->original_objects));
   object_add_updates_list(change->obj_list, dia);
 
- list = change->obj_list;
- while (list)
- {
-   DiaObject *obj = (DiaObject *) list->data;
-   if (obj->parent) /* Restore child references */
-   	obj->parent->children = g_list_append(obj->parent->children, obj);
-   	
-   /* Emit a signal per object reverted */
-   data_emit(layer_get_parent_diagram(change->layer),change->layer,obj,"object_add");
-
-  list = g_list_next(list);
- }
+  list = change->obj_list;
+  while (list)
+  {
+    DiaObject *obj = (DiaObject *) list->data;
+    if (obj->parent) /* Restore child references */
+    	obj->parent->children = g_list_append(obj->parent->children, obj);
+    	
+    /* Emit a signal per object reverted */
+    data_emit(layer_get_parent_diagram(change->layer),change->layer,obj,"object_add");
+ 
+    list = g_list_next(list);
+  }
 
   diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
 }
@@ -758,8 +765,39 @@ struct InsertObjectsChange {
 static void
 insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
 {
+  GList *list,*_list;
+
   DEBUG_PRINTF(("insert_objects_apply()\n"));
   change->applied = 1;
+
+  _list = NULL;
+  list = change->obj_list;
+  while (list)
+  {
+    DiaObject *obj = (DiaObject *) list->data;
+    Property *prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
+    if (prop != NULL) {
+      gchar *embed_id = ((StringProperty*)prop)->string_data;
+      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+        embed_id,obj);
+      if (obj->node != NULL) {
+        _list = g_list_append(_list,obj);
+      }
+    } else {
+      _list = g_list_append(_list,obj);
+    }
+    list = g_list_next(list);
+  }
+/* FIXME this line cause SEGV*/
+#if 0
+  g_list_free(change->obj_list);
+#endif
+  change->obj_list = _list;
+
+  if (change->obj_list == NULL) {
+    return ;
+  }
+
   layer_add_objects(change->layer, g_list_copy(change->obj_list));
   object_add_updates_list(change->obj_list, dia);
   diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
@@ -779,6 +817,10 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
   list = change->obj_list;
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
+    if (obj->node != NULL && 
+        dtree_is_valid_node(DIA_DIAGRAM_DATA(dia)->dtree,obj->node)) {
+      dnode_unset_object(obj->node,obj);
+    }
 
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */

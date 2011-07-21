@@ -803,7 +803,11 @@ diagram_select(Diagram *diagram, DiaObject *obj)
 void
 diagram_select_list(Diagram *dia, GList *list)
 {
-  g_return_if_fail (dia && list);
+  g_return_if_fail (dia);
+  if (list == NULL) {
+    return;
+  }  
+
   /* otherwise we would signal objects step by step */
   g_signal_handlers_block_by_func (dia, _diagram_selection_changed, NULL);
   while (list != NULL) {

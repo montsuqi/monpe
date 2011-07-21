@@ -96,6 +96,7 @@ static void textobj_save(ETextobj *textobj, ObjectNode obj_node,
 static DiaObject *textobj_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void textobj_valign_point(ETextobj *textobj, Point* p, real factor);
+static DiaObject *textobj_copy(DiaObject *obj);
 
 static ObjectTypeOps etextobj_type_ops =
 {
@@ -127,7 +128,10 @@ static ObjectOps etextobj_ops = {
   (DrawFunc)            textobj_draw,
   (DistanceFunc)        textobj_distance_from,
   (SelectFunc)          textobj_select,
+#if 0
   (CopyFunc)            object_copy_using_properties,
+#endif
+  (CopyFunc)            textobj_copy,
   (MoveFunc)            textobj_move,
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -197,6 +201,16 @@ static PropOffset textobj_offsets[] = {
   { "embed_column_size", PROP_TYPE_INT, offsetof(ETextobj, embed_column_size) },
   { NULL, 0, 0 }
 };
+
+static DiaObject *
+textobj_copy(DiaObject *obj)
+{
+  DiaObject *new;
+
+  new = object_copy_using_properties(obj);
+  new->node = obj->node;
+  return new;
+}
 
 static void
 textobj_get_props(ETextobj *textobj, GPtrArray *props)

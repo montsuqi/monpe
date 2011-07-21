@@ -238,7 +238,7 @@ dnode_data_get_longname(DicNode *node, int index)
   return longname;
 }
 
-static void dnode_update_object_name(DicNode *node)
+void dnode_update_object_name(DicNode *node)
 {
   DicNode *child;
   DiaObject *obj;
@@ -309,7 +309,6 @@ dnode_get_objects_recursive(DicNode *node, GList *list)
 {
   int i;
   DicNode *child;
-  GList *child_list;
 
   if (node->type == DIC_NODE_TYPE_NODE) {
     child = DNODE_CHILDREN(node);
@@ -691,21 +690,36 @@ dtree_set_data_path(DicNode *node,gchar *path,gpointer object)
   gchar *_path;
 
   for(p = DNODE_CHILDREN(node);p != NULL; p= DNODE_NEXT(p)) {
-    ret = dtree_set_data_path(p,path,object);
+    if ((ret = dtree_set_data_path(p,path,object))!=NULL) {
+      return ret;
+    }
   }
   if (node->type != DIC_NODE_TYPE_NODE) {
     for (i=0;i<dnode_calc_total_occurs(node);i++) {
       _path = dnode_data_get_longname(node,i);
-      if (!g_strcmp0(path,_path) && 
-        g_list_nth_data(node->objects,i) == NULL) {
-        dnode_set_object(node,i,object);
-        g_free(_path);
-        return node;
+      if (!g_strcmp0(path,_path)) {
+        if (g_list_nth_data(node->objects,i) == NULL) {
+          dnode_set_object(node,i,object);
+          g_free(_path);
+          return node;
+        } else if (g_list_nth_data(node->objects,i) == object) {
+          g_free(_path);
+          return node;
+        }
       }
       g_free(_path);
     }
   }
   return ret;
+}
+
+gboolean
+dtree_is_valid_node(DicNode *dtree,DicNode *node)
+{
+  if (node != NULL && dtree != NULL) {
+    return g_node_is_ancestor(G_NODE(dtree),G_NODE(node));
+  }
+  return FALSE;
 }
 
 /*************************************************************

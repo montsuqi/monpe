@@ -22,9 +22,13 @@
 #include "cut_n_paste.h"
 #include "object.h"
 #include "object_ops.h"
+#include "display.h"
+#include "dtree.h"
+#include "message.h"
 
 static GList *stored_list = NULL;
 static int stored_generation = 0;
+static DDisplay *stored_ddisp = NULL;
 
 static void free_stored(void)
 {
@@ -32,23 +36,66 @@ static void free_stored(void)
     destroy_object_list(stored_list);
     stored_list = NULL;
   }
+  stored_ddisp = NULL;
 }
 
 void
-cnp_store_objects(GList *object_list, int generation)
+cnp_store_objects(GList *object_list, int generation,DDisplay *ddisp)
 {
   free_stored();
   stored_list = object_list;
   stored_generation = generation;
+  stored_ddisp = ddisp;
 }
 
 GList *
-cnp_get_stored_objects(int* generation)
+cnp_get_stored_objects(int* generation,DDisplay *ddisp)
 {
   GList *copied_list;
+  GList *_copied_list;
+  int i, index;
+  gboolean skipped = FALSE;
+  DiaObject *obj;
+
   copied_list = object_copy_list(stored_list);
   *generation = stored_generation;
   ++stored_generation;
+
+  _copied_list = NULL;
+  if (ddisp != stored_ddisp) {
+    for (i=0;i<g_list_length(copied_list);i++) {
+      obj = (DiaObject*)g_list_nth_data(copied_list,i);
+      if (obj->node != NULL) {
+        skipped = TRUE;
+      } else {
+        _copied_list = g_list_append(_copied_list,obj);
+      }
+      if (skipped) {
+        message_error(_("The embedding object paste to different diagram.\n"));
+      }
+      g_list_free(copied_list);
+      copied_list = _copied_list;
+    }
+  } else {
+    for (i=0;i<g_list_length(copied_list);i++) {
+      obj = (DiaObject*)g_list_nth_data(copied_list,i);
+      if (obj->node != NULL) {
+        if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
+          dnode_set_object(obj->node,index,obj);
+          dnode_update_object_name(obj->node);
+          _copied_list = g_list_append(_copied_list,obj);
+        } else {
+          message_error(_("There is too many use of the embedding object"
+            " for paste.\n"));
+        }
+      } else {
+        _copied_list = g_list_append(_copied_list,obj);
+      }
+    }
+    g_list_free(copied_list);
+    copied_list = _copied_list;
+  }
+
   return copied_list;
 }
 

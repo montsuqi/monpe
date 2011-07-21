@@ -19,12 +19,13 @@
 #define CUT_N_PASTE_H
 
 #include <glib.h>
+#include "display.h"
 
 /* The object_list is not copied: */
-void cnp_store_objects(GList *object_list, int generation);
+void cnp_store_objects(GList *object_list, int generation,DDisplay *ddisp);
 
 /* Gets a copy of the stored objects: */
-GList *cnp_get_stored_objects(int* generation);
+GList *cnp_get_stored_objects(int* generation,DDisplay *ddisp);
 
 gint cnp_exist_stored_objects(void);
 
