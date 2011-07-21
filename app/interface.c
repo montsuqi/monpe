@@ -543,15 +543,15 @@ display_data_received_callback (GtkWidget *widget,
     }
     break;
   case DIA_DND_TYPE_DICTIONARY:
-    if (ddisplay_active_diagram() == dic_dialog_get_diagram()) {
-      if (data->format == 8 && data->length == sizeof(DicNode *) &&
-          gtk_drag_get_source_widget(context) != NULL) {
-        DicNode *node = *(DicNode **)data->data;
-        if (node != NULL) {
-          display_eobj_create(ddisp,x,y,node);
-        }
-        gtk_drag_finish (context, TRUE, FALSE, time);
+    if (data->format == 8 && data->length == sizeof(DicNode *) &&
+        gtk_drag_get_source_widget(context) != NULL) {
+      DicNode *node = *(DicNode **)data->data;
+
+      if (dtree_is_valid_node(DIA_DIAGRAM_DATA(ddisp->diagram)->dtree,node)) {
+        display_eobj_create(ddisp,x,y,node);
       }
+
+      gtk_drag_finish (context, TRUE, FALSE, time);
     }
     break;
   default:
