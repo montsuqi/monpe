@@ -265,25 +265,17 @@ cb_drag_drop(GtkWidget *widget,
       }
       switch(pos) {
       case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
-        if (dest_node->type != DIC_NODE_TYPE_NODE) {
-          return TRUE;
-        }
-        if (gtk_tree_store_is_ancestor(GTK_TREE_STORE(model),
-          &dest_iter,&src_iter)) {
-          return TRUE;
-        }
-        break;
       case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
         if (dest_node->type != DIC_NODE_TYPE_NODE) {
-          return TRUE;
-        }
-        if (gtk_tree_store_is_ancestor(GTK_TREE_STORE(model),
-          &dest_iter,&src_iter)) {
           return TRUE;
         }
         break;
       default:
         break;
+      }
+      if (gtk_tree_store_is_ancestor(GTK_TREE_STORE(model),
+        &src_iter,&dest_iter)) {
+        return TRUE;
       }
       if (dnode_data_is_used(src_node)) {
         src_depth = gtk_tree_path_get_depth(src_path);
@@ -291,7 +283,7 @@ cb_drag_drop(GtkWidget *widget,
         if (pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER ||
             pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
             src_depth != dest_depth ) {      
-
+#if 0
           int response;
           GtkWidget * dialog = 
             gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
@@ -304,6 +296,10 @@ cb_drag_drop(GtkWidget *widget,
           if (response == GTK_RESPONSE_NO) {
             return TRUE;
           }
+#else
+          message_error(_("cannot move node for existence object."));
+          return TRUE;
+#endif
         }
       } 
     }

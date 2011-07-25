@@ -24,7 +24,10 @@
 #include "object_ops.h"
 #include "display.h"
 #include "dtree.h"
+#include "group.h"
 #include "message.h"
+#include "properties.h"
+#include "prop_text.h"
 
 static GList *stored_list = NULL;
 static int stored_generation = 0;
@@ -46,6 +49,40 @@ cnp_store_objects(GList *object_list, int generation,DDisplay *ddisp)
   stored_list = object_list;
   stored_generation = generation;
   stored_ddisp = ddisp;
+}
+
+static void
+dnode_prepare_register_object(DiaObject *obj)
+{
+  GList *glist;
+  int index,i;
+
+fprintf(stderr,"dnode_register_object %p\n",obj);
+
+  if (IS_GROUP(obj)) {
+    glist = group_objects(obj);
+    for(i=0;i<g_list_length(glist);i++) {
+      dnode_prepare_register_object((DiaObject*)g_list_nth_data(glist,i));
+    }
+  } else {
+    if (obj->node != NULL) {
+      Property *prop = object_prop_by_name_type(obj,
+        "embed_id",PROP_TYPE_STRING);
+      if (prop != NULL) {
+        GPtrArray *props;
+     
+        if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
+          ((StringProperty*)prop)->string_data = 
+            dnode_data_get_longname(obj->node,index);
+        } else {
+          ((StringProperty*)prop)->string_data = g_strdup("__unknown__");
+        }
+        props = g_ptr_array_new();
+        g_ptr_array_add(props,prop);
+        object_apply_props(obj,props);
+      }
+    }
+  }
 }
 
 GList *
@@ -73,29 +110,16 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
       if (skipped) {
         message_error(_("The embedding object paste to different diagram.\n"));
       }
-      g_list_free(copied_list);
       copied_list = _copied_list;
     }
   } else {
+fprintf(stderr,"=====\n");
     for (i=0;i<g_list_length(copied_list);i++) {
       obj = (DiaObject*)g_list_nth_data(copied_list,i);
-      if (obj->node != NULL) {
-        if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
-          dnode_set_object(obj->node,index,obj);
-          dnode_update_object_name(obj->node);
-          _copied_list = g_list_append(_copied_list,obj);
-        } else {
-          message_error(_("There is too many use of the embedding object"
-            " for paste.\n"));
-        }
-      } else {
-        _copied_list = g_list_append(_copied_list,obj);
-      }
+      dnode_prepare_register_object(obj);
     }
-    g_list_free(copied_list);
-    copied_list = _copied_list;
+fprintf(stderr,"....\n");
   }
-
   return copied_list;
 }
 
