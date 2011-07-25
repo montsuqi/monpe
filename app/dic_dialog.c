@@ -691,17 +691,15 @@ cb_add_node(GtkToolButton *button,
       gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
       gtk_tree_store_append(store, &new, &iter);
     } else {
-      pnode = NULL;
+      model = gtk_tree_view_get_model(dic_dialog->treeview);
+      store = GTK_TREE_STORE(model);
+      gtk_tree_store_append(store, &new, NULL);
     }
     g_free(parent_type);
   } else {
     model = gtk_tree_view_get_model(dic_dialog->treeview);
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
-  }
-
-  if (pnode == NULL) {
-    return;
   }
 
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_NODE);
@@ -743,7 +741,9 @@ cb_add_string(GtkToolButton *button,
       gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
       gtk_tree_store_append(store, &new, &iter);
     } else {
-      pnode = NULL;
+      model = gtk_tree_view_get_model(dic_dialog->treeview);
+      store = GTK_TREE_STORE(model);
+      gtk_tree_store_append(store, &new, NULL);
     }
     g_free(parent_type);
   } else {
@@ -751,10 +751,6 @@ cb_add_string(GtkToolButton *button,
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
   }
-
-  if (pnode == NULL) {
-    return;
-  } 
 
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_TEXT);
   node = dnode_new(name, DNODE_DEFAULT_OCCURS,DIC_NODE_TYPE_TEXT,
@@ -799,17 +795,15 @@ cb_add_image(GtkToolButton *button,
       gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
       gtk_tree_store_append(store, &new, &iter);
     } else {
-      pnode = NULL;
+      model = gtk_tree_view_get_model(dic_dialog->treeview);
+      store = GTK_TREE_STORE(model);
+      gtk_tree_store_append(store, &new, NULL);
     }
     g_free(parent_type);
   } else {
     model = gtk_tree_view_get_model(dic_dialog->treeview);
     store = GTK_TREE_STORE(model);
     gtk_tree_store_append(store, &new, NULL);
-  }
-
-  if (pnode == NULL) {
-    return ;
   }
 
   name = dnode_prop_name_unique_dup(NULL, pnode, DNODE_DEFAULT_NAME_IMAGE);

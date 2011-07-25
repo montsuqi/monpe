@@ -36,6 +36,8 @@ struct _PageSetup {
   Diagram *dia;
   GtkWidget *window;
   GtkWidget *paper;
+  GtkWidget *wspin;
+  GtkWidget *hspin;
   gboolean changed;
 };
 

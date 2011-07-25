@@ -49,6 +49,8 @@ struct _DiaPageLayout {
 
   /*<private>*/
   GtkWidget *paper_size, *paper_label;
+  GtkWidget *custom_width, *custom_height;
+  GtkWidget *custom_table;
   GtkWidget *orient_portrait, *orient_landscape;
   GtkWidget *tmargin, *bmargin, *lmargin, *rmargin;
   GtkWidget *scale, *fitto;
@@ -181,6 +183,40 @@ dia_page_layout_init(DiaPageLayout *self)
   self->paper_label = gtk_label_new("");
   gtk_box_pack_start(GTK_BOX(box), self->paper_label, TRUE, TRUE, 0);
   gtk_widget_show(self->paper_label);
+
+  /* width,height spin */
+  self->custom_table = table = gtk_table_new(2, 2, FALSE);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 5);
+  gtk_table_set_row_spacings(GTK_TABLE(table), 5);
+  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+  gtk_container_add(GTK_CONTAINER(frame), table);
+  gtk_widget_show(table);
+
+  wid = gtk_label_new(_("Width:"));
+  gtk_misc_set_alignment(GTK_MISC(wid), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), wid, 0,1, 0,1,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(wid);
+
+  self->custom_width = dia_unit_spinner_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
+	prefs_get_length_unit());
+  gtk_table_attach(GTK_TABLE(table), self->custom_width, 1,2, 0,1,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(self->custom_width);
+
+  wid = gtk_label_new(_("Height:"));
+  gtk_misc_set_alignment(GTK_MISC(wid), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), wid, 0,1, 1,2,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(wid);
+
+  self->custom_height = dia_unit_spinner_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
+	prefs_get_length_unit());
+  gtk_table_attach(GTK_TABLE(table), self->custom_height, 1,2, 1,2,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(self->custom_height);
 
   /* orientation */
   frame = gtk_frame_new(_("Orientation"));
