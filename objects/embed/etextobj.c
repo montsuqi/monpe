@@ -38,6 +38,8 @@
 #include "app/diagram.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
+#define ETEXT_DEFAULT_FONT_FAMILY "Takao明朝"
+#define ETEXT_DEFAULT_FONT_HEIGHT 0.8
 
 typedef enum _Valign Valign;
 enum _Valign {
@@ -371,7 +373,12 @@ textobj_create(Point *startpoint,
   textobj->embed_column_size = 0;
 
   col = attributes_get_foreground();
-  attributes_get_default_font(&font, &font_height);
+
+  font_height = ETEXT_DEFAULT_FONT_HEIGHT;
+  font = dia_font_new(ETEXT_DEFAULT_FONT_FAMILY,0,font_height);
+  if (font == NULL) {
+    attributes_get_default_font(&font, &font_height);
+  }
   textobj->text = new_text(textobj->embed_id, font, font_height,
 			   startpoint, &col, default_properties.alignment );
   /* need to initialize to object.position as well, it is used update data */
