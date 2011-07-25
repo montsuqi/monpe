@@ -223,14 +223,14 @@ dnode_data_get_longname(DicNode *node, int index)
       if (occurs[i] == 1) {
         longname = g_strdup_printf("%s",names[i]);
       } else {
-        longname = g_strdup_printf("%s[%d]",names[i],l);
+        longname = g_strdup_printf("%s[%d]",names[i],l+1);
       }
     } else {
       oldlongname = longname;
       if (occurs[i] == 1) {
         longname = g_strdup_printf("%s.%s",longname,names[i]);
       } else {
-        longname = g_strdup_printf("%s.%s[%d]",longname,names[i],l);
+        longname = g_strdup_printf("%s.%s[%d]",longname,names[i],l+1);
       }
       g_free(oldlongname);
     }
