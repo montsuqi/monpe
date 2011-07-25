@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-15 16:38+0900\n"
+"POT-Creation-Date: 2011-07-25 16:56+0900\n"
 "PO-Revision-Date: 2009-04-26 16:08+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -334,11 +334,11 @@ msgstr "印刷プラグインが見つかりませんでした！"
 msgid "No existing object to paste.\n"
 msgstr "貼り付けるオブジェクトがありません。\n"
 
-#: ../app/commands.c:647 ../app/commands.c:685
+#: ../app/commands.c:651 ../app/commands.c:689
 msgid "Could not find help directory"
 msgstr "ヘルプが見つかりませんでした"
 
-#: ../app/commands.c:654
+#: ../app/commands.c:658
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -347,7 +347,7 @@ msgstr ""
 "ヘルプを格納したフォルダが見つかりませんでした:\n"
 "%s"
 
-#: ../app/commands.c:721
+#: ../app/commands.c:725
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
@@ -357,7 +357,7 @@ msgstr ""
 "Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
-#: ../app/commands.c:723
+#: ../app/commands.c:727
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -388,7 +388,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, \n"
 "MA 02110-1301, USA まで連絡して下さい。\n"
 
-#: ../app/commands.c:748
+#: ../app/commands.c:752
 msgid "MONTSUQI Printing Environment"
 msgstr ""
 
@@ -423,6 +423,10 @@ msgstr ""
 #: ../app/confirm.c:85
 msgid "Confirm Diagram Size"
 msgstr "ダイアグラムのサイズの確認"
+
+#: ../app/cut_n_paste.c:111
+msgid "The embedding object paste to different diagram.\n"
+msgstr ""
 
 #: ../app/create_object.c:71
 #, c-format
@@ -529,11 +533,11 @@ msgstr "'%s' のファイル名を UTF-8 に変換できませんでした: %s\n
 msgid "Error"
 msgstr "エラー"
 
-#: ../app/diagram.c:1212
+#: ../app/diagram.c:1216
 msgid "Trying to group with no selected objects."
 msgstr "オブジェクトを選択せずにグループ化しようとしました"
 
-#: ../app/diagram.c:1222
+#: ../app/diagram.c:1226
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -626,59 +630,67 @@ msgid "Diagram Tree"
 msgstr "ダイアグラムのツリー"
 
 #. paper size
-#: ../app/diapagelayout.c:153
+#: ../app/diapagelayout.c:155
 msgid "Paper Size"
 msgstr "用紙のサイズ"
 
+#: ../app/diapagelayout.c:195 ../app/preferences.c:205
+msgid "Width:"
+msgstr "幅:"
+
+#: ../app/diapagelayout.c:208 ../app/preferences.c:206
+msgid "Height:"
+msgstr "高さ:"
+
 #. orientation
-#: ../app/diapagelayout.c:186
+#: ../app/diapagelayout.c:222
 msgid "Orientation"
 msgstr "向き"
 
 #. margins
-#: ../app/diapagelayout.c:224
+#: ../app/diapagelayout.c:260
 msgid "Margins"
 msgstr "余白"
 
-#: ../app/diapagelayout.c:236
+#: ../app/diapagelayout.c:272
 msgid "Top:"
 msgstr "上:"
 
-#: ../app/diapagelayout.c:249
+#: ../app/diapagelayout.c:285
 msgid "Bottom:"
 msgstr "下:"
 
-#: ../app/diapagelayout.c:262
+#: ../app/diapagelayout.c:298
 msgid "Left:"
 msgstr "左:"
 
-#: ../app/diapagelayout.c:275
+#: ../app/diapagelayout.c:311
 msgid "Right:"
 msgstr "右:"
 
 #. Scaling
-#: ../app/diapagelayout.c:289
+#: ../app/diapagelayout.c:325
 msgid "Scaling"
 msgstr "倍率"
 
-#: ../app/diapagelayout.c:300
+#: ../app/diapagelayout.c:336
 msgid "Scale:"
 msgstr "倍率:"
 
-#: ../app/diapagelayout.c:312
+#: ../app/diapagelayout.c:348
 msgid "Fit to:"
 msgstr "比率:"
 
-#: ../app/diapagelayout.c:324
+#: ../app/diapagelayout.c:360
 msgid "by"
 msgstr "対"
 
-#: ../app/diapagelayout.c:741
+#: ../app/diapagelayout.c:777
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:845 ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:881 ../app/pagesetup.c:78
 msgid "Page Setup"
 msgstr "ページ設定"
 
@@ -773,7 +785,7 @@ msgid "Save"
 msgstr "保存"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1031
+#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1021
 #: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
 #: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
 #: ../objects/UML/association.c:234 ../objects/UML/class.c:144
@@ -952,7 +964,7 @@ msgstr "ダイアグラムの周辺をスクロールします"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:181 ../app/dic_dialog.c:899 ../app/menus.c:233
+#: ../app/interface.c:181 ../app/dic_dialog.c:889 ../app/menus.c:233
 #: ../lib/properties.c:80 ../lib/properties.h:530
 #: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
 #: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
@@ -1006,7 +1018,7 @@ msgstr "連続線の描画"
 msgid "Bezierline"
 msgstr "ベジェ曲線の描画"
 
-#: ../app/interface.c:247 ../app/dic_dialog.c:903 ../app/menus.c:246
+#: ../app/interface.c:247 ../app/dic_dialog.c:893 ../app/menus.c:246
 msgid "Image"
 msgstr "画像の埋め込み"
 
@@ -1117,7 +1129,7 @@ msgstr "レイヤ:"
 msgid "Layers"
 msgstr "レイヤ"
 
-#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:988
+#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:978
 msgid "Diagram:"
 msgstr "ダイアグラム:"
 
@@ -1142,45 +1154,48 @@ msgstr "レイヤの追加"
 msgid "Layer name:"
 msgstr "レイヤ名:"
 
-#: ../app/dic_dialog.c:300
+#: ../app/dic_dialog.c:292
 msgid ""
 "When Node is moved,the objects are deleted.\n"
 "Do you move?"
 msgstr ""
-"ノードを移動すると配下のオブジェクトは削除されます。"
-"ノードを移動しますか？"
+"ノードを移動すると配下のオブジェクトは削除されます。ノードを移動しますか？"
 
-#: ../app/dic_dialog.c:472
+#: ../app/dic_dialog.c:300
+msgid "cannot move node for existence object."
+msgstr "オブジェクトが存在するためノードを移動できません"
+
+#: ../app/dic_dialog.c:468
 msgid "Same name node exist."
 msgstr "同じ名前のノードが存在します"
 
-#: ../app/dic_dialog.c:486
+#: ../app/dic_dialog.c:482
 msgid "cannot change occurs for existence object."
 msgstr "削除されるオブジェクトが存在するためoccursを変更できません"
 
-#: ../app/dic_dialog.c:661
+#: ../app/dic_dialog.c:657
 msgid "Some node included deleting node are used."
 msgstr "使用しているノードがあります"
 
-#: ../app/dic_dialog.c:895 ../sheets/UML.sheet.in.h:22
+#: ../app/dic_dialog.c:885 ../sheets/UML.sheet.in.h:22
 msgid "Node"
 msgstr "ノード"
 
-#: ../app/dic_dialog.c:973
+#: ../app/dic_dialog.c:963
 msgid "Dictionary"
 msgstr "辞書"
 
-#: ../app/dic_dialog.c:1039
+#: ../app/dic_dialog.c:1029
 msgid "Occurs"
 msgstr ""
 
-#: ../app/dic_dialog.c:1047
+#: ../app/dic_dialog.c:1037
 msgid "Length"
 msgstr "文字数"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../app/dic_dialog.c:1058 ../objects/FS/function.c:976
+#: ../app/dic_dialog.c:1048 ../objects/FS/function.c:976
 #: ../objects/FS/function.c:978
 msgid "Change"
 msgstr "変更"
@@ -1812,14 +1827,6 @@ msgstr "オブジェクトに連結する"
 msgid "New window:"
 msgstr " 新しいウィンドウ "
 
-#: ../app/preferences.c:205
-msgid "Width:"
-msgstr "幅:"
-
-#: ../app/preferences.c:206
-msgid "Height:"
-msgstr "高さ:"
-
 #: ../app/preferences.c:207
 msgid "Magnify:"
 msgstr "ズーム率:"
@@ -2196,13 +2203,18 @@ msgstr "読み込み中 ..."
 msgid "Dia v %s"
 msgstr "Dia バージョン %s"
 
-#: ../dia.desktop.in.in.h:1
-msgid "Dia Diagram Editor"
-msgstr "Dia ダイアグラム・エディタ"
+#: ../app/undo.c:696
+#, c-format
+msgid "cannot revert. duplicate embed_id:%s\n"
+msgstr ""
 
-#: ../dia.desktop.in.in.h:2
+#: ../monpe.desktop.in.in.h:1
 msgid "Edit your Diagrams"
 msgstr "ダイアグラムを編集します"
+
+#: ../monpe.desktop.in.in.h:2
+msgid "Monpe Diagram Editor"
+msgstr "ダイアグラム・エディタ"
 
 #: ../lib/arrows.c:1885
 msgid "Lines"
@@ -6285,7 +6297,6 @@ msgstr ""
 "ではありません"
 
 #: ../plug-ins/shape/shape-export.c:488
-#, fuzzy
 msgid "Can't export png icon without export plug-in!"
 msgstr "libartなしで PNG はエキスポートできません！"
 
@@ -10540,6 +10551,9 @@ msgstr "Sybase データサーバ"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase 複製サーバ"
+
+#~ msgid "Dia Diagram Editor"
+#~ msgstr "Dia ダイアグラム・エディタ"
 
 #~ msgid "String"
 #~ msgstr "ストレイン"

@@ -5,6 +5,7 @@ app/autosave.c
 app/color_area.c
 app/commands.c
 app/confirm.c
+app/cut_n_paste.c
 app/create_object.c
 app/defaults.c
 app/dia-props.c
@@ -36,6 +37,7 @@ app/sheets.c
 app/sheets_dialog.c
 app/sheets_dialog_callbacks.c
 app/splash.c
+app/undo.c
 app/winmain.c
 monpe.desktop.in.in
 lib/arrows.c
