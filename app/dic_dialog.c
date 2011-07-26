@@ -246,7 +246,6 @@ cb_drag_drop(GtkWidget *widget,
   GtkTreeIter src_iter,dest_iter;
   DicNode *src_node, *dest_node;
   GtkTreeViewDropPosition pos;
-  int src_depth, dest_depth;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   if (gtk_tree_selection_get_selected(selection, &model, &src_iter)) {
@@ -278,28 +277,16 @@ cb_drag_drop(GtkWidget *widget,
         return TRUE;
       }
       if (dnode_data_is_used(src_node)) {
-        src_depth = gtk_tree_path_get_depth(src_path);
-        dest_depth = gtk_tree_path_get_depth(dest_path);
         if (pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER ||
-            pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
-            src_depth != dest_depth ) {      
-#if 0
-          int response;
-          GtkWidget * dialog = 
-            gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
-              GTK_MESSAGE_QUESTION,
-              GTK_BUTTONS_YES_NO,
-              _("When Node is moved,the objects are deleted.\n"
-              "Do you move?"));
-          response = gtk_dialog_run(GTK_DIALOG(dialog));
-          gtk_widget_destroy(dialog);
-          if (response == GTK_RESPONSE_NO) {
+            pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ) {      
+          message_error(_("cannot move node for existence object.\n"));
+          return TRUE;
+        } else {
+          /* GTK_TREE_VIEW_DROP_XXXX */
+          if (DNODE_PARENT(src_node)!= DNODE_PARENT(dest_node)) {
+            message_error(_("cannot move node for existence object.\n"));
             return TRUE;
           }
-#else
-          message_error(_("cannot move node for existence object."));
-          return TRUE;
-#endif
         }
       } 
     }
@@ -356,11 +343,6 @@ cb_drag_data_received(GtkWidget *widget,
   GtkTreeViewDropPosition pos;
   gchar *newname;
   DicNode *src_node, *dest_node, *parent_node = NULL;
-  GList *list=NULL;
-  int i;
-  DiaObject *obj;
-  Layer *layer;
-  gboolean same_parent;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   if (gtk_tree_selection_get_selected(selection, &model, &src_iter)) {
@@ -375,8 +357,6 @@ cb_drag_data_received(GtkWidget *widget,
         COLUMN_NODE, &src_node,
         -1);
     
-      same_parent = DNODE_PARENT(src_node) == DNODE_PARENT(dest_node);
-
       switch(pos) {
       case GTK_TREE_VIEW_DROP_BEFORE:
         gtk_tree_store_insert_before(GTK_TREE_STORE(model),
@@ -401,25 +381,6 @@ cb_drag_data_received(GtkWidget *widget,
         parent_node = dest_node;
         dtree_move_after(src_node,dest_node,NULL);
         break;
-      }
-
-      if (pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
-          pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER  ||
-          !same_parent) {
-        list = dnode_get_objects_recursive(src_node,NULL);
-        if (list != NULL) {
-          diagram_unselect_objects(dic_dialog->diagram, list);
-          for(i=0;i<g_list_length(list);i++){
-            obj = (DiaObject*)g_list_nth_data(list,i);
-            layer = dia_object_get_parent_layer(obj);
-            layer_remove_object(layer, obj);
-          }
-          object_add_updates_list(list, dic_dialog->diagram);
-          diagram_tree_remove_objects(diagram_tree(), list);
-
-          g_list_free(list);
-        }
-        dnode_reset_objects_recursive(src_node);
       }
 
       newname = dnode_prop_name_unique(src_node, parent_node, src_node->name);
