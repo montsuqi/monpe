@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-25 16:56+0900\n"
+"POT-Creation-Date: 2011-07-26 14:37+0900\n"
 "PO-Revision-Date: 2009-04-26 16:08+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -424,7 +424,15 @@ msgstr ""
 msgid "Confirm Diagram Size"
 msgstr "ダイアグラムのサイズの確認"
 
-#: ../app/cut_n_paste.c:111
+#: ../app/cut_n_paste.c:68
+msgid ""
+"cannot paste dictionary object by size over.\n"
+"dummy object was created.\n"
+msgstr ""
+"辞書サイズオーバーのためペーストできません\n"
+"ダミーオブジェクトが作成されました\n"
+
+#: ../app/cut_n_paste.c:99
 msgid "The embedding object paste to different diagram.\n"
 msgstr ""
 
@@ -785,7 +793,7 @@ msgid "Save"
 msgstr "保存"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1021
+#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:982
 #: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
 #: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
 #: ../objects/UML/association.c:234 ../objects/UML/class.c:144
@@ -964,7 +972,7 @@ msgstr "ダイアグラムの周辺をスクロールします"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:181 ../app/dic_dialog.c:889 ../app/menus.c:233
+#: ../app/interface.c:181 ../app/dic_dialog.c:850 ../app/menus.c:233
 #: ../lib/properties.c:80 ../lib/properties.h:530
 #: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
 #: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
@@ -1018,7 +1026,7 @@ msgstr "連続線の描画"
 msgid "Bezierline"
 msgstr "ベジェ曲線の描画"
 
-#: ../app/interface.c:247 ../app/dic_dialog.c:893 ../app/menus.c:246
+#: ../app/interface.c:247 ../app/dic_dialog.c:854 ../app/menus.c:246
 msgid "Image"
 msgstr "画像の埋め込み"
 
@@ -1129,7 +1137,7 @@ msgstr "レイヤ:"
 msgid "Layers"
 msgstr "レイヤ"
 
-#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:978
+#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:939
 msgid "Diagram:"
 msgstr "ダイアグラム:"
 
@@ -1154,48 +1162,41 @@ msgstr "レイヤの追加"
 msgid "Layer name:"
 msgstr "レイヤ名:"
 
-#: ../app/dic_dialog.c:292
-msgid ""
-"When Node is moved,the objects are deleted.\n"
-"Do you move?"
-msgstr ""
-"ノードを移動すると配下のオブジェクトは削除されます。ノードを移動しますか？"
-
-#: ../app/dic_dialog.c:300
-msgid "cannot move node for existence object."
+#: ../app/dic_dialog.c:282 ../app/dic_dialog.c:287
+msgid "cannot move node for existence object.\n"
 msgstr "オブジェクトが存在するためノードを移動できません"
 
-#: ../app/dic_dialog.c:468
+#: ../app/dic_dialog.c:429
 msgid "Same name node exist."
 msgstr "同じ名前のノードが存在します"
 
-#: ../app/dic_dialog.c:482
+#: ../app/dic_dialog.c:443
 msgid "cannot change occurs for existence object."
 msgstr "削除されるオブジェクトが存在するためoccursを変更できません"
 
-#: ../app/dic_dialog.c:657
+#: ../app/dic_dialog.c:618
 msgid "Some node included deleting node are used."
 msgstr "使用しているノードがあります"
 
-#: ../app/dic_dialog.c:885 ../sheets/UML.sheet.in.h:22
+#: ../app/dic_dialog.c:846 ../sheets/UML.sheet.in.h:22
 msgid "Node"
 msgstr "ノード"
 
-#: ../app/dic_dialog.c:963
+#: ../app/dic_dialog.c:924
 msgid "Dictionary"
 msgstr "辞書"
 
-#: ../app/dic_dialog.c:1029
+#: ../app/dic_dialog.c:990
 msgid "Occurs"
 msgstr ""
 
-#: ../app/dic_dialog.c:1037
+#: ../app/dic_dialog.c:998
 msgid "Length"
 msgstr "文字数"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../app/dic_dialog.c:1048 ../objects/FS/function.c:976
+#: ../app/dic_dialog.c:1009 ../objects/FS/function.c:976
 #: ../objects/FS/function.c:978
 msgid "Change"
 msgstr "変更"
@@ -2202,11 +2203,6 @@ msgstr "読み込み中 ..."
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia バージョン %s"
-
-#: ../app/undo.c:696
-#, c-format
-msgid "cannot revert. duplicate embed_id:%s\n"
-msgstr ""
 
 #: ../monpe.desktop.in.in.h:1
 msgid "Edit your Diagrams"
@@ -10551,6 +10547,12 @@ msgstr "Sybase データサーバ"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase 複製サーバ"
+
+#~ msgid ""
+#~ "When Node is moved,the objects are deleted.\n"
+#~ "Do you move?"
+#~ msgstr ""
+#~ "ノードを移動すると配下のオブジェクトは削除されます。ノードを移動しますか？"
 
 #~ msgid "Dia Diagram Editor"
 #~ msgstr "Dia ダイアグラム・エディタ"

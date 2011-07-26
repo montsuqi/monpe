@@ -25,6 +25,8 @@
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
 #include "handle_ops.h"
+#include "properties.h"
+#include "prop_text.h"
 #include "message.h"
 
 #define OBJECT_CONNECT_DISTANCE 4.5
@@ -509,4 +511,50 @@ object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
     list = g_list_next(list);
   }
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
+}
+
+void
+object_set_embed_id(DiaObject *obj,gchar *id)
+{
+  Property *prop;
+  GPtrArray *props;
+  props = g_ptr_array_new();
+
+  prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
+  if (prop != NULL) {
+    ((StringProperty*)prop)->string_data = id;
+    g_ptr_array_add(props,prop);
+  }
+  object_apply_props(obj,props);
+}
+
+gchar*
+object_get_embed_id(DiaObject *obj)
+{
+  Property *prop;
+  prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
+  if (prop != NULL) {
+    return g_strdup(((StringProperty*)prop)->string_data);
+  }
+  return g_strdup("");
+}
+
+void
+object_change_unknown(DiaObject *obj)
+{
+  Property *prop;
+  GPtrArray *props;
+  props = g_ptr_array_new();
+
+  prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
+  if (prop != NULL) {
+    ((StringProperty*)prop)->string_data = g_strdup("##unknown##");
+    g_ptr_array_add(props,prop);
+  }
+  prop = object_prop_by_name_type(obj,"text",PROP_TYPE_TEXT);
+  if (prop != NULL) {
+    ((TextProperty*)prop)->text_data = g_strdup("##unknown##");
+    g_ptr_array_add(props,prop);
+  }
+  object_apply_props(obj,props);
 }

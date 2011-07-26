@@ -28,8 +28,7 @@
 #include "diagram_tree_window.h"
 #include "textedit.h"
 #include "parent.h"
-#include "properties.h"
-#include "prop_text.h"
+#include "object_ops.h"
 #include "message.h"
 
 #if 0
@@ -686,19 +685,11 @@ dnode_register_object(Diagram *dia,DiaObject *obj)
       dnode_register_object(dia,(DiaObject*)g_list_nth_data(list,i));
     }
   } else {
-    Property *prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
-    if (prop != NULL) {
-      gchar *embed_id = ((StringProperty*)prop)->string_data;
-      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
-        embed_id,obj);
-      if (obj->node == NULL) {
-        GPtrArray *props;
-        message_error(_("cannot revert. duplicate embed_id:%s\n"),embed_id);
-        ((StringProperty*)prop)->string_data = g_strdup("__unknown__");
-        props = g_ptr_array_new();
-        g_ptr_array_add(props,prop);
-        object_apply_props(obj,props);
-      }
+    gchar *embed_id = object_get_embed_id(obj);
+    obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+      embed_id,obj);
+    if (obj->node == NULL) {
+      object_change_unknown(obj);
     }
   }
 }

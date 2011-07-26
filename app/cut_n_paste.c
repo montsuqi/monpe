@@ -26,8 +26,6 @@
 #include "dtree.h"
 #include "group.h"
 #include "message.h"
-#include "properties.h"
-#include "prop_text.h"
 
 static GList *stored_list = NULL;
 static int stored_generation = 0;
@@ -57,8 +55,6 @@ dnode_prepare_register_object(DiaObject *obj)
   GList *glist;
   int index,i;
 
-fprintf(stderr,"dnode_register_object %p\n",obj);
-
   if (IS_GROUP(obj)) {
     glist = group_objects(obj);
     for(i=0;i<g_list_length(glist);i++) {
@@ -66,20 +62,12 @@ fprintf(stderr,"dnode_register_object %p\n",obj);
     }
   } else {
     if (obj->node != NULL) {
-      Property *prop = object_prop_by_name_type(obj,
-        "embed_id",PROP_TYPE_STRING);
-      if (prop != NULL) {
-        GPtrArray *props;
-     
-        if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
-          ((StringProperty*)prop)->string_data = 
-            dnode_data_get_longname(obj->node,index);
-        } else {
-          ((StringProperty*)prop)->string_data = g_strdup("__unknown__");
-        }
-        props = g_ptr_array_new();
-        g_ptr_array_add(props,prop);
-        object_apply_props(obj,props);
+      if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
+        object_set_embed_id(obj,dnode_data_get_longname(obj->node,index));
+      } else {
+        message_error(_("cannot paste dictionary object by size over.\n"
+                        "dummy object was created.\n"));
+        object_change_unknown(obj);
       }
     }
   }
@@ -113,12 +101,10 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
       copied_list = _copied_list;
     }
   } else {
-fprintf(stderr,"=====\n");
     for (i=0;i<g_list_length(copied_list);i++) {
       obj = (DiaObject*)g_list_nth_data(copied_list,i);
       dnode_prepare_register_object(obj);
     }
-fprintf(stderr,"....\n");
   }
   return copied_list;
 }
