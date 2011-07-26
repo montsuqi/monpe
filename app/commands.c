@@ -399,6 +399,7 @@ edit_duplicate_callback (GtkAction *action)
   if (!ddisp || textedit_mode(ddisp)) return;
   duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
   duplicate_corner = object_list_corner(duplicate_list);
+  cnp_prepare_copy_embed_object_list(duplicate_list);
   
   /* Move down some 10% of the visible area. */
   delta.x = (ddisp->visible.right - ddisp->visible.left)*0.05;

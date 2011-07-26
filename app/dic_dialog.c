@@ -426,7 +426,7 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
           COLUMN_TREE, name,
           -1);
       } else {
-        message_error(_("Same name node exist."));
+        message_error(_("Same name node exist.\n"));
         return FALSE;
       }
     }
@@ -440,7 +440,7 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
           -1);
         treeview_update_used_recursive(model,&iter);
       } else {
-        message_error(_("cannot change occurs for existence object."));
+        message_error(_("cannot change occurs for existence object.\n"));
         return FALSE;
       }
     }
@@ -615,7 +615,7 @@ cb_delete_node(GtkToolButton *button,
     store = GTK_TREE_STORE(model);
     gtk_tree_model_get(model, &iter, COLUMN_NODE, &node,  -1);
     if (!cb_delete_node_sub(node)) {
-      message_error(_("Some node included deleting node are used."));
+      message_error(_("Some node included deleting node are used.\n"));
     } else {
       gtk_tree_store_remove(store,&iter);
       dtree_unlink(node);

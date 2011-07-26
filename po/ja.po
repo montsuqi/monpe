@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-26 14:37+0900\n"
+"POT-Creation-Date: 2011-07-26 14:50+0900\n"
 "PO-Revision-Date: 2009-04-26 16:08+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -1164,19 +1164,19 @@ msgstr "レイヤ名:"
 
 #: ../app/dic_dialog.c:282 ../app/dic_dialog.c:287
 msgid "cannot move node for existence object.\n"
-msgstr "オブジェクトが存在するためノードを移動できません"
+msgstr "オブジェクトが存在するためノードを移動できません\n"
 
 #: ../app/dic_dialog.c:429
-msgid "Same name node exist."
-msgstr "同じ名前のノードが存在します"
+msgid "Same name node exist.\n"
+msgstr "同じ名前のノードが存在します\n"
 
 #: ../app/dic_dialog.c:443
-msgid "cannot change occurs for existence object."
-msgstr "削除されるオブジェクトが存在するためoccursを変更できません"
+msgid "cannot change occurs for existence object.\n"
+msgstr "削除されるオブジェクトが存在するためoccursを変更できません\n"
 
 #: ../app/dic_dialog.c:618
-msgid "Some node included deleting node are used."
-msgstr "使用しているノードがあります"
+msgid "Some node included deleting node are used.\n"
+msgstr "使用しているノードがあります\n"
 
 #: ../app/dic_dialog.c:846 ../sheets/UML.sheet.in.h:22
 msgid "Node"

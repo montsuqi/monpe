@@ -49,25 +49,26 @@ cnp_store_objects(GList *object_list, int generation,DDisplay *ddisp)
   stored_ddisp = ddisp;
 }
 
-static void
-dnode_prepare_register_object(DiaObject *obj)
+void
+cnp_prepare_copy_embed_object_list(GList *copied_list)
 {
-  GList *glist;
-  int index,i;
+  DiaObject *obj;
+  int index,j;
 
-  if (IS_GROUP(obj)) {
-    glist = group_objects(obj);
-    for(i=0;i<g_list_length(glist);i++) {
-      dnode_prepare_register_object((DiaObject*)g_list_nth_data(glist,i));
-    }
-  } else {
-    if (obj->node != NULL) {
-      if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
-        object_set_embed_id(obj,dnode_data_get_longname(obj->node,index));
-      } else {
-        message_error(_("cannot paste dictionary object by size over.\n"
-                        "dummy object was created.\n"));
-        object_change_unknown(obj);
+  for (j=0;j<g_list_length(copied_list);j++) {
+    obj = (DiaObject*)g_list_nth_data(copied_list,j);
+
+    if (IS_GROUP(obj)) {
+      cnp_prepare_copy_embed_object_list(group_objects(obj));
+    } else {
+      if (obj->node != NULL) {
+        if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
+          object_set_embed_id(obj,dnode_data_get_longname(obj->node,index));
+        } else {
+          message_error(_("cannot paste dictionary object by size over.\n"
+                          "dummy object was created.\n"));
+          object_change_unknown(obj);
+        }
       }
     }
   }
@@ -101,10 +102,7 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
       copied_list = _copied_list;
     }
   } else {
-    for (i=0;i<g_list_length(copied_list);i++) {
-      obj = (DiaObject*)g_list_nth_data(copied_list,i);
-      dnode_prepare_register_object(obj);
-    }
+    cnp_prepare_copy_embed_object_list(copied_list);
   }
   return copied_list;
 }
