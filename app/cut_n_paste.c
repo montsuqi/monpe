@@ -53,8 +53,9 @@ void
 cnp_prepare_copy_embed_object_list(GList *copied_list)
 {
   DiaObject *obj;
-  int index,j;
+  int index,n,j;
 
+  n = 0;
   for (j=0;j<g_list_length(copied_list);j++) {
     obj = (DiaObject*)g_list_nth_data(copied_list,j);
 
@@ -62,8 +63,9 @@ cnp_prepare_copy_embed_object_list(GList *copied_list)
       cnp_prepare_copy_embed_object_list(group_objects(obj));
     } else {
       if (obj->node != NULL) {
-        if ((index = dnode_data_get_empty_index(obj->node)) != -1) {
+        if ((index = dnode_data_get_empty_nth_index(obj->node,n)) != -1) {
           object_set_embed_id(obj,dnode_data_get_longname(obj->node,index));
+          n++;
         } else {
           message_error(_("cannot paste dictionary object by size over.\n"
                           "dummy object was created.\n"));

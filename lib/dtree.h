@@ -88,6 +88,7 @@ int dnode_get_n_objects(DicNode *node);
 int dnode_get_n_used_objects(DicNode *node);
 gboolean dnode_data_is_used(DicNode *node);
 int dnode_data_get_empty_index(DicNode *node);
+int dnode_data_get_empty_nth_index(DicNode *node,int n);
 gchar* dnode_data_get_longname(DicNode *node,int i);
 void dnode_update_object_name(DicNode *node);
 void dnode_update_node_name(DicNode *node,gchar *name);

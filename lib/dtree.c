@@ -193,6 +193,24 @@ dnode_data_get_empty_index(DicNode *node)
   return -1;
 }
 
+int 
+dnode_data_get_empty_nth_index(DicNode *node,int n)
+{
+  int i,j;
+  if (node->objects == NULL) {
+    return -1;
+  }
+  for(i=j=0;i<g_list_length(node->objects);i++){
+    if (g_list_nth_data(node->objects,i) == NULL) {
+      if (j == n) {
+        return i;
+      }
+      j++;
+    }
+  }
+  return -1;
+}
+
 gchar* 
 dnode_data_get_longname(DicNode *node, int index) 
 {
