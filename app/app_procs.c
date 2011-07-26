@@ -583,6 +583,13 @@ handle_initial_diagram(const char *in_file_name,
 				   size, show_layers);
   } else {
     if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
+      if (!g_path_is_absolute(in_file_name)) {
+        gchar *pwd = g_get_current_dir();
+
+        gchar *newfilename = g_build_filename(pwd, in_file_name, NULL);
+        g_free(pwd);
+        in_file_name = newfilename;
+      }
       diagram = diagram_load (in_file_name, NULL);
     } else {
       diagram = new_diagram (in_file_name);
