@@ -447,7 +447,7 @@ textobj_save(ETextobj *textobj, ObjectNode obj_node, const char *filename)
   }
 
   data_add_string(new_attribute(obj_node, "embed_id"),
-		textobj->embed_id);
+		dtree_conv_longname_to_xml(textobj->embed_id));
   data_add_int(new_attribute(obj_node, "embed_text_size"),
 		textobj->embed_text_size);
   data_add_int(new_attribute(obj_node, "embed_column_size"),
@@ -504,7 +504,8 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "embed_id");
   if (attr) {
-    textobj->embed_id = data_string( attribute_first_data(attr) );
+    textobj->embed_id = 
+      dtree_conv_longname_from_xml(data_string(attribute_first_data(attr)));
   } else {
     textobj->embed_id = get_default_embed_id("embed_text");
   }

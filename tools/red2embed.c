@@ -144,52 +144,17 @@ embedImage(EmbedInfo *info,
   xmlNodeSetContent(n2,BAD_CAST(content));
 }
 
-static gboolean
-eval_cb(
-  const GMatchInfo *info,
-  GString *res,
-  gpointer data)
-{
-  gchar *match,*buf;
-  guchar c[2];
-
-  match = g_match_info_fetch(info, 1);
-  buf = g_strdup_printf("[%d]",atoi((const char*)match)-1);
-  g_string_append (res,buf);
-  g_free(match);
-  g_free(buf);
-  return FALSE;
-}
-
-static gchar*
-o1_to_o0(gchar *org)
-{
-  GRegex *reg;
-  gchar *ret;
-  GError *err = NULL;
-
-  reg = g_regex_new("\\[(\\d+)\\]",0,0,NULL);
-  ret = g_regex_replace_eval(reg,org,-1,0,0,eval_cb,NULL,&err);
-  if (err != NULL) {
-    g_error("error:g_regex_replace_eval");
-  }
-  g_regex_unref(reg);
-  return ret;
-}
-
 static void
 embed(GPtrArray *array,
   ValueStruct *data)
 {
   EmbedInfo *info;
-  gchar *lname;
   ValueStruct *v;
   int i;
 
   for (i=0;i<array->len;i++) {
     info = (EmbedInfo*)g_ptr_array_index(array,i);
-    lname = o1_to_o0(info->id);
-    v = GetItemLongName(data,lname);
+    v = GetItemLongName(data,info->id);
     if (v == NULL) {
       continue;
     } else {
@@ -202,7 +167,6 @@ embed(GPtrArray *array,
         break;
       }
     }
-    g_free(lname);
   }
 }
 

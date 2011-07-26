@@ -120,6 +120,8 @@ void dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode);
 
 DicNode* dtree_set_data_path(DicNode *node,gchar *path,gpointer object);
 gboolean dtree_is_valid_node(DicNode *dtree,DicNode *node);
+gchar *dtree_conv_longname_to_xml(gchar*);
+gchar *dtree_conv_longname_from_xml(gchar*);
 
 #endif 
 

@@ -681,7 +681,6 @@ dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode)
   }
 }
 
-
 DicNode *
 dtree_set_data_path(DicNode *node,gchar *path,gpointer object)
 {
@@ -720,6 +719,70 @@ dtree_is_valid_node(DicNode *dtree,DicNode *node)
     return g_node_is_ancestor(G_NODE(dtree),G_NODE(node));
   }
   return FALSE;
+}
+
+static gboolean
+replace_eval_to_xml(
+  const GMatchInfo *info,
+  GString *res,
+  gpointer data)
+{
+  gchar *match,*buf;
+
+  match = g_match_info_fetch(info, 1);
+  buf = g_strdup_printf("[%d]",atoi((const char*)match)-1);
+  g_string_append (res,buf);
+  g_free(match);
+  g_free(buf);
+  return FALSE;
+}
+
+gchar*
+dtree_conv_longname_to_xml(gchar *in)
+{
+  GRegex *reg;
+  gchar *out;
+  GError *err = NULL;
+
+  reg = g_regex_new("\\[(\\d+)\\]",0,0,NULL);
+  out = g_regex_replace_eval(reg,in,-1,0,0,replace_eval_to_xml,NULL,&err);
+  if (err != NULL) {
+    g_error("error:g_regex_replace_eval");
+  }
+  g_regex_unref(reg);
+  return out;
+}
+
+static gboolean
+replace_eval_from_xml(
+  const GMatchInfo *info,
+  GString *res,
+  gpointer data)
+{
+  gchar *match,*buf;
+
+  match = g_match_info_fetch(info, 1);
+  buf = g_strdup_printf("[%d]",atoi((const char*)match)+1);
+  g_string_append (res,buf);
+  g_free(match);
+  g_free(buf);
+  return FALSE;
+}
+
+gchar*
+dtree_conv_longname_from_xml(gchar *in)
+{
+  GRegex *reg;
+  gchar *out;
+  GError *err = NULL;
+
+  reg = g_regex_new("\\[(\\d+)\\]",0,0,NULL);
+  out = g_regex_replace_eval(reg,in,-1,0,0,replace_eval_from_xml,NULL,&err);
+  if (err != NULL) {
+    g_error("error:g_regex_replace_eval");
+  }
+  g_regex_unref(reg);
+  return out;
 }
 
 /*************************************************************
