@@ -53,7 +53,7 @@ struct DicDialog {
   GtkWidget *frame;
   GtkWidget *name_entry;
   GtkWidget *occurs_spin;
-  GtkWidget *length_hbox;
+  GtkWidget *length_label;
   GtkWidget *length_spin;
 };
 
@@ -844,15 +844,18 @@ cb_selection_changed(GtkTreeSelection *sel,
     switch(get_node_item_type(icon)) {
     case ITEM_TYPE_NODE:
       gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("Node"));
-      gtk_widget_hide(dic_dialog->length_hbox);
+      gtk_widget_hide(dic_dialog->length_label);
+      gtk_widget_hide(dic_dialog->length_spin);
       break;
     case ITEM_TYPE_TEXT:
       gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("Text"));
-      gtk_widget_show(dic_dialog->length_hbox);
+      gtk_widget_show(dic_dialog->length_label);
+      gtk_widget_show(dic_dialog->length_spin);
       break;
     case ITEM_TYPE_IMAGE:
       gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("Image"));
-      gtk_widget_hide(dic_dialog->length_hbox);
+      gtk_widget_show(dic_dialog->length_label);
+      gtk_widget_show(dic_dialog->length_spin);
       break;
     }   
     g_free(icon);
@@ -903,12 +906,13 @@ combo_renderer_data_func(GtkCellLayout *layout,
 void
 create_dic_dialog(void)
 {
-  GtkWidget *dialog, *vbox;
-  GtkWidget *hbox, *label, *combo, *separator;
+  GtkWidget *dialog, *vbox, *hbox;
+  GtkWidget *label, *combo, *separator;
   GtkWidget *toolbar, *treeview;
   GtkWidget *scroll;
   GtkTreeSelection *selection; 
-  GtkWidget *frame,*vbox2;
+  GtkWidget *frame;
+  GtkWidget *table;
   GtkWidget *name_entry,*occurs_spin,*length_spin;
   GtkWidget *change_button;
   GtkListStore *combo_list;
@@ -975,39 +979,43 @@ create_dic_dialog(void)
   /* frame */
   frame = gtk_frame_new("");
   dic_dialog->frame = frame;
-  vbox2 = gtk_vbox_new(FALSE,0);
-  gtk_container_add(GTK_CONTAINER(frame),vbox2);
 
-  hbox = gtk_hbox_new(FALSE,0);
+  table = gtk_table_new(2,4,FALSE);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 5);
+  gtk_table_set_row_spacings(GTK_TABLE(table), 5);
+  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+  gtk_container_add(GTK_CONTAINER(frame), table);
+
   label = gtk_label_new(_("Name"));
-  gtk_box_pack_start(GTK_BOX(hbox),label,TRUE,FALSE,0);
+  gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), label, 0,1, 0,1,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   name_entry = gtk_entry_new();
   dic_dialog->name_entry = name_entry;
-  gtk_box_pack_start(GTK_BOX(hbox),name_entry,TRUE,TRUE,0);
-  gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, TRUE, 0);
+  gtk_table_attach(GTK_TABLE(table), name_entry, 1,2, 0,1,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
 
-  hbox = gtk_hbox_new(FALSE,0);
   label = gtk_label_new(_("Occurs"));
-  gtk_box_pack_start(GTK_BOX(hbox),label,TRUE,FALSE,0);
+  gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), label, 0,1, 1,2,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   occurs_spin = gtk_spin_button_new_with_range(1,1000,1);
   dic_dialog->occurs_spin = occurs_spin;
-  gtk_box_pack_start(GTK_BOX(hbox),occurs_spin,TRUE,TRUE,0);
-  gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, TRUE, 0);
+  gtk_table_attach(GTK_TABLE(table), occurs_spin, 1,2, 1,2,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
 
-  dic_dialog->length_hbox = hbox = gtk_hbox_new(FALSE,0);
-  label = gtk_label_new(_("Length"));
-  gtk_box_pack_start(GTK_BOX(hbox),label,TRUE,FALSE,0);
+  dic_dialog->length_label = label = gtk_label_new(_("Length"));
+  gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   length_spin = gtk_spin_button_new_with_range(1,1000,1);
   dic_dialog->length_spin = length_spin;
-  gtk_box_pack_start(GTK_BOX(hbox),length_spin,TRUE,TRUE,0);
-  gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, TRUE, 0);
+  gtk_table_attach(GTK_TABLE(table), length_spin, 1,2, 2,3,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   
-  separator = gtk_hseparator_new();
-  gtk_box_pack_start(GTK_BOX(vbox2), separator, FALSE, FALSE, 0);
-
-  hbox = gtk_hbox_new(FALSE,0);
   change_button = gtk_button_new_with_label(_("Change"));
-  gtk_box_pack_end(GTK_BOX(vbox2), change_button, FALSE, FALSE, 0);
+  gtk_table_attach(GTK_TABLE(table), change_button, 0,2, 3,4,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   g_signal_connect(G_OBJECT(change_button),"clicked",
     G_CALLBACK(cb_change_button_clicked),NULL);
 
