@@ -59,5 +59,6 @@ xmlNodePtr GetChildByTagAttr(xmlNodePtr node, xmlChar *tag,
 xmlChar* GetAttributeString(xmlNodePtr node, xmlChar *propname);
 int GetAttributeInt(xmlNodePtr node, xmlChar *propname);
 GString *red2rec(xmlDocPtr);
+GString *red2inc(xmlDocPtr,gchar *prefix);
 
 #endif

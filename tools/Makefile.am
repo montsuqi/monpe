@@ -1,7 +1,8 @@
 bin_PROGRAMS = \
 	red2rec \
 	red2embed \
-	red2conv
+	red2conv \
+	red2inc
 
 base_sources =	\
 	red2lib.c	red2lib.h
@@ -23,6 +24,15 @@ red2rec_CFLAGS = \
 	$(base_CFLAGS)
 
 red2rec_LDADD = \
+	$(base_LDADD)
+
+red2inc_SOURCES = red2inc.c \
+	$(base_sources)
+
+red2inc_CFLAGS = \
+	$(base_CFLAGS)
+
+red2inc_LDADD = \
 	$(base_LDADD)
 
 red2embed_SOURCES = red2embed.c \

@@ -291,7 +291,7 @@ GetEmbedInfoList(xmlDocPtr doc)
 }
 
 static void
-tabprint(GString *rec,int l,char *format,...)
+rec_print_tab(GString *rec,int l,char *format,...)
 {
   int i;
   va_list va;
@@ -313,34 +313,34 @@ print_rec(GString *rec,int l,DicNode *node)
   name = EscapeNodeName(node->name);
 
   if (node->type == DIC_NODE_TYPE_NODE) {
-    tabprint(rec,l,"%s {\n",name);
+    rec_print_tab(rec,l,"%s {\n",name);
     for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
       print_rec(rec,l+1,child);
     }
     if (node->occurs > 1) {
-      tabprint(rec,l,"}[%d];\n",node->occurs);
+      rec_print_tab(rec,l,"}[%d];\n",node->occurs);
     } else {
-      tabprint(rec,l,"};\n");
+      rec_print_tab(rec,l,"};\n");
     }
   } else if(node->type == DIC_NODE_TYPE_TEXT){
     if (node->occurs > 1) {
-      tabprint(rec,l,"%s varchar(%d)[%d];\n",
+      rec_print_tab(rec,l,"%s varchar(%d)[%d];\n",
         name,
         node->length,
         node->occurs);
     } else {
-      tabprint(rec,l,"%s varchar(%d);\n",
+      rec_print_tab(rec,l,"%s varchar(%d);\n",
         name,
         node->length);
     }
   } else if(node->type == DIC_NODE_TYPE_IMAGE){
     if (node->occurs > 1) {
-      tabprint(rec,l,"%s varchar(%d)[%d];\n",
+      rec_print_tab(rec,l,"%s varchar(%d)[%d];\n",
         name,
         DNODE_IMAGE_PATH_SIZE,
         node->occurs);
     } else {
-      tabprint(rec,l,"%s varchar(%d);\n",
+      rec_print_tab(rec,l,"%s varchar(%d);\n",
         name,
         DNODE_IMAGE_PATH_SIZE);
     }
@@ -375,4 +375,114 @@ red2rec(xmlDocPtr doc)
   }
   g_string_append_printf(rec,"};\n");
   return rec;
+}
+
+static void
+inc_print_node(GString *inc,int l,char *format,...)
+{
+  int i;
+  va_list va;
+
+  g_string_append_printf(inc,"            ");
+  for (i=0;i<l;i++) {
+    g_string_append_printf(inc,"  ");
+  }
+  va_start(va,format);
+  g_string_append_vprintf(inc,format,va);
+  va_end(va);
+}
+
+static void
+inc_print_occurs(GString *inc,int occ)
+{
+  g_string_append_printf(inc,
+"                                        OCCURS %d TIMES.\n",occ);
+}
+
+static void
+inc_print_pic(GString *inc,int x)
+{
+  g_string_append_printf(inc,
+"                        PIC X(%d).\n",x);
+}
+
+static void
+inc_print_pic_occurs(GString *inc,int x,int occ)
+{
+  int i;
+  gchar buf[256];
+
+  sprintf(buf,
+"                        PIC X(%d)",x);
+  g_string_append_printf(inc,"%s",buf);
+  for(i=strlen(buf);i<40;i++) {
+    g_string_append_printf(inc," ");
+  }
+  g_string_append_printf(inc,"OCCURS %d TIMES.\n",occ);
+}
+
+static void
+print_inc(GString *inc,int l,DicNode *node,gchar *prefix)
+{
+  DicNode *child;
+  gchar *name;
+
+  inc_print_node(inc,l,"%02d  %s-%s",l+2,prefix,node->name);
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    if (node->occurs > 1) {
+      g_string_append_printf(inc,"\n");
+      inc_print_occurs(inc,node->occurs);
+    } else {
+      g_string_append_printf(inc,".\n");
+    }
+    for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
+      print_inc(inc,l+1,child,prefix);
+    }
+  } else if(node->type == DIC_NODE_TYPE_TEXT){
+    if (node->occurs > 1) {
+      g_string_append_printf(inc,"\n");
+      inc_print_pic_occurs(inc,node->length,node->occurs);
+    } else {
+      g_string_append_printf(inc,"\n");
+      inc_print_pic(inc,node->length);
+    }
+  } else if(node->type == DIC_NODE_TYPE_IMAGE){
+    if (node->occurs > 1) {
+      g_string_append_printf(inc,"\n");
+      inc_print_pic_occurs(inc,DNODE_IMAGE_PATH_SIZE,node->occurs);
+    } else {
+      g_string_append_printf(inc,"\n");
+      inc_print_pic(inc,DNODE_IMAGE_PATH_SIZE);
+    }
+  }
+  g_free(name);
+}
+
+GString*
+red2inc(xmlDocPtr doc,gchar *prefix)
+{
+  xmlNodePtr dict;
+  DicNode *dtree;
+  DicNode *child;
+  GString *inc;
+
+  if (doc == NULL) {
+    fprintf(stderr, "Error: xmlDocPtr doc is NULL\n");
+    exit(1);
+  }
+  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
+    BAD_CAST(MONPE_XML_DICTIONARY));
+  if (dict == NULL) {
+    fprintf(stderr,"no dictionary data\n");
+    exit(1);
+  }
+  dtree = dtree_new();
+  dtree_new_from_xml(&dtree,dict);
+
+  inc = g_string_new("        01  ");
+  g_string_append_printf(inc,"%s.\n",prefix);
+  for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
+    print_inc(inc,0,child,prefix);
+  }
+  return inc;
 }
