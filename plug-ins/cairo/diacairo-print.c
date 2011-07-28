@@ -48,10 +48,24 @@ _dia_to_gtk_page_setup (const DiagramData *data, GtkPageSetup *setup)
   int index = find_paper (paper->name);
   if (index < 0)
     index = get_default_paper ();
+#if 0
   paper_size = gtk_paper_size_new_from_ppd (
 		 paper->name, paper->name, 
                  get_paper_pswidth (index) * points_per_cm, 
 		 get_paper_psheight (index) * points_per_cm);
+#else
+  if (!g_strcmp0(paper->name,"Custom")){
+    paper_size = gtk_paper_size_new_from_ppd (
+      	 paper->name, paper->name, 
+                   data->paper.custom_width * points_per_cm, 
+                   data->paper.custom_height * points_per_cm);
+  } else {
+    paper_size = gtk_paper_size_new_from_ppd (
+  		 paper->name, paper->name, 
+                   get_paper_pswidth (index) * points_per_cm, 
+                   get_paper_psheight (index) * points_per_cm);
+  }
+#endif
 
   gtk_page_setup_set_orientation (setup, data->paper.is_portrait ?
     GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE);

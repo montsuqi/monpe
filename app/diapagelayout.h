@@ -72,4 +72,8 @@ void dia_page_layout_get_default_margins (const gchar *paper,
 					  gfloat *tmargin, gfloat *bmargin,
 					  gfloat *lmargin, gfloat *rmargin);
 
+gdouble dia_page_layout_get_custom_width(DiaPageLayout *self);
+gdouble dia_page_layout_get_custom_height(DiaPageLayout *self);
+void dia_page_layout_set_custom_width(DiaPageLayout *self,gdouble width);
+void dia_page_layout_set_custom_height(DiaPageLayout *self,gdouble height);
 #endif

@@ -53,6 +53,7 @@ static const struct _dia_paper_metrics {
   { "A0", 84.1, 118.9, 2.8222, 2.8222, 2.8222, 2.8222 },
   { "A1", 59.4, 84.1, 2.8222, 2.8222, 2.8222, 2.8222 },
   { "A2", 42.0, 59.4, 2.8222, 2.8222, 2.8222, 2.8222 },
+  { "Custom", 10.0, 10.0, 0.0, 0.0, 0.0, 0.0 },
   { NULL, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }
 };
 
@@ -133,6 +134,8 @@ get_paper_info(PaperInfo *paper, int i, NewDiagramData *prefs)
     paper->width = paper->height;
     paper->height = tmp;
   }
+  paper->custom_width =  10.0;
+  paper->custom_height =  10.0;
 }
 
 GList *
@@ -191,3 +194,4 @@ get_paper_bmargin(int i)
 {
   return paper_metrics[i].bmargin;
 }
+

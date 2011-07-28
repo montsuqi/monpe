@@ -135,8 +135,16 @@ static gint darea_expose_event(DiaPageLayout *self, GdkEventExpose *ev);
 static void paper_size_change(GtkMenuItem *item, DiaPageLayout *self);
 static void orient_changed(DiaPageLayout *self);
 static void margin_changed(DiaPageLayout *self);
+static void custom_changed(DiaPageLayout *self);
 static void scalemode_changed(DiaPageLayout *self);
 static void scale_changed(DiaPageLayout *self);
+
+static gboolean
+is_custom(DiaPageLayout *self)
+{
+  return !g_strcmp0(get_paper_name(self->papernum),"Custom");
+}
+
 
 static void
 dia_page_layout_init(DiaPageLayout *self)
@@ -189,7 +197,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_container_set_border_width(GTK_CONTAINER(table), 5);
   gtk_table_set_row_spacings(GTK_TABLE(table), 5);
   gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-  gtk_container_add(GTK_CONTAINER(frame), table);
+  gtk_container_add(GTK_CONTAINER(box), table);
   gtk_widget_show(table);
 
   wid = gtk_label_new(_("Width:"));
@@ -376,6 +384,12 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->darea);
 
+  g_signal_connect_swapped(GTK_OBJECT(self->custom_width), "changed",
+			  G_CALLBACK(custom_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->custom_height), "changed",
+			  G_CALLBACK(custom_changed), GTK_OBJECT(self));
+
+
   /* connect the signal handlers */
   g_signal_connect_swapped(GTK_OBJECT(self->orient_portrait), "toggled",
 			  G_CALLBACK(orient_changed), GTK_OBJECT(self));
@@ -551,17 +565,51 @@ dia_page_layout_set_fit_dims(DiaPageLayout *self, gint w, gint h)
 }
 
 void
+dia_page_layout_set_custom_width(DiaPageLayout *self, gdouble width)
+{
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->custom_width),width);
+}
+
+void
+dia_page_layout_set_custom_height(DiaPageLayout *self, gdouble height)
+{
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->custom_height),height);
+}
+
+gdouble
+dia_page_layout_get_custom_width(DiaPageLayout *self)
+{
+  return dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_width));
+}
+
+gdouble
+dia_page_layout_get_custom_height(DiaPageLayout *self)
+{
+  return dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_height));
+}
+
+void
 dia_page_layout_get_effective_area(DiaPageLayout *self, gfloat *width,
 				   gfloat *height)
 {
   gfloat h, w, scaling;
 
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
-    w = get_paper_pswidth(self->papernum);
-    h = get_paper_psheight(self->papernum);
+  if (is_custom(self)) {
+    if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+      w  = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_width));
+      h  = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_height));
+    } else {
+      w  = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_height));
+      h  = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_width));
+    }
   } else {
-    h = get_paper_pswidth(self->papernum);
-    w = get_paper_psheight(self->papernum);
+    if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+      w = get_paper_pswidth(self->papernum);
+      h = get_paper_psheight(self->papernum);
+    } else {
+      h = get_paper_pswidth(self->papernum);
+      w = get_paper_psheight(self->papernum);
+    }
   }
   h -= dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
   g_return_if_fail (h > 0.0);
@@ -588,6 +636,7 @@ dia_page_layout_get_paper_size(const gchar *paper,
   i = find_paper(paper);
   if (i == -1)
     i = find_paper(prefs.new_diagram.papertype);
+
   if (width)
     *width = get_paper_pswidth(i);
   if (height)
@@ -617,26 +666,30 @@ dia_page_layout_get_default_margins(const gchar *paper,
 static void
 size_page(DiaPageLayout *self, GtkAllocation *a)
 {
+  gdouble psheight,pswidth;
+
   self->width = a->width - 3;
   self->height = a->height - 3;
 
+  pswidth = get_paper_pswidth(self->papernum);
+  psheight = get_paper_psheight(self->papernum);
+
+  if (is_custom(self)) {
+    pswidth = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_width));
+    psheight = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->custom_height));
+  }
+
   /* change to correct metrics */
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
-    if (self->width * get_paper_psheight(self->papernum) >
-	self->height * get_paper_pswidth(self->papernum))
-      self->width = self->height * get_paper_pswidth(self->papernum) /
-	get_paper_psheight(self->papernum);
+    if (self->width * psheight > self->height * pswidth)
+      self->width = self->height * pswidth / psheight;
     else
-      self->height = self->width * get_paper_psheight(self->papernum) /
-	get_paper_pswidth(self->papernum);
+      self->height = self->width * psheight / pswidth;
   } else {
-    if (self->width * get_paper_pswidth(self->papernum) >
-	self->height * get_paper_psheight(self->papernum))
-      self->width = self->height * get_paper_psheight(self->papernum) /
-	get_paper_pswidth(self->papernum);
+    if (self->width * pswidth > self->height * psheight)
+      self->width = self->height * psheight / pswidth;
     else
-      self->height = self->width * get_paper_pswidth(self->papernum) /
-	get_paper_psheight(self->papernum);
+      self->height = self->width * pswidth / psheight;
   }
 
   self->x = (a->width - self->width - 3) / 2;
@@ -738,10 +791,12 @@ static void
 paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 {
   gchar buf[512];
+  gchar *name;
 
   self->papernum = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(item), "user_data"));
   size_page(self, &self->darea->allocation);
   gtk_widget_queue_draw(self->darea);
+  name = get_paper_name(self->papernum);
 
   self->block_changed = TRUE;
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->tmargin),
@@ -774,10 +829,17 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
   }
   self->block_changed = FALSE;
 
-  g_snprintf(buf, sizeof(buf), _("%0.3gcm x %0.3gcm"),
-	     get_paper_pswidth(self->papernum),
-	     get_paper_psheight(self->papernum));
-  gtk_label_set(GTK_LABEL(self->paper_label), buf);
+  if (is_custom(self)) {
+    gtk_widget_hide(self->paper_label);
+    gtk_widget_show(self->custom_table);
+  } else {
+    gtk_widget_hide(self->custom_table);
+    gtk_widget_show(self->paper_label);
+    g_snprintf(buf, sizeof(buf), _("%0.3gcm x %0.3gcm"),
+           get_paper_pswidth(self->papernum),
+           get_paper_psheight(self->papernum));
+    gtk_label_set(GTK_LABEL(self->paper_label), buf);
+  }
 
   gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
 }
@@ -814,6 +876,14 @@ orient_changed(DiaPageLayout *self)
 
 static void
 margin_changed(DiaPageLayout *self)
+{
+  gtk_widget_queue_draw(self->darea);
+  if (!self->block_changed)
+    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+static void
+custom_changed(DiaPageLayout *self)
 {
   gtk_widget_queue_draw(self->darea);
   if (!self->block_changed)

@@ -33,6 +33,7 @@ struct _PaperInfo {
   gfloat width, height;   /* usable width/height -- calculated from paper type,
 			   * margin widths and paper orientation; the real paper
 			   * size is width*scaling, height*scaling */
+  gfloat custom_width, custom_height; /* paper size for custom */
 };
 
 /* DiagramData uses PaperInfo as a non-pointer, so we need to know the size */

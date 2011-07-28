@@ -94,6 +94,12 @@ create_page_setup_dlg(Diagram *dia)
   g_datalist_set_data_full (&G_OBJECT (ps->window)->qdata, "pagesetup", ps, g_free);
 
   ps->paper = dia_page_layout_new();
+
+  dia_page_layout_set_custom_width(DIA_PAGE_LAYOUT(ps->paper),
+    dia->data->paper.custom_width);
+  dia_page_layout_set_custom_height(DIA_PAGE_LAYOUT(ps->paper),
+    dia->data->paper.custom_height);
+
   dia_page_layout_set_paper(DIA_PAGE_LAYOUT(ps->paper), dia->data->paper.name);
   dia_page_layout_set_margins(DIA_PAGE_LAYOUT(ps->paper),
 			      dia->data->paper.tmargin,
@@ -195,6 +201,10 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
   dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
 				     &ps->dia->data->paper.width,
 				     &ps->dia->data->paper.height);
+  ps->dia->data->paper.custom_width = 
+    dia_page_layout_get_custom_width(DIA_PAGE_LAYOUT(ps->paper));
+  ps->dia->data->paper.custom_height = 
+    dia_page_layout_get_custom_height(DIA_PAGE_LAYOUT(ps->paper));
 
   /* set sensitivity on apply button */
   gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);

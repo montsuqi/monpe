@@ -543,10 +543,24 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     if (attr != NULL)
       data->paper.fitheight = data_int(attribute_first_data(attr));
 
+    attr = composite_find_attribute(paperinfo, "custom_width");
+    if (attr != NULL)
+      data->paper.custom_width = data_real(attribute_first_data(attr));
+    attr = composite_find_attribute(paperinfo, "custom_height");
+    if (attr != NULL)
+      data->paper.custom_height = data_real(attribute_first_data(attr));
+
+
     /* calculate effective width/height */
     dia_page_layout_get_paper_size(data->paper.name,
 				   &data->paper.width,
 				   &data->paper.height);
+
+    if (!g_strcmp0(data->paper.name,"Custom")) {
+      data->paper.width = data->paper.custom_width;
+      data->paper.height = data->paper.custom_height;
+    }
+
     if (!data->paper.is_portrait) {
       gfloat tmp = data->paper.width;
 
@@ -909,6 +923,11 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
     data_add_int(composite_add_attribute(pageinfo, "fitheight"),
 		 data->paper.fitheight);
   }
+
+  data_add_real(composite_add_attribute(pageinfo, "custom_width"),
+		data->paper.custom_width);
+  data_add_real(composite_add_attribute(pageinfo, "custom_height"),
+		data->paper.custom_height);
 
   if (diagram) {
     attr = new_attribute((ObjectNode)tree, "grid");
