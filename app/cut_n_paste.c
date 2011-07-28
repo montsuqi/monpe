@@ -50,18 +50,22 @@ cnp_store_objects(GList *object_list, int generation,DDisplay *ddisp)
 }
 
 void
-cnp_prepare_copy_embed_object_list(GList *copied_list)
+cnp_prepare_copy_embed_object_list(GList *copied_list,GHashTable *list)
 {
   DiaObject *obj;
   int index,n,j;
-  GHashTable *list;
+  gboolean destroy_list = FALSE;
 
-  list = g_hash_table_new(g_direct_hash,g_direct_equal);
+  if (list == NULL) {
+    list = g_hash_table_new(g_direct_hash,g_direct_equal);
+    destroy_list = TRUE;
+  }
+
   for (j=0;j<g_list_length(copied_list);j++) {
     obj = (DiaObject*)g_list_nth_data(copied_list,j);
 
     if (IS_GROUP(obj)) {
-      cnp_prepare_copy_embed_object_list(group_objects(obj));
+      cnp_prepare_copy_embed_object_list(group_objects(obj),list);
     } else {
       if (obj->node != NULL) {
         n = GPOINTER_TO_INT(g_hash_table_lookup(list,obj->node));
@@ -78,7 +82,9 @@ cnp_prepare_copy_embed_object_list(GList *copied_list)
       }
     }
   }
-  g_hash_table_destroy(list);
+  if (destroy_list) {
+    g_hash_table_destroy(list);
+  }
 }
 
 GList *
@@ -86,7 +92,7 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
 {
   GList *copied_list;
   GList *_copied_list;
-  int i, index;
+  int i;
   gboolean skipped = FALSE;
   DiaObject *obj;
 
@@ -109,7 +115,7 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
       copied_list = _copied_list;
     }
   } else {
-    cnp_prepare_copy_embed_object_list(copied_list);
+    cnp_prepare_copy_embed_object_list(copied_list,NULL);
   }
   return copied_list;
 }

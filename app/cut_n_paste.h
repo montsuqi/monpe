@@ -28,6 +28,6 @@ void cnp_store_objects(GList *object_list, int generation,DDisplay *ddisp);
 GList *cnp_get_stored_objects(int* generation,DDisplay *ddisp);
 
 gint cnp_exist_stored_objects(void);
-void cnp_prepare_copy_embed_object_list(GList *copied_list);
+void cnp_prepare_copy_embed_object_list(GList *copied_list,GHashTable *list);
 
 #endif /* CUT_N_PASTE_H */
