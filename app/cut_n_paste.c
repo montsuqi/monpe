@@ -91,7 +91,6 @@ GList *
 cnp_get_stored_objects(int* generation,DDisplay *ddisp)
 {
   GList *copied_list;
-  GList *_copied_list;
   int i;
   gboolean skipped = FALSE;
   DiaObject *obj;
@@ -100,19 +99,15 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
   *generation = stored_generation;
   ++stored_generation;
 
-  _copied_list = NULL;
   if (ddisp != stored_ddisp) {
     for (i=0;i<g_list_length(copied_list);i++) {
       obj = (DiaObject*)g_list_nth_data(copied_list,i);
       if (obj->node != NULL) {
-        skipped = TRUE;
-      } else {
-        _copied_list = g_list_append(_copied_list,obj);
+        message_error(_("cannot paste dictionary object for other diagram.\n"
+                        "dummy object was created.\n"));
+        object_change_unknown(obj);
+        obj->node = NULL;
       }
-      if (skipped) {
-        message_error(_("The embedding object paste to different diagram.\n"));
-      }
-      copied_list = _copied_list;
     }
   } else {
     cnp_prepare_copy_embed_object_list(copied_list,NULL);
