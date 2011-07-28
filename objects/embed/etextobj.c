@@ -48,6 +48,14 @@ enum _Valign {
         VALIGN_CENTER,
         VALIGN_FIRST_LINE
 };
+
+typedef enum _EmbedCharType EmbedCharType;
+enum _EmbedCharType {
+        EMBED_CHAR_TYPE_ZENKAKU,
+        EMBED_CHAR_TYPE_HANKAKU
+};
+
+
 typedef struct _ETextobj ETextobj;
 struct _ETextobj {
   DiaObject object;
@@ -58,6 +66,8 @@ struct _ETextobj {
   Text *text;
   TextAttributes attrs;
   Valign vert_align;
+
+  EmbedCharType embed_char_type;
   
   Color fill_color;
   gboolean show_background;
@@ -154,13 +164,19 @@ PropEnumData prop_text_vert_align_data[] = {
   { NULL, 0 }
 };
 
+PropEnumData prop_embed_char_type_data[] = {
+  { N_("ZENKAKU"), EMBED_CHAR_TYPE_ZENKAKU },
+  { N_("HANKAKU"), EMBED_CHAR_TYPE_HANKAKU },
+  { NULL, 0 }
+};
+
 static PropNumData embed_text_size_range = { 1, G_MAXINT, 1 };
 static PropNumData embed_column_size_range = { 0, G_MAXINT, 1 };
 
 static PropDescription textobj_props[] = {
   OBJECT_COMMON_PROPERTIES,
   PROP_STD_TEXT_ALIGNMENT,
-  { "text_vert_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL, \
+  { "text_vert_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Vertical text alignment"), NULL, prop_text_vert_align_data },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
@@ -176,6 +192,8 @@ static PropDescription textobj_props[] = {
     N_("Embed Text Size"), NULL, &embed_text_size_range },
   { "embed_column_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
     N_("Embed Column Size"), NULL, &embed_column_size_range },
+  { "embed_char_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, 
+    N_("Embed Character Type"), NULL, prop_embed_char_type_data },
   PROP_DESC_END
 };
 
@@ -201,6 +219,7 @@ static PropOffset textobj_offsets[] = {
   { "embed_id", PROP_TYPE_STRING, offsetof(ETextobj, embed_id) },
   { "embed_text_size", PROP_TYPE_INT, offsetof(ETextobj, embed_text_size) },
   { "embed_column_size", PROP_TYPE_INT, offsetof(ETextobj, embed_column_size) },
+  { "embed_char_type",PROP_TYPE_ENUM,offsetof(ETextobj,embed_char_type)},
   { NULL, 0, 0 }
 };
 
@@ -371,6 +390,7 @@ textobj_create(Point *startpoint,
     textobj->embed_id = get_default_embed_id("embed_text");
   }
   textobj->embed_column_size = 0;
+  textobj->embed_char_type = EMBED_CHAR_TYPE_ZENKAKU;
 
   col = attributes_get_foreground();
 
@@ -452,6 +472,8 @@ textobj_save(ETextobj *textobj, ObjectNode obj_node, const char *filename)
 		textobj->embed_text_size);
   data_add_int(new_attribute(obj_node, "embed_column_size"),
 		textobj->embed_column_size);
+  data_add_enum(new_attribute(obj_node, "embed_char_type"),
+		  textobj->embed_char_type);
 }
 
 static DiaObject *
@@ -523,6 +545,16 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
     textobj->embed_column_size = data_int( attribute_first_data(attr) );
   } else {
     textobj->embed_column_size = 0;
+  }
+
+  attr = object_find_attribute(obj_node, "embed_text_string");
+  if (attr != NULL) {
+    textobj->embed_char_type = data_enum( attribute_first_data(attr) );
+  }
+
+  attr = object_find_attribute(obj_node, "embed_char_type");
+  if (attr != NULL) {
+    textobj->embed_char_type = data_enum( attribute_first_data(attr) );
   }
 
   object_init(obj, 1, 0);

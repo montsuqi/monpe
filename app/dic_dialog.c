@@ -869,8 +869,8 @@ cb_selection_changed(GtkTreeSelection *sel,
       break;
     case ITEM_TYPE_IMAGE:
       gtk_frame_set_label(GTK_FRAME(dic_dialog->frame),_("Image"));
-      gtk_widget_show(dic_dialog->length_label);
-      gtk_widget_show(dic_dialog->length_spin);
+      gtk_widget_hide(dic_dialog->length_label);
+      gtk_widget_hide(dic_dialog->length_spin);
       break;
     }   
     g_free(icon);

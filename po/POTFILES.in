@@ -185,6 +185,9 @@ objects/standard/polyline.c
 objects/standard/standard.c
 objects/standard/textobj.c
 objects/standard/zigzagline.c
+objects/embed/textcircle.c
+objects/embed/eimage.c
+objects/embed/etextobj.c
 plug-ins/cairo/diacairo-interactive.c
 plug-ins/cairo/diacairo.c
 plug-ins/cgm/cgm.c

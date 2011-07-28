@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-26 14:50+0900\n"
+"POT-Creation-Date: 2011-07-28 11:06+0900\n"
 "PO-Revision-Date: 2009-04-26 16:08+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -68,46 +68,46 @@ msgstr "%s --> %s\n"
 msgid "Can't find output format/filter %s\n"
 msgstr "%s という出力フォーマットまたはフィルタはありません\n"
 
-#: ../app/app_procs.c:636
+#: ../app/app_procs.c:643
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
 msgstr "入力フォルダが見つかりませんでした: %s\n"
 
-#: ../app/app_procs.c:653
+#: ../app/app_procs.c:660
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
 msgstr "出力フォルダが見つかりませんでした: %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:710
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "フィルタまたはフォーマットを指定する: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:721
+#: ../app/app_procs.c:728
 msgid "Export loaded file and exit"
 msgstr "読み込んだファイルをエキスポートして終了する"
 
-#: ../app/app_procs.c:721
+#: ../app/app_procs.c:728
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:723
+#: ../app/app_procs.c:730
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../app/app_procs.c:725
+#: ../app/app_procs.c:732
 msgid "Export graphics size"
 msgstr "指定したサイズのグラフィックスにエキスポートする"
 
-#: ../app/app_procs.c:725
+#: ../app/app_procs.c:732
 msgid "WxH"
 msgstr "WxH"
 
-#: ../app/app_procs.c:727
+#: ../app/app_procs.c:734
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -115,102 +115,102 @@ msgstr ""
 "指定したレイヤだけ表示する (例えばエキスポートする時など): レイヤ名またはレイ"
 "ヤ番号の範囲 (X-Y) で指定する"
 
-#: ../app/app_procs.c:728
+#: ../app/app_procs.c:735
 msgid "LAYER,LAYER,..."
 msgstr "LAYER,LAYER,..."
 
-#: ../app/app_procs.c:730
+#: ../app/app_procs.c:737
 msgid "Don't show the splash screen"
 msgstr "スプラッシュスクリーンを表示しない"
 
-#: ../app/app_procs.c:732
+#: ../app/app_procs.c:739
 msgid "Don't create empty diagram"
 msgstr "空のダイアグラムを生成しない"
 
-#: ../app/app_procs.c:734
+#: ../app/app_procs.c:741
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr ""
 "埋め込み型のユーザ・インタフェースで起動する (ダイアグラムをタブ化する)"
 
-#: ../app/app_procs.c:736
+#: ../app/app_procs.c:743
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "エラー・メッセージをダイアログで表示する代わりに標準エラー出力へ出力する"
 
-#: ../app/app_procs.c:738
+#: ../app/app_procs.c:745
 msgid "Directory containing input files"
 msgstr "入力ファイルを格納したフォルダを指定する"
 
-#: ../app/app_procs.c:738 ../app/app_procs.c:740
+#: ../app/app_procs.c:745 ../app/app_procs.c:747
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../app/app_procs.c:740
+#: ../app/app_procs.c:747
 msgid "Directory containing output files"
 msgstr "出力ファイルを格納するフォルダを指定する"
 
-#: ../app/app_procs.c:743
+#: ../app/app_procs.c:750
 msgid "Display credits list and exit"
 msgstr "クレジットを表示して終了する"
 
-#: ../app/app_procs.c:746
+#: ../app/app_procs.c:753
 msgid "Generate verbose output"
 msgstr "詳細な出力を表示する"
 
-#: ../app/app_procs.c:748
+#: ../app/app_procs.c:755
 msgid "Display version and exit"
 msgstr "バージョンを表示して終了する"
 
-#: ../app/app_procs.c:750
+#: ../app/app_procs.c:757
 msgid "The x cordinate to paper offset[cm]"
 msgstr ""
 
-#: ../app/app_procs.c:752
+#: ../app/app_procs.c:759
 msgid "The y cordinate to paper offset[cm]"
 msgstr ""
 
-#: ../app/app_procs.c:775
+#: ../app/app_procs.c:782
 msgid "[FILE...]"
 msgstr "[ファイル...]"
 
-#: ../app/app_procs.c:787
+#: ../app/app_procs.c:794
 #, c-format
 msgid "Invalid option?"
 msgstr "不正操作?"
 
-#: ../app/app_procs.c:810
+#: ../app/app_procs.c:817
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "ファイル名の変更に失敗しました: %s\n"
 
-#: ../app/app_procs.c:823
+#: ../app/app_procs.c:830
 #, c-format
 msgid "Missing input: %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:848
+#: ../app/app_procs.c:855
 msgid "Can't connect to session manager!\n"
 msgstr "セッション・マネージャへ接続できません！\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:888
+#: ../app/app_procs.c:895
 #, c-format
 msgid "Monpe version %s, compiled %s %s\n"
 msgstr "Monpe バージョン %1$s (コンパイル日時 %3$s %2$s)\n"
 
-#: ../app/app_procs.c:890
+#: ../app/app_procs.c:897
 #, c-format
 msgid "Monpe version %s\n"
 msgstr "Monpe バージョン %s\n"
 
-#: ../app/app_procs.c:930
+#: ../app/app_procs.c:937
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "オブジェクトのライブラリから標準オブジェクトを見つけられなかったので終了しま"
 "す...\n"
 
-#: ../app/app_procs.c:932
+#: ../app/app_procs.c:939
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -219,7 +219,7 @@ msgstr ""
 "オブジェクトのライブラリ '%s' から標準オブジェクトを見つけられなかったので終"
 "了します...\n"
 
-#: ../app/app_procs.c:1037
+#: ../app/app_procs.c:1044
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -227,16 +227,16 @@ msgstr ""
 "これは致命的な問題です。この問題の再現方法を記述したバグ・レポートを\n"
 "bugzilla.gnome.org まで報告して下さい。\n"
 
-#: ../app/app_procs.c:1052
+#: ../app/app_procs.c:1059
 msgid "Exiting Dia"
 msgstr "Dia の終了"
 
 #. no standard buttons
-#: ../app/app_procs.c:1116
+#: ../app/app_procs.c:1123
 msgid "Quitting without saving modified diagrams"
 msgstr "編集中のダイアグラムを保存せずに終了します"
 
-#: ../app/app_procs.c:1118
+#: ../app/app_procs.c:1125
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Monpe without saving "
 "them?"
@@ -244,15 +244,15 @@ msgstr ""
 "ダイアグラムが変更されています。本当に保存せずに Monpe を終了してもよろしいで"
 "すか？"
 
-#: ../app/app_procs.c:1122
+#: ../app/app_procs.c:1129
 msgid "Quit Monpe"
 msgstr ""
 
-#: ../app/app_procs.c:1191 ../app/app_procs.c:1198
+#: ../app/app_procs.c:1198 ../app/app_procs.c:1205
 msgid "Could not create per-user Dia config directory"
 msgstr "Dia のユーザ設定フォルダを作成できませんでした"
 
-#: ../app/app_procs.c:1201
+#: ../app/app_procs.c:1208
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -260,11 +260,11 @@ msgstr ""
 "ユーザ用の Dia 設定フォルダを作成できませんでした。環境変数 $HOME が既存の"
 "フォルダを指しているか確認して下さい。"
 
-#: ../app/app_procs.c:1224
+#: ../app/app_procs.c:1231
 msgid "Objects and filters internal to dia"
 msgstr "Dia に内蔵されたオブジェクトとフィルタ"
 
-#: ../app/app_procs.c:1280
+#: ../app/app_procs.c:1287
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -273,7 +273,7 @@ msgstr ""
 "オリジナルの開発者:\n"
 "\n"
 
-#: ../app/app_procs.c:1285
+#: ../app/app_procs.c:1292
 #, c-format
 msgid ""
 "\n"
@@ -284,7 +284,7 @@ msgstr ""
 "現在のメンテナ:\n"
 "\n"
 
-#: ../app/app_procs.c:1290
+#: ../app/app_procs.c:1297
 #, c-format
 msgid ""
 "\n"
@@ -295,7 +295,7 @@ msgstr ""
 "その他の貢献者:\n"
 "\n"
 
-#: ../app/app_procs.c:1295
+#: ../app/app_procs.c:1302
 #, c-format
 msgid ""
 "\n"
@@ -334,11 +334,11 @@ msgstr "印刷プラグインが見つかりませんでした！"
 msgid "No existing object to paste.\n"
 msgstr "貼り付けるオブジェクトがありません。\n"
 
-#: ../app/commands.c:651 ../app/commands.c:689
+#: ../app/commands.c:652 ../app/commands.c:690
 msgid "Could not find help directory"
 msgstr "ヘルプが見つかりませんでした"
 
-#: ../app/commands.c:658
+#: ../app/commands.c:659
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -347,7 +347,7 @@ msgstr ""
 "ヘルプを格納したフォルダが見つかりませんでした:\n"
 "%s"
 
-#: ../app/commands.c:725
+#: ../app/commands.c:726
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
@@ -357,7 +357,7 @@ msgstr ""
 "Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
-#: ../app/commands.c:727
+#: ../app/commands.c:728
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -388,7 +388,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, \n"
 "MA 02110-1301, USA まで連絡して下さい。\n"
 
-#: ../app/commands.c:752
+#: ../app/commands.c:753
 msgid "MONTSUQI Printing Environment"
 msgstr ""
 
@@ -424,7 +424,7 @@ msgstr ""
 msgid "Confirm Diagram Size"
 msgstr "ダイアグラムのサイズの確認"
 
-#: ../app/cut_n_paste.c:68
+#: ../app/cut_n_paste.c:74
 msgid ""
 "cannot paste dictionary object by size over.\n"
 "dummy object was created.\n"
@@ -432,9 +432,9 @@ msgstr ""
 "辞書サイズオーバーのためペーストできません\n"
 "ダミーオブジェクトが作成されました\n"
 
-#: ../app/cut_n_paste.c:99
+#: ../app/cut_n_paste.c:107
 msgid "The embedding object paste to different diagram.\n"
-msgstr ""
+msgstr "埋め込みオブジェクトを他のダイアグラムにペーストしようとしました\n"
 
 #: ../app/create_object.c:71
 #, c-format
@@ -638,67 +638,67 @@ msgid "Diagram Tree"
 msgstr "ダイアグラムのツリー"
 
 #. paper size
-#: ../app/diapagelayout.c:155
+#: ../app/diapagelayout.c:163
 msgid "Paper Size"
 msgstr "用紙のサイズ"
 
-#: ../app/diapagelayout.c:195 ../app/preferences.c:205
+#: ../app/diapagelayout.c:203 ../app/preferences.c:205
 msgid "Width:"
 msgstr "幅:"
 
-#: ../app/diapagelayout.c:208 ../app/preferences.c:206
+#: ../app/diapagelayout.c:216 ../app/preferences.c:206
 msgid "Height:"
 msgstr "高さ:"
 
 #. orientation
-#: ../app/diapagelayout.c:222
+#: ../app/diapagelayout.c:230
 msgid "Orientation"
 msgstr "向き"
 
 #. margins
-#: ../app/diapagelayout.c:260
+#: ../app/diapagelayout.c:268
 msgid "Margins"
 msgstr "余白"
 
-#: ../app/diapagelayout.c:272
+#: ../app/diapagelayout.c:280
 msgid "Top:"
 msgstr "上:"
 
-#: ../app/diapagelayout.c:285
+#: ../app/diapagelayout.c:293
 msgid "Bottom:"
 msgstr "下:"
 
-#: ../app/diapagelayout.c:298
+#: ../app/diapagelayout.c:306
 msgid "Left:"
 msgstr "左:"
 
-#: ../app/diapagelayout.c:311
+#: ../app/diapagelayout.c:319
 msgid "Right:"
 msgstr "右:"
 
 #. Scaling
-#: ../app/diapagelayout.c:325
+#: ../app/diapagelayout.c:333
 msgid "Scaling"
 msgstr "倍率"
 
-#: ../app/diapagelayout.c:336
+#: ../app/diapagelayout.c:344
 msgid "Scale:"
 msgstr "倍率:"
 
-#: ../app/diapagelayout.c:348
+#: ../app/diapagelayout.c:356
 msgid "Fit to:"
 msgstr "比率:"
 
-#: ../app/diapagelayout.c:360
+#: ../app/diapagelayout.c:368
 msgid "by"
 msgstr "対"
 
-#: ../app/diapagelayout.c:777
+#: ../app/diapagelayout.c:838
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:881 ../app/pagesetup.c:78
+#: ../app/diapagelayout.c:951 ../app/pagesetup.c:78
 msgid "Page Setup"
 msgstr "ページ設定"
 
@@ -793,13 +793,14 @@ msgid "Save"
 msgstr "保存"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:982
+#: ../app/exit_dialog.c:123 ../app/dic_dialog.c:1004
 #: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
 #: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
 #: ../objects/UML/association.c:234 ../objects/UML/class.c:144
 #: ../objects/UML/large_package.c:139 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
-#: ../objects/UML/umlparameter.c:43
+#: ../objects/UML/umlparameter.c:43 ../objects/embed/eimage.c:156
+#: ../objects/embed/etextobj.c:188
 msgid "Name"
 msgstr "名前"
 
@@ -972,7 +973,7 @@ msgstr "ダイアグラムの周辺をスクロールします"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:181 ../app/dic_dialog.c:850 ../app/menus.c:233
+#: ../app/interface.c:181 ../app/dic_dialog.c:866 ../app/menus.c:233
 #: ../lib/properties.c:80 ../lib/properties.h:530
 #: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
 #: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
@@ -1026,7 +1027,7 @@ msgstr "連続線の描画"
 msgid "Bezierline"
 msgstr "ベジェ曲線の描画"
 
-#: ../app/interface.c:247 ../app/dic_dialog.c:854 ../app/menus.c:246
+#: ../app/interface.c:247 ../app/dic_dialog.c:871 ../app/menus.c:246
 msgid "Image"
 msgstr "画像の埋め込み"
 
@@ -1137,7 +1138,7 @@ msgstr "レイヤ:"
 msgid "Layers"
 msgstr "レイヤ"
 
-#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:939
+#: ../app/layer_dialog.c:400 ../app/dic_dialog.c:958
 msgid "Diagram:"
 msgstr "ダイアグラム:"
 
@@ -1178,25 +1179,25 @@ msgstr "削除されるオブジェクトが存在するためoccursを変更で
 msgid "Some node included deleting node are used.\n"
 msgstr "使用しているノードがあります\n"
 
-#: ../app/dic_dialog.c:846 ../sheets/UML.sheet.in.h:22
+#: ../app/dic_dialog.c:861 ../sheets/UML.sheet.in.h:22
 msgid "Node"
 msgstr "ノード"
 
-#: ../app/dic_dialog.c:924
+#: ../app/dic_dialog.c:943
 msgid "Dictionary"
 msgstr "辞書"
 
-#: ../app/dic_dialog.c:990
+#: ../app/dic_dialog.c:1013
 msgid "Occurs"
 msgstr ""
 
-#: ../app/dic_dialog.c:998
+#: ../app/dic_dialog.c:1022
 msgid "Length"
-msgstr "文字数"
+msgstr "バイト数"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../app/dic_dialog.c:1009 ../objects/FS/function.c:976
+#: ../app/dic_dialog.c:1031 ../objects/FS/function.c:976
 #: ../objects/FS/function.c:978
 msgid "Change"
 msgstr "変更"
@@ -1271,7 +1272,7 @@ msgstr ""
 "ダイアグラム %s を読み込む際にエラー\n"
 "(Dia ファイルではありません)"
 
-#: ../app/load_save.c:680
+#: ../app/load_save.c:694
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1282,17 +1283,17 @@ msgstr ""
 "%s\n"
 "正しい Dia ファイルには少なくもレイヤが一つあります"
 
-#: ../app/load_save.c:1012
+#: ../app/load_save.c:1031
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "出力ファイルの %s に書き込む権限がありません\n"
 
-#: ../app/load_save.c:1044
+#: ../app/load_save.c:1063
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "作業ファイルを %s に書き込む権限がありません\n"
 
-#: ../app/load_save.c:1066 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1085 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:159
@@ -1308,17 +1309,17 @@ msgstr "'%s'を開くことができません: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1077
+#: ../app/load_save.c:1096
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "ファイル %2$s を書き込む際に内部エラー %1$d が発生しました\n"
 
-#: ../app/load_save.c:1088
+#: ../app/load_save.c:1107
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "%s を最終的な出力ファイルである %s に変更できません: %s\n"
 
-#: ../app/load_save.c:1179 ../app/load_save.c:1184
+#: ../app/load_save.c:1198 ../app/load_save.c:1203
 msgid "Monpe Diagram File"
 msgstr "Monpe ダイアグラム・ファイル"
 
@@ -1524,6 +1525,7 @@ msgid "Align"
 msgstr "配置"
 
 #: ../app/menus.c:193 ../objects/standard/textobj.c:137
+#: ../objects/embed/etextobj.c:161
 msgid "Top"
 msgstr "上"
 
@@ -1532,6 +1534,7 @@ msgid "Middle"
 msgstr "中"
 
 #: ../app/menus.c:195 ../objects/standard/textobj.c:136
+#: ../objects/embed/etextobj.c:160
 msgid "Bottom"
 msgstr "下"
 
@@ -2555,7 +2558,7 @@ msgid "Left"
 msgstr "左"
 
 #: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
-#: ../objects/standard/textobj.c:138
+#: ../objects/standard/textobj.c:138 ../objects/embed/etextobj.c:162
 msgid "Center"
 msgstr "中央"
 
@@ -5934,21 +5937,24 @@ msgstr "固定アスペクト"
 msgid "Circle"
 msgstr "円"
 
-#: ../objects/standard/image.c:139
+#: ../objects/standard/image.c:139 ../objects/embed/eimage.c:147
 msgid "Image file"
 msgstr "画像ファイル"
 
-#: ../objects/standard/image.c:141
+#: ../objects/standard/image.c:141 ../objects/embed/eimage.c:149
 msgid "Draw border"
 msgstr "境界線の表示"
 
-#: ../objects/standard/image.c:143
+#: ../objects/standard/image.c:143 ../objects/embed/eimage.c:151
 msgid "Keep aspect ratio"
 msgstr "アスペクト比の保持"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
+#. Found file in same dir as diagram.
+#. Found file in current dir.
 #: ../objects/standard/image.c:697 ../objects/standard/image.c:708
+#: ../objects/embed/eimage.c:766 ../objects/embed/eimage.c:777
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5959,6 +5965,7 @@ msgstr ""
 
 #. Didn't find file in current dir.
 #: ../objects/standard/image.c:714 ../objects/standard/image.c:736
+#: ../objects/embed/eimage.c:783 ../objects/embed/eimage.c:805
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "画像ファイル '%s' がありませんでした\n"
@@ -5995,13 +6002,41 @@ msgstr "四隅の削除"
 msgid "Standard objects"
 msgstr "標準オブジェクト"
 
-#: ../objects/standard/textobj.c:139
+#: ../objects/standard/textobj.c:139 ../objects/embed/etextobj.c:163
 msgid "First Line"
 msgstr "グリッド線"
 
-#: ../objects/standard/textobj.c:146
+#: ../objects/standard/textobj.c:146 ../objects/embed/etextobj.c:180
 msgid "Vertical text alignment"
 msgstr "垂直方向の位置"
+
+#: ../objects/embed/eimage.c:158 ../objects/embed/etextobj.c:190
+msgid "Embed ID"
+msgstr "埋め込みID"
+
+#: ../objects/embed/eimage.c:160
+msgid "Embed Path Size"
+msgstr "埋め込みパスサイズ"
+
+#: ../objects/embed/etextobj.c:168
+msgid "ZENKAKU"
+msgstr "全角"
+
+#: ../objects/embed/etextobj.c:169
+msgid "HANKAKU"
+msgstr "半角"
+
+#: ../objects/embed/etextobj.c:192
+msgid "Embed Text Size"
+msgstr "埋め込みサイズ(バイト数)"
+
+#: ../objects/embed/etextobj.c:194
+msgid "Embed Column Size"
+msgstr "折り返し文字数"
+
+#: ../objects/embed/etextobj.c:196
+msgid "Embed Character Type"
+msgstr "埋め込み文字タイプ"
 
 #: ../plug-ins/cairo/diacairo-interactive.c:263
 #: ../plug-ins/cairo/diacairo-interactive.c:264
