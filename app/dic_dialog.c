@@ -642,15 +642,20 @@ cb_add_node(GtkToolButton *button,
 
   if (gtk_tree_selection_get_selected(
       select, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, COLUMN_ICON, &parent_type,  -1);
+    gtk_tree_model_get(model, &iter, 
+      COLUMN_ICON, &parent_type,  
+      COLUMN_NODE, &snode,
+      -1);
     store = GTK_TREE_STORE(model);
     if (get_node_item_type(parent_type) == ITEM_TYPE_NODE) {
-      gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
+      pnode = snode;
+      snode = NULL;
       gtk_tree_store_append(store, &new, &iter);
     } else {
+      pnode = DNODE_PARENT(snode);
       model = gtk_tree_view_get_model(dic_dialog->treeview);
       store = GTK_TREE_STORE(model);
-      gtk_tree_store_append(store, &new, NULL);
+      gtk_tree_store_insert_after(store, &new, NULL, &iter);
     }
     g_free(parent_type);
   } else {
@@ -692,15 +697,20 @@ cb_add_string(GtkToolButton *button,
 
   if (gtk_tree_selection_get_selected(
       select, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, COLUMN_ICON, &parent_type,  -1);
+    gtk_tree_model_get(model, &iter,
+      COLUMN_ICON, &parent_type,
+      COLUMN_NODE, &snode,
+      -1);
     store = GTK_TREE_STORE(model);
     if (get_node_item_type(parent_type) == ITEM_TYPE_NODE) {
-      gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
+      pnode = snode;
+      snode = NULL;
       gtk_tree_store_append(store, &new, &iter);
     } else {
+      pnode = DNODE_PARENT(snode);
       model = gtk_tree_view_get_model(dic_dialog->treeview);
       store = GTK_TREE_STORE(model);
-      gtk_tree_store_append(store, &new, NULL);
+      gtk_tree_store_insert_after(store, &new, NULL, &iter);
     }
     g_free(parent_type);
   } else {
@@ -746,15 +756,20 @@ cb_add_image(GtkToolButton *button,
 
   if (gtk_tree_selection_get_selected(
       select, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, COLUMN_ICON, &parent_type,  -1);
+    gtk_tree_model_get(model, &iter,
+      COLUMN_ICON, &parent_type,
+      COLUMN_NODE, &snode,
+      -1);
     store = GTK_TREE_STORE(model);
     if (get_node_item_type(parent_type) == ITEM_TYPE_NODE) {
-      gtk_tree_model_get(model, &iter, COLUMN_NODE, &pnode,  -1);
+      pnode = snode;
+      snode = NULL;
       gtk_tree_store_append(store, &new, &iter);
     } else {
+      pnode = DNODE_PARENT(snode);
       model = gtk_tree_view_get_model(dic_dialog->treeview);
       store = GTK_TREE_STORE(model);
-      gtk_tree_store_append(store, &new, NULL);
+      gtk_tree_store_insert_after(store, &new, NULL, &iter);
     }
     g_free(parent_type);
   } else {
