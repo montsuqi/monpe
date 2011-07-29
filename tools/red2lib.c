@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <libmondai.h>
+#include <RecParser.h>
 
 #include "red2lib.h"
 
@@ -651,4 +653,207 @@ red2fill(xmlDocPtr doc,gchar *imagepath)
     _red2fill(fill,NULL,child,array,imagepath);
   }
   return fill;
+}
+
+/********************************************************
+ * red2embed
+ ********************************************************/
+
+static gchar*
+foldText(ValueStruct *value,
+  int text_size,
+  int column_size)
+{
+  gchar *str;
+  gchar *cutted;
+  gchar *folded = NULL;
+  gchar *p,*q,*r;
+  int i,len,num;
+  gsize size;
+
+  if (!IS_VALUE_STRING(value)) {
+    g_warning("WARNING invalid value type(%d)", ValueType(value));
+    return NULL;
+  }
+  if (IS_VALUE_NIL(value)) {
+    g_warning("WARNING value is nil");
+    return NULL;
+  }
+
+  str = ValueToString(value,NULL);
+
+  if (!g_utf8_validate(str,-1,NULL)) {
+    g_warning("WARNING invalid utf8 string");
+    return NULL;
+  } 
+
+  if (g_utf8_strlen(str,0) <= text_size) {
+    cutted = str;
+  } else {
+    cutted = g_strdup(str);
+    g_utf8_strncpy(cutted,str,text_size);
+  }
+
+  len = g_utf8_strlen(cutted,-1);
+
+  if (column_size <= 0 || len <= column_size) {
+    size = strlen(cutted) + 3;
+    folded = g_malloc0(size);
+    g_strlcat(folded,"#",size);
+    g_strlcat(folded,cutted,size);
+    g_strlcat(folded,"#",size);
+  } else {
+    num = len / column_size;
+    size = strlen(cutted) + num + 3;
+    folded = g_malloc0(size);
+    g_strlcat(folded,"#",size);
+    q = NULL;
+    for(i=0;i<num;i++) {
+      p = g_utf8_offset_to_pointer(cutted,i * column_size);
+      q = g_utf8_offset_to_pointer(cutted,(i + 1) * column_size);
+      r = g_strndup(p,(q-p));
+      g_strlcat(folded,r,size);
+      g_strlcat(folded,"\n",size);
+      g_free(r);
+    }
+    if (q != NULL) {
+      g_strlcat(folded,q,size);
+    }
+    g_strlcat(folded,"#",size);
+  }
+  return folded;
+}
+
+static void
+embedText(EmbedInfo *info,
+  ValueStruct *value)
+{
+  gchar *content;
+  xmlNodePtr n1,n2,n3,n4;
+
+  content = foldText(value,
+    EmbedInfoAttr(info,Text,text_size),
+    EmbedInfoAttr(info,Text,column_size));
+
+  if (content == NULL) {
+    return;
+  }
+
+  n1 = GetChildByTagAttr(info->node,
+    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("text"));
+  if (n1 == NULL) {
+    return;
+  }
+  n2 = GetChildByTagAttr(n1,
+    BAD_CAST("composite"),BAD_CAST("type"),BAD_CAST("text"));
+  if (n2 == NULL) {
+    return;
+  }
+  n3 = GetChildByTagAttr(n2,
+    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("string"));
+  if (n3 == NULL) {
+    return;
+  }
+  n4 = GetChildByTag(n3, BAD_CAST("string"));
+  if (n4 == NULL) {
+    return ;
+  }
+  xmlNodeSetContent(n4,BAD_CAST(content));
+}
+
+static void
+embedImage(EmbedInfo *info,
+  ValueStruct *value)
+{
+  gchar *content;
+  xmlNodePtr n1,n2;
+
+  content = foldText(value,EmbedInfoAttr(info,Image,path_size), 0);
+
+  if (content == NULL) {
+    return;
+  }
+
+  n1 = GetChildByTagAttr(info->node,
+    BAD_CAST("attribute"),BAD_CAST("name"),BAD_CAST("file"));
+  if (n1 == NULL) {
+    return;
+  }
+  n2 = GetChildByTag(n1, BAD_CAST("string"));
+  if (n2 == NULL) {
+    return ;
+  }
+  xmlNodeSetContent(n2,BAD_CAST(content));
+}
+
+static void
+_red2embed(GPtrArray *array,
+  ValueStruct *data)
+{
+  EmbedInfo *info;
+  ValueStruct *v;
+  int i;
+  gchar *id;
+
+  for (i=0;i<array->len;i++) {
+    info = (EmbedInfo*)g_ptr_array_index(array,i);
+    id = EscapeNodeName(info->id);
+    v = GetItemLongName(data,id);
+    g_free(id);
+    if (v == NULL) {
+      continue;
+    } else {
+      switch(info->type) {
+      case EMBED_TYPE_TEXT:
+        embedText(info,v);
+        break;
+      case EMBED_TYPE_IMAGE:
+        embedImage(info,v);
+        break;
+      }
+    }
+  }
+}
+
+GString *
+red2embed(xmlDocPtr doc,gchar *data)
+{
+  GString *embed;
+  GPtrArray *array;
+
+  ValueStruct *value;
+  char *vname;
+  CONVOPT *conv;
+  xmlChar *outmem;
+  int outsize;
+  GString *rec;
+
+  embed = g_string_new("");
+  array = GetEmbedInfoList(doc);
+  rec = red2rec(doc);
+
+  RecParserInit();
+  value = RecParseValueMem(rec->str,&vname);
+  if (value == NULL) {
+    g_error("Error: unable to read rec\n");
+  }
+  if (!IS_VALUE_RECORD(value)) {
+    g_error("Error: invalid value type:%d\n",
+      ValueType(value));
+  }
+
+  conv = NewConvOpt();
+  ConvSetSize(conv,500,100);
+  ConvSetCodeset(conv,"euc-jisx0213");
+  OpenCOBOL_UnPackValue(conv,(unsigned char*)data,value);
+
+  _red2embed(array,value);
+
+  xmlKeepBlanksDefault(0);
+  xmlDocDumpFormatMemory(doc,&outmem,&outsize,1);
+  g_string_append_printf(embed,"%s",CAST_BAD(outmem));
+
+  xmlFree(outmem);
+
+  return embed;
 }

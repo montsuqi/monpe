@@ -3,7 +3,8 @@ bin_PROGRAMS = \
 	red2embed \
 	red2conv \
 	red2inc \
-	red2fill
+	red2fill \
+	red2test
 
 base_sources =	\
 	red2lib.c	red2lib.h
@@ -17,6 +18,15 @@ base_LDADD = \
 	-lm					\
 	../lib/libmonpe.la	\
 	$(M3TOOLS_LIBS)
+
+red2test_SOURCES = red2test.c \
+	$(base_sources)
+
+red2test_CFLAGS = \
+	$(base_CFLAGS)
+
+red2test_LDADD = \
+	$(base_LDADD)
 
 red2fill_SOURCES = red2fill.c \
 	$(base_sources)

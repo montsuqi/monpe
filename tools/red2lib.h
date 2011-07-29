@@ -62,5 +62,6 @@ int GetAttributeEnum(xmlNodePtr node, xmlChar *propname);
 GString *red2rec(xmlDocPtr);
 GString *red2inc(xmlDocPtr,gchar *prefix);
 GString *red2fill(xmlDocPtr doc,gchar *imagepath);
+GString *red2embed(xmlDocPtr doc,gchar *data);
 
 #endif
