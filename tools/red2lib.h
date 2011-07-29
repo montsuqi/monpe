@@ -40,6 +40,7 @@ typedef struct {
     struct {
       int text_size;
       int column_size;
+      int char_type;
     } Text;
     struct {
       int path_size;
@@ -49,7 +50,6 @@ typedef struct {
 
 #define EmbedInfoAttr(p,t,a) ((p)->Data.t.a)
 
-
 gchar* EscapeNodeName(gchar *_name);
 GPtrArray* GetEmbedInfoList(xmlDocPtr doc);
 xmlNodePtr FindNodeByTag(xmlNodePtr p,xmlChar *tag);
@@ -58,7 +58,9 @@ xmlNodePtr GetChildByTagAttr(xmlNodePtr node, xmlChar *tag,
   xmlChar *attr, xmlChar *val);
 xmlChar* GetAttributeString(xmlNodePtr node, xmlChar *propname);
 int GetAttributeInt(xmlNodePtr node, xmlChar *propname);
+int GetAttributeEnum(xmlNodePtr node, xmlChar *propname);
 GString *red2rec(xmlDocPtr);
 GString *red2inc(xmlDocPtr,gchar *prefix);
+GString *red2fill(xmlDocPtr doc,gchar *imagepath);
 
 #endif

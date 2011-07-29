@@ -14,6 +14,10 @@
 
 #include "red2lib.h"
 
+/********************************************************
+ * misc function
+ ********************************************************/
+
 gchar*
 EscapeNodeName(gchar *_name)
 {
@@ -148,12 +152,46 @@ GetAttributeInt(xmlNodePtr node,
   return ret;
 }
 
+int
+GetAttributeEnum(xmlNodePtr node,
+  xmlChar *propname)
+{
+  xmlNodePtr child = node->children;
+  xmlNodePtr child2;
+  xmlChar *name;
+  xmlChar *val;
+  int ret = -1;
+
+  while(child != NULL) {
+    name = xmlGetProp(child,BAD_CAST("name"));
+    if (name != NULL && !xmlStrcmp(name, propname)) {
+      child2 = child->children;
+      while(child2 != NULL) {
+        if (child2->type == XML_ELEMENT_NODE && 
+          !xmlStrcmp(child2->name,BAD_CAST("enum"))) {
+          val = xmlGetProp(child2,BAD_CAST("val"));
+          if (val != NULL) {
+            ret = atoi((char*)val);
+            xmlFree(val);
+          }
+        } 
+        child2 = child2->next;
+      }
+    }
+    if (name != NULL) {
+      xmlFree(name);
+    }
+    child = child->next;
+  }
+  return ret;
+}
+
 static EmbedInfo*
 GetEmbedInfoText(xmlNodePtr node)
 {
   EmbedInfo *info = NULL;
   xmlChar *id;
-  int text_size, column_size;
+  int text_size, column_size, char_type;
 
   if (node == NULL) {
     return info;
@@ -161,14 +199,16 @@ GetEmbedInfoText(xmlNodePtr node)
   id = GetAttributeString(node,BAD_CAST("embed_id"));
   text_size = GetAttributeInt(node,BAD_CAST("embed_text_size"));
   column_size = GetAttributeInt(node,BAD_CAST("embed_column_size"));
+  char_type = GetAttributeEnum(node,BAD_CAST("embed_char_type"));
 
   if (id != NULL && text_size != -1 && column_size != -1) {
     info = g_new0(EmbedInfo,1);
-    info->id = EscapeNodeName(CAST_BAD(id));
+    info->id = CAST_BAD(id);
     info->type = EMBED_TYPE_TEXT;
     info->node = node;
     EmbedInfoAttr(info,Text,text_size) = text_size;
     EmbedInfoAttr(info,Text,column_size) = column_size;
+    EmbedInfoAttr(info,Text,char_type) = char_type;
   }
   return info;
 }
@@ -189,7 +229,7 @@ GetEmbedInfoImage(xmlNodePtr node)
 
   if (id != NULL && path_size != -1) {
     info = g_new0(EmbedInfo,1);
-    info->id = EscapeNodeName(CAST_BAD(id));
+    info->id = CAST_BAD(id);
     info->type = EMBED_TYPE_IMAGE;
     info->node = node;
     EmbedInfoAttr(info,Image,path_size) = path_size;
@@ -290,6 +330,10 @@ GetEmbedInfoList(xmlDocPtr doc)
   return array;
 }
 
+/********************************************************
+ * red2rec
+ ********************************************************/
+
 static void
 rec_print_tab(GString *rec,int l,char *format,...)
 {
@@ -377,6 +421,10 @@ red2rec(xmlDocPtr doc)
   return rec;
 }
 
+/********************************************************
+ * red2inc
+ ********************************************************/
+
 static void
 inc_print_node(GString *inc,int l,char *format,...)
 {
@@ -425,7 +473,6 @@ static void
 print_inc(GString *inc,int l,DicNode *node,gchar *prefix)
 {
   DicNode *child;
-  gchar *name;
 
   inc_print_node(inc,l,"%02d  %s-%s",l+2,prefix,node->name);
   if (node->type == DIC_NODE_TYPE_NODE) {
@@ -455,8 +502,11 @@ print_inc(GString *inc,int l,DicNode *node,gchar *prefix)
       inc_print_pic(inc,DNODE_IMAGE_PATH_SIZE);
     }
   }
-  g_free(name);
 }
+
+/********************************************************
+ * red2inc
+ ********************************************************/
 
 GString*
 red2inc(xmlDocPtr doc,gchar *prefix)
@@ -485,4 +535,120 @@ red2inc(xmlDocPtr doc,gchar *prefix)
     print_inc(inc,0,child,prefix);
   }
   return inc;
+}
+
+/********************************************************
+ * red2fill
+ ********************************************************/
+#define ZENKAKU_TEXT "いろはにほへとちりぬるをわかよたれそつねならむうゐのおやまけふこえてあさきゆめみしゑひもせすん"
+#define HANKAKU_TEXT "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+static void
+_red2fill(GString *fill,GHashTable *usage,DicNode *node,GPtrArray *array,gchar *imagepath)
+{
+  EmbedInfo *info;
+  DicNode *child;
+  int i,j,l,k,n;
+  gchar *p;
+  gboolean destroy_usage = FALSE;
+
+  if (usage == NULL) {
+    usage = g_hash_table_new(g_direct_hash,g_direct_equal);
+    destroy_usage = TRUE;
+  }
+
+  if (node->type == DIC_NODE_TYPE_NODE) {
+    for (i=0;i<node->occurs;i++) {
+      for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
+        _red2fill(fill,usage,child,array,imagepath);
+      }
+    }
+  } else if(node->type == DIC_NODE_TYPE_TEXT){
+    for (i=0;i<node->occurs;i++) {
+      gchar *name,*xname;
+      int type;
+
+      n = GPOINTER_TO_INT(g_hash_table_lookup(usage,node));
+      g_hash_table_insert(usage,node,GINT_TO_POINTER(n+1));
+
+      type = 0;
+      name = dnode_data_get_longname(node,n);
+      xname = dtree_conv_longname_to_xml(name);
+
+      for(j=0;j<array->len;j++) {
+        info = (EmbedInfo*)g_ptr_array_index(array,j);
+        if (!g_strcmp0(info->id,xname)) {
+          type = EmbedInfoAttr(info,Text,char_type);
+        }
+      }
+      if (type == 0) {
+        p = (gchar*)ZENKAKU_TEXT;
+        l = 0;
+        for(k=0;k<node->length;k++) {
+          if (l == strlen(ZENKAKU_TEXT)) {
+            l = 0;
+          }
+          g_string_append_printf(fill,"%c",*(p+l));
+          l++;
+        }
+      } else {
+        p = (gchar*)HANKAKU_TEXT;
+        l = 0;
+        for(k=0;k<node->length;k++) {
+          if (l == strlen(HANKAKU_TEXT)) {
+            l = 0;
+          }
+          g_string_append_printf(fill,"%c",*(p+l));
+          l++;
+        }
+      }
+      g_free(name);
+      g_free(xname);
+    }
+  } else if(node->type == DIC_NODE_TYPE_IMAGE){
+    if (imagepath != NULL) {
+      g_string_append_printf(fill,"%s",imagepath);
+      for(i=strlen(imagepath);i<DNODE_IMAGE_PATH_SIZE;i++) {
+        g_string_append_printf(fill," ");
+      }
+    } else {
+      for(i=0;i<DNODE_IMAGE_PATH_SIZE;i++) {
+        g_string_append_printf(fill," ");
+      }
+    }
+  }
+
+  if (destroy_usage) {
+    g_hash_table_destroy(usage);
+  }
+}
+
+GString*
+red2fill(xmlDocPtr doc,gchar *imagepath)
+{
+  xmlNodePtr dict;
+  GPtrArray *array;
+  GString *fill;
+  DicNode *dtree;
+  DicNode *child;
+
+  if (doc == NULL) {
+    fprintf(stderr, "Error: xmlDocPtr doc is NULL\n");
+    exit(1);
+  }
+  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
+    BAD_CAST(MONPE_XML_DICTIONARY));
+  if (dict == NULL) {
+    fprintf(stderr,"no dictionary data\n");
+    exit(1);
+  }
+
+  array = GetEmbedInfoList(doc);
+  dtree = dtree_new();
+  dtree_new_from_xml(&dtree,dict);
+  fill = g_string_new("");
+  for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
+    _red2fill(fill,NULL,child,array,imagepath);
+  }
+  return fill;
 }

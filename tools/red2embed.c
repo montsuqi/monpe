@@ -151,10 +151,13 @@ embed(GPtrArray *array,
   EmbedInfo *info;
   ValueStruct *v;
   int i;
+  gchar *id;
 
   for (i=0;i<array->len;i++) {
     info = (EmbedInfo*)g_ptr_array_index(array,i);
-    v = GetItemLongName(data,info->id);
+    id = EscapeNodeName(info->id);
+    v = GetItemLongName(data,id);
+    g_free(id);
     if (v == NULL) {
       continue;
     } else {
