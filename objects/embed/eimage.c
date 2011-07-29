@@ -69,7 +69,6 @@ struct _EImage {
 
   gchar *name;
   gchar *embed_id;
-  gint embed_path_size;
 };
 
 static struct _ImageProperties {
@@ -139,8 +138,6 @@ static ObjectOps eimage_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
-static PropNumData embed_path_size_range = { 128, 4096, 1 };
-
 static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "image_file", PROP_TYPE_FILE, PROP_FLAG_VISIBLE,
@@ -156,8 +153,6 @@ static PropDescription image_props[] = {
     N_("Name"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
-  { "embed_path_size", PROP_TYPE_INT, 0,
-    N_("Embed Path Size"), NULL, &embed_path_size_range },
   PROP_DESC_END
 };
 
@@ -180,7 +175,6 @@ static PropOffset image_offsets[] = {
     offsetof(EImage, line_style), offsetof(EImage, dashlength) },
   { "name", PROP_TYPE_STRING, offsetof(EImage, name) },
   { "embed_id", PROP_TYPE_STRING, offsetof(EImage, embed_id) },
-  { "embed_path_size", PROP_TYPE_INT, offsetof(EImage, embed_path_size) },
   { NULL, 0, 0 }
 };
 
@@ -495,7 +489,6 @@ image_create(Point *startpoint,
   } else {
     image->embed_id = get_default_embed_id("embed_image");
   }
-  image->embed_path_size = DNODE_IMAGE_PATH_SIZE;
 
   image_update_data(image);
   
@@ -562,7 +555,6 @@ image_copy(EImage *image)
   newimage->keep_aspect = image->keep_aspect;
 
   newimage->embed_id = get_default_embed_id("embed_image");
-  newimage->embed_path_size = image->embed_path_size;
   newobj->node = oldobj->node;
 
   return &newimage->element.object;
@@ -627,8 +619,6 @@ image_save(EImage *image, ObjectNode obj_node, const char *filename)
 
   data_add_string(new_attribute(obj_node, "embed_id"),
 		dtree_conv_longname_to_xml(image->embed_id));
-  data_add_int(new_attribute(obj_node, "embed_path_size"),
-		image->embed_path_size);
 
   if (image->file != NULL) {
     if (g_path_is_absolute(image->file)) { /* Absolute pathname */
@@ -720,13 +710,6 @@ image_load(ObjectNode obj_node, int version, const char *filename)
     image->embed_id = get_default_embed_id("embed_image");
   }
   register_embed_id(image->embed_id);
-
-  attr = object_find_attribute(obj_node, "embed_path_size");
-  if (attr) {
-    image->embed_path_size = data_int( attribute_first_data(attr) );
-  } else {
-    image->embed_path_size = DNODE_IMAGE_PATH_SIZE;
-  }
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -825,7 +808,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   while (list != NULL) {
     dia = (Diagram *)list->data;
     if (!g_strcmp0(dia->filename,filename)) {
-      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+      obj->node = dtree_set_data_by_longname(DIA_DIAGRAM_DATA(dia)->dtree,
         image->embed_id,&image->element.object);
     }
     list = g_list_next(list);

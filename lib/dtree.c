@@ -700,34 +700,45 @@ dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode)
 }
 
 DicNode *
-dtree_set_data_path(DicNode *node,gchar *path,gpointer object)
+dtree_get_node_by_longname(DicNode *node,int *index,gchar *lname)
 {
   DicNode *p,*ret = NULL;
   int i;
-  gchar *_path;
+  gchar *_lname;
 
   for(p = DNODE_CHILDREN(node);p != NULL; p= DNODE_NEXT(p)) {
-    if ((ret = dtree_set_data_path(p,path,object))!=NULL) {
+    if ((ret = dtree_get_node_by_longname(p,index,lname))!=NULL) {
       return ret;
     }
   }
   if (node->type != DIC_NODE_TYPE_NODE) {
     for (i=0;i<dnode_calc_total_occurs(node);i++) {
-      _path = dnode_data_get_longname(node,i);
-      if (!g_strcmp0(path,_path)) {
-        if (g_list_nth_data(node->objects,i) == NULL) {
-          dnode_set_object(node,i,object);
-          g_free(_path);
-          return node;
-        } else if (g_list_nth_data(node->objects,i) == object) {
-          g_free(_path);
-          return node;
-        }
+      _lname = dnode_data_get_longname(node,i);
+      if (!g_strcmp0(lname,_lname)) {
+        *index = i;
+        g_free(_lname);
+        return node;
       }
-      g_free(_path);
+      g_free(_lname);
     }
   }
   return ret;
+
+}
+
+DicNode *
+dtree_set_data_by_longname(DicNode *node,gchar *lname,gpointer object)
+{
+  DicNode *p;
+  int index;
+
+  p = dtree_get_node_by_longname(node,&index,lname);
+  if (p != NULL) {
+    if (g_list_nth_data(p->objects,index) == NULL) {
+      dnode_set_object(p,index,object);
+    }
+  }
+  return p;
 }
 
 gboolean

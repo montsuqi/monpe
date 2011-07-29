@@ -686,7 +686,7 @@ dnode_register_object(Diagram *dia,DiaObject *obj)
     }
   } else {
     gchar *embed_id = object_get_embed_id(obj);
-    obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+    obj->node = dtree_set_data_by_longname(DIA_DIAGRAM_DATA(dia)->dtree,
       embed_id,obj);
     if (obj->node == NULL) {
       object_change_unknown(obj);

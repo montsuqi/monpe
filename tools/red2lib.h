@@ -36,19 +36,9 @@ typedef struct {
   gchar *id;
   xmlNodePtr node;
   enum EmbedType type;
-  union {
-    struct {
-      int text_size;
-      int column_size;
-      int char_type;
-    } Text;
-    struct {
-      int path_size;
-    } Image;
-  } Data;  
+  int column_size;
+  int char_type;
 } EmbedInfo;
-
-#define EmbedInfoAttr(p,t,a) ((p)->Data.t.a)
 
 gchar* EscapeNodeName(gchar *_name);
 GPtrArray* GetEmbedInfoList(xmlDocPtr doc);

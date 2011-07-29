@@ -119,7 +119,8 @@ void dtree_move_after(DicNode *node,DicNode *parent,DicNode *sibling);
 void dtree_new_from_xml(DicNode **dnode,xmlNodePtr xnode);
 void dtree_write_to_xml(xmlNodePtr xnode,DicNode  *dnode);
 
-DicNode* dtree_set_data_path(DicNode *node,gchar *path,gpointer object);
+DicNode* dtree_get_node_by_longname(DicNode *node,int *index,gchar *lname);
+DicNode* dtree_set_data_by_longname(DicNode *node,gchar *lname,gpointer object);
 gboolean dtree_is_valid_node(DicNode *dtree,DicNode *node);
 gchar *dtree_conv_longname_to_xml(gchar*);
 gchar *dtree_conv_longname_from_xml(gchar*);

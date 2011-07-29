@@ -193,24 +193,22 @@ GetEmbedInfoText(xmlNodePtr node)
 {
   EmbedInfo *info = NULL;
   xmlChar *id;
-  int text_size, column_size, char_type;
+  int column_size, char_type;
 
   if (node == NULL) {
     return info;
   }
   id = GetAttributeString(node,BAD_CAST("embed_id"));
-  text_size = GetAttributeInt(node,BAD_CAST("embed_text_size"));
   column_size = GetAttributeInt(node,BAD_CAST("embed_column_size"));
   char_type = GetAttributeEnum(node,BAD_CAST("embed_char_type"));
 
-  if (id != NULL && text_size != -1 && column_size != -1) {
+  if (id != NULL && column_size != -1) {
     info = g_new0(EmbedInfo,1);
     info->id = CAST_BAD(id);
     info->type = EMBED_TYPE_TEXT;
     info->node = node;
-    EmbedInfoAttr(info,Text,text_size) = text_size;
-    EmbedInfoAttr(info,Text,column_size) = column_size;
-    EmbedInfoAttr(info,Text,char_type) = char_type;
+    info->column_size = column_size;
+    info->char_type = char_type;
   }
   return info;
 }
@@ -220,21 +218,18 @@ GetEmbedInfoImage(xmlNodePtr node)
 {
   EmbedInfo *info = NULL;
   xmlChar *id;
-  int path_size;
 
   if (node == NULL) {
     return info;
   }
 
   id = GetAttributeString(node,BAD_CAST("embed_id"));
-  path_size = GetAttributeInt(node,BAD_CAST("embed_path_size"));
 
-  if (id != NULL && path_size != -1) {
+  if (id != NULL) {
     info = g_new0(EmbedInfo,1);
     info->id = CAST_BAD(id);
     info->type = EMBED_TYPE_IMAGE;
     info->node = node;
-    EmbedInfoAttr(info,Image,path_size) = path_size;
   }
 
   return info;
@@ -258,40 +253,6 @@ GetEmbedInfo(xmlNodePtr node)
   xmlFree(type);
 
   return info;
-}
-
-static gint
-EmbedInfoCompare(gconstpointer a,
-  gconstpointer b,
-  gpointer user_data)
-{
-  EmbedInfo **p1,**p2;
-  gchar *s1,*s2;
-  int len1,len2,min,res;
-
-  p1 = (EmbedInfo**)a;
-  p2 = (EmbedInfo**)b;
-
-  len1 = strlen((*p1)->id);
-  len2 = strlen((*p2)->id);
-  min = len1 < len2 ? len1 : len2;
-
-  s1 = g_strndup((*p1)->id,min);
-  s2 = g_strndup((*p2)->id,min);
-
-  res = strcmp(s1,s2);
-  if (res == 0) {
-    if (len1 > len2) {
-      return -1;
-    } else if (len1 < len2 ){
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-  g_free(s1);
-  g_free(s2);
-  return res;
 }
 
 static void
@@ -328,8 +289,30 @@ GetEmbedInfoList(xmlDocPtr doc)
     return array;
   }
   _GetEmbedInfoList(xmlDocGetRootElement(doc),array);
-  g_ptr_array_sort(array,(GCompareFunc)EmbedInfoCompare);
   return array;
+}
+
+static DicNode*
+GetDTree(xmlDocPtr doc)
+{
+  DicNode *dtree = NULL;
+  xmlNodePtr dict;
+
+  if (doc == NULL) {
+    g_error("Error: xmlDocPtr doc is NULL\n");
+  }
+  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
+    BAD_CAST(MONPE_XML_DICTIONARY));
+  if (dict == NULL) {
+    g_error("no dictionary data\n");
+  }
+  dtree = dtree_new();
+  dtree_new_from_xml(&dtree,dict);
+
+  if (dtree == NULL) {
+    g_error("Error: can't make dtree\n");
+  }
+  return dtree;
 }
 
 /********************************************************
@@ -397,23 +380,14 @@ print_rec(GString *rec,int l,DicNode *node)
 GString*
 red2rec(xmlDocPtr doc)
 {
-  xmlNodePtr dict;
   DicNode *dtree;
   DicNode *child;
   GString *rec;
 
   if (doc == NULL) {
-    fprintf(stderr, "Error: xmlDocPtr doc is NULL\n");
-    exit(1);
+    g_error("Error: xmlDocPtr doc is NULL\n");
   }
-  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
-    BAD_CAST(MONPE_XML_DICTIONARY));
-  if (dict == NULL) {
-    fprintf(stderr,"no dictionary data\n");
-    exit(1);
-  }
-  dtree = dtree_new();
-  dtree_new_from_xml(&dtree,dict);
+  dtree = GetDTree(doc);
 
   rec = g_string_new("red2rec {\n");
   for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
@@ -506,30 +480,17 @@ print_inc(GString *inc,int l,DicNode *node,gchar *prefix)
   }
 }
 
-/********************************************************
- * red2inc
- ********************************************************/
-
 GString*
 red2inc(xmlDocPtr doc,gchar *prefix)
 {
-  xmlNodePtr dict;
-  DicNode *dtree;
   DicNode *child;
   GString *inc;
+  DicNode *dtree;
 
   if (doc == NULL) {
-    fprintf(stderr, "Error: xmlDocPtr doc is NULL\n");
-    exit(1);
+    g_error("Error: xmlDocPtr doc is NULL\n");
   }
-  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
-    BAD_CAST(MONPE_XML_DICTIONARY));
-  if (dict == NULL) {
-    fprintf(stderr,"no dictionary data\n");
-    exit(1);
-  }
-  dtree = dtree_new();
-  dtree_new_from_xml(&dtree,dict);
+  dtree = GetDTree(doc);
 
   inc = g_string_new("        01  ");
   g_string_append_printf(inc,"%s.\n",prefix);
@@ -546,7 +507,11 @@ red2inc(xmlDocPtr doc,gchar *prefix)
 #define HANKAKU_TEXT "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 static void
-_red2fill(GString *fill,GHashTable *usage,DicNode *node,GPtrArray *array,gchar *imagepath)
+_red2fill(GString *fill,
+  GHashTable *usage,
+  DicNode *node,
+  GPtrArray *array,
+  gchar *imagepath)
 {
   EmbedInfo *info;
   DicNode *child;
@@ -580,7 +545,7 @@ _red2fill(GString *fill,GHashTable *usage,DicNode *node,GPtrArray *array,gchar *
       for(j=0;j<array->len;j++) {
         info = (EmbedInfo*)g_ptr_array_index(array,j);
         if (!g_strcmp0(info->id,xname)) {
-          type = EmbedInfoAttr(info,Text,char_type);
+          type = info->char_type;
         }
       }
       if (type == 0) {
@@ -628,26 +593,17 @@ _red2fill(GString *fill,GHashTable *usage,DicNode *node,GPtrArray *array,gchar *
 GString*
 red2fill(xmlDocPtr doc,gchar *imagepath)
 {
-  xmlNodePtr dict;
   GPtrArray *array;
   GString *fill;
   DicNode *dtree;
   DicNode *child;
 
   if (doc == NULL) {
-    fprintf(stderr, "Error: xmlDocPtr doc is NULL\n");
-    exit(1);
-  }
-  dict = FindNodeByTag(doc->xmlRootNode->xmlChildrenNode,
-    BAD_CAST(MONPE_XML_DICTIONARY));
-  if (dict == NULL) {
-    fprintf(stderr,"no dictionary data\n");
-    exit(1);
+    g_error("Error: xmlDocPtr doc is NULL\n");
   }
 
   array = GetEmbedInfoList(doc);
-  dtree = dtree_new();
-  dtree_new_from_xml(&dtree,dict);
+  dtree = GetDTree(doc);
   fill = g_string_new("");
   for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
     _red2fill(fill,NULL,child,array,imagepath);
@@ -726,14 +682,13 @@ foldText(ValueStruct *value,
 
 static void
 embedText(EmbedInfo *info,
-  ValueStruct *value)
+  ValueStruct *value,
+  int length)
 {
   gchar *content;
   xmlNodePtr n1,n2,n3,n4;
 
-  content = foldText(value,
-    EmbedInfoAttr(info,Text,text_size),
-    EmbedInfoAttr(info,Text,column_size));
+  content = foldText(value, length, info->column_size);
 
   if (content == NULL) {
     return;
@@ -768,7 +723,7 @@ embedImage(EmbedInfo *info,
   gchar *content;
   xmlNodePtr n1,n2;
 
-  content = foldText(value,EmbedInfoAttr(info,Image,path_size), 0);
+  content = foldText(value,DNODE_IMAGE_PATH_SIZE, 0);
 
   if (content == NULL) {
     return;
@@ -788,29 +743,36 @@ embedImage(EmbedInfo *info,
 
 static void
 _red2embed(GPtrArray *array,
-  ValueStruct *data)
+  ValueStruct *data,
+  DicNode *dtree)
 {
   EmbedInfo *info;
   ValueStruct *v;
-  int i;
-  gchar *id;
+  int i,index;
+  gchar *vid,*nid;
+  DicNode *node;
 
   for (i=0;i<array->len;i++) {
     info = (EmbedInfo*)g_ptr_array_index(array,i);
-    id = EscapeNodeName(info->id);
-    v = GetItemLongName(data,id);
-    g_free(id);
+    vid = EscapeNodeName(info->id);
+    v = GetItemLongName(data,vid);
+    g_free(vid);
     if (v == NULL) {
       continue;
-    } else {
-      switch(info->type) {
-      case EMBED_TYPE_TEXT:
-        embedText(info,v);
-        break;
-      case EMBED_TYPE_IMAGE:
-        embedImage(info,v);
-        break;
-      }
+    }
+    nid = dtree_conv_longname_from_xml(info->id);
+    node = dtree_get_node_by_longname(dtree,&index,nid);
+    g_free(nid);
+    if (node == NULL) {
+      continue;
+    }
+    switch(info->type) {
+    case EMBED_TYPE_TEXT:
+      embedText(info,v,node->length);
+      break;
+    case EMBED_TYPE_IMAGE:
+      embedImage(info,v);
+      break;
     }
   }
 }
@@ -820,17 +782,18 @@ red2embed(xmlDocPtr doc,gchar *data)
 {
   GString *embed;
   GPtrArray *array;
-
   ValueStruct *value;
   char *vname;
   CONVOPT *conv;
   xmlChar *outmem;
   int outsize;
   GString *rec;
+  DicNode *dtree;
 
   embed = g_string_new("");
   array = GetEmbedInfoList(doc);
   rec = red2rec(doc);
+  dtree = GetDTree(doc);
 
   RecParserInit();
   value = RecParseValueMem(rec->str,&vname);
@@ -847,7 +810,7 @@ red2embed(xmlDocPtr doc,gchar *data)
   ConvSetCodeset(conv,"euc-jisx0213");
   OpenCOBOL_UnPackValue(conv,(unsigned char*)data,value);
 
-  _red2embed(array,value);
+  _red2embed(array,value,dtree);
 
   xmlKeepBlanksDefault(0);
   xmlDocDumpFormatMemory(doc,&outmem,&outsize,1);

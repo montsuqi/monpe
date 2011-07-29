@@ -73,7 +73,6 @@ struct _ETextobj {
   gboolean show_background;
 
   gchar *embed_id;
-  gint embed_text_size;
   gint embed_column_size;
 
   DicNode *node;
@@ -170,7 +169,6 @@ PropEnumData prop_embed_char_type_data[] = {
   { NULL, 0 }
 };
 
-static PropNumData embed_text_size_range = { 1, G_MAXINT, 1 };
 static PropNumData embed_column_size_range = { 0, G_MAXINT, 1 };
 
 static PropDescription textobj_props[] = {
@@ -188,8 +186,6 @@ static PropDescription textobj_props[] = {
     N_("Name"), NULL, NULL },
   { "embed_id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Embed ID"), NULL, NULL },
-  { "embed_text_size", PROP_TYPE_INT, 0,
-    N_("Embed Text Size"), NULL, &embed_text_size_range },
   { "embed_column_size", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
     N_("Embed Column Size"), NULL, &embed_column_size_range },
   { "embed_char_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, 
@@ -217,7 +213,6 @@ static PropOffset textobj_offsets[] = {
   { "show_background", PROP_TYPE_BOOL, offsetof(ETextobj, show_background) },
   { "name", PROP_TYPE_STRING, offsetof(ETextobj, name) },
   { "embed_id", PROP_TYPE_STRING, offsetof(ETextobj, embed_id) },
-  { "embed_text_size", PROP_TYPE_INT, offsetof(ETextobj, embed_text_size) },
   { "embed_column_size", PROP_TYPE_INT, offsetof(ETextobj, embed_column_size) },
   { "embed_char_type",PROP_TYPE_ENUM,offsetof(ETextobj,embed_char_type)},
   { NULL, 0, 0 }
@@ -385,7 +380,6 @@ textobj_create(Point *startpoint,
   if (node != NULL) {
   	index = dnode_data_get_empty_index(node);
     textobj->embed_id = dnode_data_get_longname(node,index);
-    textobj->embed_text_size = node->length;
   } else {
     textobj->embed_id = get_default_embed_id("embed_text");
   }
@@ -468,8 +462,6 @@ textobj_save(ETextobj *textobj, ObjectNode obj_node, const char *filename)
 
   data_add_string(new_attribute(obj_node, "embed_id"),
 		dtree_conv_longname_to_xml(textobj->embed_id));
-  data_add_int(new_attribute(obj_node, "embed_text_size"),
-		textobj->embed_text_size);
   data_add_int(new_attribute(obj_node, "embed_column_size"),
 		textobj->embed_column_size);
   data_add_enum(new_attribute(obj_node, "embed_char_type"),
@@ -533,13 +525,6 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   }
   register_embed_id(textobj->embed_id);
 
-  attr = object_find_attribute(obj_node, "embed_text_size");
-  if (attr) {
-    textobj->embed_text_size = data_int( attribute_first_data(attr) );
-  } else {
-    textobj->embed_text_size = 10;
-  }
-
   attr = object_find_attribute(obj_node, "embed_column_size");
   if (attr) {
     textobj->embed_column_size = data_int( attribute_first_data(attr) );
@@ -572,7 +557,7 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   while (list != NULL) {
     dia = (Diagram *)list->data;
     if (!g_strcmp0(dia->filename,filename)) {
-      obj->node = dtree_set_data_path(DIA_DIAGRAM_DATA(dia)->dtree,
+      obj->node = dtree_set_data_by_longname(DIA_DIAGRAM_DATA(dia)->dtree,
         textobj->embed_id,&textobj->object);
     }
     list = g_list_next(list);
