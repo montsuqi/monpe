@@ -391,6 +391,7 @@ cb_drag_data_received(GtkWidget *widget,
         g_free(src_node->name);
         src_node->name = newname;
       }
+      dnode_reset_objects(src_node);
 
       gtk_tree_store_move_recursive(GTK_TREE_STORE(model), 
         &child_iter, &src_iter);
