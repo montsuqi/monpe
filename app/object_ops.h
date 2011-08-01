@@ -57,7 +57,7 @@ typedef enum {
 void object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step);
 void object_set_embed_id(DiaObject *obj,gchar *id);
 gchar* object_get_embed_id(DiaObject *obj);
-void object_change_unknown(DiaObject *obj);
+void object_change_notdef(DiaObject *obj);
 
 #endif /* OBJECT_OPS_H */
 

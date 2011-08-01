@@ -543,7 +543,7 @@ object_get_embed_id(DiaObject *obj)
 }
 
 void
-object_change_unknown(DiaObject *obj)
+object_change_notdef(DiaObject *obj)
 {
   Property *prop;
   GPtrArray *props;
@@ -551,12 +551,12 @@ object_change_unknown(DiaObject *obj)
   prop = object_prop_by_name_type(obj,"embed_id",PROP_TYPE_STRING);
   if (prop != NULL) {
     props = g_ptr_array_new();
-    ((StringProperty*)prop)->string_data = g_strdup("##unknown##");
+    ((StringProperty*)prop)->string_data = g_strdup("##notdef##");
     g_ptr_array_add(props,prop);
 
     prop = object_prop_by_name_type(obj,"text",PROP_TYPE_TEXT);
     if (prop != NULL) {
-      ((TextProperty*)prop)->text_data = g_strdup("##unknown##");
+      ((TextProperty*)prop)->text_data = g_strdup("##notdef##");
       g_ptr_array_add(props,prop);
     }
 

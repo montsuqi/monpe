@@ -400,6 +400,22 @@ cb_drag_data_received(GtkWidget *widget,
   return FALSE;
 }
 
+static void
+node_object_update_longname(DicNode *node)
+{
+  int i;
+  DiaObject *obj;
+
+  if (node->type != DIC_NODE_TYPE_NODE) {
+    for(i=0;i<g_list_length(node->objects);i++) {
+      obj = (DiaObject *)g_list_nth_data(node->objects,i);
+      if (obj != NULL) {
+        object_set_embed_id(obj,dnode_data_get_longname(node,i));
+      }
+    }
+  }
+}
+
 static gboolean
 cb_change_button_clicked(GtkWidget *widget,gpointer data)
 {
@@ -439,6 +455,7 @@ cb_change_button_clicked(GtkWidget *widget,gpointer data)
           COLUMN_OCCURS, occurs,
           -1);
         treeview_update_used_recursive(model,&iter);
+        node_object_update_longname(node);
       } else {
         message_error(_("cannot change occurs for existence object.\n"));
         return FALSE;

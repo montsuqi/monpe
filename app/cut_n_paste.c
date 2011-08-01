@@ -77,7 +77,7 @@ cnp_prepare_copy_embed_object_list(GList *copied_list,GHashTable *list)
         } else {
           message_error(_("cannot paste dictionary object by size over.\n"
                           "dummy object was created.\n"));
-          object_change_unknown(obj);
+          object_change_notdef(obj);
         }
       }
     }
@@ -105,7 +105,7 @@ cnp_get_stored_objects(int* generation,DDisplay *ddisp)
       if (obj->node != NULL) {
         message_error(_("cannot paste dictionary object for other diagram.\n"
                         "dummy object was created.\n"));
-        object_change_unknown(obj);
+        object_change_notdef(obj);
         obj->node = NULL;
       }
     }
