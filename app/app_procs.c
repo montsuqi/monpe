@@ -89,12 +89,14 @@ handle_initial_diagram(const char *input_file_name,
 		       const char *export_file_format,
 		       const char *size,
 		       char *show_layers,
+               char *hide_layers,
 		       const char *outdir);
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
 				    char *export_file_format, char *size, char *show_layers,
+                    char *hide_layers,
 				    const gchar *input_directory, const gchar *output_directory);
 static void print_credits(gboolean credits);
 
@@ -316,6 +318,34 @@ handle_show_layers(DiagramData *diagdata, const char *show_layers)
   g_free(visible_layers);
 }
 
+static void
+handle_hide_layers(DiagramData *diagdata, const char *show_layers)
+{
+  gboolean *visible_layers;
+  Layer *layer;
+  int i;
+
+  visible_layers = g_malloc(diagdata->layers->len * sizeof(gboolean));
+  /* Assume all layers are non-visible */
+  for (i=0;i<diagdata->layers->len;i++)
+    visible_layers[i] = FALSE;
+
+  /* Split the layer-range by commas */
+  show_layers_parse_string(diagdata, visible_layers, diagdata->layers->len,
+			   show_layers);
+
+  /* Set the visibility of the layers */
+  for (i=0;i<diagdata->layers->len;i++) {
+    layer = g_ptr_array_index(diagdata->layers, i);
+
+    if (visible_layers[i] == TRUE)
+      layer->visible = FALSE;
+    else
+      layer->visible = TRUE;
+  }
+  g_free(visible_layers);
+}
+
 
 const char *argv0 = NULL;
 
@@ -327,7 +357,8 @@ static gboolean
 do_convert(const char *infname, 
 	   const char *outfname, DiaExportFilter *ef,
 	   const char *size,
-	   char *show_layers)
+	   char *show_layers,
+       char *hide_layers)
 {
   DiaImportFilter *inf;
   DiagramData *diagdata = NULL;
@@ -364,6 +395,8 @@ do_convert(const char *infname,
   /* Apply --show-layers */
   if (show_layers)
     handle_show_layers(diagdata, show_layers);
+  if (hide_layers)
+    handle_hide_layers(diagdata, hide_layers);
 
   /* recalculate before export */
   data_update_extents(diagdata);
@@ -542,6 +575,7 @@ handle_initial_diagram(const char *in_file_name,
 		       const char *export_file_format,
 		       const char *size,
 		       char* show_layers,
+		       char* hide_layers,
 		       const char *outdir) {
   DDisplay *ddisp = NULL;
   Diagram *diagram = NULL;
@@ -570,7 +604,7 @@ handle_initial_diagram(const char *in_file_name,
     }
     made_conversions |= do_convert(in_file_name,
       (out_file_name != NULL?out_file_name:export_file_name),
-				   ef, size, show_layers);
+				   ef, size, show_layers,hide_layers);
     g_free(export_file_name);
   } else if (out_file_name) {
     DiaExportFilter *ef = NULL;
@@ -580,7 +614,7 @@ handle_initial_diagram(const char *in_file_name,
       ef = filter_get_by_name ("png-libart");
     
     made_conversions |= do_convert(in_file_name, out_file_name, ef,
-				   size, show_layers);
+				   size, show_layers, hide_layers);
   } else {
     if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
       if (!g_path_is_absolute(in_file_name)) {
@@ -700,6 +734,7 @@ app_init (int argc, char **argv)
   static char *export_file_format = NULL;
   static char *size = NULL;
   static char *show_layers = NULL;
+  static char *hide_layers = NULL;
   gboolean made_conversions = FALSE;
   GSList *files = NULL;
   static const gchar **filenames = NULL;
@@ -732,6 +767,9 @@ app_init (int argc, char **argv)
      N_("Export graphics size"), N_("WxH")},
     {"show-layers", 'L', 0, G_OPTION_ARG_STRING, NULL,
      N_("Show only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"),
+     N_("LAYER,LAYER,...")},
+    {"hide-layers", 'H', 0, G_OPTION_ARG_STRING, NULL,
+     N_("Hide only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"),
      N_("LAYER,LAYER,...")},
     {"nosplash", 'n', 0, G_OPTION_ARG_NONE, &nosplash,
      N_("Don't show the splash screen"), NULL },
@@ -770,8 +808,9 @@ app_init (int argc, char **argv)
   options[1].description = export_format_string;
   options[2].arg_data = &size;
   options[3].arg_data = &show_layers;
-  g_assert (strcmp (options[14].long_name, G_OPTION_REMAINING) == 0);
-  options[14].arg_data = (void*)&filenames;
+  options[4].arg_data = &hide_layers;
+  g_assert (strcmp (options[15].long_name, G_OPTION_REMAINING) == 0);
+  options[15].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -986,7 +1025,7 @@ app_init (int argc, char **argv)
 
   dia_log_message ("diagrams");
   made_conversions = handle_all_diagrams(files, export_file_name,
-					 export_file_format, size, show_layers,
+					 export_file_format, size, show_layers, hide_layers,
 					 input_directory, output_directory);
 					 
   if (dia_is_interactive && files == NULL && !nonew) {
@@ -1250,7 +1289,7 @@ internal_plugin_init(PluginInfo *info)
 
 static gboolean
 handle_all_diagrams(GSList *files, char *export_file_name,
-		    char *export_file_format, char *size, char *show_layers,
+		    char *export_file_format, char *size, char *show_layers,char *hide_layers,
 		    const gchar *input_directory, const gchar *output_directory)
 {
   GSList *node = NULL;
@@ -1260,7 +1299,7 @@ handle_all_diagrams(GSList *files, char *export_file_name,
     gchar *inpath = input_directory ? g_build_filename(input_directory, node->data, NULL) : node->data;
     made_conversions |=
       handle_initial_diagram(inpath, export_file_name,
-			     export_file_format, size, show_layers, output_directory);
+			     export_file_format, size, show_layers, hide_layers,output_directory);
     if (inpath != node->data)
       g_free(inpath);
   }
