@@ -342,7 +342,8 @@ cb_drag_data_received(GtkWidget *widget,
   GtkTreeIter src_iter,dest_iter,child_iter;
   GtkTreeViewDropPosition pos;
   gchar *newname;
-  DicNode *src_node, *dest_node, *parent_node = NULL;
+  DicNode *src_node, *dest_node;
+  DicNode *parent_node = NULL, *src_parent_node = NULL;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
   if (gtk_tree_selection_get_selected(selection, &model, &src_iter)) {
@@ -356,7 +357,9 @@ cb_drag_data_received(GtkWidget *widget,
       gtk_tree_model_get(model, &src_iter,
         COLUMN_NODE, &src_node,
         -1);
-    
+
+      src_parent_node = DNODE_PARENT(src_node);
+
       switch(pos) {
       case GTK_TREE_VIEW_DROP_BEFORE:
         gtk_tree_store_insert_before(GTK_TREE_STORE(model),
@@ -391,7 +394,15 @@ cb_drag_data_received(GtkWidget *widget,
         g_free(src_node->name);
         src_node->name = newname;
       }
-      dnode_reset_objects(src_node);
+
+      if ((pos == GTK_TREE_VIEW_DROP_BEFORE ||
+           pos == GTK_TREE_VIEW_DROP_AFTER) 
+          &&
+          (src_parent_node == parent_node)) {
+        /* do notning */
+      } else {
+        dnode_reset_objects_recursive(src_node);
+      }
 
       gtk_tree_store_move_recursive(GTK_TREE_STORE(model), 
         &child_iter, &src_iter);
