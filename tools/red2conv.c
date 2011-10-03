@@ -409,6 +409,7 @@ fix_character_encoding(gchar *in)
   gchar *buf2;
   gchar *buf3;
   gchar *buf4;
+  gchar *buf5;
   GRegex *reg;
   GError *err = NULL;
   gsize br,bw;
@@ -427,14 +428,21 @@ fix_character_encoding(gchar *in)
   }
   g_regex_unref(reg);
 
-  reg = g_regex_new("</dia:",0,0,NULL); 
-  buf3 = g_regex_replace(reg,buf2,-1,0,"</",0,&err);
+  reg = g_regex_new("<\\?xml.*\\?>",0,0,NULL);
+  buf3 = g_regex_replace(reg,buf2,-1,0,"<?xml version=\"1.0\"?>",0,&err);
   if (err != NULL) {
     g_error("error:g_regex_replace");
   }
   g_regex_unref(reg);
 
-  buf4 = g_convert(buf3,-1,"utf-8", "euc-jisx0213",&br, &bw, &err);
+  reg = g_regex_new("</dia:",0,0,NULL); 
+  buf4 = g_regex_replace(reg,buf3,-1,0,"</",0,&err);
+  if (err != NULL) {
+    g_error("error:g_regex_replace");
+  }
+  g_regex_unref(reg);
+
+  buf5 = g_convert(buf4,-1,"utf-8", "euc-jisx0213",&br, &bw, &err);
   if (err != NULL) {
     g_error("error:g_convert");
   }
@@ -442,7 +450,8 @@ fix_character_encoding(gchar *in)
   g_free(buf1);
   g_free(buf2);
   g_free(buf3);
-  return buf4;
+  g_free(buf4);
+  return buf5;
 }
 
 #define GZ_MODE "rb6f"
