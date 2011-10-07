@@ -429,7 +429,7 @@ fix_character_encoding(gchar *in)
   g_regex_unref(reg);
 
   reg = g_regex_new("<\\?xml.*\\?>",0,0,NULL);
-  buf3 = g_regex_replace(reg,buf2,-1,0,"<?xml version=\"1.0\"?>",0,&err);
+  buf3 = g_regex_replace(reg,buf2,-1,0,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>",0,&err);
   if (err != NULL) {
     g_error("error:g_regex_replace");
   }
