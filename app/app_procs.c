@@ -338,10 +338,13 @@ handle_hide_layers(DiagramData *diagdata, const char *show_layers)
   for (i=0;i<diagdata->layers->len;i++) {
     layer = g_ptr_array_index(diagdata->layers, i);
 
-    if (visible_layers[i] == TRUE)
+    if (visible_layers[i] == TRUE) {
       layer->visible = FALSE;
-    else
+    } else {
+#if 0
       layer->visible = TRUE;
+#endif
+    }
   }
   g_free(visible_layers);
 }
