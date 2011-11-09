@@ -22,6 +22,7 @@
 
 #include <config.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
@@ -182,9 +183,18 @@ set_linewidth(DiaRenderer *self, real linewidth)
   /* make hairline? Everythnig below one device unit get the same width,
    * otherwise 0.0 may end up thicker than 0.0+epsilon
    */
-  ensure_minimum_one_device_unit(renderer, &linewidth);
+  if (linewidth == 0.0) {
+    char *p;
+    double dpi = 400.0; /*400dpi*/
 
-  cairo_set_line_width (renderer->cr, linewidth);
+    if ((p=getenv("MONPE_HAIR_LINE_DPI"))!=NULL) {
+      dpi = fabs(atof(p));
+    }
+    cairo_set_line_width (renderer->cr, 2.54/dpi );
+  } else {
+    ensure_minimum_one_device_unit(renderer, &linewidth);
+    cairo_set_line_width (renderer->cr, linewidth);
+  }
   DIAG_STATE(renderer->cr)
 }
 
