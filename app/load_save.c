@@ -1193,7 +1193,7 @@ export_native(DiagramData *data, const gchar *filename,
   diagram_data_save(data, filename);
 }
 
-static const gchar *extensions[] = { "red2", NULL };
+static const gchar *extensions[] = { "red", NULL };
 DiaExportFilter dia_export_filter = {
   N_("Monpe Diagram File"),
   extensions,

@@ -273,7 +273,7 @@ diagram_load_into(Diagram         *diagram,
 	} else {
 	  new_filename = old_filename;
 	}
-        old_filename = g_strconcat(new_filename, ".red2", NULL);
+        old_filename = g_strconcat(new_filename, ".red", NULL);
         g_free(new_filename);
         diagram_set_filename(diagram, old_filename);
         g_free(old_filename);

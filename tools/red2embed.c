@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
   GError *error = NULL;
   GOptionContext *ctx;
 
-  ctx = g_option_context_new("<.red2> <.dat>");
+  ctx = g_option_context_new("<.red> <.dat>");
   g_option_context_add_main_entries(ctx, entries, NULL);
   if (!g_option_context_parse(ctx,&argc,&argv,&error)) {
     g_print("option parsing failed:%s\n",error->message);

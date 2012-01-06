@@ -1047,7 +1047,7 @@ app_init (int argc, char **argv)
     }
     else
     {
-      gchar *filename = g_filename_from_utf8("Diagram0.red2", -1, NULL, NULL, NULL);
+      gchar *filename = g_filename_from_utf8("Diagram0.red", -1, NULL, NULL, NULL);
       Diagram *diagram = new_diagram (filename);
       g_free(filename);
     
