@@ -252,6 +252,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
   double dash[6];
 
   DIAG_NOTE(g_message("set_linestyle %d", mode));
+  renderer->mode = mode;
 
   /* line type */
   switch (mode) {
@@ -301,6 +302,7 @@ set_dashlength(DiaRenderer *self, real length)
    * than one device unit. But the side-effect seems to end the endless loop */
   ensure_minimum_one_device_unit(renderer, &length);
   renderer->dash_length = length;
+  set_linestyle(self,renderer->mode);
 }
 
 static void
