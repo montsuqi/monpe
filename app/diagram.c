@@ -310,6 +310,24 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 
   /* TODO: Make diagram not be initialized twice */
   if (diagram == NULL) {
+    /* check old red*/
+    gchar *buf;
+    gsize size;
+    if (g_file_get_contents(filename,&buf,&size,NULL)) {
+      gboolean newred;
+      newred = g_regex_match_simple("encoding=\"UTF-8\"",buf,0,0);
+      g_free(buf);
+      if (!newred) {
+        GtkWidget *dialog;
+        dialog = gtk_message_dialog_new(NULL,0,
+          GTK_MESSAGE_ERROR,
+          GTK_BUTTONS_CLOSE,
+          "old format?\nconvert file with red2conv");
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+        return NULL;
+      }
+    }
     diagram = new_diagram(filename);
   }
   if (diagram == NULL) return NULL;
