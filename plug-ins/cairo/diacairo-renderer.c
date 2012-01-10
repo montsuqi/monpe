@@ -183,7 +183,7 @@ set_linewidth(DiaRenderer *self, real linewidth)
   /* make hairline? Everythnig below one device unit get the same width,
    * otherwise 0.0 may end up thicker than 0.0+epsilon
    */
-  if (linewidth == 0.0) {
+  if (linewidth < 0.01) {
     char *p;
     double dpi = 400.0; /*400dpi*/
 
