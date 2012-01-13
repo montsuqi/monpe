@@ -48,6 +48,8 @@ typedef struct {
 } FontInfo;
 
 static FontInfo Fonts[] = {
+  {"OCRB"               ,1.25,"OCRB"         ,"0" ,"Courier"},
+  {"OCRROSAI"           ,1.25,"OCRROSAI"     ,"0" ,"Courier"},
   {"Mincho"             ,1.25,"Takao明朝"    ,"0" ,"Courier"},
   {"明朝"               ,1.25,"Takao明朝"    ,"0" ,"Courier"},
   {"Gothic"             ,1.25,"Takaoゴシック","0" ,"Courier"},

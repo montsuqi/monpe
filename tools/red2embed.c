@@ -16,39 +16,21 @@
 static char *outfile = NULL;
 
 static void
-_red2embed(char *diafile,
-  char *datafile)
+_red2embed(int argc,char *argv[])
 {
-  xmlDocPtr doc;
   gchar *buf;
-  gsize size;
-  GString *embed;
 
-  xmlInitParser();
-  LIBXML_TEST_VERSION
-
-  doc = xmlParseFile(diafile);
-  if (doc == NULL) {
-    g_error("Error: unable to parse file:%s", diafile);
-  }
-
-  if (!g_file_get_contents(datafile,&buf,&size,NULL)) {
-    g_error("Error: unable to read data file:%s\n",datafile);
-  }
-
-  embed = red2embed(doc,buf);
-
+  buf = red2embed(argc,argv);
   if (outfile != NULL) {
-    if (!g_file_set_contents(outfile,embed->str,embed->len,NULL)) {
+    if (!g_file_set_contents(outfile,buf,strlen(buf),NULL)) {
       g_error("Error: unable to write file:%s\n",outfile);
     }
   } else {
-    printf("%s",embed->str);
+#if 1
+    printf("%s",buf);
+#endif
   }
-
   g_free(buf);
-  xmlFreeDoc(doc);
-  g_string_free(embed,TRUE);
 }
 
 static GOptionEntry entries[] =
@@ -62,7 +44,7 @@ int main(int argc, char *argv[])
   GError *error = NULL;
   GOptionContext *ctx;
 
-  ctx = g_option_context_new("<.red> <.dat>");
+  ctx = g_option_context_new("<.red> <.dat> <.dat> ...");
   g_option_context_add_main_entries(ctx, entries, NULL);
   if (!g_option_context_parse(ctx,&argc,&argv,&error)) {
     g_print("option parsing failed:%s\n",error->message);
@@ -72,6 +54,6 @@ int main(int argc, char *argv[])
     g_print("%s",g_option_context_get_help(ctx,TRUE,NULL));
     exit(1);
   }
-  _red2embed(argv[1],argv[2]);
+  _red2embed(argc,argv);
   return 0;
 }

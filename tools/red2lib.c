@@ -777,20 +777,419 @@ _red2embed(GPtrArray *array,
   }
 }
 
-GString *
-red2embed(xmlDocPtr doc,gchar *data)
+/*************************/
+
+static const struct _paper_metrics {
+  gchar *name;
+  gdouble pswidth, psheight;
+} paper_metrics[] = {
+  { "#A3#", 29.7, 42.0},
+  { "#A4#", 21.0, 29.7},
+  { "#A5#", 14.85, 21.0},
+  { "#B4#", 25.7528, 36.4772},
+  { "#B5#", 17.6389, 25.0472},
+  { "#B5-Japan#", 18.2386, 25.7528},
+  { "#Letter#", 21.59, 27.94},
+  { "#Legal#", 21.59, 35.56},
+  { "#Ledger#", 27.9, 43.2},
+  { "#Half-Letter#", 21.59, 14.0 },
+  { "#Executive#", 18.45, 26.74 },
+  { "#Tabloid#", 28.01, 43.2858 },
+  { "#Monarch#", 9.8778, 19.12 },
+  { "#SuperB#", 29.74, 43.2858 },
+  { "#Envelope-Commercial#", 10.5128, 24.2 },
+  { "#Envelope-Monarch#", 9.8778, 19.12 },
+  { "#Envelope-DL#", 11.0, 22.0 },
+  { "#Envelope-C5#", 16.2278, 22.9306 },
+  { "#EuroPostcard#", 10.5128, 14.8167 },
+  { "#A0#", 84.1, 118.9 },
+  { "#A1#", 59.4, 84.1 },
+  { "#A2#", 42.0, 59.4 },
+  { "#Custom#", 10.0, 10.0},
+  { NULL, 0.0, 0.0 }
+};
+
+static double
+get_real_value(xmlNodePtr node)
 {
-  GString *embed;
+  xmlChar *val;
+  double ret;
+
+  val = xmlGetProp(node,BAD_CAST("val"));
+  if (val == NULL) {
+    return 0.0;
+  }
+  ret = atof(CAST_BAD(val));
+  xmlFree(val);
+  return ret;
+}
+
+static double
+getPageSkip(xmlDocPtr doc)
+{
+  xmlXPathContextPtr xpathCtx; 
+  xmlXPathObjectPtr xpathObj; 
+  xmlChar *paper;
+  xmlChar *exIsPortrait = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='is_portrait']/"
+      "dia:boolean[@val='true']"); 
+  xmlChar *exPaper = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='name']/"
+      "dia:string"); 
+  xmlChar *exTmargin = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='tmargin']/"
+      "dia:real"); 
+  xmlChar *exBmargin = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='bmargin']/"
+      "dia:real"); 
+  xmlChar *exCustomWidth = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='custom_width']/"
+      "dia:real"); 
+  xmlChar *exCustomHeight = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='custom_height']/"
+      "dia:real"); 
+
+  int i,size;
+  double tmargin,bmargin,custom_width,custom_height,skip = 0.0;
+  gboolean is_portrait;
+
+  xpathCtx = xmlXPathNewContext(doc);
+  xmlXPathRegisterNs(xpathCtx,
+    BAD_CAST("dia"),
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
+
+  /*custom width*/
+  custom_width = 0.0;
+  xpathObj = xmlXPathEvalExpression(exCustomWidth, xpathCtx);
+  if(xpathObj != NULL) {
+    custom_width = get_real_value(xpathObj->nodesetval->nodeTab[0]);
+  } else {
+    g_critical("cannot get custom_width node");
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*custom height*/
+  custom_height = 0.0;
+  xpathObj = xmlXPathEvalExpression(exCustomHeight, xpathCtx);
+  if(xpathObj != NULL) {
+    custom_height = get_real_value(xpathObj->nodesetval->nodeTab[0]);
+  } else {
+    g_critical("cannot get custom_height node");
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*is portrait*/
+  is_portrait = TRUE;
+  xpathObj = xmlXPathEvalExpression(exIsPortrait, xpathCtx);
+  if(xpathObj != NULL) {
+    size = (xpathObj->nodesetval) ? xpathObj->nodesetval->nodeNr : 0;
+    if (size == 0) {
+      is_portrait = FALSE;
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*paper size*/
+  paper = NULL;
+  xpathObj = xmlXPathEvalExpression(exPaper, xpathCtx);
+  if(xpathObj != NULL) {
+    paper = xmlXPathCastNodeSetToString(xpathObj->nodesetval);
+  } else {
+    g_critical("cannot found paper node");
+  }
+  if (paper == NULL) {
+    g_critical("cannot get paper size");
+  }
+  for(i=0;paper_metrics[i].name!=NULL;i++) {
+    if (!g_ascii_strcasecmp(CAST_BAD(paper),paper_metrics[i].name)) {
+      if (is_portrait) {
+        skip = paper_metrics[i].psheight;
+      } else {
+        skip = paper_metrics[i].pswidth;
+      }
+    }
+    if (!g_ascii_strcasecmp(CAST_BAD(paper),"#custom#")) {
+      if (is_portrait) {
+        skip = custom_height;
+      } else {
+        skip = custom_width;
+      }
+    }
+  }
+  if (skip == 0.0) {
+    g_critical("cannot found paper");
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*tmargin*/
+  tmargin = 0.0;
+  xpathObj = xmlXPathEvalExpression(exTmargin, xpathCtx);
+  if(xpathObj != NULL) {
+    tmargin = get_real_value(xpathObj->nodesetval->nodeTab[0]);
+  } else {
+    g_critical("cannot get tmargin node");
+  }
+  skip -= tmargin;
+  xmlXPathFreeObject(xpathObj);
+
+  /*bmargin*/
+  bmargin = 0.0;
+  xpathObj = xmlXPathEvalExpression(exBmargin, xpathCtx);
+  if(xpathObj != NULL) {
+    bmargin = get_real_value(xpathObj->nodesetval->nodeTab[0]);
+  } else {
+    g_critical("cannot get bmargin node");
+  }
+  skip -= bmargin;
+  xmlXPathFreeObject(xpathObj);
+
+  xmlXPathFreeContext(xpathCtx); 
+  return skip;
+}
+
+static void
+delete_layers(xmlNodePtr node)
+{
+  xmlNodePtr child;
+
+  if (node == NULL) {
+    return ;
+  }
+  if (!xmlStrcmp(node->name,BAD_CAST("layer"))) {
+    xmlUnlinkNode(node);
+    xmlFreeNode(node);
+    return;
+  }
+
+  for(child = node->children; child != NULL; child = child->next)
+  {
+    delete_layers(child);
+  }
+}
+
+static void
+skip_obj_bb(xmlNodePtr node,double skip)
+{
+  double x1,y1,x2,y2;
+  xmlChar *val;
+  gchar **strs,*new;
+  GRegex *regex;
+
+  val = xmlGetProp(node,BAD_CAST("val"));
+  if (val == NULL) {
+   g_critical("invalid obj_pos");
+  }
+  regex = g_regex_new("[,;]",0,0,NULL);
+  strs = g_regex_split(regex,CAST_BAD(val),0);
+  if (strs[0] != NULL && strs[1] != NULL &&
+      strs[2] != NULL && strs[3] != NULL) {
+    x1 = atof(strs[0]);
+    y1 = atof(strs[1]) + skip;
+    x2 = atof(strs[2]);
+    y2 = atof(strs[3]) + skip;
+    new = g_strdup_printf("%lf,%lf;%lf,%lf",x1,y1,x2,y2);
+    xmlSetProp(node,BAD_CAST("val"),BAD_CAST(new));
+    g_free(new);
+  }
+  g_strfreev(strs);
+  g_regex_unref(regex);
+}
+
+static void
+skip_obj_pos(xmlNodePtr node,double skip)
+{
+  double x,y;
+  xmlChar *val;
+  gchar **strs,*new;
+  GRegex *regex;
+
+  val = xmlGetProp(node,BAD_CAST("val"));
+  if (val == NULL) {
+   g_critical("invalid obj_pos");
+  }
+  regex = g_regex_new(",",0,0,NULL);
+  strs = g_regex_split(regex,CAST_BAD(val),0);
+  if (strs[0] != NULL && strs[1] != NULL) {
+    x = atof(strs[0]);
+    y = atof(strs[1]) + skip;
+    new = g_strdup_printf("%lf,%lf",x,y);
+    xmlSetProp(node,BAD_CAST("val"),BAD_CAST(new));
+    g_free(new);
+  }
+  g_strfreev(strs);
+  g_regex_unref(regex);
+}
+
+static void
+page_skip(xmlDocPtr doc,double skip)
+{
+  int i,size;
+  xmlXPathContextPtr xpathCtx; 
+  xmlXPathObjectPtr xpathObj; 
+  xmlNodeSetPtr nodes;
+  xmlChar *exPos = 
+    BAD_CAST(
+      "//dia:attribute[@name='obj_pos']/"
+      "dia:point");
+  xmlChar *exBB = 
+    BAD_CAST(
+      "//dia:attribute[@name='obj_bb']/"
+      "dia:rectangle");
+  xmlChar *exElemCorner = 
+    BAD_CAST(
+      "//dia:attribute[@name='elem_corner']/"
+      "dia:point");
+  xmlChar *exConnEnd = 
+    BAD_CAST(
+      "//dia:attribute[@name='conn_endpoints']/"
+      "dia:point");
+
+  xpathCtx = xmlXPathNewContext(doc);
+  xmlXPathRegisterNs(xpathCtx,
+    BAD_CAST("dia"),
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
+
+  /*obj_pos*/
+  xpathObj = xmlXPathEvalExpression(exPos, xpathCtx);
+  if(xpathObj != NULL) {
+    nodes = xpathObj->nodesetval;
+    size = (nodes) ? nodes->nodeNr : 0;
+    
+    for(i = 0; i < size; i++) {
+      if (nodes->nodeTab[i] == NULL) {
+        continue;
+      }
+      skip_obj_pos(nodes->nodeTab[i],skip);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*obj_bb*/
+  xpathObj = xmlXPathEvalExpression(exBB, xpathCtx);
+  if(xpathObj != NULL) {
+    nodes = xpathObj->nodesetval;
+    size = (nodes) ? nodes->nodeNr : 0;
+    
+    for(i = 0; i < size; i++) {
+      if (nodes->nodeTab[i] == NULL) {
+        continue;
+      }
+      skip_obj_bb(nodes->nodeTab[i],skip);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*elem_corner*/
+  xpathObj = xmlXPathEvalExpression(exElemCorner, xpathCtx);
+  if(xpathObj != NULL) {
+    nodes = xpathObj->nodesetval;
+    size = (nodes) ? nodes->nodeNr : 0;
+    
+    for(i = 0; i < size; i++) {
+      if (nodes->nodeTab[i] == NULL) {
+        continue;
+      }
+      skip_obj_pos(nodes->nodeTab[i],skip);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  /*conn end*/
+  xpathObj = xmlXPathEvalExpression(exConnEnd, xpathCtx);
+  if(xpathObj != NULL) {
+    nodes = xpathObj->nodesetval;
+    size = (nodes) ? nodes->nodeNr : 0;
+    
+    for(i = 0; i < size; i++) {
+      if (nodes->nodeTab[i] == NULL) {
+        continue;
+      }
+      skip_obj_pos(nodes->nodeTab[i],skip);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  xmlXPathFreeContext(xpathCtx); 
+}
+
+static void
+add_layers(xmlDocPtr dst,xmlDocPtr src)
+{
+  int i,size;
+  xmlXPathContextPtr xpathCtx; 
+  xmlXPathObjectPtr xpathObj; 
+  xmlNodeSetPtr nodes;
+  xmlNodePtr node;
+  xmlChar *exLayer = 
+    BAD_CAST( "//dia:layer");
+
+  xpathCtx = xmlXPathNewContext(src);
+  xmlXPathRegisterNs(xpathCtx,
+    BAD_CAST("dia"),
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
+
+  /*obj_bb*/
+  xpathObj = xmlXPathEvalExpression(exLayer, xpathCtx);
+  if(xpathObj != NULL) {
+    nodes = xpathObj->nodesetval;
+    size = (nodes) ? nodes->nodeNr : 0;
+    
+    for(i = 0; i < size; i++) {
+      if (nodes->nodeTab[i] == NULL) {
+        continue;
+      }
+      node = xmlCopyNode(nodes->nodeTab[i],1);
+      xmlAddChild(xmlDocGetRootElement(dst),node);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  xmlXPathFreeContext(xpathCtx); 
+}
+
+gchar *
+red2embed(int argc,char *argv[])
+{
+  xmlDocPtr doc,out;
+  gchar *buf;
+  gsize size;
+  int i;
+  double skip;
+  xmlChar *outmem;
+  int outsize;
+
   GPtrArray *array;
   ValueStruct *value;
   char *vname;
   CONVOPT *conv;
-  xmlChar *outmem;
-  int outsize;
   GString *rec;
   DicNode *dtree;
 
-  embed = g_string_new("");
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  conv = NewConvOpt();
+  ConvSetSize(conv,500,100);
+  ConvSetCodeset(conv,"euc-jisx0213");
+
+  out = xmlParseFile(argv[1]);
+  if (out == NULL) {
+    g_error("Error: unable to parse file:%s", argv[1]);
+  }
+  doc = xmlParseFile(argv[1]);
+
   array = GetEmbedInfoList(doc);
   rec = red2rec(doc);
   dtree = GetDTree(doc);
@@ -805,18 +1204,31 @@ red2embed(xmlDocPtr doc,gchar *data)
       ValueType(value));
   }
 
-  conv = NewConvOpt();
-  ConvSetSize(conv,500,100);
-  ConvSetCodeset(conv,"euc-jisx0213");
-  OpenCOBOL_UnPackValue(conv,(unsigned char*)data,value);
+  /* parse out */
+  skip = getPageSkip(out);
+  delete_layers(xmlDocGetRootElement(out));
 
-  _red2embed(array,value,dtree);
+  for(i = 2; i < argc; i++) {
+    if (!g_file_get_contents(argv[i],&buf,&size,NULL)) {
+      g_error("Error: unable to read data file:%s\n",argv[i]);
+    }
+    OpenCOBOL_UnPackValue(conv,(unsigned char*)buf,value);
+    _red2embed(array,value,dtree);
+    if (i != 2) {
+      page_skip(doc,skip);
+    }
+    add_layers(out,doc);
+    g_free(buf);
+  }
 
   xmlKeepBlanksDefault(0);
+#if 1
+  xmlDocDumpFormatMemory(out,&outmem,&outsize,1);
+#else
   xmlDocDumpFormatMemory(doc,&outmem,&outsize,1);
-  g_string_append_printf(embed,"%s",CAST_BAD(outmem));
+#endif
 
-  xmlFree(outmem);
-
-  return embed;
+  xmlFreeDoc(out);
+  xmlFreeDoc(doc);
+  return g_strdup(CAST_BAD(outmem));
 }

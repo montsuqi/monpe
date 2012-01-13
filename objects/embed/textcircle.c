@@ -221,7 +221,7 @@ tcircle_draw(TCircle *tcircle, DiaRenderer *renderer)
 
   obj = &tcircle->object;
 
-  renderer_ops->set_linewidth(renderer, 0.01);
+  renderer_ops->set_linewidth(renderer, 0.0);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
