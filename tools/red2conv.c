@@ -497,6 +497,28 @@ read_red(gchar *fname)
 }
 
 static void
+set_name_space(xmlNodePtr node,xmlNs *ns)
+{
+  xmlNodePtr child;
+
+  if (node == NULL) {
+    return ;
+  }
+
+  /* hey libxml2 does not add prefix ;I */
+  if (!g_regex_match_simple("<dia:",CAST_BAD(node->name),0,0)) {
+    gchar *name = g_strdup_printf("dia:%s",CAST_BAD(node->name));
+    xmlNodeSetName(node,BAD_CAST(name));
+    g_free(name);
+  }
+
+  for(child = node->children; child != NULL; child = child->next)
+  {
+    set_name_space(child, ns);
+  }
+}
+
+static void
 red2conv(char *infile)
 {
   xmlDocPtr doc;
@@ -504,6 +526,7 @@ red2conv(char *infile)
   gchar *buf1;
   gchar *buf2;
   GList *list;
+  xmlNs *ns;
 
   xmlChar *outmem;
   int outsize;
@@ -539,6 +562,12 @@ red2conv(char *infile)
 
   /* fix font */
   fix_font(root);
+
+  /* set name space */
+  ns = xmlNewNs(doc->xmlRootNode,
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"),
+    BAD_CAST("dia"));
+  set_name_space(doc->xmlRootNode, ns);
 
   /* output*/
   xmlKeepBlanksDefault(0);

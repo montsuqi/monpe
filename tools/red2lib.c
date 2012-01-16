@@ -815,13 +815,17 @@ get_real_value(xmlNodePtr node)
   xmlChar *val;
   double ret;
 
+  if (node == NULL) {
+    return 0.0;
+  }
+
   val = xmlGetProp(node,BAD_CAST("val"));
   if (val == NULL) {
     return 0.0;
   }
   ret = atof(CAST_BAD(val));
   xmlFree(val);
-  return ret;
+  return 0.0;
 }
 
 static double
@@ -871,23 +875,19 @@ getPageSkip(xmlDocPtr doc)
     BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
 
   /*custom width*/
-  custom_width = 0.0;
+  custom_width = 10.0;
   xpathObj = xmlXPathEvalExpression(exCustomWidth, xpathCtx);
-  if(xpathObj != NULL) {
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
     custom_width = get_real_value(xpathObj->nodesetval->nodeTab[0]);
-  } else {
-    g_critical("cannot get custom_width node");
   }
   xmlXPathFreeObject(xpathObj);
 
   /*custom height*/
-  custom_height = 0.0;
+  custom_height = 10.0;
   xpathObj = xmlXPathEvalExpression(exCustomHeight, xpathCtx);
-  if(xpathObj != NULL) {
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
     custom_height = get_real_value(xpathObj->nodesetval->nodeTab[0]);
-  } else {
-    g_critical("cannot get custom_height node");
-  }
+  } 
   xmlXPathFreeObject(xpathObj);
 
   /*is portrait*/
@@ -904,7 +904,7 @@ getPageSkip(xmlDocPtr doc)
   /*paper size*/
   paper = NULL;
   xpathObj = xmlXPathEvalExpression(exPaper, xpathCtx);
-  if(xpathObj != NULL) {
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
     paper = xmlXPathCastNodeSetToString(xpathObj->nodesetval);
   } else {
     g_critical("cannot found paper node");
@@ -936,7 +936,7 @@ getPageSkip(xmlDocPtr doc)
   /*tmargin*/
   tmargin = 0.0;
   xpathObj = xmlXPathEvalExpression(exTmargin, xpathCtx);
-  if(xpathObj != NULL) {
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
     tmargin = get_real_value(xpathObj->nodesetval->nodeTab[0]);
   } else {
     g_critical("cannot get tmargin node");
@@ -947,7 +947,7 @@ getPageSkip(xmlDocPtr doc)
   /*bmargin*/
   bmargin = 0.0;
   xpathObj = xmlXPathEvalExpression(exBmargin, xpathCtx);
-  if(xpathObj != NULL) {
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
     bmargin = get_real_value(xpathObj->nodesetval->nodeTab[0]);
   } else {
     g_critical("cannot get bmargin node");
