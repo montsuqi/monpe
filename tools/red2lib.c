@@ -963,6 +963,7 @@ static void
 delete_layers(xmlNodePtr node)
 {
   xmlNodePtr child;
+  xmlNodePtr next;
 
   if (node == NULL) {
     return ;
@@ -970,11 +971,11 @@ delete_layers(xmlNodePtr node)
   if (!xmlStrcmp(node->name,BAD_CAST("layer"))) {
     xmlUnlinkNode(node);
     xmlFreeNode(node);
-    return;
   }
 
-  for(child = node->children; child != NULL; child = child->next)
+  for(child = node->children; child != NULL; child = next)
   {
+    next = child->next;
     delete_layers(child);
   }
 }
@@ -1222,11 +1223,7 @@ red2embed(int argc,char *argv[])
   }
 
   xmlKeepBlanksDefault(0);
-#if 1
   xmlDocDumpFormatMemory(out,&outmem,&outsize,1);
-#else
-  xmlDocDumpFormatMemory(doc,&outmem,&outsize,1);
-#endif
 
   xmlFreeDoc(out);
   xmlFreeDoc(doc);
