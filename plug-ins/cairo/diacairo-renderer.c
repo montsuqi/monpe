@@ -192,7 +192,6 @@ set_linewidth(DiaRenderer *self, real linewidth)
     }
     cairo_set_line_width (renderer->cr, 2.54/dpi );
   } else {
-    ensure_minimum_one_device_unit(renderer, &linewidth);
     cairo_set_line_width (renderer->cr, linewidth);
   }
   DIAG_STATE(renderer->cr)

@@ -58,7 +58,7 @@ static FontInfo Fonts[] = {
   {"Courier-Oblique"    ,1.25,"Takao明朝"    ,"8" ,"Courier"},
   {"Courier-Bold"       ,1.25,"Takao明朝"    ,"80","Courier"},
   {"Courier-BoldOblique",1.25,"Takao明朝"    ,"88","Courier"},
-  {"Times-Roman"        ,1.25,"serif"        ,"0" ,"Times-Roman"},
+  {"Times-Roman"        ,1.25,"Takao明朝"    ,"0" ,"Times-Roman"},
   {NULL                 ,0.0 ,NULL           ,0   ,NULL}
 };
 
