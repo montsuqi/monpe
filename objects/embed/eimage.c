@@ -64,6 +64,7 @@ struct _EImage {
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
+  gboolean keep_orig_aspect;
 
   time_t mtime;
 
@@ -75,7 +76,8 @@ static struct _ImageProperties {
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
-} default_properties = { "", FALSE, TRUE };
+  gboolean keep_orig_aspect;
+} default_properties = { "", FALSE, TRUE, TRUE };
 
 static real image_distance_from(EImage *image, Point *point);
 static void image_select(EImage *image, Point *clicked_point,
@@ -146,6 +148,8 @@ static PropDescription image_props[] = {
     N_("Draw border"), NULL, NULL},
   { "keep_aspect", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Keep aspect ratio"), NULL, NULL},
+  { "keep_orig_aspect", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Keep original aspect ratio(for embed)"), NULL, NULL},
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -169,6 +173,7 @@ static PropOffset image_offsets[] = {
   { "image_file", PROP_TYPE_FILE, offsetof(EImage, file) },
   { "show_border", PROP_TYPE_BOOL, offsetof(EImage, draw_border) },
   { "keep_aspect", PROP_TYPE_BOOL, offsetof(EImage, keep_aspect) },
+  { "keep_orig_aspect", PROP_TYPE_BOOL, offsetof(EImage, keep_orig_aspect) },
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(EImage, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(EImage, border_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
@@ -380,8 +385,28 @@ image_draw(EImage *image, DiaRenderer *renderer)
   }
   /* Draw the image */
   if (image->image) {
-    renderer_ops->draw_image(renderer, &elem->corner, elem->width,
-			      elem->height, image->image);
+    if (image->keep_orig_aspect) {
+      real aspect;
+      real width,height;
+      Point corner;
+      
+      aspect = (real)dia_image_width(image->image) / 
+        (real)dia_image_height(image->image);
+
+      width = elem->height * aspect;
+      if (width < elem->width) {
+        height = elem->height;
+      } else {
+        width = elem->width;
+        height = elem->width * (1.0/aspect);
+      }
+      corner.x = elem->corner.x + elem->width / 2.0 - width / 2.0;
+      corner.y = elem->corner.y + elem->height / 2.0 - height / 2.0;
+      renderer_ops->draw_image(renderer,&corner,width,height,image->image);
+    } else {
+      renderer_ops->draw_image(renderer, &elem->corner, elem->width,
+	  		      elem->height, image->image);
+    }
   } else {
     DiaImage *broken = dia_image_get_broken();
     renderer_ops->draw_image(renderer, &elem->corner, elem->width,
@@ -482,6 +507,7 @@ image_create(Point *startpoint,
 
   image->draw_border = default_properties.draw_border;
   image->keep_aspect = default_properties.keep_aspect;
+  image->keep_orig_aspect = default_properties.keep_orig_aspect;
 
   if (node != NULL) {
   	index = dnode_data_get_empty_index(node);
@@ -553,6 +579,7 @@ image_copy(EImage *image)
 
   newimage->draw_border = image->draw_border;
   newimage->keep_aspect = image->keep_aspect;
+  newimage->keep_orig_aspect = image->keep_orig_aspect;
 
   newimage->embed_id = get_default_embed_id("embed_image");
   newobj->node = oldobj->node;
@@ -616,6 +643,7 @@ image_save(EImage *image, ObjectNode obj_node, const char *filename)
   
   data_add_boolean(new_attribute(obj_node, "draw_border"), image->draw_border);
   data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect);
+  data_add_boolean(new_attribute(obj_node, "keep_orig_aspect"), image->keep_orig_aspect);
 
   data_add_string(new_attribute(obj_node, "embed_id"),
 		dtree_conv_longname_to_xml(image->embed_id));
@@ -694,6 +722,11 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "keep_aspect");
   if (attr != NULL)
     image->keep_aspect =  data_boolean( attribute_first_data(attr) );
+
+  image->keep_orig_aspect = TRUE;
+  attr = object_find_attribute(obj_node, "keep_orig_aspect");
+  if (attr != NULL)
+    image->keep_orig_aspect =  data_boolean( attribute_first_data(attr) );
 
   attr = object_find_attribute(obj_node, "file");
   if (attr != NULL) {
