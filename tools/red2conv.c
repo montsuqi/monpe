@@ -137,6 +137,51 @@ fix_font(xmlNodePtr node)
   }
 }
 
+static void
+fix_keep_aspect(xmlNodePtr node)
+{
+  xmlNodePtr cur,cur2;
+  xmlChar *name,*val;
+  gboolean have_keep_orig_aspect;
+
+  if (!xmlStrcmp(node->name,BAD_CAST("object"))) {
+
+    have_keep_orig_aspect = FALSE;
+    val = NULL;
+    for (cur = node->children; cur != NULL; cur = cur->next) {
+      if (!xmlStrcmp(cur->name,BAD_CAST("attribute"))) {
+        name = xmlGetProp(cur,BAD_CAST("name"));
+        if (!xmlStrcmp(name,BAD_CAST("keep_orig_aspect"))) {
+          for (cur2 = cur->children; cur2 != NULL; cur2 = cur2->next) {
+            if (!xmlStrcmp(cur2->name,BAD_CAST("boolean"))) {
+              val = xmlGetProp(cur2,BAD_CAST("val"));
+              have_keep_orig_aspect = TRUE;
+            }
+          }
+        }
+      }
+    }
+    if (have_keep_orig_aspect) {
+      for (cur = node->children; cur != NULL; cur = cur->next) {
+        if (!xmlStrcmp(cur->name,BAD_CAST("attribute"))) {
+          name = xmlGetProp(cur,BAD_CAST("name"));
+          if (!xmlStrcmp(name,BAD_CAST("keep_aspect"))) {
+            for (cur2 = cur->children; cur2 != NULL; cur2 = cur2->next) {
+              if (!xmlStrcmp(cur2->name,BAD_CAST("boolean"))) {
+                xmlSetProp(cur2,BAD_CAST("val"),val);
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  for (cur = node->children; cur != NULL; cur = cur->next) {
+    fix_keep_aspect(cur);
+  }
+}
+
 #define G_ERROR(p) if((p)!=NULL){g_error("%s",(p)->message);}
 
 static void
@@ -562,6 +607,9 @@ red2conv(char *infile)
 
   /* fix font */
   fix_font(root);
+
+  /* fix keep_aspect */
+  fix_keep_aspect(root);
 
   /* set name space */
   ns = xmlNewNs(doc->xmlRootNode,
