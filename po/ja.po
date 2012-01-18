@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-06 16:42+0900\n"
+"POT-Creation-Date: 2012-01-18 15:01+0900\n"
 "PO-Revision-Date: 2009-04-26 16:08+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -52,62 +52,62 @@ msgstr "%s エラー: %s へエキスポートする方法が不明です\n"
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s エラー: 入力ファイルと出力ファイルの名前が同じです: %s"
 
-#: ../app/app_procs.c:393
+#: ../app/app_procs.c:409
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s エラー: 適切な入力ファイル %s が必要です\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:426
+#: ../app/app_procs.c:442
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:602
+#: ../app/app_procs.c:618
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "%s という出力フォーマットまたはフィルタはありません\n"
 
-#: ../app/app_procs.c:680
+#: ../app/app_procs.c:696
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
 msgstr "入力フォルダが見つかりませんでした: %s\n"
 
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:713
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
 msgstr "出力フォルダが見つかりませんでした: %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:748
+#: ../app/app_procs.c:764
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "フィルタまたはフォーマットを指定する: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:766
+#: ../app/app_procs.c:782
 msgid "Export loaded file and exit"
 msgstr "読み込んだファイルをエキスポートして終了する"
 
-#: ../app/app_procs.c:766
+#: ../app/app_procs.c:782
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:768
+#: ../app/app_procs.c:784
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../app/app_procs.c:770
+#: ../app/app_procs.c:786
 msgid "Export graphics size"
 msgstr "指定したサイズのグラフィックスにエキスポートする"
 
-#: ../app/app_procs.c:770
+#: ../app/app_procs.c:786
 msgid "WxH"
 msgstr "WxH"
 
-#: ../app/app_procs.c:772
+#: ../app/app_procs.c:788
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -115,11 +115,11 @@ msgstr ""
 "指定したレイヤだけ表示する (例えばエキスポートする時など): レイヤ名またはレイ"
 "ヤ番号の範囲 (X-Y) で指定する"
 
-#: ../app/app_procs.c:773 ../app/app_procs.c:776
+#: ../app/app_procs.c:789 ../app/app_procs.c:792
 msgid "LAYER,LAYER,..."
 msgstr "LAYER,LAYER,..."
 
-#: ../app/app_procs.c:775
+#: ../app/app_procs.c:791
 msgid ""
 "Hide only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -127,98 +127,98 @@ msgstr ""
 "指定したレイヤだけ表示する (例えばエキスポートする時など): レイヤ名またはレイ"
 "ヤ番号の範囲 (X-Y) で指定する"
 
-#: ../app/app_procs.c:778
+#: ../app/app_procs.c:794
 msgid "Don't show the splash screen"
 msgstr "スプラッシュスクリーンを表示しない"
 
-#: ../app/app_procs.c:780
+#: ../app/app_procs.c:796
 msgid "Don't create empty diagram"
 msgstr "空のダイアグラムを生成しない"
 
-#: ../app/app_procs.c:782
+#: ../app/app_procs.c:798
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr ""
 "埋め込み型のユーザ・インタフェースで起動する (ダイアグラムをタブ化する)"
 
-#: ../app/app_procs.c:784
+#: ../app/app_procs.c:800
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "エラー・メッセージをダイアログで表示する代わりに標準エラー出力へ出力する"
 
-#: ../app/app_procs.c:786
+#: ../app/app_procs.c:802
 msgid "Directory containing input files"
 msgstr "入力ファイルを格納したフォルダを指定する"
 
-#: ../app/app_procs.c:786 ../app/app_procs.c:788
+#: ../app/app_procs.c:802 ../app/app_procs.c:804
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../app/app_procs.c:788
+#: ../app/app_procs.c:804
 msgid "Directory containing output files"
 msgstr "出力ファイルを格納するフォルダを指定する"
 
-#: ../app/app_procs.c:791
+#: ../app/app_procs.c:807
 msgid "Display credits list and exit"
 msgstr "クレジットを表示して終了する"
 
-#: ../app/app_procs.c:794
+#: ../app/app_procs.c:810
 msgid "Generate verbose output"
 msgstr "詳細な出力を表示する"
 
-#: ../app/app_procs.c:796
+#: ../app/app_procs.c:812
 msgid "Display version and exit"
 msgstr "バージョンを表示して終了する"
 
-#: ../app/app_procs.c:798
+#: ../app/app_procs.c:814
 msgid "The x cordinate to paper offset[cm]"
 msgstr ""
 
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:816
 msgid "The y cordinate to paper offset[cm]"
 msgstr ""
 
-#: ../app/app_procs.c:824
+#: ../app/app_procs.c:840
 msgid "[FILE...]"
 msgstr "[ファイル...]"
 
-#: ../app/app_procs.c:836
+#: ../app/app_procs.c:852
 #, c-format
 msgid "Invalid option?"
 msgstr "不正操作?"
 
-#: ../app/app_procs.c:859
+#: ../app/app_procs.c:875
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "ファイル名の変更に失敗しました: %s\n"
 
-#: ../app/app_procs.c:872
+#: ../app/app_procs.c:888
 #, c-format
 msgid "Missing input: %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:897
+#: ../app/app_procs.c:913
 msgid "Can't connect to session manager!\n"
 msgstr "セッション・マネージャへ接続できません！\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:937
+#: ../app/app_procs.c:953
 #, c-format
 msgid "Monpe version %s, compiled %s %s\n"
 msgstr "Monpe バージョン %1$s (コンパイル日時 %3$s %2$s)\n"
 
-#: ../app/app_procs.c:939
+#: ../app/app_procs.c:955
 #, c-format
 msgid "Monpe version %s\n"
 msgstr "Monpe バージョン %s\n"
 
-#: ../app/app_procs.c:979
+#: ../app/app_procs.c:995
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "オブジェクトのライブラリから標準オブジェクトを見つけられなかったので終了しま"
 "す...\n"
 
-#: ../app/app_procs.c:981
+#: ../app/app_procs.c:997
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -227,7 +227,7 @@ msgstr ""
 "オブジェクトのライブラリ '%s' から標準オブジェクトを見つけられなかったので終"
 "了します...\n"
 
-#: ../app/app_procs.c:1086
+#: ../app/app_procs.c:1102
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -235,16 +235,16 @@ msgstr ""
 "これは致命的な問題です。この問題の再現方法を記述したバグ・レポートを\n"
 "bugzilla.gnome.org まで報告して下さい。\n"
 
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1117
 msgid "Exiting Dia"
 msgstr "Dia の終了"
 
 #. no standard buttons
-#: ../app/app_procs.c:1165
+#: ../app/app_procs.c:1181
 msgid "Quitting without saving modified diagrams"
 msgstr "編集中のダイアグラムを保存せずに終了します"
 
-#: ../app/app_procs.c:1167
+#: ../app/app_procs.c:1183
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Monpe without saving "
 "them?"
@@ -252,15 +252,15 @@ msgstr ""
 "ダイアグラムが変更されています。本当に保存せずに Monpe を終了してもよろしいで"
 "すか？"
 
-#: ../app/app_procs.c:1171
+#: ../app/app_procs.c:1187
 msgid "Quit Monpe"
 msgstr ""
 
-#: ../app/app_procs.c:1240 ../app/app_procs.c:1247
+#: ../app/app_procs.c:1256 ../app/app_procs.c:1263
 msgid "Could not create per-user Dia config directory"
 msgstr "Dia のユーザ設定フォルダを作成できませんでした"
 
-#: ../app/app_procs.c:1250
+#: ../app/app_procs.c:1266
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -268,11 +268,11 @@ msgstr ""
 "ユーザ用の Dia 設定フォルダを作成できませんでした。環境変数 $HOME が既存の"
 "フォルダを指しているか確認して下さい。"
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1289
 msgid "Objects and filters internal to dia"
 msgstr "Dia に内蔵されたオブジェクトとフィルタ"
 
-#: ../app/app_procs.c:1329
+#: ../app/app_procs.c:1345
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -281,7 +281,7 @@ msgstr ""
 "オリジナルの開発者:\n"
 "\n"
 
-#: ../app/app_procs.c:1334
+#: ../app/app_procs.c:1350
 #, c-format
 msgid ""
 "\n"
@@ -292,7 +292,7 @@ msgstr ""
 "現在のメンテナ:\n"
 "\n"
 
-#: ../app/app_procs.c:1339
+#: ../app/app_procs.c:1355
 #, c-format
 msgid ""
 "\n"
@@ -303,7 +303,7 @@ msgstr ""
 "その他の貢献者:\n"
 "\n"
 
-#: ../app/app_procs.c:1344
+#: ../app/app_procs.c:1360
 #, c-format
 msgid ""
 "\n"
@@ -553,11 +553,11 @@ msgstr "'%s' のファイル名を UTF-8 に変換できませんでした: %s\n
 msgid "Error"
 msgstr "エラー"
 
-#: ../app/diagram.c:1216
+#: ../app/diagram.c:1234
 msgid "Trying to group with no selected objects."
 msgstr "オブジェクトを選択せずにグループ化しようとしました"
 
-#: ../app/diagram.c:1226
+#: ../app/diagram.c:1244
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -811,7 +811,7 @@ msgstr "保存"
 #: ../objects/UML/association.c:234 ../objects/UML/class.c:144
 #: ../objects/UML/large_package.c:139 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
-#: ../objects/UML/umlparameter.c:43 ../objects/embed/eimage.c:153
+#: ../objects/UML/umlparameter.c:43 ../objects/embed/eimage.c:157
 #: ../objects/embed/etextobj.c:186
 msgid "Name"
 msgstr "名前"
@@ -2812,9 +2812,10 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
-"古い Dia のフォルダを削除しますが、続行してもよろしいですか？$\r$\r注意: イン"
-"ストールされている標準以外のプラグインも削除されます。$\rDia の設定には影響あ"
-"りません。"
+"古い Dia のフォルダを削除しますが、続行してもよろしいですか？\n"
+"\n"
+"注意: インストールされている標準以外のプラグインも削除されます。\n"
+"Dia の設定には影響ありません。"
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2823,7 +2824,7 @@ msgid ""
 "be deleted. Would you like to continue?"
 msgstr ""
 "指定したインストール先のフォルダは既に存在しています。その中にある全てのファ"
-"イル$\rを削除しますが、続行してもよろしいですか？"
+"イルを削除しますが、続行してもよろしいですか？"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
 #: ../installer/win32/gennsh.c:80
@@ -2831,8 +2832,8 @@ msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
 msgstr ""
-"レジストリの中に Dia のエントリを見つけることができませんでした。$\rDia を別"
-"のユーザがインストールしている可能性があります。"
+"レジストリの中に Dia のエントリを見つけることができませんでした。\n"
+"Dia を別のユーザがインストールしている可能性があります。"
 
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:83
@@ -5949,15 +5950,15 @@ msgstr "固定アスペクト"
 msgid "Circle"
 msgstr "円"
 
-#: ../objects/standard/image.c:139 ../objects/embed/eimage.c:144
+#: ../objects/standard/image.c:139 ../objects/embed/eimage.c:146
 msgid "Image file"
 msgstr "画像ファイル"
 
-#: ../objects/standard/image.c:141 ../objects/embed/eimage.c:146
+#: ../objects/standard/image.c:141 ../objects/embed/eimage.c:148
 msgid "Draw border"
 msgstr "境界線の表示"
 
-#: ../objects/standard/image.c:143 ../objects/embed/eimage.c:148
+#: ../objects/standard/image.c:143 ../objects/embed/eimage.c:150
 msgid "Keep aspect ratio"
 msgstr "アスペクト比の保持"
 
@@ -5966,7 +5967,7 @@ msgstr "アスペクト比の保持"
 #. Found file in same dir as diagram.
 #. Found file in current dir.
 #: ../objects/standard/image.c:697 ../objects/standard/image.c:708
-#: ../objects/embed/eimage.c:749 ../objects/embed/eimage.c:760
+#: ../objects/embed/eimage.c:782 ../objects/embed/eimage.c:793
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5977,7 +5978,7 @@ msgstr ""
 
 #. Didn't find file in current dir.
 #: ../objects/standard/image.c:714 ../objects/standard/image.c:736
-#: ../objects/embed/eimage.c:766 ../objects/embed/eimage.c:788
+#: ../objects/embed/eimage.c:799 ../objects/embed/eimage.c:821
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "画像ファイル '%s' がありませんでした\n"
@@ -6022,7 +6023,11 @@ msgstr "グリッド線"
 msgid "Vertical text alignment"
 msgstr "垂直方向の位置"
 
-#: ../objects/embed/eimage.c:155 ../objects/embed/etextobj.c:188
+#: ../objects/embed/eimage.c:152
+msgid "Keep original aspect ratio(for embed)"
+msgstr "埋め込み時のアスペクト比の保持"
+
+#: ../objects/embed/eimage.c:159 ../objects/embed/etextobj.c:188
 msgid "Embed ID"
 msgstr "埋め込みID"
 
