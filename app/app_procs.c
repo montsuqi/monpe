@@ -386,22 +386,6 @@ do_convert(const char *infname,
             argv0, infname);
     exit(1);
   }
-
-  /* check old red*/
-  {
-    gchar *buf;
-    gsize size;
-
-    if (g_file_get_contents(infname,&buf,&size,NULL)) {
-      gboolean newred;
-      newred = g_regex_match_simple("encoding=\"UTF-8\"",buf,0,0);
-      g_free(buf);
-      if (!newred) {
-        g_critical("\nold red format?\nconvert with red2convert");
-        exit(1);
-      }
-    }
-  }
   
   diagdata = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
 
