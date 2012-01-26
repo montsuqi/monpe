@@ -1,4 +1,4 @@
 # mime types for dia ...
 
 application/x-monpe-diagram
-	ext: red2 RED2
+	ext: red RED

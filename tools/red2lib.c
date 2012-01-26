@@ -620,12 +620,17 @@ foldText(ValueStruct *value,
   int text_size,
   int column_size)
 {
-  gchar *str;
+  gchar *str,*str2;
   gchar *cutted;
   gchar *folded = NULL;
   gchar *p,*q,*r;
   int i,len,num;
   gsize size;
+  static GRegex *regex = NULL;
+
+  if (regex == NULL) {
+    regex = g_regex_new("\xE2\x88\x92",0,0,NULL);
+  }
 
   if (!IS_VALUE_STRING(value)) {
     g_warning("WARNING invalid value type(%d)", ValueType(value));
@@ -637,17 +642,18 @@ foldText(ValueStruct *value,
   }
 
   str = ValueToString(value,NULL);
-
   if (!g_utf8_validate(str,-1,NULL)) {
     g_warning("WARNING invalid utf8 string");
     return NULL;
   } 
 
-  if (g_utf8_strlen(str,0) <= text_size) {
-    cutted = str;
+  str2 = g_regex_replace(regex,str,-1,0,"\xEF\xBC\x8D",0,NULL);
+
+  if (g_utf8_strlen(str2,0) <= text_size) {
+    cutted = str2;
   } else {
-    cutted = g_strdup(str);
-    g_utf8_strncpy(cutted,str,text_size);
+    cutted = g_strdup(str2);
+    g_utf8_strncpy(cutted,str2,text_size);
   }
 
   len = g_utf8_strlen(cutted,-1);
@@ -677,6 +683,7 @@ foldText(ValueStruct *value,
     }
     g_strlcat(folded,"#",size);
   }
+  g_free(str2);
   return folded;
 }
 
