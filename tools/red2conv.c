@@ -412,6 +412,7 @@ fix_character_encoding(gchar *in)
   gchar *buf3;
   gchar *buf4;
   gchar *buf5;
+  gchar *buf6;
   GRegex *reg;
   GError *err = NULL;
   gsize br,bw;
@@ -449,11 +450,19 @@ fix_character_encoding(gchar *in)
     g_error("error:g_convert");
   }
 
+  reg = g_regex_new("\xE2\x88\x92",0,0,NULL); 
+  buf6 = g_regex_replace(reg,buf5,-1,0,"\xEF\xBC\x8D",0,&err);
+  if (err != NULL) {
+    g_error("error:g_regex_replace");
+  }
+  g_regex_unref(reg);
+
   g_free(buf1);
   g_free(buf2);
   g_free(buf3);
   g_free(buf4);
-  return buf5;
+  g_free(buf5);
+  return buf6;
 }
 
 #define GZ_MODE "rb6f"
