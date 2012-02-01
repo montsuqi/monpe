@@ -176,21 +176,29 @@ static void
 modify_embed_text(xmlNodePtr node,
   GList *list)
 {
-  xmlChar *id;
+  xmlChar *id,*str;
   DictInfo *info;
   xmlNodePtr child,child2;
   int i;
-  int columns;
+  int columns,type;
 
   id = GetAttributeString(node,BAD_CAST("dnode_path"));
   if (id == NULL) {
     return;
   }
   columns = GetAttributeInt(node,BAD_CAST("embed_text_column"));
+  type = GetAttributeEnum(node,BAD_CAST("embed_text_string"));
+  str = xmlNodeGetContent(node);
 
   for (i=0;i<g_list_length(list);i++) {
     info = g_list_nth_data(list,i);
     if (!xmlStrcmp(id,BAD_CAST(info->id))) {
+      if (getenv("RED2CONV_LOGGING") != NULL) {
+        /* logging */
+        fprintf(stderr,"%s,%d,%d->%d,%d,%s\n",
+          info->id,info->length,columns,columns/2,type,str);
+      }
+
       /*embed_id*/
       child = xmlNewTextChild(node,NULL,BAD_CAST("attribute"),NULL);
       xmlNewProp(child,BAD_CAST("name"),BAD_CAST("embed_id"));
