@@ -481,7 +481,7 @@ read_red(gchar *fname)
 {
   gint fd;
   gzFile gzfile;
-  gsize readbytes;
+  int readbytes;
   gsize size;
   gchar buf[BUF_SIZE];
   gchar *ret;
@@ -496,6 +496,9 @@ read_red(gchar *fname)
     size = 0;
 	while((readbytes = gzread(gzfile, buf, sizeof(buf))) > 0 ) {
       size += readbytes;
+    }
+    if (readbytes != 0) {
+      g_error("gzread error:invalid red file?");
     }
     gzrewind(gzfile);
     ret = g_malloc(size + 1);
