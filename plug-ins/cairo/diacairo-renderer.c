@@ -872,11 +872,15 @@ _rounded_rect (DiaRenderer *self,
   /* ignore radius if it is smaller than the device unit, avoids anti-aliasing artifacts */
   rv[0] = radius;
   rv[1] = 0.0;
+
+/* FIXME; anyway draw round rect... this can produce unexpected results*/
+#if 0
   cairo_user_to_device_distance (renderer->cr, &rv[0], &rv[1]);
   if (rv[0] < 1.0 && rv[1] < 1.0) {
     _rect (self, topleft, bottomright, color, fill);
     return;  
   }
+#endif
 
   DIAG_NOTE(g_message("%s_rounded_rect %f,%f -> %f,%f, %f", 
             fill ? "fill" : "draw",
