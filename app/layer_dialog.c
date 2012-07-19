@@ -386,6 +386,7 @@ create_layer_dialog(void)
   gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
   gtk_window_set_role (GTK_WINDOW (dialog), "layer_window");
   gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_type_hint(GTK_WINDOW(dialog),GDK_WINDOW_TYPE_HINT_NORMAL);
 
   g_signal_connect (GTK_OBJECT (dialog), "delete_event",
                       G_CALLBACK(layer_dialog_delete), NULL);

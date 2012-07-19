@@ -973,6 +973,7 @@ create_dic_dialog(void)
   gtk_window_set_role(GTK_WINDOW(dialog), "dictionary_window");
   gtk_window_set_resizable(GTK_WINDOW(dialog), TRUE);
   gtk_window_set_default_size(GTK_WINDOW(dialog),250,600);
+  gtk_window_set_type_hint(GTK_WINDOW(dialog),GDK_WINDOW_TYPE_HINT_NORMAL);
 
   g_signal_connect (GTK_OBJECT (dialog), "delete_event",
                       G_CALLBACK(dic_dialog_delete), NULL);
