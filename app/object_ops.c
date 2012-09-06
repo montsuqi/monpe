@@ -107,6 +107,10 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
 	  avoid = g_list_prepend(avoid, parent);
       }
       obj_here = diagram_find_clicked_object_except(ddisp->diagram, pos, 0.00001, avoid);
+#if 1
+      /* don't connect center cp in bbox  */
+      return NULL;
+#else
       if (obj_here != NULL) {
 	  int i;
 	  for (i = 0; i < obj_here->num_connections; i++) {
@@ -116,6 +120,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
 	      }
 	  }
       }
+#endif
   }
 
   return NULL;
