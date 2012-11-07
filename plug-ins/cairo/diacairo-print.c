@@ -57,13 +57,23 @@ _dia_to_gtk_page_setup (const DiagramData *data, GtkPageSetup *setup)
   if (!g_strcmp0(paper->name,"Custom")){
     paper_size = gtk_paper_size_new_from_ppd (
       	 paper->name, paper->name, 
-                   data->paper.custom_width * points_per_cm, 
-                   data->paper.custom_height * points_per_cm);
+                   floor(data->paper.custom_width * points_per_cm), 
+                   floor(data->paper.custom_height * points_per_cm));
   } else {
+#  if 0
+    /*
+     * gtk_paper_size_new_from_ppd return wrong size A4 -> 595.276 x 841.89
+     */
     paper_size = gtk_paper_size_new_from_ppd (
   		 paper->name, paper->name, 
-                   get_paper_pswidth (index) * points_per_cm, 
-                   get_paper_psheight (index) * points_per_cm);
+                   floor(get_paper_pswidth (index) * points_per_cm), 
+                   floor(get_paper_psheight (index) * points_per_cm));
+#  else
+    paper_size = gtk_paper_size_new_from_ppd (
+  		 "", paper->name, 
+                   floor(get_paper_pswidth (index) * points_per_cm+0.5), 
+                   floor(get_paper_psheight (index) * points_per_cm+0.5));
+#  endif
   }
 #endif
 
