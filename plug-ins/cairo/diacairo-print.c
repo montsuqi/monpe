@@ -143,8 +143,8 @@ draw_page (GtkPrintOperation *operation,
     y = page_nr / nx; 
   }
 
-  bounds.left = dp_width * x + data->x_offset;
-  bounds.top = dp_height * y + data->y_offset;
+  bounds.left = dp_width * x - data->x_offset;
+  bounds.top = dp_height * y - data->y_offset;
   bounds.right = bounds.left + dp_width;
   bounds.bottom = bounds.top + dp_height;
 
