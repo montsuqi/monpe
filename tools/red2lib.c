@@ -832,7 +832,7 @@ get_real_value(xmlNodePtr node)
   }
   ret = atof(CAST_BAD(val));
   xmlFree(val);
-  return 0.0;
+  return ret;
 }
 
 static double
@@ -873,29 +873,13 @@ getPageSkip(xmlDocPtr doc)
       "dia:real"); 
 
   int i,size;
-  double tmargin,bmargin,custom_width,custom_height,skip = 0.0;
+  double tmargin,bmargin,skip = 0.0;
   gboolean is_portrait;
 
   xpathCtx = xmlXPathNewContext(doc);
   xmlXPathRegisterNs(xpathCtx,
     BAD_CAST("dia"),
     BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
-
-  /*custom width*/
-  custom_width = 10.0;
-  xpathObj = xmlXPathEvalExpression(exCustomWidth, xpathCtx);
-  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
-    custom_width = get_real_value(xpathObj->nodesetval->nodeTab[0]);
-  }
-  xmlXPathFreeObject(xpathObj);
-
-  /*custom height*/
-  custom_height = 10.0;
-  xpathObj = xmlXPathEvalExpression(exCustomHeight, xpathCtx);
-  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
-    custom_height = get_real_value(xpathObj->nodesetval->nodeTab[0]);
-  } 
-  xmlXPathFreeObject(xpathObj);
 
   /*is portrait*/
   is_portrait = TRUE;
@@ -916,29 +900,41 @@ getPageSkip(xmlDocPtr doc)
   } else {
     g_critical("cannot found paper node");
   }
+  xmlXPathFreeObject(xpathObj);
   if (paper == NULL) {
     g_critical("cannot get paper size");
   }
-  for(i=0;paper_metrics[i].name!=NULL;i++) {
-    if (!g_ascii_strcasecmp(CAST_BAD(paper),paper_metrics[i].name)) {
-      if (is_portrait) {
-        skip = paper_metrics[i].psheight;
-      } else {
-        skip = paper_metrics[i].pswidth;
+  if (!g_ascii_strcasecmp(CAST_BAD(paper),"#custom#")) {
+    if (is_portrait) {
+      /*custom height*/
+      xpathObj = xmlXPathEvalExpression(exCustomHeight, xpathCtx);
+      if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+        skip = get_real_value(xpathObj->nodesetval->nodeTab[0]);
       }
+      xmlXPathFreeObject(xpathObj);
+    } else {
+      /*custom width*/
+      xpathObj = xmlXPathEvalExpression(exCustomWidth, xpathCtx);
+      if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+        skip = get_real_value(xpathObj->nodesetval->nodeTab[0]);
+      }
+      xmlXPathFreeObject(xpathObj);
     }
-    if (!g_ascii_strcasecmp(CAST_BAD(paper),"#custom#")) {
-      if (is_portrait) {
-        skip = custom_height;
-      } else {
-        skip = custom_width;
+  } else {
+    for(i=0;paper_metrics[i].name!=NULL;i++) {
+      if (!g_ascii_strcasecmp(CAST_BAD(paper),paper_metrics[i].name)) {
+        if (is_portrait) {
+          skip = paper_metrics[i].psheight;
+        } else {
+          skip = paper_metrics[i].pswidth;
+        }
+		break;
       }
     }
   }
   if (skip == 0.0) {
     g_critical("cannot found paper");
   }
-  xmlXPathFreeObject(xpathObj);
 
   /*tmargin*/
   tmargin = 0.0;
