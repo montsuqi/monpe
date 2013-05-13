@@ -1812,7 +1812,7 @@ msgstr " 新しいダイアグラム "
 
 #: ../app/preferences.c:190
 msgid "Portrait"
-msgstr "横長にする"
+msgstr "縦長にする"
 
 #: ../app/preferences.c:192
 msgid "Paper type:"
