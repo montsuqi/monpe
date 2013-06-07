@@ -101,14 +101,14 @@ create_page_setup_dlg(Diagram *dia)
     dia->data->paper.custom_height);
 
   dia_page_layout_set_paper(DIA_PAGE_LAYOUT(ps->paper), dia->data->paper.name);
+  dia_page_layout_set_orientation(DIA_PAGE_LAYOUT(ps->paper),
+	dia->data->paper.is_portrait ? DIA_PAGE_ORIENT_PORTRAIT :
+				  DIA_PAGE_ORIENT_LANDSCAPE);
   dia_page_layout_set_margins(DIA_PAGE_LAYOUT(ps->paper),
 			      dia->data->paper.tmargin,
 			      dia->data->paper.bmargin,
 			      dia->data->paper.lmargin,
 			      dia->data->paper.rmargin);
-  dia_page_layout_set_orientation(DIA_PAGE_LAYOUT(ps->paper),
-	dia->data->paper.is_portrait ? DIA_PAGE_ORIENT_PORTRAIT :
-				  DIA_PAGE_ORIENT_LANDSCAPE);
   dia_page_layout_set_scaling(DIA_PAGE_LAYOUT(ps->paper),
 			      dia->data->paper.scaling);
   dia_page_layout_set_fitto(DIA_PAGE_LAYOUT(ps->paper),
