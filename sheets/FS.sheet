@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>FS</name>
+  <name xml:lang="ja">FS</name>
+  <description>Editor for Function Structure Diagrams.</description>
+  <description xml:lang="ja">関数構造体ダイアグラムのエディタ</description>
+  <contents>
+    <object name="FS - Flow">
+      <description>Flow</description>
+      <description xml:lang="ja">フロー</description>
+    </object>
+    <object name="FS - Orthflow">
+      <description>Orthogonal polyline flow</description>
+      <description xml:lang="ja">直角連続線のフロー</description>
+    </object>
+    <object name="FS - Function">
+      <description>Function</description>
+      <description xml:lang="ja">関数呼びだし</description>
+    </object>
+  </contents>
+</sheet>

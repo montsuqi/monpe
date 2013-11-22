@@ -26,6 +26,7 @@ build-indep-stamp
 build-arch-stamp
 m4
 app/monpe
+app/run_dia.sh
 tools/red2conv
 tools/red2embed
 tools/red2fill

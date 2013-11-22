@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns:dc="http://purl.org/dc/elements/1.1" xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+
+
+<dc:creator>Alan Horkan</dc:creator>
+<dc:rights>Copyright Alan Horkan 2003</dc:rights>
+
+
+  <name>Map, Isometric</name>
+  <name xml:lang="ja">地図 (Isometric)</name>  
+  
+  
+  <description>Isometric Directional Map Shapes</description>
+  <description xml:lang="ja">Isometric Directional Map のシェイプ</description>
+
+<contents>
+
+<object name="Road1"><description>Road Section</description>
+<description xml:lang="ja">道路</description></object>
+<object name="StraightRoad1"><description>Long Straight Road Section</description>
+<description xml:lang="ja">直線</description></object>
+
+<object name="Crossroads"><description>Crossroads</description>
+<description xml:lang="ja">交差点</description></object>
+
+<object name="T-Junction"><description>T-Junction</description>
+<description xml:lang="ja">三差路 (Ｔ字)</description></object>
+
+
+<object name="Elevated"><description>Elevated Road</description>
+<description xml:lang="ja">高架道路</description></object>
+
+<object name="Corner1"><description>Corner 1</description>
+<description xml:lang="ja">曲がり角１</description></object>
+<object name="Corner2"><description>Corner 2</description>
+<description xml:lang="ja">曲がり角２</description></object>
+
+<object name="River"><description>River</description>
+<description xml:lang="ja">川</description></object>
+
+<object name="Roof1"><description>Roof1</description>
+<description xml:lang="ja">屋根１</description></object>
+<object name="Block1"><description>Block 1, 2:4</description>
+<description xml:lang="ja">ブロック１ (2:4)</description></object>
+<object name="Block2"><description>Block 2, 2:8</description>
+<description xml:lang="ja">ブロック２ (2:8)</description></object>
+<object name="Block3"><description>Block 3, 4:4</description>
+<description xml:lang="ja">ブロック３ (4:4)</description></object>
+<object name="Block4"><description>Block 4, 4:8</description>
+<description xml:lang="ja">ブロック４ (4:8)</description></object>
+<object name="Block5"><description>Block 5, 3:3</description>
+<description xml:lang="ja">ブロック５ (3:3)</description></object>
+<object name="Block6"><description>Block 6, 4:6</description>
+<description xml:lang="ja">ブロック６ (4:6)</description></object>
+
+
+<object name="Block7"><description>Block 7</description>
+<description xml:lang="ja">ブロック７</description></object>
+
+<object name="Factory"><description>Factory</description>
+<description xml:lang="ja">工場</description></object>
+
+
+<object name="Car1"><description>Car 1, Front View</description>
+<description xml:lang="ja">車１ (正面)</description></object>
+<object name="Car2"><description>Car 2, Rear View</description>
+<description xml:lang="ja">車２ (背面)</description></object>
+
+
+
+
+
+<object name="Train1"><description>Train 1, angled downward</description>
+<description xml:lang="ja">電車１ (下り)</description></object>
+<object name="Train2"><description>Train 2, angled upward</description>
+<description xml:lang="ja">電車１ (上り)</description></object>
+
+
+<object name="Tree1"><description>Tree 1</description>
+<description xml:lang="ja">木１</description></object>
+
+<object name="FootBridge"><description>Footbridge, Pedestrian Bridge</description>
+<description xml:lang="ja">歩道橋</description></object>
+<object name="OneWay"><description>One Way Road Sign</description>
+<description xml:lang="ja">一方通行</description></object>
+
+
+</contents>
+
+</sheet>

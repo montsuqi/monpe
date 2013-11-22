@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Sybase</name>
+  <name xml:lang="ja">Sybase</name>
+  <description>Objects to design Sybase replication domain diagrams with</description>
+  <description xml:lang="ja">Sybase 複製ドメインダイアグラムを設計するためのオブジェクト</description>
+  <contents>
+    <object name="Sybase - Dataserver">
+      <description>Sybase dataserver</description>
+      <description xml:lang="ja">Sybase データサーバ</description>
+    </object>
+    <object name="Sybase - Replication Server">
+      <description>Sybase replication server</description>
+      <description xml:lang="ja">Sybase 複製サーバ</description>
+    </object>
+    <object name="Sybase - Log Transfer Manager/Rep Agent">
+      <description>Log transfer manager or rep agent</description>
+      <description xml:lang="ja">ログ転送マネージャ/複製エージェント</description>
+    </object>
+    <object name="Sybase - Stable Queue">
+      <description>Stable storage device</description>
+      <description xml:lang="ja">安定した記憶装置</description>
+    </object>
+    <object name="Sybase - Client Application">
+      <description>Sybase client application</description>
+      <description xml:lang="ja">Sybase クライアント・アプリケーション</description>
+    </object>
+    <object name="Sybase - Replication Server Manager">
+      <description>Replication server manager</description>
+      <description xml:lang="ja">複製サーバ・マネージャ</description>
+    </object>
+  </contents>
+</sheet>

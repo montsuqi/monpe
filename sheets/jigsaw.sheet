@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Jigsaw</name>
+  <name xml:lang="ja">ジグゾー</name>
+  <description>Pieces of a jigsaw</description>
+  <description xml:lang="ja">ジグゾーのピース</description>
+  <contents>
+    <object name="Jigsaw - part_oioi">
+      <description>Jigsaw - part_oioi</description>
+      <description xml:lang="ja">ジグゾー - 凸凹凸凹</description>
+    </object>
+    <object name="Jigsaw - part_ioio">
+      <description>Jigsaw - part_ioio</description>
+      <description xml:lang="ja">ジグゾー - 凹凸凹凸</description>
+    </object>
+    <object name="Jigsaw - part_iiii">
+      <description>Jigsaw - part_iiii</description>
+      <description xml:lang="ja">ジグゾー - 凹凹凹凹</description>
+    </object>
+    <object name="Jigsaw - part_oooo">
+      <description>Jigsaw - part_oooo</description>
+      <description xml:lang="ja">ジグゾー - 凸凸凸凸</description>
+    </object>
+    <br/>
+    <object name="Jigsaw - part_oooi">
+      <description>Jigsaw - part_oooi</description>
+      <description xml:lang="ja">ジグゾー - 凸凸凸凹</description>
+    </object>
+    <object name="Jigsaw - part_iooo">
+      <description>Jigsaw - part_iooo</description>
+      <description xml:lang="ja">ジグゾー - 凹凸凸凸</description>
+    </object>
+    <object name="Jigsaw - part_oioo">
+      <description>Jigsaw - part_oioo</description>
+      <description xml:lang="ja">ジグゾー - 凸凹凸凸</description>
+    </object>
+    <object name="Jigsaw - part_ooio">
+      <description>Jigsaw - part_ooio</description>
+      <description xml:lang="ja">ジグゾー - 凸凸凹凸</description>
+    </object>
+    <br/>
+    <object name="Jigsaw - part_iioo">
+      <description>Jigsaw - part_iioo</description>
+      <description xml:lang="ja">ジグゾー - 凹凹凸凸</description>
+    </object>
+    <object name="Jigsaw - part_oiio">
+      <description>Jigsaw - part_oiio</description>
+      <description xml:lang="ja">ジグゾー - 凸凹凹凸</description>
+    </object>
+    <object name="Jigsaw - part_ooii">
+      <description>Jigsaw - part_ooii</description>
+      <description xml:lang="ja">ジグゾー - 凸凸凹凹</description>
+    </object>
+    <object name="Jigsaw - part_iooi">
+      <description>Jigsaw - part_iooi</description>
+      <description xml:lang="ja">ジグゾー - 凹凸凸凹</description>
+    </object>
+    <br/>
+    <object name="Jigsaw - part_oiii">
+      <description>Jigsaw - part_oiii</description>
+      <description xml:lang="ja">ジグゾー - 凸凹凹凹</description>
+    </object>
+    <object name="Jigsaw - part_ioii">
+      <description>Jigsaw - part_ioii</description>
+      <description xml:lang="ja">ジグゾー - 凹凸凹凹</description>
+    </object>
+    <object name="Jigsaw - part_iioi">
+      <description>Jigsaw - part_iioi</description>
+      <description xml:lang="ja">ジグゾー - 凹凹凸凹</description>
+    </object>
+    <object name="Jigsaw - part_iiio">
+      <description>Jigsaw - part_iiio</description>
+      <description xml:lang="ja">ジグゾー - 凹凹凹凸</description>
+    </object>
+  </contents>
+</sheet>

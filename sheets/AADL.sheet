@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>AADL</name>
+  <name xml:lang="ja">AADL</name>
+  <description>AADL Shapes</description>
+  <description xml:lang="ja">AADL のシェイプ</description>
+  <contents>
+    <object name="AADL - Box">  
+      <description>Process</description>
+      <description xml:lang="ja">プロセス</description>
+    </object>
+    <object name="AADL - Process">
+      <description>Process</description>
+      <description xml:lang="ja">プロセス</description>
+    </object>
+    <object name="AADL - Thread">
+      <description>Thread</description>
+      <description xml:lang="ja">スレッド</description>
+    </object>
+    <object name="AADL - Data">
+      <description>Data</description>
+      <description xml:lang="ja">データ</description>
+    </object>
+    <object name="AADL - Processor">
+      <description>Processor</description>
+      <description xml:lang="ja">プロセッサ</description>
+    </object>
+    <object name="AADL - Memory">
+      <description>Memory</description>
+      <description xml:lang="ja">メモリ</description>
+    </object>
+    <object name="AADL - Bus">
+      <description>Bus</description>
+      <description xml:lang="ja">バス</description>
+    </object>
+    <object name="AADL - System">
+      <description>System</description>
+      <description xml:lang="ja">システム</description>
+    </object>
+    <object name="AADL - Subprogram">
+      <description>Subprogram</description>
+      <description xml:lang="ja">サブルーチン</description>
+    </object>
+    <object name="AADL - Thread Group">
+      <description>Thread Group</description>
+      <description xml:lang="ja">スレッド・グループ</description>
+    </object>
+    <object name="AADL - Device">
+      <description>Device</description>
+      <description xml:lang="ja">デバイス</description>
+    </object>
+    <object name="AADL - Package">
+      <description>Package</description>
+      <description xml:lang="ja">パッケージ</description>
+    </object>
+  </contents>
+</sheet>

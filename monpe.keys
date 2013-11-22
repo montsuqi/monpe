@@ -1,0 +1,5 @@
+
+application/x-monpe-diagram:
+	open=monpe %f
+	view=monpe %f
+	icon-filename=${prefix}/share/icons/hicolor/48x48/apps/monpe.png

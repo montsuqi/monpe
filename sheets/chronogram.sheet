@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Chronogram</name>
+  <name xml:lang="ja">クロノグラフ</name>
+  <description>Objects to design chronogram charts</description>
+  <description xml:lang="ja">クロノグラフ表を設計するためのオブジェクト</description>
+  <contents>
+    <object name="chronogram - reference">
+      <description>Time scale</description>
+      <description xml:lang="ja">タイムスケール</description>
+    </object>
+    <object name="chronogram - line">
+      <description>Data line</description>
+      <description xml:lang="ja">データ・ライン</description>
+    </object>
+  </contents>
+</sheet>

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Monpe Diagram Editor
+Name[ja]=ダイアグラム・エディタ
+Comment=Edit your Diagrams
+Comment[ja]=ダイアグラムを編集します
+Type=Application
+Exec=monpe %F
+Icon=monpe
+Terminal=false
+Categories=GNOME;Graphics;
+StartupNotify=true
+MimeType=application/x-monpe-diagram;
+

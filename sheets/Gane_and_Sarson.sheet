@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+
+
+
+
+<name>Gane and Sarson</name>
+<name xml:lang="ja">構造化分析と設計</name>
+<description>Gane and Sarson DFD</description>
+<description xml:lang="ja">構造化分析と設計のデータ・フロー・ダイアグラム</description>
+<contents>
+
+<object name="G&amp;S - Alternative External Entity">
+<description>Alternate external entity</description>
+<description xml:lang="ja">別の外部エンティティ</description>
+</object>
+<object name="G&amp;S - Data Store">
+<description>Data store</description>
+<description xml:lang="ja">データの格納</description>
+</object>
+<object name="G&amp;S - External Entity">
+<description>External entity</description>
+<description xml:lang="ja">外部エンティティ</description>
+</object>
+<object name="G&amp;S - Process">
+<description>Process</description>
+<description xml:lang="ja">プロセス</description>
+</object>
+</contents>
+</sheet>

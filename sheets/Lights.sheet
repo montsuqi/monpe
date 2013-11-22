@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Lights</name>
+  <name xml:lang="ja">Lights</name>
+  <description>Objects to design simple lighting plots</description>
+  <description xml:lang="ja">Objects to design simple lighting plots</description>
+  <contents>
+    <object name="Lights - PAR">
+      <description>PAR</description>
+      <description xml:lang="ja">PAR</description>
+    </object>
+    <object name="Lights - PAR_floor">
+      <description>PAR on the floor</description>
+      <description xml:lang="ja">PAR on the floor</description>
+    </object>
+    <object name="Lights - ACL">
+      <description>ACL</description>
+      <description xml:lang="ja">ACL</description>
+    </object>
+    <object name="Lights - PC">
+      <description>Pebble Convex lantern</description>
+      <description xml:lang="ja">Pebble Convex lantern</description>
+    </object>
+    <object name="Lights - Fresnel">
+      <description>Fresel lantern</description>
+      <description xml:lang="ja">Fresel lantern</description>
+    </object>
+    <object name="Lights - Striplight">
+      <description>Striplight</description>
+      <description xml:lang="ja">Striplight</description>
+    </object>
+    <object name="Lights - ERS">
+      <description>Ellipsoidal Reflector Spotlight</description>
+      <description xml:lang="ja">Ellipsoidal Reflector Spotlight</description>
+    </object>
+    <object name="Lights - Blinders">
+      <description>Blinders</description>
+      <description xml:lang="ja">Blinders</description>
+    </object>
+    <br/>
+    <object name="Lights - Black light">
+      <description>Black light</description>
+      <description xml:lang="ja">バックライト</description>
+    </object>
+    <object name="Lights - Stroboscope">
+      <description>Stroboscope light</description>
+      <description xml:lang="ja">Stroboscope light</description>
+    </object>
+    <object name="Lights - Moving_head">
+      <description>Moving head</description>
+      <description xml:lang="ja">Moving head</description>
+    </object>
+    <object name="Lights - Scanner">
+      <description>Scanner</description>
+      <description xml:lang="ja">スキャナ</description>
+    </object>
+    <br/>
+    <object name="Lights - Structure">
+      <description>Structure</description>
+      <description xml:lang="ja">Structure</description>
+    </object>
+  </contents>
+</sheet>

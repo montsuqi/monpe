@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Civil</name>
+  <name xml:lang="ja">土木</name>
+  <description>Civil Engineering Components</description>
+  <description xml:lang="ja">土木工学用の部品</description>
+  <contents>
+    <object name="Civil - Vertical Rest">
+      <description>Vertical rest</description>
+      <description xml:lang="ja">垂直レスト</description>
+    </object>
+    <object name="Civil - Horizontal Rest">
+      <description>Horizontal rest</description>
+      <description xml:lang="ja">水平レスト</description>
+    </object>
+    <object name="Civil - Bivalent Vertical Rest">
+      <description>Bivalent vertical rest</description>
+      <description xml:lang="ja">Bivalent vertical rest</description>
+    </object>
+    <object name="Civil - Reference Line">
+      <description>Reference line</description>
+      <description xml:lang="ja">参照線</description>
+    </object>
+    <object name="Civil - Water Level">
+      <description>Water level</description>
+      <description xml:lang="ja">水位</description>
+    </object>
+    <object name="Civil - Soil">
+      <description>Soil</description>
+      <description xml:lang="ja">地盤</description>
+    </object>
+    <object name="Civil - Right Arrow">
+      <description>Horizontally aligned arrow</description>
+      <description xml:lang="ja">矢印 (横向き)</description>
+    </object>
+    <object name="Civil - Up Arrow">
+      <description>Vertically aligned arrow</description>
+      <description xml:lang="ja">矢印(縦)</description>
+    </object>
+    <object name="Civil - Horizontal Limiting Line">
+      <description>Horizontal limiting line</description>
+      <description xml:lang="ja">限界線 (水平)</description>
+    </object>
+    <object name="Civil - Vertical Limiting Line">
+      <description>Vertical limiting line</description>
+      <description xml:lang="ja">限界線 (垂直方向)</description>
+    </object>
+    <object name="Civil - Horizontal Pump">
+      <description>Horizontally aligned pump</description>
+      <description xml:lang="ja">ポンプ (横向き)</description>
+    </object>
+    <object name="Civil - Vertical Pump">
+      <description>Vertically aligned pump</description>
+      <description xml:lang="ja">ポンプ(縦)</description>
+    </object>
+    <object name="Civil - Horizontal Compressor">
+      <description>Horizontally aligned compressor</description>
+      <description xml:lang="ja">圧縮機 (横向き)</description>
+    </object>
+    <object name="Civil - Vertical Compressor">
+      <description>Vertically aligned compressor</description>
+      <description xml:lang="ja">圧縮機(縦)</description>
+    </object>
+    <object name="Flowchart - Collate">
+      <description>Vertically aligned valve</description>
+      <description xml:lang="ja">バルブ(縦)</description>
+    </object>
+    <object name="Civil - Horizontal Valve">
+      <description>Horizontally aligned valve</description>
+      <description xml:lang="ja">バルブ (横向き)</description>
+    </object>
+    <object name="Civil - Backflow Preventer">
+      <description>Backflow preventer</description>
+      <description xml:lang="ja">逆流防止装置</description>
+    </object>
+    <object name="Civil - Motor">
+      <description>Motor</description>
+      <description xml:lang="ja">モーター</description>
+    </object>
+    <object name="Civil - Gas Bottle">
+      <description>Gas bottle</description>
+      <description xml:lang="ja">ガスボンベ</description>
+    </object>
+    <object name="Civil - Frequency Converter">
+      <description>Frequency converter</description>
+      <description xml:lang="ja">周波数変換器</description>
+    </object>
+    <object name="Civil - Vertical Propeller">
+      <description>Vertically aligned propeller</description>
+      <description xml:lang="ja">プロペラ(縦)</description>
+    </object>
+    <object name="Civil - Aerator">
+      <description>Aerator with bubbles</description>
+      <description xml:lang="ja">噴霧式通気装置</description>
+    </object>
+    <object name="Civil - Rotor">
+      <description>Rotor</description>
+      <description xml:lang="ja">ローター</description>
+    </object>
+    <object name="Civil - Final-Settling Basin">
+      <description>Final-settling basin</description>
+      <description xml:lang="ja">最終沈殿池</description>
+    </object>
+    <object name="Civil - Preliminary Clarification Tank">
+      <description>Preliminary clarification tank</description>
+      <description xml:lang="ja">予備タンク</description>
+    </object>
+    <object name="Civil - Basin">
+      <description>Basin</description>
+      <description xml:lang="ja">水ばち</description>
+    </object>
+    <object name="Civil - Container">
+      <description>Container</description>
+      <description xml:lang="ja">コンテナ</description>
+    </object>
+  </contents>
+</sheet>

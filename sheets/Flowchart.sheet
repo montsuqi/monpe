@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Flowchart</name>
+  <name xml:lang="ja">フローチャート</name>
+  <description>Objects to draw flowcharts</description>
+  <description xml:lang="ja">フローチャートを描画するためのオブジェクト</description>
+  <contents>
+    <object name="Flowchart - Box">
+      <description>Process/Auxiliary Operation</description>
+      <description xml:lang="ja">処理</description>
+    </object>
+    <object name="Flowchart - Parallelogram">
+      <description>Input/Output</description>
+      <description xml:lang="ja">入出力装置</description>
+    </object>
+    <object name="Flowchart - Diamond">
+      <description>Decision</description>
+      <description xml:lang="ja">判断</description>
+    </object>
+    <object name="Flowchart - Ellipse">
+      <description>Connector</description>
+      <description xml:lang="ja">接続子</description>
+    </object>
+    <object name="Flowchart - Display">
+      <description>Display</description>
+      <description xml:lang="ja">表示</description>
+    </object>
+    <object name="Flowchart - Transaction File">
+      <description>Transaction file</description>
+      <description xml:lang="ja">処理ファイル</description>
+    </object>
+    <object name="Flowchart - Off Page Connector">
+      
+      <description>Off page connector</description>
+      <description xml:lang="ja">オフページ・コネクタ</description>
+    </object>
+    <object name="Flowchart - Document">
+      <description>Document</description>
+      <description xml:lang="ja">文書</description>
+    </object>
+    <object name="Flowchart - Manual Operation">
+      <description>Manual operation</description>
+      <description xml:lang="ja">手動操作</description>
+    </object>
+    <object name="Flowchart - Preparation">
+      <description>Preparation</description>
+      <description xml:lang="ja">準備</description>
+    </object>
+    <object name="Flowchart - Manual Input">
+      <description>Manual input</description>
+      <description xml:lang="ja">手動入力</description>
+    </object>
+    <object name="Flowchart - Predefined Process">
+      <description>Predefined process</description>
+      <description xml:lang="ja">定義済み処理</description>
+    </object>
+    <object name="Flowchart - Terminal">
+      <description>Terminal Interrupt</description>
+      <description xml:lang="ja">端子</description>
+    </object>
+    <object name="Flowchart - Magnetic Disk">
+      <description>Magnetic disk</description>
+      <description xml:lang="ja">磁気ディスク</description>
+    </object>
+    <object name="Flowchart - Magnetic Drum">
+      <description>Magnetic drum</description>
+      <description xml:lang="ja">磁気ドラム</description>
+    </object>
+    <object name="Flowchart - Magnetic Tape">
+      <description>Magnetic tape</description>
+      <description xml:lang="ja">磁気テープ</description>
+    </object>
+    <object name="Flowchart - Internal Storage">
+      <description>Internal storage</description>
+      <description xml:lang="ja">主記憶装置</description>
+    </object>
+    <object name="Flowchart - Merge">
+      <description>Merge</description>
+      <description xml:lang="ja">融合</description>
+    </object>
+    <object name="Flowchart - Extract">
+      <description>Extract</description>
+      <description xml:lang="ja">展開</description>
+    </object>
+    <object name="Flowchart - Delay">
+      <description>Delay</description>
+      <description xml:lang="ja">遅延</description>
+    </object>
+    <object name="Flowchart - Summing Junction">
+      
+      <description>Summing junction</description>
+      <description xml:lang="ja">評価の分岐</description>
+    </object>
+    <object name="Flowchart - Collate">
+      
+      <description>Collate</description>
+      <description xml:lang="ja">照合</description>
+    </object>
+    <object name="Flowchart - Sort">
+      <description>Sort</description>
+      <description xml:lang="ja">ソート</description>
+    </object>
+    <object name="Flowchart - Or">
+      <description>Or</description>
+      <description xml:lang="ja">論理和</description>
+    </object>
+    <object name="Flowchart - Punched Card">
+      <description>Punched card</description>
+      <description xml:lang="ja">パンチ・カード</description>
+    </object>
+    <object name="Flowchart - Punched Tape">
+      <description>Punched tape</description>
+      <description xml:lang="ja">パンチ・テープ</description>
+    </object>
+    <object name="Flowchart - Transmittal Tape">
+      <description>Transmittal tape</description>
+      <description xml:lang="ja">伝送テープ</description>
+    </object>
+    <object name="Flowchart - Offline Storage">
+      <description>Offline storage</description>
+      <description xml:lang="ja">オフライン・ストレージ</description>
+    </object>
+    <object name="Flowchart - Data Source">
+      <description>Data source</description>
+      <description xml:lang="ja">データのソース</description>
+    </object>
+ </contents>
+</sheet>

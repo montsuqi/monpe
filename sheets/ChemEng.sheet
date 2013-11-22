@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+
+
+
+
+
+<name>ChemEng</name>
+<name xml:lang="ja">化学工学</name>
+<description>Collection for chemical engineering</description>
+<description xml:lang="ja">化学工学のコレクション</description>
+<contents>
+
+<object name="chemeng - fan">
+<description>Fan or Stirrer</description>
+<description xml:lang="ja">ファン/かくはん器</description></object><object name="chemeng - spray">
+<description>Spraying Device</description>
+<description xml:lang="ja">スプレー式デバイス</description></object><object name="chemeng - pneum">
+<description>Pneumatic Line</description>
+<description xml:lang="ja">空気圧管路</description></object><object name="chemeng - pneumv">
+<description>Pneumatic Line, vertical</description>
+<description xml:lang="ja">空気圧管路 (垂直)</description></object><object name="chemeng - measure">
+<description>Measurement</description>
+<description xml:lang="ja">測定子</description></object><object name="chemeng - hx">
+<description>Simple Heat Exchanger</description>
+<description xml:lang="ja">シンプルなヒート・エクスチェンジャ</description></object><object name="chemeng - hxv">
+<description>Simple Heat Exchanger, vertical</description>
+<description xml:lang="ja">シンプルなヒート・エクスチェンジャ (垂直)</description></object><object name="chemeng - wcool">
+<description>Water Cooler</description>
+<description xml:lang="ja">水冷式クーラー</description></object><object name="chemeng - wcoolv">
+<description>Water Cooler, vertical</description>
+<description xml:lang="ja">水冷式クーラー (垂直)</description></object><object name="chemeng - SaT-fixedtube">
+<description>Fixed-Sheet Exchanger</description>
+<description xml:lang="ja">シート固定エクスチェンジャ</description></object><object name="chemeng - SaT-floatinghead">
+<description>Floating-Head or U-Tube Exchanger</description>
+<description xml:lang="ja">Floating-Head or U-Tube Exchanger</description></object><object name="chemeng - kettle">
+<description>Kettle Reboiler</description>
+<description xml:lang="ja">Kettle Reboiler</description></object><object name="chemeng - aircooler">
+<description>Air Cooler</description>
+<description xml:lang="ja">空冷式クーラー</description></object><object name="chemeng - airforced">
+<description>Forced-Flow Air Cooler</description>
+<description xml:lang="ja">Forced-Flow Air Cooler</description></object><object name="chemeng - airinduced">
+<description>Induced-Flow Air Cooler</description>
+<description xml:lang="ja">Induced-Flow Air Cooler</description></object><object name="chemeng - plate">
+<description>Plate Exchanger</description>
+<description xml:lang="ja">プレート・エクスチェンジャ</description></object><object name="chemeng - doublepipe">
+<description>Double-Pipe Exchanger</description>
+<description xml:lang="ja">二本のパイプが付いたエクスチェンジャ</description></object><object name="chemeng - coil">
+<description>Heating/Cooling Coil</description>
+<description xml:lang="ja">Heating/Cooling Coil</description></object><object name="chemeng - coilv">
+<description>Heating/Cooling Coil, vertical</description>
+<description xml:lang="ja">Heating/Cooling Coil, vertical</description></object><object name="chemeng - furnace">
+<description>Simple Furnace</description>
+<description xml:lang="ja">シンプルな炉</description></object><object name="chemeng - vessel">
+<description>Simple Vessel</description>
+<description xml:lang="ja">シンプルなベセル</description></object><object name="chemeng - knockout">
+<description>Knock-out Drum (with demister pad)</description>
+<description xml:lang="ja">Knock-out Drum (with demister pad)</description></object><object name="chemeng - traycol">
+<description>Tray Column, simple</description>
+<description xml:lang="ja">Tray Column, simple</description></object><object name="chemeng - bigtraycol">
+<description>Tray Column, detailed</description>
+<description xml:lang="ja">Tray Column, detailed</description></object><object name="chemeng - fluidcont">
+<description>Fluid Contacting Vessel, simple</description>
+<description xml:lang="ja">Fluid Contacting Vessel, simple</description></object><object name="chemeng - reactor">
+<description>Reactor or Absorption Vessel, simple</description>
+<description xml:lang="ja">Reactor or Absorption Vessel, simple</description></object><object name="chemengtmp - autoclave">
+<description>Autoclave</description>
+<description xml:lang="ja">オートクレーブ</description></object><object name="chemengtmp - tank">
+<description>Open Tank</description>
+<description xml:lang="ja">タンクを開く</description></object><object name="chemengtmp - settling">
+<description>Clarifier or Settling Tank</description>
+<description xml:lang="ja">浄化/定着タンク</description></object><object name="chemengtmp - sealedtank">
+<description>Sealed Tank</description>
+<description xml:lang="ja">タンクをふさぐ</description></object><object name="chemengtmp - coveredtank">
+<description>Covered tank</description>
+<description xml:lang="ja">カバー付きのタンク</description></object><object name="chemengtmp - fixedroof">
+<description>Tank with Fixed Roof</description>
+<description xml:lang="ja">Tank with Fixed Roof</description></object><object name="chemengtmp - floatingroof">
+<description>Tank with Floating Roof</description>
+<description xml:lang="ja">Tank with Floating Roof</description></object><object name="chemengtmp - storagesphere">
+<description>Storage Sphere</description>
+<description xml:lang="ja">ストレージ領域</description></object><object name="chemengtmp - gasholder">
+<description>Gas Holder, basic</description>
+<description xml:lang="ja">Gas Holder, basic</description></object><object name="chemeng - pump">
+<description>Centrifugal Pump or Fan</description>
+<description xml:lang="ja">磁気浮上遠心ポンプ/ファン</description></object><object name="chemeng - displa">
+<description>Positive Displacement Rotary Pump or Compressor</description>
+<description xml:lang="ja">Positive Displacement Rotary Pump or Compressor</description></object><object name="chemeng - recipr">
+<description>Reciprocating Compressor or Pump</description>
+<description xml:lang="ja">Reciprocating Compressor or Pump</description></object><object name="chemeng - flowfan">
+<description>Axial Flow Fan</description>
+<description xml:lang="ja">Axial Flow Fan</description></object><object name="chemeng - compr">
+<description>Compressor or Turbine</description>
+<description xml:lang="ja">コンプレッサ/タービン</description></object><object name="chemeng - ejector">
+<description>Ejector or Injector</description>
+<description xml:lang="ja">イジェクタ/インジェクタ</description></object><object name="chemeng - ACgen">
+<description>AC Generator</description>
+<description xml:lang="ja">AC ジェネレータ</description></object><object name="chemeng - val">
+<description>Valve</description>
+<description xml:lang="ja">バルブ</description></object><object name="chemeng - valv">
+<description>Valve, vertical</description>
+<description xml:lang="ja">バルブ (垂直)</description></object><object name="chemeng - regval">
+<description>Regulable Valve</description>
+<description xml:lang="ja">調整可能なバルブ</description></object><object name="chemeng - regvalv">
+<description>Regulable Valve, vertical</description>
+<description xml:lang="ja">調整可能なバルブ (垂直)</description></object><object name="chemengtmp - filter">
+<description>Basic Filter</description>
+<description xml:lang="ja">ベーシック・フィルタ</description></object><object name="chemengtmp - mixer">
+<description>Mixer</description>
+<description xml:lang="ja">ミキサ</description></object><object name="chemengtmp - cyclone">
+<description>Cyclone and hydrocyclone</description>
+<description xml:lang="ja">サイクロンとハイドロサイクロン</description></object><object name="chemengtmp - spraydrier">
+<description>Spray Drier</description>
+<description xml:lang="ja">スプレー式ドライヤ</description></object><object name="chemengtmp - centrifuge">
+<description>Centrifuge</description>
+<description xml:lang="ja">遠心分離器</description></object>
+<object name="chemeng - prv"><description>Pressure Relief Valve</description>
+<description xml:lang="ja">Pressure Relief Valve</description></object></contents></sheet>

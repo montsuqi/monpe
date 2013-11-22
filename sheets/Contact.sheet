@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Ladder</name>
+  <name xml:lang="ja">ラダー回路</name>
+  <description>Components for LADDER circuits</description>
+  <description xml:lang="ja">LADDER 回路のコンポーネント</description>
+  <contents>
+    <object name="LADDER - if">
+      <description>'if' (normally open) ladder contact</description>
+      <description xml:lang="ja">'if' (正常に開いている) ラダー接続</description>
+    </object>
+    <object name="LADDER - ifnot">
+      <description>'if not' (normally closed) ladder contact</description>
+      <description xml:lang="ja">'if not' (正常に閉じている) ラダー接続</description>
+    </object>
+    <br/>
+    <object name="LADDER - out">
+      <description>Simple output variable</description>
+      <description xml:lang="ja">シンプル出力変数</description>
+    </object>
+    <object name="LADDER - outnot">
+      <description>Negative output variable</description>
+      <description xml:lang="ja">負の出力変数</description>
+    </object>
+    <object name="LADDER - outs">
+      <description>'set' output variable</description>
+      <description xml:lang="ja">'set' 出力変数</description>
+    </object>
+    <object name="LADDER - outr">
+      <description>'reset' output variable</description>
+      <description xml:lang="ja">'reset' 出力変数</description>
+    </object>
+    <object name="LADDER - outj">
+      <description>'jump' output variable</description>
+      <description xml:lang="ja">'jump' 出力変数</description>
+    </object>
+    <object name="LADDER - outrcep">
+      <description>Receptivity output variable</description>
+      <description xml:lang="ja">Receptivity 出力変数</description>
+    </object>
+    <br/>
+    <object name="LADDER - sout">
+      <description>Power-saved simple output variable</description>
+      <description xml:lang="ja">パワーセーブのシンプル出力変数</description>
+    </object>
+    <object name="LADDER - soutnot">
+      <description>Power-saved negative output variable</description>
+      <description xml:lang="ja">パワーセーブの負の出力変数</description>
+    </object>
+    <object name="LADDER - souts">
+      <description>Power-saved 'set' output variable</description>
+      <description xml:lang="ja">パワーセーブ 'set' 出力変数</description>
+    </object>
+    <object name="LADDER - soutr">
+      <description>Power-saved 'reset' output variable</description>
+      <description xml:lang="ja">パワーセーブ 'reset' 出力変数</description>
+    </object>
+    
+  </contents>
+</sheet>

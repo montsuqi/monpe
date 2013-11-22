@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Logic</name>
+  <name xml:lang="ja">論理回路</name>
+  <description>Boolean Logic</description>
+  <description xml:lang="ja">ブール論理</description>
+  <contents>
+    <object name="Logic - Or">
+      <description>OR gate</description>
+      <description xml:lang="ja">OR ゲート</description>
+    </object>
+    <object name="Logic - And">
+      <description>AND gate</description>
+      <description xml:lang="ja">AND ゲート</description>
+    </object>
+    <object name="Logic - Xor">
+      <description>XOR gate</description>
+      <description xml:lang="ja">XOR ゲート</description>
+    </object>
+    <object name="Logic - Buffer">
+      <description>Simple buffer</description>
+      <description xml:lang="ja">シンプル・バッファ</description>
+    </object>
+    <object name="Logic - Inverter">
+      <description>Inverter</description>
+      <description xml:lang="ja">インバーター</description>
+    </object>
+    <object name="Logic - Nand">
+      <description>NAND gate</description>
+      <description xml:lang="ja">NAND ゲート</description>
+    </object>
+    <object name="Logic - Nor">
+      <description>NOR gate</description>
+      <description xml:lang="ja">NOR ゲート</description>
+    </object>
+    <object name="Logic - Not">
+      <description>NOT</description>
+      <description xml:lang="ja">NOT</description>
+    </object>
+    <object name="Logic - Connector">
+      <description>Crossconnector</description>
+      <description xml:lang="ja">交差</description>
+    </object>
+  </contents>
+</sheet>

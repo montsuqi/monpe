@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>RE-Jackson</name>
+  <name xml:lang="ja">RE-Jackson</name>
+  <description>Objects to design Jackson diagrams</description>
+  <description xml:lang="ja">Jackson ダイアグラムを設計するためのオブジェクト</description>
+  <contents>
+    <object name="Jackson - domain" intdata="1">
+      <description>A Jackson given domain</description>
+      <description xml:lang="ja">A Jackson 指定ドメイン</description>
+    </object>
+    <object name="Jackson - domain" intdata="2">
+      <description>A Jackson designed domain</description>
+      <description xml:lang="ja">Jackson 設計ドメイン</description>
+      <icon>Jackson/designed_domain.png</icon>
+    </object>
+    <object name="Jackson - domain" intdata="3">
+      <description>A Jackson machine domain</description>
+      <description xml:lang="ja">Jackson マシン・ドメイン</description>
+      <icon>Jackson/machine_domain.png</icon>
+    </object>
+    <object name="Jackson - requirement" intdata="1">
+      <description>A Jackson requirement</description>
+      <description xml:lang="ja">A Jackson requirement</description>
+    </object>
+    <object name="Jackson - phenomenon" intdata="1">
+      <description>A Jackson shared phenomenon</description>
+      <description xml:lang="ja">A Jackson shared phenomenon</description>
+    </object>
+    <object name="Jackson - phenomenon" intdata="2">
+      <description>A Jackson requirement phenomenon</description>
+      <description xml:lang="ja">A Jackson requirement phenomenon</description>
+      <icon>Jackson/req_phen.png</icon>
+    </object>
+  </contents>
+</sheet>

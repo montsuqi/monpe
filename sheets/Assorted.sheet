@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+
+
+<name>Assorted</name>
+<name xml:lang="ja">基本図形</name>
+
+
+<description>An Assorted Collection of Polygons, Beziergons and other Miscellaneous Geometric Shapes</description>
+<description xml:lang="ja">多角形、ベジェ曲線とその他いろいろな幾何学シェイプを集めた基本図形</description>
+
+
+<contents>
+
+
+
+
+<object name="Geometric - Right Angle Triangle"><description>Right angle triangle</description>
+<description xml:lang="ja">直角三角形</description></object> 
+<object name="Geometric - Isoceles Triangle"><description>Isoceles triangle</description>
+<description xml:lang="ja">二等辺三角形</description></object>
+
+
+<object name="Geometric - Perfect Square"><description>Perfect square, height equals width</description>
+<description xml:lang="ja">正方形</description></object> 
+<object name="Geometric - Perfect Circle"><description>Perfect circle</description>
+<description xml:lang="ja">円</description></object> 
+<object name="Geometric - Quarter Circle"><description>Quarter circle</description>
+<description xml:lang="ja">四分円</description></object> 
+
+<object name="Geometric - Diamond"><description>Diamond</description>
+<description xml:lang="ja">菱形</description></object> 
+
+<object name="Geometric - Pentagon"><description>Pentagon. Five sided shape</description>
+<description xml:lang="ja">五角形</description></object>
+<object name="Geometric - Hexagon"><description>Hexagon. Six sided shape</description>
+<description xml:lang="ja">六角形</description></object>
+<object name="Geometric - Heptagon"><description>Heptagon. Seven sided shape</description>
+<description xml:lang="ja">七角形</description></object>
+<object name="Geometric - Octogon"><description>Octogon. Eight sided shape</description>
+<description xml:lang="ja">八角形</description></object>
+
+<object name="Geometric - Horizontal Parallelogram"><description>Horizontal parallelogram</description>
+<description xml:lang="ja">平行四辺形 (横向き)</description></object>
+<object name="Geometric - Vertical Parallelogram"><description>Vertical parallelogram</description>
+<description xml:lang="ja">平行四辺形 (縦向き)</description></object>
+<object name="Geometric - Trapezoid"><description>Trapezoid</description>
+<description xml:lang="ja">台形</description></object>
+
+
+
+<object name="Geometric - Four Point Star"><description>Four point star</description>
+<description xml:lang="ja">四点星</description></object>
+<object name="Geometric - Curved Four Point Star"><description>Curved four point star</description>
+<description xml:lang="ja">カーブのかかった四点星</description></object>
+<object name="Geometric - Five Point Star"><description>Five point star</description>
+<description xml:lang="ja">五点星</description></object>
+<object name="Geometric - Six Point Star"><description>Six point star</description>
+<description xml:lang="ja">六点星</description></object>
+<object name="Geometric - Seven Point Star"><description>Seven point star</description>
+<description xml:lang="ja">七点星</description></object>
+<object name="Geometric - Eight Point Star"><description>Eight point star</description>
+<description xml:lang="ja">八点星</description></object>
+<object name="Geometric - Sharp Eight Point Star"><description>Sharp eight point star</description>
+<description xml:lang="ja">シャープな八点星</description></object>
+<object name="Geometric - Curved Eight Point Star"><description>Curved eight point star</description>
+<description xml:lang="ja">カーブのかかった八点星</description></object>
+
+
+
+<object name="Geometric - Swiss Cross"><description>Swiss cross</description>
+<description xml:lang="ja">スイス十字</description></object>
+
+<object name="Geometric - Maltese Cross"><description>Maltese cross</description>
+<description xml:lang="ja">マルタ十字</description></object>
+
+
+<object name="Geometric - Down Arrow"><description>Down arrow</description>
+<description xml:lang="ja">下向きの矢印</description></object>
+<object name="Geometric - Up Arrow"><description>Up arrow</description>
+<description xml:lang="ja">上向きの矢印</description></object>
+<object name="Geometric - Left Arrow"><description>Left arrow</description>
+<description xml:lang="ja">左向きの矢印</description></object>
+<object name="Geometric - Right Arrow"><description>Right arrow</description>
+<description xml:lang="ja">右向きの矢印</description></object>
+
+<object name="Geometric - Notched Left Arrow"><description>Notched left arrow</description>
+<description xml:lang="ja">切り込み入り左向きの矢印</description></object>
+<object name="Geometric - Notched Right Arrow"><description>Notched right arrow</description>
+<description xml:lang="ja">切り込み入り右向きの矢印</description></object>
+
+<object name="Assorted - Left-Up Arrow"><description>Left-up arrow</description>
+<description xml:lang="ja">左-上 矢印</description></object>
+<object name="Assorted - Turn-Up Arrow"><description>Turn-up arrow</description>
+<description xml:lang="ja">上に曲げた矢印</description></object>
+<object name="Geometric - Left-Right Arrow"><description>Left-right arrow</description>
+<description xml:lang="ja">左-右 矢印</description></object>
+<object name="Geometric - Up-Down Arrow"><description>Up-down arrow</description>
+<description xml:lang="ja">上-下 矢印</description></object>
+
+<object name="Geometric - Quad Arrow"><description>Quad arrow</description>
+<description xml:lang="ja">十字矢印</description></object>
+<object name="Geometric - Left-Right-Up Arrow"><description>Left-right-up arrow</description>
+<description xml:lang="ja">左-右-上 矢印</description></object>
+<object name="Geometric - Up-Down-Left Arrow"><description>Up-down-left arrow</description>
+<description xml:lang="ja">上-下-左 矢印</description></object>
+
+<object name="Block Arrow - Pentagon"><description>Pentagon block arrow</description>
+<description xml:lang="ja">五角形の矢印</description></object>
+<object name="Block Arrow - Chevron"><description>Chevron</description>
+<description xml:lang="ja">シェブロン</description></object>
+
+
+
+
+
+<object name="Assorted - Heart"><description>Heart</description>
+<description xml:lang="ja">ハート</description></object>
+
+
+<object name="Assorted - Sun"><description>Sun</description>
+<description xml:lang="ja">太陽</description></object>
+<object name="Assorted - Quarter Moon"><description>Quarter moon</description>
+<description xml:lang="ja">三日月</description></object>
+
+
+
+
+
+</contents>
+</sheet>

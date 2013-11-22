@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>ER</name>
+  <name xml:lang="ja">ER</name>
+  <description>Editor for Entity Relations Diagrams</description>
+  <description xml:lang="ja">エンティティ・リレーション・ダイアグラムの編集</description>
+  <contents>
+    <object name="ER - Entity" intdata="0">
+      <description>Entity</description>
+      <description xml:lang="ja">エンティティ</description>
+    </object>
+    <object name="ER - Entity" intdata="1">
+      <description>Weak entity</description>
+      <description xml:lang="ja">ウィーク・エンティティ</description>
+      <icon>ER/weakentity.png</icon>
+    </object>
+    <object name="ER - Relationship">
+      <description>Relationship</description>
+      <description xml:lang="ja">リレーションシップ</description>
+    </object>
+    <object name="ER - Attribute">
+      <description>Attribute</description>
+      <description xml:lang="ja">属性</description>
+    </object>
+    <object name="ER - Participation">
+      <description>Participation</description>
+      <description xml:lang="ja">パーティシペーション</description>
+    </object>
+  </contents>
+</sheet>

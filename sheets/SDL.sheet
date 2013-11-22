@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>SDL</name>
+  <name xml:lang="ja">SDL</name>
+  <description>Specification and Description Language.</description>
+  <description xml:lang="ja">Specification and Description Language</description>
+  <contents>
+    <object name="SDL - Block">
+      <description>Block type reference</description>
+      <description xml:lang="ja">ブロック種の参照</description>
+    </object>
+    <object name="SDL - Service">
+      <description>Service type reference</description>
+      <description xml:lang="ja">サービス種の参照</description>
+    </object>
+    <object name="SDL - Process">
+      <description>Process type reference</description>
+      <description xml:lang="ja">プロセス種の参照</description>
+    </object>
+    <object name="SDL - State">
+      <description>State</description>
+      <description xml:lang="ja">状態</description>
+    </object>
+    <object name="SDL - Function Header">
+      <description>Function header</description>
+      <description xml:lang="ja">関数のヘッダ</description>
+    </object>
+    <object name="SDL - Send">
+      <description>Send message</description>
+      <description xml:lang="ja">メッセージの送信</description>
+    </object>
+    <object name="SDL - Receive">
+      <description>Receive message</description>
+      <description xml:lang="ja">メッセージの受信</description>
+    </object>
+    <object name="SDL - Function">
+      <description>Function call</description>
+      <description xml:lang="ja">関数呼びだし</description>
+    </object>
+    <object name="SDL - Macro">
+      <description>Macro call</description>
+      <description xml:lang="ja">マクロ呼出し</description>
+    </object>
+    <object name="SDL - Task">
+      <description>Action being executed</description>
+      <description xml:lang="ja">実行したアクション</description>
+    </object>
+    <object name="SDL - Save">
+      <description>Save state</description>
+      <description xml:lang="ja">状態保存</description>
+    </object>
+    <object name="SDL - Decision">
+      <description>Decision</description>
+      <description xml:lang="ja">判断</description>
+    </object>
+    <object name="SDL - InOut">
+      <description>In/Out connector</description>
+      <description xml:lang="ja">入出力コネクタ</description>
+    </object>
+    <object name="SDL - Stop">
+      <description>Stop</description>
+      <description xml:lang="ja">停止</description>
+    </object>
+    <object name="SDL - Return">
+      <description>Procedure return</description>
+      <description xml:lang="ja">プロシージャの返り値</description>
+    </object>
+    <object name="SDL - Comment">
+      <description>Comment</description>
+      <description xml:lang="ja">コメント</description>
+    </object>
+    <object name="SDL - Note">
+      <description>Generic text note</description>
+      <description xml:lang="ja">一般的なテキスト</description>
+    </object>
+    
+    <br/>
+  </contents>
+</sheet>

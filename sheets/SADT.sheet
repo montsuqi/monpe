@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>SADT/IDEF0</name>
+  <name xml:lang="ja">SADT/IDEF0</name>
+  <description>Objects to design SADT diagrams</description>
+  <description xml:lang="ja">SADT ダイアグラムを設計するためのオブジェクト</description>
+  <contents>
+    <object name="SADT - arrow">
+      <description>Activity/data flow arrow</description>
+      <description xml:lang="ja">データ・フローの矢印</description>
+    </object>
+    <object name="SADT - box">
+      <description>Activity/data box</description>
+      <description xml:lang="ja">データ・ボックス</description>
+    </object>
+    <object name="SADT - annotation">
+      <description>Flow label</description>
+      <description xml:lang="ja">フロー・ラベル</description>
+    </object>
+  </contents>
+</sheet>

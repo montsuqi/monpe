@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>RE-KAOS</name>
+  <name xml:lang="ja">RE-KAOS</name>
+  <description>Objects to design KAOS diagrams</description>
+  <description xml:lang="ja">KAOS ダイアグラムを設計するためのオブジェクト</description>
+  <contents>
+    <object name="KAOS - goal" intdata="2">
+      <description>A KAOS softgoal</description>
+      <description xml:lang="ja">KAOS ソフトゴール</description>
+      <icon>KAOS/softgoal.png</icon>
+    </object>
+    <object name="KAOS - goal" intdata="1">
+      <description>A KAOS goal</description>
+      <description xml:lang="ja">KAOS ゴール</description>
+    </object>
+    <object name="KAOS - goal" intdata="3">
+      <description>A KAOS requirement</description>
+      <description xml:lang="ja">KAOS 条件</description>
+      <icon>KAOS/requirement.png</icon>
+    </object>
+    <object name="KAOS - goal" intdata="4">
+      <description>A KAOS assumption</description>
+      <description xml:lang="ja">KAOS 仮定</description>
+      <icon>KAOS/assumption.png</icon>
+    </object>
+    <object name="KAOS - goal" intdata="5">
+      <description>A KAOS obstacle</description>
+      <description xml:lang="ja">KAOS 障害</description>
+      <icon>KAOS/obstacle.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="1">
+      <description>A KAOS AND refinement</description>
+      <description xml:lang="ja">A KAOS AND refinement</description>
+      <icon>KAOS/and-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="2">
+      <description>A KAOS complete AND refinement</description>
+      <description xml:lang="ja">KAOS complete AND refinement</description>
+      <icon>KAOS/and-complete-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="3">
+      <description>A KAOS OR refinement</description>
+      <description xml:lang="ja">A KAOS OR refinement</description>
+      <icon>KAOS/or-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="4">
+      <description>A KAOS complete OR refinement</description>
+      <description xml:lang="ja">KAOS complete OR refinement</description>
+      <icon>KAOS/or-complete-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="5">
+      <description>A KAOS operationalization</description>
+      <description xml:lang="ja">KAOS operationalization</description>
+      <icon>KAOS/op-ref.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="1">
+      <description>A KAOS contribution</description>
+      <description xml:lang="ja">KAOS contribution</description>
+    </object>
+    <object name="KAOS - mbr" intdata="2">
+      <description>A KAOS obstruction</description>
+      <description xml:lang="ja">KAOS 障害物</description>
+      <icon>KAOS/obstructs.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="3">
+      <description>A KAOS binary conflict</description>
+      <description xml:lang="ja">KAOS バイナリ衝突</description>
+      <icon>KAOS/conflicts.png</icon>
+    </object>
+    <object name="KAOS - other" intdata="1">
+      <description>A KAOS agent</description>
+      <description xml:lang="ja">KAOS エージェント</description>
+    </object>
+    <object name="KAOS - mbr" intdata="4">
+      <description>A KAOS responsibility</description>
+      <description xml:lang="ja">KAOS 責任</description>
+      <icon>KAOS/responsibility.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="5">
+      <description>A KAOS monitor link</description>
+      <description xml:lang="ja">KAOS リンクの監視</description>
+      <icon>KAOS/monitors.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="6">
+      <description>A KAOS control link</description>
+      <description xml:lang="ja">KAOS control link</description>
+      <icon>KAOS/controls.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="7">
+      <description>A KAOS capable-of</description>
+      <description xml:lang="ja">KAOS capable-of</description>
+      <icon>KAOS/capable-of.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="8">
+      <description>A KAOS performs</description>
+      <description xml:lang="ja">KAOS 実行</description>
+      <icon>KAOS/performs.png</icon>
+    </object>
+    <object name="KAOS - operation">
+      <description>A KAOS operation</description>
+      <description xml:lang="ja">KAOS オペレーション</description>
+    </object>
+    <object name="KAOS - mbr" intdata="9">
+      <description>A KAOS input</description>
+      <description xml:lang="ja">AOS 入力</description>
+      <icon>KAOS/input.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="10">
+      <description>A KAOS output</description>
+      <description xml:lang="ja">KAOS 出力</description>
+      <icon>KAOS/output.png</icon>
+    </object>
+  </contents>
+</sheet>

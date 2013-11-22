@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Database</name>
+  <name xml:lang="ja">データベース</name>
+  <description>Editor for Database Table Relation Diagrams</description>
+  <description xml:lang="ja">データベース・テーブルのリレーション・ダイアグラムの編集</description>
+  <contents>
+    <object name="Database - Table">
+      <description>Table</description>
+      <description xml:lang="ja">テーブル</description>
+    </object>
+    <object name="Database - Reference">
+      <description>Reference</description>
+      <description xml:lang="ja">リファレンス</description>
+    </object>
+    <object name="Database - Compound">
+      <description>Attribute compound</description>
+      <description xml:lang="ja">属性の合成</description>
+    </object>
+  </contents>
+</sheet>

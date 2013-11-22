@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Circuit</name>
+  <name xml:lang="ja">回路</name>
+  <description>Components for circuit diagrams</description>
+  <description xml:lang="ja">回路ダイアグラムのコンポーネント</description>
+  <contents>
+    <object name="Circuit - Vertical Resistor">
+      <description>Vertically aligned resistor</description>
+      <description xml:lang="ja">抵抗 (縦向き)</description>
+    </object>
+    <object name="Circuit - Horizontal Inductor">
+      <description>Horizontally aligned inductor</description>
+      <description xml:lang="ja">インダクタ (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Inductor">
+      <description>Vertically aligned inductor</description>
+      <description xml:lang="ja">インダクタ (縦向き)</description>
+    </object>
+    <object name="Circuit - Horizontal Resistor">
+      <description>Horizontally aligned resistor</description>
+      <description xml:lang="ja">抵抗 (横向き)</description>
+    </object>
+    <br/>
+    <object name="Circuit - Vertical Resistor (European)">
+      <description>Vertically aligned resistor (European)</description>
+      <description xml:lang="ja">ヨーロッパ式の抵抗 (縦向き)</description>
+    </object>
+    <object name="Circuit - Horizontal Inductor (European)">
+      <description>Horizontally aligned inductor (European)</description>
+      <description xml:lang="ja">ヨーロッパ式のインダクタ (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Inductor (European)">
+      <description>Vertically aligned inductor (European)</description>
+      <description xml:lang="ja">ヨーロッパ式のインダクタ (縦向き)</description>
+    </object>
+    <object name="Circuit - Horizontal Resistor (European)">
+      <description>Horizontally aligned resistor (European)</description>
+      <description xml:lang="ja">ヨーロッパ式の抵抗 (横向き)</description>
+    </object>
+    <br/>
+    <object name="Circuit - Horizontal Capacitor">
+      <description>Horizontally aligned capacitor</description>
+      <description xml:lang="ja">コンデンサ (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Capacitor">
+      <description>Vertically aligned capacitor</description>
+      <description xml:lang="ja">コンデンサ (縦向き)</description>
+    </object>
+    <br/>
+     <object name="Circuit - NPN Transistor">
+      
+      <description>NPN bipolar transistor</description>
+      <description xml:lang="ja">NPN 接合バイポーラトランジスタ</description>
+    </object>
+    <object name="Circuit - PNP Transistor">
+      
+      <description>PNP bipolar transistor</description>
+      <description xml:lang="ja">PNP 接合バイポーラトランジスタ</description>
+    </object>
+    <br/>
+    <object name="Circuit - Horizontal Diode">
+      <description>Horizontally aligned diode</description>
+      <description xml:lang="ja">ダイオード (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Diode">
+      <description>Vertically aligned diode</description>
+      <description xml:lang="ja">ダイオード (縦向き)</description>
+    </object>
+    <object name="Circuit - Horizontal Zener Diode">
+      <description>Horizontally aligned zener diode</description>
+      <description xml:lang="ja">定電圧ダイオード (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Zener Diode">
+      <description>Vertically aligned zener diode</description>
+      <description xml:lang="ja">定電圧ダイオード (縦向き)</description>
+    </object>
+    <br/>
+    <object name="Circuit - Ground">
+      <description>Ground point</description>
+      <description xml:lang="ja">アース端子</description>
+    </object>
+    <object name="Circuit - Op Amp">
+      <description>Operational amplifier</description>
+      <description xml:lang="ja">オペアンプ</description>
+    </object>
+    <object name="Circuit - Horizontal Fuse (European)">
+      <description>Horizontally aligned fuse</description>
+      <description xml:lang="ja">ヒューズ (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Fuse (European)">
+      <description>Vertically aligned fuse</description>
+      <description xml:lang="ja">ヒューズ (縦向き)</description>
+    </object>
+    <object name="Circuit - Horizontal Powersource (European)">
+      <description>Horizontally aligned powersource</description>
+      <description xml:lang="ja">電源 (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Powersource (European)">
+      <description>Vertically aligned powersource</description>
+      <description xml:lang="ja">電源 (縦向き)</description>
+    </object>
+    <object name="Circuit - Lamp (European)">
+      <description>Lamp</description>
+      <description xml:lang="ja">ランプ</description>
+    </object>
+    <object name="Circuit - Speaker (European)">
+      <description>Speaker</description>
+      <description xml:lang="ja">スピーカ</description>
+    </object>
+    <object name="Circuit - Microphone (European)">
+      <description>Microphone</description>
+      <description xml:lang="ja">マイクロフォン</description>
+    </object>
+    <br/>
+    <object name="Circuit - Horizontal Led (European)">
+      <description>Horizontally aligned LED</description>
+      <description xml:lang="ja">LED (横向き)</description>
+    </object>
+    <object name="Circuit - Vertical Led (European)">
+      <description>Vertically aligned LED</description>
+      <description xml:lang="ja">LED (縦向き)</description>
+    </object>
+    <br/>
+    <object name="Circuit - NMOS Transistor (European)">
+      <description>NMOS transistor</description>
+      <description xml:lang="ja">NMOS トランジスタ</description>
+    </object>
+    <object name="Circuit - PMOS Transistor (European)">
+      <description>PMOS transistor</description>
+      <description xml:lang="ja">PMOS トランジスタ</description>
+    </object>
+    <object name="Circuit - Horizontal Jumper">
+      <description>Horizontal jumper</description>
+      <description xml:lang="ja">水平用ジャンパ (横向き)</description>
+    </object>
+  </contents>
+</sheet>

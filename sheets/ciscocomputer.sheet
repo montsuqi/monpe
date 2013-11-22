@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Cisco - Computer</name>
+  <name xml:lang="ja">Cisco - コンピュータ</name>
+  <description>Computer shapes by Cisco</description>
+  <description xml:lang="ja">コンピュータ (Cisco)</description>
+  <contents>
+<object name="Cisco - PC"><description>PC</description>
+<description xml:lang="ja">PC</description></object>
+<object name="Cisco - Macintosh"><description>Macintosh</description>
+<description xml:lang="ja">Macintosh</description></object>
+    <object name="Cisco - Terminal">
+    <description>Terminal</description>
+    <description xml:lang="ja">端末</description>
+    </object>
+<object name="Cisco - SUN workstation"><description>SUN workstation</description>
+<description xml:lang="ja">SUN ワークステーション</description></object>
+<object name="Cisco - CiscoWorks workstation"><description>CiscoWorks workstation</description>
+<description xml:lang="ja">CiscoWorks ワークステーション</description></object>
+<object name="Cisco - PC Router Card"><description>PC Router Card</description>
+<description xml:lang="ja">PC ルータのカード</description></object>
+<object name="Cisco - PC Software"><description>PC Software</description>
+<description xml:lang="ja">PC のソフトウェア</description></object>
+<object name="Cisco - PC with Router-Based Software"><description>PC with Router-Based Software</description>
+<description xml:lang="ja">ルータ・ベースのソフトウェアを載せた PC</description></object>
+<object name="Cisco - Workgroup director"><description>Workgroup director</description>
+<description xml:lang="ja">ワークグループ・ディレクタ</description></object>
+<object name="Cisco - CiscoSecurity"><description>CiscoSecurity</description>
+<description xml:lang="ja">CiscoSecurity</description></object>
+<object name="Cisco - Cisco CA"><description>Cisco CA</description>
+<description xml:lang="ja">Cisco CA</description></object>
+<object name="Cisco - WWW server"><description>WWW server</description>
+<description xml:lang="ja">WWW サーバ</description></object>
+<object name="Cisco - Web browser"><description>Web browser</description>
+<description xml:lang="ja">Web ブラウザ</description></object>
+<object name="Cisco - File Server"><description>File Server</description>
+<description xml:lang="ja">ファイル・サーバ</description></object>
+<object name="Cisco - Software based server"><description>Software-Based Router on File Server</description>
+<description xml:lang="ja">ソフトウェアベースのルータ (ファイル・サーバ)</description></object>
+<object name="Cisco - Server with PC Router"><description>Server with PC Router</description>
+<description xml:lang="ja">ルータ機能付きサーバ</description></object>
+<object name="Cisco - IBM Tower"><description>IBM Tower</description>
+<description xml:lang="ja">IBM タワー</description></object>
+<object name="Cisco - IBM Mini (AS400)"><description>IBM Mini (AS400)</description>
+<description xml:lang="ja">IBM Mini (AS400)</description></object>
+<object name="Cisco - Front End Processor"><description>Front End Processor</description>
+<description xml:lang="ja">フロント・エンド・プロセッサ</description></object>
+<object name="Cisco - IBM mainframe"><description>IBM mainframe</description>
+<description xml:lang="ja">IBM メインフレーム</description></object>
+<object name="Cisco - IBM mainframe with FEP"><description>IBM mainframe with FEP</description>
+<description xml:lang="ja">IBM メインフレーム (FEP 付き)</description></object>
+<object name="Cisco - HP Mini"><description>HP Mini</description>
+<description xml:lang="ja">HP Mini</description></object>
+<object name="Cisco - Supercomputer"><description>Supercomputer</description>
+<description xml:lang="ja">スーパーコンピュータ</description></object>
+<object name="Cisco - Web cluster"><description>Web cluster</description>
+<description xml:lang="ja">Web クラスタ</description></object>
+<object name="Cisco - Mini VAX"><description>Mini VAX</description>
+<description xml:lang="ja">Mini VAX</description></object>
+<object name="Cisco - PC Card"><description>PC Card</description>
+<description xml:lang="ja">PC カード</description></object>
+<object name="Cisco - Scanner"><description>Scanner</description>
+<description xml:lang="ja">スキャナ</description></object>
+<object name="Cisco - Tablet"><description>Tablet</description>
+<description xml:lang="ja">タブレット</description></object>
+<object name="Cisco - EtherClient"><description>EtherClient</description>
+<description xml:lang="ja">イーサクライアント</description></object>
+<object name="Cisco - Handheld"><description>Handheld</description>
+<description xml:lang="ja">携帯型</description></object>
+<object name="Cisco - Wireless"><description>Wireless</description>
+<description xml:lang="ja">無線</description></object>
+<object name="Cisco - PDA"><description>PDA</description>
+<description xml:lang="ja">PDA</description></object>
+<object name="Cisco - Newton"><description>Newton</description>
+<description xml:lang="ja">ニュートン</description></object>
+<object name="Cisco - Laptop"><description>Laptop</description>
+<description xml:lang="ja">ラップトップ</description></object>
+    <object name="Cisco - Printer">
+    <description>Printer</description>
+    <description xml:lang="ja">プリンタ</description>
+    </object>
+<object name="Cisco - Monitor"><description>Monitor</description>
+<description xml:lang="ja">モニタ</description></object>
+<object name="Cisco - PC Video"><description>PC Video</description>
+<description xml:lang="ja">PC ビデオ</description></object>
+<object name="Cisco - Modem"><description>Modem</description>
+<description xml:lang="ja">モデム</description></object>
+<object name="Cisco - BBS"><description>BBS</description>
+<description xml:lang="ja">BBS</description></object>
+<object name="Cisco - MicroWebserver"><description>MicroWebserver</description>
+<description xml:lang="ja">マイクロウェブサーバ</description></object>
+<object name="Cisco - Relational Database"><description>Relational Database</description>
+<description xml:lang="ja">リレーショナル・データベース</description></object>
+<object name="Cisco - Diskette"><description>Diskette</description>
+<description xml:lang="ja">ディスク</description></object>
+<object name="Cisco - Host"><description>Host</description>
+<description xml:lang="ja">ホスト</description></object>
+<object name="Cisco - Tape array"><description>Tape array</description>
+<description xml:lang="ja">テープ・アレイ</description></object>
+<object name="Cisco - Disk subsystem"><description>Disk subsystem</description>
+<description xml:lang="ja">ディスク・サブシステム</description></object>
+<object name="Cisco - JBOD"><description>JBOD</description>
+<description xml:lang="ja">JBOD</description></object>
+<object name="Cisco - Storage array"><description>Storage array</description>
+<description xml:lang="ja">記憶装置</description></object>
+<object name="Cisco - FC Storage"><description>FC Storage</description>
+<description xml:lang="ja">FC ストレージ</description></object>
+<object name="Cisco - PC Adapter Card"><description>PC Adapter Card</description>
+<description xml:lang="ja">PC アダプタのカード</description></object>
+  </contents>
+</sheet>

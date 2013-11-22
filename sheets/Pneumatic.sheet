@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Pneumatic/Hydraulic</name>
+  <name xml:lang="ja">気学と水力学</name>
+  <description>Components for pneumatic and hydraulic circuits</description>
+  <description xml:lang="ja">気学/水力学回路のコンポーネント</description>
+  <contents>
+    <object name="Pneum - DEJack">
+      <description>Double-effect jack</description>
+      <description xml:lang="ja">Double-effect jack</description>
+    </object>
+    <object name="Pneum - SEIJack">
+      <description>Normally-in simple-effect jack</description>
+      <description xml:lang="ja">Normally-in simple-effect jack</description>
+    </object>
+    <object name="Pneum - SEOJack">
+      <description>Normally-out simple-effect jack</description>
+      <description xml:lang="ja">Normally-out simple-effect jack</description>
+    </object>
+    
+    <br/>
+    <object name="Pneum - press">
+      <description>Generic pressure source</description>
+      <description xml:lang="ja">Generic pressure source</description>
+    </object>
+    <object name="Pneum - presshy">
+      <description>Hydraulic pressure source</description>
+      <description xml:lang="ja">Hydraulic pressure source</description>
+    </object>
+    <object name="Pneum - presspn">
+      <description>Pneumatic pressure source</description>
+      <description xml:lang="ja">気圧のソース</description>
+    </object>
+    <object name="Pneum - drain">
+      <description>Air exhaust orifice</description>
+      <description xml:lang="ja">エア排気口</description>
+    </object>
+      <br/>
+    <object name="Pneum - dist22">
+      <description>2/2 distributor</description>
+      <description xml:lang="ja">2/2 分配器</description>
+    </object>
+    <object name="Pneum - dist32">
+      <description>3/2 distributor</description>
+      <description xml:lang="ja">3/2 分配器</description>
+    </object>
+  
+    <object name="Pneum - dist42">
+      <description>4/2 distributor</description>
+      <description xml:lang="ja">4/2 分配器</description>
+    </object>
+    <object name="Pneum - dist52">
+      <description>5/2 distributor</description>
+      <description xml:lang="ja">5/2 分配器</description>
+    </object>
+
+      <br/>
+    <object name="Pneum - commusc">
+      <description>Muscular command</description>
+      <description xml:lang="ja">Muscular command</description>
+    </object>
+    <object name="Pneum - compb">
+      <description>Push-button command</description>
+      <description xml:lang="ja">プッシュ・ボタン式コマンド</description>
+    </object>
+    <object name="Pneum - compush">
+      <description>Mechanical command by tappet</description>
+      <description xml:lang="ja">Mechanical command by tappet</description>
+    </object>
+    <object name="Pneum - comspr">
+      <description>Mechanical command by spring</description>
+      <description xml:lang="ja">Mechanical command by spring</description>
+    </object>
+    <object name="Pneum - comelec1">
+      <description>Electric command (single coil)</description>
+      <description xml:lang="ja">Electric command (single coil)</description>
+    </object>
+    <object name="Pneum - comelec2">
+      <description>Electric command (double coil)</description>
+      <description xml:lang="ja">Electric command (double coil)</description>
+    </object>
+    <object name="Pneum - compilh">
+      <description>Indirect command by hydraulic driver</description>
+      <description xml:lang="ja">Indirect command by hydraulic driver</description>
+    </object>
+    <object name="Pneum - compilp">
+      <description>Indirect command by pneumatic driver</description>
+      <description xml:lang="ja">Indirect command by pneumatic driver</description>
+    </object>
+	<br/>
+    <object name="Pneum - connpoint">
+      <description>Connection point</description>
+      <description xml:lang="ja">接続点</description>
+    </object>
+    
+  </contents>
+</sheet>

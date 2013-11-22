@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Misc</name>
+  <name xml:lang="ja">その他</name>
+  <description>Miscellaneous Shapes</description>
+  <description xml:lang="ja">その他のシェイプ</description>
+  <contents>
+    <object name="Misc - Tree">
+      <description>Tree</description>
+      <description xml:lang="ja">ツリー</description>
+    </object>
+    <object name="Filesystem - Folder">
+      <description>Folder</description>
+      <description xml:lang="ja">フォルダ</description>
+    </object>
+    <object name="Filesystem - File">
+      <description>File</description>
+      <description xml:lang="ja">ファイル</description>
+    </object>
+    <object name="Misc - expensible node">
+      <description>expensible node</description>
+      <description xml:lang="ja">展開可能なノード</description>
+    </object>
+    <object name="Misc - expended node">
+      <description>expended node</description>
+      <description xml:lang="ja">展開したノード</description>
+    </object>
+    <object name="Misc - Analog Clock">
+      <description>Traditional clock</description>
+      <description xml:lang="ja">アナログ時計</description>
+    </object>
+    <object name="Misc - Measure" intdata="0">
+      <description>Measure distance</description>
+      <description xml:lang="ja">測定距離</description>
+    </object>
+    <object name="Misc - Grid">
+      <description>Resizable grid</description>
+      <description xml:lang="ja">Resizable grid</description>
+    </object>
+    <object name="Misc - NewGroup">
+      <description>New-style group object, for testing</description>
+      <description xml:lang="ja">新しいスタイルのグループ・オブジェクト (テスト用)</description>
+    </object>
+  </contents>
+</sheet>

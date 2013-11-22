@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Electric</name>
+  <name xml:lang="ja">電気回路</name>
+  <description>Components for electric circuits</description>
+  <description xml:lang="ja">電子回路用のコンポーネント</description>
+  <contents>
+    <object name="Electric - contact_o">
+      <description>Normally open contact (horizontal)</description>
+      <description xml:lang="ja">標準的な開コンタクト (横向き)</description>
+    </object>
+    <object name="Electric - contact_f">
+      <description>Normally closed contact (horizontal)</description>
+      <description xml:lang="ja">標準的な閉コンタクト (横向き)</description>
+    </object>
+    <object name="Electric - intpos_o">
+      <description>Normally open position switch (horizontal)</description>
+      <description xml:lang="ja">標準的な開スイッチ (横向き)</description>
+    </object>
+    <object name="Electric - intpos_f">
+      <description>Normally closed position switch (horizontal)</description>
+      <description xml:lang="ja">標準的な閉スイッチ (横向き)</description>
+    </object>
+    <br/>
+    <object name="Electric - vcontact_o">
+      <description>Normally open contact (vertical)</description>
+      <description xml:lang="ja">標準的な開コンタクト (縦向き)</description>
+    </object>
+    <object name="Electric - vcontact_f">
+      <description>Normally closed contact (vertical)</description>
+      <description xml:lang="ja">標準的な閉コンタクト (縦向き)</description>
+    </object>
+    <object name="Electric - vintpos_o">
+      <description>Normally open position switch (vertical)</description>
+      <description xml:lang="ja">標準的な開スイッチ (縦向き)</description>
+    </object>
+    <object name="Electric - vintpos_f">
+      <description>Normally closed position switch (vertical)</description>
+      <description xml:lang="ja">標準的な閉スイッチ (縦向き)</description>
+    </object>
+    <br/>
+    <object name="Electric - command">
+      <description>The command organ of a relay (horizontal)</description>
+      <description xml:lang="ja">リレーのコマンド起点 (横向き)</description>
+    </object>
+    <object name="Electric - relay">
+      <description>Relay (horizontal)</description>
+      <description xml:lang="ja">リレー (横向き)</description>
+    </object>
+    <object name="Electric - lamp">
+      <description>Lamp or indicator light (horizontal)</description>
+      <description xml:lang="ja">ランプ/表示器 (横向き)</description>
+    </object>
+    <br/>
+    <object name="Electric - vcommand">
+      <description>The command organ of a relay (vertical)</description>
+      <description xml:lang="ja">リレーのコマンド起点 (縦向き)</description>
+    </object>
+    <object name="Electric - vrelay">
+      <description>Relay (vertical)</description>
+      <description xml:lang="ja">リレー (縦向き)</description>
+    </object>
+    <object name="Electric - vlamp">
+      <description>Lamp or indicator light (vertical)</description>
+      <description xml:lang="ja">ランプ/表示器 (縦向き)</description>
+    </object>
+    <br/>
+
+
+    <object name="Electric - connpoint">
+      <description>Connection point</description>
+      <description xml:lang="ja">接続点</description>
+    </object>
+    
+  </contents>
+</sheet>

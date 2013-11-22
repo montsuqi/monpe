@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+	<name>Cybernetics</name>
+	<name xml:lang="ja">サイバネティックス</name>
+	<description>Elements of cybernetic circuits</description>
+	<description xml:lang="ja">サイバネティックス回路の部品</description>
+	<contents>
+
+		<object name="Cybernetics - l-sens">
+			<description>Sensor - left</description>
+			<description xml:lang="ja">センサ - 左</description>
+		</object>
+		<object name="Cybernetics - r-sens">
+			<description>Sensor - right</description>
+			<description xml:lang="ja">センサ - 右</description>
+		</object>
+		<object name="Cybernetics - b-sens">
+			<description>Sensor - bottom</description>
+			<description xml:lang="ja">センサ - 下</description>
+		</object>
+		<object name="Cybernetics - t-sens">
+			<description>Sensor - top</description>
+			<description xml:lang="ja">センサ - 上</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - l-minus">
+			<description>Sum, subtracting left input</description>
+			<description xml:lang="ja">サム (左の入力との減算)</description>
+		</object>
+		<object name="Cybernetics - r-minus">
+			<description>Sum, subtracting right input</description>
+			<description xml:lang="ja">サム (右の入力との減算)</description>
+		</object>
+		<object name="Cybernetics - b-minus">
+			<description>Sum, subtracting bottom input</description>
+			<description xml:lang="ja">サム (下の入力との減算)</description>
+		</object>
+		<object name="Cybernetics - t-minus">
+			<description>Sum, subtracting top input</description>
+			<description xml:lang="ja">サム (上の入力との減算)</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - l-integrator">
+			<description>Integrator - input left</description>
+			<description xml:lang="ja">積分器 - 入力 (左)</description>
+		</object>
+		<object name="Cybernetics - r-integrator">
+			<description>Integrator - input right</description>
+			<description xml:lang="ja">積分器 - 入力 (右)</description>
+		</object>
+		<object name="Cybernetics - b-integrator">
+			<description>Integrator - input bottom</description>
+			<description xml:lang="ja">積分器 - 入力 (下)</description>
+		</object>
+		<object name="Cybernetics - t-integrator">
+			<description>Integrator - input top</description>
+			<description xml:lang="ja">積分器 - 入力 (上)</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - sum">
+			<description>Sum</description>
+			<description xml:lang="ja">サム (合計)</description>
+		</object>
+		<object name="Cybernetics - product">
+			<description>Product</description>
+			<description xml:lang="ja">産物</description>
+		</object>
+
+		<object name="Cybernetics - hpf">
+			<description>High pass filter</description>
+			<description xml:lang="ja">高域通過フィルタ</description>
+		</object>
+		<object name="Cybernetics - lpf">
+			<description>Low pass filter</description>
+			<description xml:lang="ja">低域通過フィルタ</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - sine">
+			<description>Sine characteristic or input</description>
+			<description xml:lang="ja">Sin 特性または入力</description>
+		</object>
+		<object name="Cybernetics - sigmoid">
+			<description>Sigmoid characteristic</description>
+			<description xml:lang="ja">シグモイド特性</description>
+		</object>
+		<object name="Cybernetics - saturation">
+			<description>Saturation characteristic</description>
+			<description xml:lang="ja">彩度特性</description>
+		</object>
+		<object name="Cybernetics - relay">
+			<description>Relay characteristic (sigma)</description>
+			<description xml:lang="ja">リレー特性 (Σ)</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - half-wave-rectifier">
+			<description>Half wave rectifier or ramp input</description>
+			<description xml:lang="ja">半波整流回路/ランプの入力</description>
+		</object>
+		<object name="Cybernetics - full-wave-rectifier">
+			<description>Full wave rectifier (absolute value)</description>
+			<description xml:lang="ja">全波整流回路 (絶対値)</description>
+		</object>
+
+		<object name="Cybernetics - positive-shift">
+			<description>Constant positive shift on the y-axis</description>
+			<description xml:lang="ja">Y-軸に対する正の方向へのシフト</description>
+		</object>
+		<object name="Cybernetics - negative-shift">
+			<description>Constant negative shift on the y-axis</description>
+			<description xml:lang="ja">Y-軸に対する負の方向へのシフト</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - factor-greater1">
+			<description>Constant factor greater 1</description>
+			<description xml:lang="ja">1 &lt; 定係数</description>
+		</object>
+		<object name="Cybernetics - factor-0to1">
+			<description>Constant factor between 0 and 1</description>
+			<description xml:lang="ja">0 &lt; 定係数 &lt; 1</description>
+		</object>
+		<object name="Cybernetics - factor-0to-1">
+			<description>Constant factor between 0 and -1</description>
+			<description xml:lang="ja">-1 &lt; 定係数 &lt; 0 </description>
+		</object>
+		<object name="Cybernetics - factor-smaller-1">
+			<description>Constant factor below -1</description>
+			<description xml:lang="ja">定係数 &lt; -1</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - empty-func">
+			<description>Template for custom characteristics</description>
+			<description xml:lang="ja">カスタム特性のテンプレート</description>
+		</object>
+		<object name="Cybernetics - delta-t">
+			<description>Time delay</description>
+			<description xml:lang="ja">遅延</description>
+		</object>
+
+	</contents>
+</sheet>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Network</name>
+  <name xml:lang="ja">ネットワーク</name>
+  <description>Objects to design network diagrams with</description>
+  <description xml:lang="ja">ネットワーク構成をデザインするためのオブジェクト</description>
+  <contents>
+    <object name="Network - General Computer (Tower)">
+      <description>Computer</description>
+      <description xml:lang="ja">コンピュータ</description>
+    </object>
+    <object name="Network - General Monitor (With Stand)">
+      <description>Monitor</description>
+      <description xml:lang="ja">モニタ</description>
+    </object>
+    <object name="Network - Storage">
+      <description>Storage</description>
+      <description xml:lang="ja">記憶装置</description>
+    </object>
+    <object name="Network - Bus">
+      <description>Ethernet bus</description>
+      <description xml:lang="ja">イーサネット・バス</description>
+    </object>
+    <object name="Network - General Printer">
+      <description>Simple printer</description>
+      <description xml:lang="ja">プリンタ</description>
+    </object>
+    <object name="Network - WAN Connection">
+      <description>WAN connection</description>
+      <description xml:lang="ja">WAN 接続</description>
+    </object>
+    <object name="Network - WAN Link">
+      <description>WAN link</description>
+      <description xml:lang="ja">WAN リンク</description>
+    </object>
+    <object name="Network - Hub">
+      <description>Stackable hub or switch</description>
+      <description xml:lang="ja">棚型のハブ/スイッチ</description>
+    </object>
+    <object name="Network - Modular Switch">
+      <description>Modular switching system</description>
+      <description xml:lang="ja">モジューラ式スイッチング・システム</description>
+    </object>
+    <object name="Network - Patch Panel">
+      <description>24 Port Patch Panel</description>
+      <description xml:lang="ja">24 ポート・パッチ・パネル</description>
+    </object>
+    <object name="Network - RJ45 Wall-Plug">
+      <description>RJ45 wall-plug</description>
+      <description xml:lang="ja">RJ45 (壁差し型)</description>
+    </object>
+    <object name="Network - scEAD Wall-Plug">
+      <description>Wall-plug for the scEAD cabling system</description>
+      <description xml:lang="ja">壁差し型の scEAD ケーブル・システム</description>
+    </object>
+    <object name="Network - Modem">
+      <description>Simple modem</description>
+      <description xml:lang="ja">モデム</description>
+    </object>
+    <object name="Network - Antenna">
+      <description>Antenna for wireless transmission</description>
+      <description xml:lang="ja">無線アンテナ</description>
+    </object>
+    <object name="Network - Base Station">
+      <description>Mobile telephony base station</description>
+      <description xml:lang="ja">携帯電話ベース・ステーション</description>
+    </object>
+    <object name="Network - Cloud">
+      <description>Network cloud</description>
+      <description xml:lang="ja">ネットワーク網</description>
+    </object>
+    <object name="Network - Radio Cell">
+      <description>Mobile telephony cell</description>
+      <description xml:lang="ja">携帯電話セル</description>
+    </object>
+    <object name="Network - Router Symbol">
+      <description>Router symbol</description>
+      <description xml:lang="ja">ルータの記号</description>
+    </object>
+    <object name="Network - Switch Symbol">
+      <description>Switch symbol</description>
+      <description xml:lang="ja">スイッチの記号</description>
+    </object>
+    <object name="Network - Switch ATM Symbol">
+      <description>ATM switch symbol</description>
+      <description xml:lang="ja">ATM スイッチの記号</description>
+    </object>
+    <object name="Network - Firewall">
+      <description>Firewall router</description>
+      <description xml:lang="ja">ファイヤーウォールのルータ</description>
+    </object>
+    <object name="Network - A Workstation Monitor">
+      <description>Workstation monitor</description>
+      <description xml:lang="ja">ワークステーションのモニタ</description>
+    </object>
+    <object name="Network - A Workstation">
+      <description>UNIX workstation</description>
+      <description xml:lang="ja">UNIX ワークステーション</description>
+    </object>
+    <object name="Network - A Desktop PC">
+      <description>Desktop PC</description>
+      <description xml:lang="ja">PC (デスクトップ)</description>
+    </object>
+    <object name="Network - Laptop Computer">
+      <description>Laptop PC</description>
+      <description xml:lang="ja">PC (ラップトップ)</description>
+    </object>
+    <object name="Network - A Bigtower PC">
+      <description>Bigtower PC</description>
+      <description xml:lang="ja">PC (フルタワー)</description>
+    </object>
+    <object name="Network - A Miditower PC">
+      <description>Miditower PC</description>
+      <description xml:lang="ja">PC (ミドルタワー)</description>
+    </object>
+    <object name="Network - A Minitower PC">
+      <description>Minitower PC</description>
+      <description xml:lang="ja">PC (ミニタワー)</description>
+    </object>
+    <object name="Network - An amplifier speaker">
+      <description>Speaker with integrated amplifier</description>
+      <description xml:lang="ja">アンプ付きスピーカ</description>
+    </object>
+    <object name="Network - A speaker">
+     <description>Speaker without amplifier</description>
+     <description xml:lang="ja">アンプ無しスピーカ</description>
+    </object>
+    <object name="Network - A Diskette">
+      <description>3 1/2 inch diskette</description>
+      <description xml:lang="ja">3.5 インチ・ディスク</description>
+    </object>
+    <object name="Network - A ZIP Disk">
+      <description>ZIP disk</description>
+      <description xml:lang="ja">ZIP ディスク</description>
+    </object>
+    <object name="Network - An external DAT drive">
+      <description>External DAT drive</description>
+      <description xml:lang="ja">外部 DAT ドライブ</description>
+    </object>
+    <object name="Network - A Mobile Phone">
+      <description>Mobile phone</description>
+      <description xml:lang="ja">携帯電話</description>
+    </object>
+    <object name="Network - A Telephone">
+      <description>Telephone</description>
+      <description xml:lang="ja">電話</description>
+    </object>
+    <object name="Network - Plotter">
+      <description>Plotter</description>
+      <description xml:lang="ja">プロッタ</description>
+    </object>
+    <object name="Network - Digitizing Board">
+      <description>Digitizing board</description>
+      <description xml:lang="ja">ディジタイザ</description>
+      </object>
+  </contents>
+</sheet>
