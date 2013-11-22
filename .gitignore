@@ -32,3 +32,4 @@ tools/red2fill
 tools/red2inc
 tools/red2rec
 tools/red2test
+mkinstalldirs
