@@ -181,9 +181,16 @@ static int
 object_list_sort_vertical(const void *o1, const void *o2) {
     DiaObject *obj1 = *(DiaObject **)o1;
     DiaObject *obj2 = *(DiaObject **)o2;
+    real diff = (obj1->bounding_box.bottom+obj1->bounding_box.top)/2 -
+                (obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
 
-    return (obj1->bounding_box.bottom+obj1->bounding_box.top)/2 -
-	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
+    if (diff > 0.0) {
+      return 1;
+    } else if (diff < 0.0) {
+      return -1;
+    } else {
+      return 0;
+    }
 }
 
 /*
@@ -332,8 +339,15 @@ object_list_sort_horizontal(const void *o1, const void *o2) {
   DiaObject *obj1 = *(DiaObject **)o1;
   DiaObject *obj2 = *(DiaObject **)o2;
 
-  return (obj1->bounding_box.right+obj1->bounding_box.left)/2 -
-    (obj2->bounding_box.right+obj2->bounding_box.left)/2;
+  real diff = (obj1->bounding_box.right+obj1->bounding_box.left)/2.0 -
+              (obj2->bounding_box.right+obj2->bounding_box.left)/2.0;
+  if (diff > 0.0) {
+    return 1;
+  } else if (diff < 0.0) {
+    return -1;
+  } else {
+    return 0;
+  }
 }
 
 /*
