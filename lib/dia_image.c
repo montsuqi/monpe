@@ -154,17 +154,15 @@ dia_image_load(const gchar *filename)
   DiaImage *dia_img;
   GdkPixbuf *image;
   GError *error = NULL;
+  int w,h;
 
-  image = gdk_pixbuf_new_from_file(filename, &error);
-  if (image == NULL) {
-    /* dia_image_load() function is also (mis)used to check file
-     * existance. Don't warn if the file is simply not there but
-     * only if there is something else wrong while loading it.
-     */
-    if (g_file_test(filename, G_FILE_TEST_EXISTS))
-      message_warning ("%s", error->message);
-    g_error_free (error);
+  if (gdk_pixbuf_get_file_info(filename,&w,&h) == NULL) {
     return NULL;
+  }
+  if (w > 640 || h > 640) {
+    image = gdk_pixbuf_new_from_file_at_size(filename,640,640,NULL);
+  } else {
+    image = gdk_pixbuf_new_from_file(filename,NULL);
   }
 
   dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
