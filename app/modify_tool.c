@@ -37,7 +37,7 @@
 #include "diacanvas.h"
 #include "prop_text.h"
 #include "gtk/gtk.h"
-
+#include "pos_dialog.h"
 
 static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -491,6 +491,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
 
     object_add_updates(tool->object, ddisp->diagram);
+
+    pos_dialog_update();
 
     /* Put current mouse position in status bar */
     {

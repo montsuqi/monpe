@@ -43,6 +43,7 @@
 #include "interface.h"
 #include "layer_dialog.h"
 #include "dic_dialog.h"
+#include "pos_dialog.h"
 #include "preferences.h"
 #include "../lib/filter.h"
 #include "../lib/intl.h"
@@ -165,6 +166,7 @@ open_recent_file_callback(GtkWidget *widget, gpointer data)
     diagram_update_extents(diagram);
     layer_dialog_set_diagram(diagram);
     dic_dialog_set_diagram(diagram);
+    pos_dialog_set_diagram(diagram);
     if (diagram->displays == NULL) {
       new_display(diagram);
     }

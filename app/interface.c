@@ -35,6 +35,7 @@
 #include "object.h"
 #include "layer_dialog.h"
 #include "dic_dialog.h"
+#include "pos_dialog.h"
 #include "interface.h"
 #include "display.h"
 #include "preferences.h"
@@ -128,6 +129,7 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
             diagram_update_extents(diagram);
             layer_dialog_set_diagram(diagram);
             dic_dialog_set_diagram(diagram);
+            pos_dialog_set_diagram(diagram);
             
 	    if (diagram->displays == NULL) {
 	      new_display(diagram);

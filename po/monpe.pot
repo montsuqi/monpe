@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-22 10:32+0900\n"
+"POT-Creation-Date: 2014-02-18 17:26+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,248 +18,248 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:215
+#: ../app/app_procs.c:216
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr ""
 
-#: ../app/app_procs.c:227
+#: ../app/app_procs.c:228
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr ""
 
-#: ../app/app_procs.c:253
+#: ../app/app_procs.c:254
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr ""
 
-#: ../app/app_procs.c:262
+#: ../app/app_procs.c:263
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:376
+#: ../app/app_procs.c:377
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:386
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
 
-#: ../app/app_procs.c:393
+#: ../app/app_procs.c:394
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr ""
 
 #. if (!quiet)
-#: ../app/app_procs.c:426
+#: ../app/app_procs.c:427
 #, c-format
 msgid "%s --> %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:602
+#: ../app/app_procs.c:603
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:680
+#: ../app/app_procs.c:682
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
 msgstr ""
 
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:699
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
 msgstr ""
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:748
+#: ../app/app_procs.c:750
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr ""
 
 #. &export_file_name
-#: ../app/app_procs.c:766
+#: ../app/app_procs.c:768
 msgid "Export loaded file and exit"
 msgstr ""
 
-#: ../app/app_procs.c:766
+#: ../app/app_procs.c:768
 msgid "OUTPUT"
 msgstr ""
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:768
+#: ../app/app_procs.c:770
 msgid "TYPE"
 msgstr ""
 
-#: ../app/app_procs.c:770
+#: ../app/app_procs.c:772
 msgid "Export graphics size"
 msgstr ""
 
-#: ../app/app_procs.c:770
+#: ../app/app_procs.c:772
 msgid "WxH"
 msgstr ""
 
-#: ../app/app_procs.c:772
+#: ../app/app_procs.c:774
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: ../app/app_procs.c:773 ../app/app_procs.c:776
+#: ../app/app_procs.c:775 ../app/app_procs.c:778
 msgid "LAYER,LAYER,..."
 msgstr ""
 
-#: ../app/app_procs.c:775
+#: ../app/app_procs.c:777
 msgid ""
 "Hide only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: ../app/app_procs.c:778
+#: ../app/app_procs.c:780
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: ../app/app_procs.c:780
+#: ../app/app_procs.c:782
 msgid "Don't create empty diagram"
 msgstr ""
 
-#: ../app/app_procs.c:782
+#: ../app/app_procs.c:784
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr ""
 
-#: ../app/app_procs.c:784
+#: ../app/app_procs.c:786
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 
-#: ../app/app_procs.c:786
+#: ../app/app_procs.c:788
 msgid "Directory containing input files"
 msgstr ""
 
-#: ../app/app_procs.c:786 ../app/app_procs.c:788
+#: ../app/app_procs.c:788 ../app/app_procs.c:790
 msgid "DIRECTORY"
 msgstr ""
 
-#: ../app/app_procs.c:788
+#: ../app/app_procs.c:790
 msgid "Directory containing output files"
 msgstr ""
 
-#: ../app/app_procs.c:791
+#: ../app/app_procs.c:793
 msgid "Display credits list and exit"
 msgstr ""
 
-#: ../app/app_procs.c:794
+#: ../app/app_procs.c:796
 msgid "Generate verbose output"
 msgstr ""
 
-#: ../app/app_procs.c:796
+#: ../app/app_procs.c:798
 msgid "Display version and exit"
 msgstr ""
 
-#: ../app/app_procs.c:798
+#: ../app/app_procs.c:800
 msgid "The x cordinate to paper offset[cm]"
 msgstr ""
 
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:802
 msgid "The y cordinate to paper offset[cm]"
 msgstr ""
 
-#: ../app/app_procs.c:824
+#: ../app/app_procs.c:826
 msgid "[FILE...]"
 msgstr ""
 
-#: ../app/app_procs.c:836
+#: ../app/app_procs.c:838
 #, c-format
 msgid "Invalid option?"
 msgstr ""
 
-#: ../app/app_procs.c:859
+#: ../app/app_procs.c:861
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:872
+#: ../app/app_procs.c:874
 #, c-format
 msgid "Missing input: %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:897
+#: ../app/app_procs.c:899
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:937
+#: ../app/app_procs.c:939
 #, c-format
 msgid "Monpe version %s, compiled %s %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:939
+#: ../app/app_procs.c:941
 #, c-format
 msgid "Monpe version %s\n"
 msgstr ""
 
-#: ../app/app_procs.c:979
+#: ../app/app_procs.c:981
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 
-#: ../app/app_procs.c:981
+#: ../app/app_procs.c:983
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
 
-#: ../app/app_procs.c:1086
+#: ../app/app_procs.c:1089
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1104
 msgid "Exiting Dia"
 msgstr ""
 
 #. no standard buttons
-#: ../app/app_procs.c:1165
+#: ../app/app_procs.c:1168
 msgid "Quitting without saving modified diagrams"
 msgstr ""
 
-#: ../app/app_procs.c:1167
+#: ../app/app_procs.c:1170
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Monpe without saving "
 "them?"
 msgstr ""
 
-#: ../app/app_procs.c:1171
+#: ../app/app_procs.c:1174
 msgid "Quit Monpe"
 msgstr ""
 
-#: ../app/app_procs.c:1240 ../app/app_procs.c:1247
+#: ../app/app_procs.c:1243 ../app/app_procs.c:1250
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: ../app/app_procs.c:1250
+#: ../app/app_procs.c:1253
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1276
 msgid "Objects and filters internal to dia"
 msgstr ""
 
-#: ../app/app_procs.c:1329
+#: ../app/app_procs.c:1332
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1334
+#: ../app/app_procs.c:1337
 #, c-format
 msgid ""
 "\n"
@@ -267,7 +267,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1339
+#: ../app/app_procs.c:1342
 #, c-format
 msgid ""
 "\n"
@@ -275,7 +275,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1344
+#: ../app/app_procs.c:1347
 #, c-format
 msgid ""
 "\n"
@@ -649,21 +649,21 @@ msgstr ""
 msgid "Page Setup"
 msgstr ""
 
-#: ../app/disp_callbacks.c:95 ../app/properties-dialog.c:157
+#: ../app/disp_callbacks.c:96 ../app/properties-dialog.c:157
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
 
-#: ../app/disp_callbacks.c:130
+#: ../app/disp_callbacks.c:131
 msgid "Properties..."
 msgstr ""
 
-#: ../app/disp_callbacks.c:248
+#: ../app/disp_callbacks.c:249
 msgid "Selection"
 msgstr ""
 
-#: ../app/disp_callbacks.c:1072
+#: ../app/disp_callbacks.c:1074
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -672,44 +672,44 @@ msgstr ""
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:115
+#: ../app/display.c:117
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../app/display.c:125
+#: ../app/display.c:127
 #, c-format
 msgid "Selected '%s'"
 msgstr ""
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1081
+#: ../app/display.c:1083
 msgid "No anti-aliased renderer found"
 msgstr ""
 
-#: ../app/display.c:1219
+#: ../app/display.c:1221
 msgid "<unnamed>"
 msgstr ""
 
 #. no standard buttons
-#: ../app/display.c:1225
+#: ../app/display.c:1227
 msgid "Closing diagram without saving"
 msgstr ""
 
-#: ../app/display.c:1227
+#: ../app/display.c:1229
 #, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
 
-#: ../app/display.c:1229
+#: ../app/display.c:1231
 msgid "Close Diagram"
 msgstr ""
 
-#: ../app/display.c:1234
+#: ../app/display.c:1236
 msgid "_Discard Changes"
 msgstr ""
 
@@ -761,44 +761,44 @@ msgstr ""
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr ""
 
-#: ../app/filedlg.c:145 ../app/filedlg.c:153 ../app/filedlg.c:169
-#: ../app/filedlg.c:748 ../lib/widgets.c:1488
+#: ../app/filedlg.c:146 ../app/filedlg.c:154 ../app/filedlg.c:170
+#: ../app/filedlg.c:750 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr ""
 
-#: ../app/filedlg.c:193 ../app/filedlg.c:606
+#: ../app/filedlg.c:194 ../app/filedlg.c:608
 msgid "By extension"
 msgstr ""
 
-#: ../app/filedlg.c:283
+#: ../app/filedlg.c:285
 msgid "Open Diagram"
 msgstr ""
 
-#: ../app/filedlg.c:311
+#: ../app/filedlg.c:313
 msgid "Open Options"
 msgstr ""
 
-#: ../app/filedlg.c:319 ../app/filedlg.c:730
+#: ../app/filedlg.c:321 ../app/filedlg.c:732
 msgid "Determine file type:"
 msgstr ""
 
-#: ../app/filedlg.c:339 ../app/filedlg.c:743 ../lib/widgets.c:1493
+#: ../app/filedlg.c:341 ../app/filedlg.c:745 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr ""
 
-#: ../app/filedlg.c:372 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:374 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../app/filedlg.c:384 ../app/filedlg.c:655
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr ""
 
-#: ../app/filedlg.c:384 ../app/filedlg.c:655
+#: ../app/filedlg.c:386 ../app/filedlg.c:657
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -806,34 +806,34 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../app/filedlg.c:438
+#: ../app/filedlg.c:440
 msgid "Save Diagram"
 msgstr ""
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:449
+#: ../app/filedlg.c:451
 msgid "Compress diagram files"
 msgstr ""
 
-#: ../app/filedlg.c:459 ../app/filedlg.c:464
+#: ../app/filedlg.c:461 ../app/filedlg.c:466
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 
-#: ../app/filedlg.c:679
+#: ../app/filedlg.c:681
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
 
-#: ../app/filedlg.c:706
+#: ../app/filedlg.c:708
 msgid "Export Diagram"
 msgstr ""
 
-#: ../app/filedlg.c:722
+#: ../app/filedlg.c:724
 msgid "Export Options"
 msgstr ""
 
@@ -861,7 +861,7 @@ msgstr ""
 msgid "Find"
 msgstr ""
 
-#: ../app/find-and-replace.c:542 ../app/menus.c:268
+#: ../app/find-and-replace.c:542 ../app/menus.c:270
 msgid "Replace"
 msgstr ""
 
@@ -876,30 +876,30 @@ msgstr ""
 msgid "_Replace"
 msgstr ""
 
-#: ../app/interface.c:157
+#: ../app/interface.c:159
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
 
-#: ../app/interface.c:163
+#: ../app/interface.c:165
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:169 ../app/menus.c:230 ../objects/FS/function.c:988
+#: ../app/interface.c:171 ../app/menus.c:232 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr ""
 
-#: ../app/interface.c:175
+#: ../app/interface.c:177
 msgid "Scroll around the diagram"
 msgstr ""
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:181 ../app/dic_dialog.c:895 ../app/menus.c:233
+#: ../app/interface.c:183 ../app/dic_dialog.c:895 ../app/menus.c:235
 #: ../lib/properties.c:80 ../lib/properties.h:530
 #: ../objects/AADL/aadlbox.c:153 ../objects/Jackson/requirement.c:144
 #: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
@@ -913,119 +913,119 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: ../app/interface.c:187
+#: ../app/interface.c:189
 msgid "TextCircle"
 msgstr ""
 
-#: ../app/interface.c:193 ../app/menus.c:234
+#: ../app/interface.c:195 ../app/menus.c:236
 msgid "Box"
 msgstr ""
 
-#: ../app/interface.c:199 ../app/menus.c:235
+#: ../app/interface.c:201 ../app/menus.c:237
 msgid "Ellipse"
 msgstr ""
 
-#: ../app/interface.c:205 ../app/menus.c:236
+#: ../app/interface.c:207 ../app/menus.c:238
 msgid "Polygon"
 msgstr ""
 
-#: ../app/interface.c:211 ../app/menus.c:237
+#: ../app/interface.c:213 ../app/menus.c:239
 msgid "Beziergon"
 msgstr ""
 
-#: ../app/interface.c:217 ../app/menus.c:239 ../objects/standard/line.c:229
+#: ../app/interface.c:219 ../app/menus.c:241 ../objects/standard/line.c:229
 msgid "Line"
 msgstr ""
 
-#: ../app/interface.c:223 ../app/menus.c:240
+#: ../app/interface.c:225 ../app/menus.c:242
 msgid "Arc"
 msgstr ""
 
-#: ../app/interface.c:229 ../app/menus.c:241
+#: ../app/interface.c:231 ../app/menus.c:243
 msgid "Zigzagline"
 msgstr ""
 
-#: ../app/interface.c:235 ../app/menus.c:242
+#: ../app/interface.c:237 ../app/menus.c:244
 msgid "Polyline"
 msgstr ""
 
-#: ../app/interface.c:241 ../app/menus.c:243
+#: ../app/interface.c:243 ../app/menus.c:245
 msgid "Bezierline"
 msgstr ""
 
-#: ../app/interface.c:247 ../app/dic_dialog.c:900 ../app/menus.c:246
+#: ../app/interface.c:249 ../app/dic_dialog.c:900 ../app/menus.c:248
 msgid "Image"
 msgstr ""
 
-#: ../app/interface.c:254 ../app/menus.c:244
+#: ../app/interface.c:256 ../app/menus.c:246
 msgid "Outline"
 msgstr ""
 
-#: ../app/interface.c:704 ../app/interface.c:940
+#: ../app/interface.c:706 ../app/interface.c:942
 msgid "Pops up the Navigation window."
 msgstr ""
 
-#: ../app/interface.c:902
+#: ../app/interface.c:904
 msgid "Diagram menu."
 msgstr ""
 
-#: ../app/interface.c:1005
+#: ../app/interface.c:1007
 msgid "Zoom"
 msgstr ""
 
-#: ../app/interface.c:1020
+#: ../app/interface.c:1022
 msgid "Toggles snap-to-grid for this window."
 msgstr ""
 
-#: ../app/interface.c:1031
+#: ../app/interface.c:1033
 msgid "Toggles object snapping for this window."
 msgstr ""
 
-#: ../app/interface.c:1421
+#: ../app/interface.c:1423
 #, c-format
 msgid "No sheet named %s"
 msgstr ""
 
-#: ../app/interface.c:1459
+#: ../app/interface.c:1461
 msgid "Other sheets"
 msgstr ""
 
-#: ../app/interface.c:1519 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1521 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr ""
 
-#: ../app/interface.c:1579
+#: ../app/interface.c:1581
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
 
-#: ../app/interface.c:1594
+#: ../app/interface.c:1596
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 
-#: ../app/interface.c:1637
+#: ../app/interface.c:1639
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1642
+#: ../app/interface.c:1644
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1658
+#: ../app/interface.c:1660
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
 
-#: ../app/interface.c:1718 ../app/interface.c:1845
+#: ../app/interface.c:1720 ../app/interface.c:1847
 msgid "Diagram Editor"
 msgstr ""
 
@@ -1115,6 +1115,30 @@ msgstr ""
 #: ../app/dic_dialog.c:1061 ../objects/FS/function.c:976
 #: ../objects/FS/function.c:978
 msgid "Change"
+msgstr ""
+
+#: ../app/pos_dialog.c:129
+msgid "Object Position"
+msgstr ""
+
+#: ../app/pos_dialog.c:163 ../lib/properties.c:65 ../lib/properties.h:477
+#: ../lib/widgets.c:724
+msgid "Left"
+msgstr ""
+
+#: ../app/pos_dialog.c:170 ../app/menus.c:193
+#: ../objects/standard/textobj.c:137 ../objects/embed/etextobj.c:160
+msgid "Top"
+msgstr ""
+
+#: ../app/pos_dialog.c:177 ../lib/properties.c:67 ../lib/properties.h:479
+#: ../lib/widgets.c:736
+msgid "Right"
+msgstr ""
+
+#: ../app/pos_dialog.c:184 ../app/menus.c:195
+#: ../objects/standard/textobj.c:136 ../objects/embed/etextobj.c:159
+msgid "Bottom"
 msgstr ""
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
@@ -1331,11 +1355,11 @@ msgstr ""
 msgid "1600%"
 msgstr ""
 
-#: ../app/menus.c:154 ../app/menus.c:574
+#: ../app/menus.c:154 ../app/menus.c:576
 msgid "800%"
 msgstr ""
 
-#: ../app/menus.c:155 ../app/menus.c:575
+#: ../app/menus.c:155 ../app/menus.c:577
 msgid "400%"
 msgstr ""
 
@@ -1426,18 +1450,8 @@ msgstr ""
 msgid "Align"
 msgstr ""
 
-#: ../app/menus.c:193 ../objects/standard/textobj.c:137
-#: ../objects/embed/etextobj.c:160
-msgid "Top"
-msgstr ""
-
 #: ../app/menus.c:194
 msgid "Middle"
-msgstr ""
-
-#: ../app/menus.c:195 ../objects/standard/textobj.c:136
-#: ../objects/embed/etextobj.c:159
-msgid "Bottom"
 msgstr ""
 
 #: ../app/menus.c:197
@@ -1502,116 +1516,120 @@ msgstr ""
 msgid "Dictionary..."
 msgstr ""
 
-#: ../app/menus.c:222
+#: ../app/menus.c:221
+msgid "Position..."
+msgstr ""
+
+#: ../app/menus.c:224
 msgid "D_ebug"
 msgstr ""
 
-#: ../app/menus.c:228
+#: ../app/menus.c:230
 msgid "_Tools"
 msgstr ""
 
-#: ../app/menus.c:229
+#: ../app/menus.c:231
 msgid "Modify"
 msgstr ""
 
-#: ../app/menus.c:231
+#: ../app/menus.c:233
 msgid "Edit text"
 msgstr ""
 
-#: ../app/menus.c:232
+#: ../app/menus.c:234
 msgid "Scroll"
 msgstr ""
 
-#: ../app/menus.c:255
+#: ../app/menus.c:257
 msgid "Fullscr_een"
 msgstr ""
 
-#: ../app/menus.c:257
+#: ../app/menus.c:259
 msgid "_AntiAliased"
 msgstr ""
 
-#: ../app/menus.c:258
+#: ../app/menus.c:260
 msgid "Show _Grid"
 msgstr ""
 
-#: ../app/menus.c:259
+#: ../app/menus.c:261
 msgid "_Snap To Grid"
 msgstr ""
 
-#: ../app/menus.c:260
+#: ../app/menus.c:262
 msgid "Snap To _Objects"
 msgstr ""
 
-#: ../app/menus.c:261
+#: ../app/menus.c:263
 msgid "Show _Rulers"
 msgstr ""
 
-#: ../app/menus.c:262
+#: ../app/menus.c:264
 msgid "Show _Connection Points"
 msgstr ""
 
-#: ../app/menus.c:269
+#: ../app/menus.c:271
 msgid "Union"
 msgstr ""
 
-#: ../app/menus.c:270
+#: ../app/menus.c:272
 msgid "Intersection"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:271 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:273 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr ""
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:273
+#: ../app/menus.c:275
 msgid "Inverse"
 msgstr ""
 
-#: ../app/menus.c:337
+#: ../app/menus.c:339
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: ../app/menus.c:576
+#: ../app/menus.c:578
 msgid "300%"
 msgstr ""
 
-#: ../app/menus.c:577
+#: ../app/menus.c:579
 msgid "200%"
 msgstr ""
 
-#: ../app/menus.c:578
+#: ../app/menus.c:580
 msgid "150%"
 msgstr ""
 
-#: ../app/menus.c:579
+#: ../app/menus.c:581
 msgid "100%"
 msgstr ""
 
-#: ../app/menus.c:580
+#: ../app/menus.c:582
 msgid "75%"
 msgstr ""
 
-#: ../app/menus.c:581
+#: ../app/menus.c:583
 msgid "50%"
 msgstr ""
 
-#: ../app/menus.c:582
+#: ../app/menus.c:584
 msgid "25%"
 msgstr ""
 
-#: ../app/menus.c:583
+#: ../app/menus.c:585
 msgid "10%"
 msgstr ""
 
-#: ../app/menus.c:609
+#: ../app/menus.c:611
 msgid "Toggles snap-to-grid."
 msgstr ""
 
-#: ../app/menus.c:621
+#: ../app/menus.c:623
 msgid "Toggles object snapping."
 msgstr ""
 
@@ -2435,17 +2453,9 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr ""
 
-#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:724
-msgid "Left"
-msgstr ""
-
 #: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
 #: ../objects/standard/textobj.c:138 ../objects/embed/etextobj.c:161
 msgid "Center"
-msgstr ""
-
-#: ../lib/properties.c:67 ../lib/properties.h:479 ../lib/widgets.c:736
-msgid "Right"
 msgstr ""
 
 #: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500

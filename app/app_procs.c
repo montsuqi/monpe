@@ -64,6 +64,7 @@
 #include "display.h"
 #include "layer_dialog.h"
 #include "dic_dialog.h"
+#include "pos_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
 #include "dia_dirs.h"
@@ -637,6 +638,7 @@ handle_initial_diagram(const char *in_file_name,
       if (app_is_interactive()) {
         layer_dialog_set_diagram(diagram);
         dic_dialog_set_diagram(diagram);
+        pos_dialog_set_diagram(diagram);
         /* the display initial diagram holds two references */
         ddisp = new_display(diagram);
       } else {
@@ -1058,6 +1060,7 @@ app_init (int argc, char **argv)
          * layer_dialog_update_diagram_list() */
         layer_dialog_set_diagram(diagram);
         dic_dialog_set_diagram(diagram);
+        pos_dialog_set_diagram(diagram);
         new_display(diagram); 
       }
     }

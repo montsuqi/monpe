@@ -24,6 +24,7 @@ app/find-and-replace.c
 app/interface.c
 app/layer_dialog.c
 app/dic_dialog.c
+app/pos_dialog.c
 app/linewidth_area.c
 app/load_save.c
 app/menus.c

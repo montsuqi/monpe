@@ -1154,6 +1154,13 @@ dialogs_dic_callback (GtkAction *action)
   dic_dialog_show();
 }
 
+void
+dialogs_pos_callback (GtkAction *action)
+{
+  pos_dialog_set_diagram(ddisplay_active_diagram());
+  pos_dialog_show();
+}
+
 
 void
 objects_align_h_callback (GtkAction *action)

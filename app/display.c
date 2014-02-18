@@ -47,6 +47,8 @@
 #include "preferences.h"
 #include "app_procs.h"
 #include "layer_dialog.h"
+#include "pos_dialog.h"
+#include "dic_dialog.h"
 #include "load_save.h"
 #include "dia-props.h"
 #include "render_gdk.h"
@@ -1479,6 +1481,7 @@ display_set_active(DDisplay *ddisp)
     /* perform notification here (such as switch layers dialog) */
     layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
     dic_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
+    pos_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
     diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
 
     if (ddisp) {

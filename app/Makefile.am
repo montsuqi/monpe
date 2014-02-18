@@ -210,7 +210,9 @@ dia_core_files = \
 	textedit_tool.h \
 	diagrid.h \
 	dic_dialog.c \
-	dic_dialog.h
+	dic_dialog.h \
+	pos_dialog.c \
+	pos_cdialog.h
 
 monpe_SOURCES = \
 	$(dia_core_files) \

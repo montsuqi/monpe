@@ -48,6 +48,7 @@
 #include "highlight.h"
 #include "textedit.h"
 #include "lib/parent.h"
+#include "pos_dialog.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -869,6 +870,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		  object_add_updates_list(objects, dia);
 		  diagram_modified(dia);
 		  diagram_flush(dia);     
+		  pos_dialog_update();     
 
 		  undo_set_transactionpoint(dia->undo);
 		} else {
