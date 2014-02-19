@@ -233,6 +233,7 @@ static const GtkActionEntry tool_entries[] =
     { "ToolsTextedit", NULL, N_("Edit text"), "F2", NULL, NULL },
     { "ToolsScroll", NULL, N_("Scroll"), "S", NULL, NULL },
     { "ToolsText", NULL, N_("Text"), "T", NULL, NULL },
+    { "ToolsTextCircle", NULL, N_("TextCircle"), "C", NULL, NULL },
     { "ToolsBox", NULL, N_("Box"), "R", NULL, NULL },
     { "ToolsEllipse", NULL, N_("Ellipse"), "E", NULL, NULL },
     { "ToolsPolygon", NULL, N_("Polygon"), "P", NULL, NULL },

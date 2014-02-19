@@ -205,9 +205,17 @@ create_pos_dialog(void)
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_table_attach(GTK_TABLE(table), pos_dialog->h, 1,2, 5,6,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+
+  gtk_widget_set_sensitive(pos_dialog->x1,FALSE);
+  gtk_widget_set_sensitive(pos_dialog->x2,FALSE);
+  gtk_widget_set_sensitive(pos_dialog->y1,FALSE);
+  gtk_widget_set_sensitive(pos_dialog->y2,FALSE);
+  gtk_widget_set_sensitive(pos_dialog->w,FALSE);
+  gtk_widget_set_sensitive(pos_dialog->h,FALSE);
   
   gtk_widget_show_all(dialog);
   persistence_register_window(GTK_WINDOW(dialog));
+
 }
 
 void
