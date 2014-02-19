@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-18 17:26+0900\n"
+"POT-Creation-Date: 2014-02-19 09:34+0900\n"
 "PO-Revision-Date: 2009-04-26 16:08+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -1214,29 +1214,33 @@ msgstr "バイト数"
 msgid "Change"
 msgstr "変更"
 
-#: ../app/pos_dialog.c:129
+#: ../app/pos_dialog.c:131
 msgid "Object Position"
 msgstr "オブジェクトの位置"
 
-#: ../app/pos_dialog.c:163 ../lib/properties.c:65 ../lib/properties.h:477
-#: ../lib/widgets.c:724
-msgid "Left"
-msgstr "左"
+#: ../app/pos_dialog.c:167
+msgid "Left point"
+msgstr "左座標："
 
-#: ../app/pos_dialog.c:170 ../app/menus.c:193
-#: ../objects/standard/textobj.c:137 ../objects/embed/etextobj.c:160
-msgid "Top"
-msgstr "上"
+#: ../app/pos_dialog.c:174
+msgid "Top point"
+msgstr "上座標："
 
-#: ../app/pos_dialog.c:177 ../lib/properties.c:67 ../lib/properties.h:479
-#: ../lib/widgets.c:736
-msgid "Right"
-msgstr "右"
+#: ../app/pos_dialog.c:181
+msgid "Right point"
+msgstr "右座標："
 
-#: ../app/pos_dialog.c:184 ../app/menus.c:195
-#: ../objects/standard/textobj.c:136 ../objects/embed/etextobj.c:159
-msgid "Bottom"
-msgstr "下"
+#: ../app/pos_dialog.c:188
+msgid "Bottom point"
+msgstr "下座標："
+
+#: ../app/pos_dialog.c:195
+msgid "Object Width"
+msgstr "幅："
+
+#: ../app/pos_dialog.c:202
+msgid "Object Height"
+msgstr "高さ："
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
 #: ../objects/chronogram/chronoline.c:183
@@ -1560,9 +1564,19 @@ msgstr "親なしの子にする(_U)"
 msgid "Align"
 msgstr "配置"
 
+#: ../app/menus.c:193 ../objects/standard/textobj.c:137
+#: ../objects/embed/etextobj.c:160
+msgid "Top"
+msgstr "上"
+
 #: ../app/menus.c:194
 msgid "Middle"
 msgstr "中"
+
+#: ../app/menus.c:195 ../objects/standard/textobj.c:136
+#: ../objects/embed/etextobj.c:159
+msgid "Bottom"
+msgstr "下"
 
 #: ../app/menus.c:197
 msgid "Spread Out Horizontally"
@@ -2583,10 +2597,18 @@ msgstr "整数型から列挙型へキャストしていますが範囲を超え
 msgid "Group with %d objects"
 msgstr "%d個のオブジェクト・グループ"
 
+#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:724
+msgid "Left"
+msgstr "左"
+
 #: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
 #: ../objects/standard/textobj.c:138 ../objects/embed/etextobj.c:161
 msgid "Center"
 msgstr "中央"
+
+#: ../lib/properties.c:67 ../lib/properties.h:479 ../lib/widgets.c:736
+msgid "Right"
+msgstr "右"
 
 #: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
 #: ../objects/chronogram/chronoline.c:181
@@ -10601,6 +10623,9 @@ msgstr "Sybase データサーバ"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase 複製サーバ"
+
+#~ msgid "Height"
+#~ msgstr "高さ"
 
 #~ msgid "The embedding object paste to different diagram.\n"
 #~ msgstr "埋め込みオブジェクトを他のダイアグラムにペーストしようとしました\n"

@@ -54,6 +54,8 @@ struct PosDialog {
   GtkWidget *x2;
   GtkWidget *y1;
   GtkWidget *y2;
+  GtkWidget *w;
+  GtkWidget *h;
 };
 
 static struct PosDialog *pos_dialog = NULL;
@@ -129,7 +131,7 @@ create_pos_dialog(void)
   gtk_window_set_title(GTK_WINDOW(dialog), _("Object Position"));
   gtk_window_set_role(GTK_WINDOW(dialog), "position_window");
   gtk_window_set_resizable(GTK_WINDOW(dialog), TRUE);
-  gtk_window_set_default_size(GTK_WINDOW(dialog),150,150);
+  gtk_window_set_default_size(GTK_WINDOW(dialog),220,200);
   gtk_window_set_type_hint(GTK_WINDOW(dialog),GDK_WINDOW_TYPE_HINT_NORMAL);
 
   g_signal_connect (GTK_OBJECT (dialog), "delete_event",
@@ -144,6 +146,8 @@ create_pos_dialog(void)
   pos_dialog->x2 = gtk_spin_button_new_with_range(G_MINFLOAT,G_MAXFLOAT,0.01);
   pos_dialog->y1 = gtk_spin_button_new_with_range(G_MINFLOAT,G_MAXFLOAT,0.01);
   pos_dialog->y2 = gtk_spin_button_new_with_range(G_MINFLOAT,G_MAXFLOAT,0.01);
+  pos_dialog->w = gtk_spin_button_new_with_range(G_MINFLOAT,G_MAXFLOAT,0.01);
+  pos_dialog->h = gtk_spin_button_new_with_range(G_MINFLOAT,G_MAXFLOAT,0.01);
 
   g_signal_connect(G_OBJECT(pos_dialog->x1),"value-changed",
    G_CALLBACK(cb_value_changed),NULL);
@@ -154,38 +158,52 @@ create_pos_dialog(void)
   g_signal_connect(G_OBJECT(pos_dialog->y2),"value-changed",
    G_CALLBACK(cb_value_changed),NULL);
 
-  table = gtk_table_new(2,4,FALSE);
+  table = gtk_table_new(2,6,FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(table), 5);
   gtk_table_set_row_spacings(GTK_TABLE(table), 5);
   gtk_table_set_col_spacings(GTK_TABLE(table), 5);
   gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, TRUE, 1);
 
-  label = gtk_label_new(_("Left"));
+  label = gtk_label_new(_("Left point"));
   gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0,1, 0,1,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_table_attach(GTK_TABLE(table), pos_dialog->x1, 1,2, 0,1,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
 
-  label = gtk_label_new(_("Top"));
+  label = gtk_label_new(_("Top point"));
   gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0,1, 1,2,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_table_attach(GTK_TABLE(table), pos_dialog->y1, 1,2, 1,2,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
 
-  label = gtk_label_new(_("Right"));
+  label = gtk_label_new(_("Right point"));
   gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_table_attach(GTK_TABLE(table), pos_dialog->x2, 1,2, 2,3,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
 
-  label = gtk_label_new(_("Bottom"));
+  label = gtk_label_new(_("Bottom point"));
   gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0,1, 3,4,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_table_attach(GTK_TABLE(table), pos_dialog->y2, 1,2, 3,4,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+
+  label = gtk_label_new(_("Object Width"));
+  gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), label, 0,1, 4,5,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_table_attach(GTK_TABLE(table), pos_dialog->w, 1,2, 4,5,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+
+  label = gtk_label_new(_("Object Height"));
+  gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), label, 0,1, 5,6,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_table_attach(GTK_TABLE(table), pos_dialog->h, 1,2, 5,6,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   
   gtk_widget_show_all(dialog);
@@ -211,15 +229,21 @@ cb_selection_changed(Diagram* dia, int n,gpointer data)
     gtk_widget_set_sensitive(pos_dialog->x2,FALSE);
     gtk_widget_set_sensitive(pos_dialog->y1,FALSE);
     gtk_widget_set_sensitive(pos_dialog->y2,FALSE);
+    gtk_widget_set_sensitive(pos_dialog->w,FALSE);
+    gtk_widget_set_sensitive(pos_dialog->h,FALSE);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->x1),0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->x2),0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->y1),0);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->y2),0);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->w),0);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->h),0);
   } else {
     gtk_widget_set_sensitive(pos_dialog->x1,TRUE);
     gtk_widget_set_sensitive(pos_dialog->x2,TRUE);
     gtk_widget_set_sensitive(pos_dialog->y1,TRUE);
     gtk_widget_set_sensitive(pos_dialog->y2,TRUE);
+    gtk_widget_set_sensitive(pos_dialog->w,TRUE);
+    gtk_widget_set_sensitive(pos_dialog->h,TRUE);
     pos_dialog_update();
   }
 }
@@ -293,6 +317,8 @@ pos_dialog_update(void)
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->x2),bb.right);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->y1),bb.top);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->y2),bb.bottom);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->w),bb.right-bb.left);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(pos_dialog->h),bb.bottom-bb.top);
 
   g_signal_handlers_unblock_by_func(G_OBJECT(pos_dialog->x1),
     cb_value_changed,NULL);
