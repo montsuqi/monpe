@@ -106,6 +106,7 @@
 				<menuitem name="ObjectsAlignStacked" action="ObjectsAlignStacked" />
 			</menu>
 			<separator name="ObjectsSep4" />
+			<menuitem name="ObjectsPosition" action="ObjectsPosition" />
 			<menuitem name="ObjectsProperties" action="ObjectsProperties" />
 			<separator name="ObjectsExtensionStart" />
 		</menu>

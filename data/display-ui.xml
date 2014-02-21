@@ -109,6 +109,7 @@
 				<menuitem name="ObjectsAlignStacked" action="ObjectsAlignStacked" />
 			</menu>
 			<separator name="ObjectsSep4" />
+			<menuitem name="ObjectsPosition" action="ObjectsPosition" />
 			<menuitem name="ObjectsProperties" action="ObjectsProperties" />
 			<separator name="ObjectsExtensionStart" />
 		</menu>
@@ -158,7 +159,6 @@
 		<menuitem name="InputMethods" action="InputMethods" />
 		<menu name="Dialogs" action="Dialogs">
 			<menuitem name="DialogsDictionary" action="DialogsDictionary" />
-			<menuitem name="DialogsPosition" action="DialogsPosition" />
 			<separator name="DialogsExtensionStart" />
 		</menu>
 		<menu name="Debug" action="Debug">

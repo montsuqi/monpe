@@ -200,6 +200,7 @@ static const GtkActionEntry display_entries[] =
       { "ObjectsAlignStacked", NULL, N_("Stacked"), "<alt><shift>S", NULL, G_CALLBACK (objects_align_v_callback) },
 
       { "ObjectsProperties", GTK_STOCK_PROPERTIES, NULL, "<alt>Return", NULL, G_CALLBACK (dialogs_properties_callback) },
+    { "ObjectsPosition", NULL, N_("Position..."), NULL, NULL, G_CALLBACK (dialogs_pos_callback) },
 
   { "Select", NULL, N_("_Select"), NULL, NULL, NULL },
     { "SelectAll", NULL, N_("All"), "<control>A", NULL, G_CALLBACK (select_all_callback) },
@@ -218,7 +219,6 @@ static const GtkActionEntry display_entries[] =
 
   { "Dialogs", NULL, N_("D_ialogs"), NULL, NULL, NULL },
     { "DialogsDictionary", NULL, N_("Dictionary..."), NULL, NULL, G_CALLBACK (dialogs_dic_callback) },
-    { "DialogsPosition", NULL, N_("Position..."), NULL, NULL, G_CALLBACK (dialogs_pos_callback) },
 
 
   { "Debug", NULL, N_("D_ebug"), NULL, NULL, NULL }
