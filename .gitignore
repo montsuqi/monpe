@@ -52,3 +52,8 @@ po/monpe.pot
 po/stamp-it
 tests/boundingbox
 tests/objects
+INSTALL
+depcomp
+install-sh
+lib/diamarshal.c
+missing
