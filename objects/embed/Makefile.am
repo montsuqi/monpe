@@ -11,6 +11,7 @@ libembed_objects_la_SOURCES = \
 libembed_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
+	-I$(top_srcdir) \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)
 
 EXTRA_DIST = \
