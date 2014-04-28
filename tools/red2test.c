@@ -9,43 +9,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <glib.h>
 
 #include "red2lib.h"
 
 static char *outfile = NULL;
 static char *imagepath = NULL;
-
-static void
-_red2test(char *diafile)
-{
-  xmlDocPtr doc;
-  GString *embed;
-  GString *fill;
-
-  xmlInitParser();
-  LIBXML_TEST_VERSION
-
-  doc = xmlParseFile(diafile);
-  if (doc == NULL) {
-    g_error("Error: unable to parse file:%s", diafile);
-  }
-
-  fill = red2fill(doc,imagepath);
-  embed = red2embed(doc,fill->str);
-
-  if (outfile != NULL) {
-    if (!g_file_set_contents(outfile,embed->str,embed->len,NULL)) {
-      g_error("Error: unable to write file:%s\n",outfile);
-    }
-  } else {
-    printf("%s",embed->str);
-  }
-
-  xmlFreeDoc(doc);
-  g_string_free(embed,TRUE);
-  g_string_free(fill,TRUE);
-}
 
 static GOptionEntry entries[] =
 {
@@ -56,8 +27,11 @@ static GOptionEntry entries[] =
 
 int main(int argc, char *argv[])
 {
+  gchar *dfile;
   GError *error = NULL;
   GOptionContext *ctx;
+  gchar *buf;
+  char *nargv[3];
 
   ctx = g_option_context_new("<.red>");
   g_option_context_add_main_entries(ctx, entries, NULL);
@@ -69,6 +43,19 @@ int main(int argc, char *argv[])
     g_print("%s",g_option_context_get_help(ctx,TRUE,NULL));
     exit(1);
   }
-  _red2test(argv[1]);
+  dfile = g_strdup_printf("/tmp/red2test.%d.dat",(int)getpid());
+  red2fill(argv[1],imagepath,dfile);
+  nargv[0] = "";
+  nargv[1] = argv[1];
+  nargv[2] = dfile;
+  buf = red2embed(3,nargv);
+  remove(dfile);
+  if (outfile != NULL) {
+    if (!g_file_set_contents(outfile,buf,strlen(buf),NULL)) {
+      g_error("Error: unable to write file:%s\n",outfile);
+    }
+  } else {
+    printf("%s",buf);
+  }
   return 0;
 }

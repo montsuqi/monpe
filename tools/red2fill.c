@@ -17,38 +17,6 @@
 static char *imagepath = NULL;
 static char *outfile = NULL;
 
-static void
-_red2fill(char *infile)
-{
-  xmlDocPtr doc;
-  GString *fill;
-
-  FILE *fp = NULL;
-
-  xmlInitParser();
-  LIBXML_TEST_VERSION
-
-  doc = xmlParseFile(infile);
-  if (doc == NULL) {
-    fprintf(stderr, "Error: unable to parse file \"%s\"\n", infile);
-    return;
-  }
-  fill = red2fill(doc,imagepath);
-
-  if (outfile != NULL) {
-    fp = fopen(outfile,"w");
-  }
-  if (fp == NULL) {
-    fp = stdout;
-  } 
-  fprintf(fp,"%s",fill->str);
-  if (fp != stdout) {
-    fclose(fp);
-  }
-  xmlFreeDoc(doc);
-  g_string_free(fill,TRUE);
-}
-
 static GOptionEntry entries[] =
 {
   { "out",'o',0,G_OPTION_ARG_STRING,&outfile,"output filename",NULL},
@@ -71,6 +39,6 @@ int main(int argc, char *argv[])
     g_print("%s",g_option_context_get_help(ctx,TRUE,NULL));
     exit(1);
   }
-  _red2fill(argv[1]);
+  red2fill(argv[1],imagepath,outfile);
   return 0;
 }

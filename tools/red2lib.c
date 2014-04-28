@@ -507,7 +507,7 @@ red2inc(xmlDocPtr doc,gchar *prefix)
 #define HANKAKU_TEXT "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 static void
-_red2fill(GString *fill,
+__red2fill(GString *fill,
   GHashTable *usage,
   DicNode *node,
   GPtrArray *array,
@@ -527,7 +527,7 @@ _red2fill(GString *fill,
   if (node->type == DIC_NODE_TYPE_NODE) {
     for (i=0;i<node->occurs;i++) {
       for(child=DNODE_CHILDREN(node);child!=NULL;child=DNODE_NEXT(child)) {
-        _red2fill(fill,usage,child,array,imagepath);
+        __red2fill(fill,usage,child,array,imagepath);
       }
     }
   } else if(node->type == DIC_NODE_TYPE_TEXT){
@@ -590,8 +590,8 @@ _red2fill(GString *fill,
   }
 }
 
-GString*
-red2fill(xmlDocPtr doc,gchar *imagepath)
+static GString*
+_red2fill(xmlDocPtr doc,gchar *imagepath)
 {
   GPtrArray *array;
   GString *fill;
@@ -606,9 +606,43 @@ red2fill(xmlDocPtr doc,gchar *imagepath)
   dtree = GetDTree(doc);
   fill = g_string_new("");
   for (child = DNODE_CHILDREN(dtree);child!=NULL;child=DNODE_NEXT(child)) {
-    _red2fill(fill,NULL,child,array,imagepath);
+    __red2fill(fill,NULL,child,array,imagepath);
   }
   return fill;
+}
+
+void
+red2fill(
+  char *infile,
+  char *imagepath,
+  char *outfile)
+{
+  xmlDocPtr doc;
+  GString *fill;
+
+  FILE *fp = NULL;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  doc = xmlParseFile(infile);
+  if (doc == NULL) {
+    fprintf(stderr, "Error: unable to parse file \"%s\"\n", infile);
+    return;
+  }
+  fill = _red2fill(doc,imagepath);
+
+  if (outfile != NULL) {
+    fp = fopen(outfile,"w");
+  } else {
+    fp = stdout;
+  }
+  fprintf(fp,"%s",fill->str);
+  if (fp != stdout) {
+    fclose(fp);
+  }
+  xmlFreeDoc(doc);
+  g_string_free(fill,TRUE);
 }
 
 /********************************************************
