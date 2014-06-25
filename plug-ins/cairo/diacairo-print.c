@@ -48,37 +48,25 @@ _dia_to_gtk_page_setup (const DiagramData *data, GtkPageSetup *setup)
   int index = find_paper (paper->name);
   if (index < 0)
     index = get_default_paper ();
-#if 0
-  paper_size = gtk_paper_size_new_from_ppd (
-		 paper->name, paper->name, 
-                 get_paper_pswidth (index) * points_per_cm, 
-		 get_paper_psheight (index) * points_per_cm);
-#else
   if (!g_strcmp0(paper->name,"Custom")){
     paper_size = gtk_paper_size_new_from_ppd (
       	 paper->name, paper->name, 
                    floor(data->paper.custom_width * points_per_cm), 
                    floor(data->paper.custom_height * points_per_cm));
   } else {
-#  if 0
-    /*
-     * gtk_paper_size_new_from_ppd return wrong size A4 -> 595.276 x 841.89
-     */
-    paper_size = gtk_paper_size_new_from_ppd (
-  		 paper->name, paper->name, 
-                   floor(get_paper_pswidth (index) * points_per_cm), 
-                   floor(get_paper_psheight (index) * points_per_cm));
-#  else
-    paper_size = gtk_paper_size_new_from_ppd (
-  		 "", paper->name, 
-                   floor(get_paper_pswidth (index) * points_per_cm+0.5), 
-                   floor(get_paper_psheight (index) * points_per_cm+0.5));
-#  endif
+    if (data->paper.is_portrait) {
+      paper_size = gtk_paper_size_new_from_ppd (
+        "", paper->name, 
+        floor(get_paper_pswidth (index) * points_per_cm+0.5), 
+        floor(get_paper_psheight (index) * points_per_cm+0.5));
+    } else {
+      paper_size = gtk_paper_size_new_from_ppd (
+        "", paper->name, 
+        floor(get_paper_psheight (index) * points_per_cm+0.5),
+        floor(get_paper_pswidth (index) * points_per_cm+0.5));
+    }
   }
-#endif
 
-  gtk_page_setup_set_orientation (setup, data->paper.is_portrait ?
-    GTK_PAGE_ORIENTATION_PORTRAIT : GTK_PAGE_ORIENTATION_LANDSCAPE);
   gtk_page_setup_set_paper_size (setup, paper_size);
 
   gtk_page_setup_set_left_margin (setup, data->paper.lmargin * 10, GTK_UNIT_MM);
