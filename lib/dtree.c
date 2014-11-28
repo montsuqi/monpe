@@ -66,7 +66,11 @@ dnode_initialize(DicNode *node, char *name, int occurs,
   node->length = length;
   node->objects = NULL;
   if (parent != NULL) {
-    dtree_insert_before(parent, sibling, node);
+    if (sibling != NULL) {
+      g_node_insert_after(G_NODE(parent), G_NODE(sibling), G_NODE(node));
+    } else {
+      g_node_append(G_NODE(parent), G_NODE(node));
+    }
   }
   if (type != DIC_NODE_TYPE_NODE) {
     node->objects = dnode_new_objects(dnode_calc_total_occurs(node));
@@ -613,12 +617,6 @@ dtree_new(void)
   node = dnode_new(NULL, 1, DIC_NODE_TYPE_NODE,0, NULL, NULL);
   node->istop = TRUE;
   return node;
-}
-
-void
-dtree_insert_before(DicNode *parent, DicNode *sibling, DicNode *node)
-{
-  g_node_insert_before(G_NODE(parent), G_NODE(sibling), G_NODE(node));
 }
 
 static void

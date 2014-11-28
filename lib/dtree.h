@@ -107,8 +107,6 @@ void dnode_text_set_length(DicNode *node, int length);
 
 /* dtree  */
 DicNode* dtree_new(void);
-void dtree_insert_before(DicNode *parent, DicNode *sibling,
-                         DicNode *node);
 
 void dtree_update(DicNode *tree);
 void dtree_dump(DicNode *node);
