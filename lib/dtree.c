@@ -579,10 +579,13 @@ dnode_new_with_xml(xmlNodePtr element,DicNode *parent,DicNode *sibling)
 static xmlNodePtr
 dnode_to_xml(DicNode *node)
 {
+  xmlNsPtr ns;
   xmlNodePtr element;
   gchar buf[DTREE_C_BUF_SIZE];
 
-  element = xmlNewNode(NULL,BAD_CAST(MONPE_XML_DIC_ELEMENT));
+  ns = xmlNewNs(NULL,(const xmlChar *)DIA_XML_NAME_SPACE_BASE,(const xmlChar *)"dia");
+
+  element = xmlNewNode(ns,BAD_CAST(MONPE_XML_DIC_ELEMENT));
   xmlSetProp(element,BAD_CAST(MONPE_XML_DIC_ELEMENT_NAME),BAD_CAST(node->name));
   g_snprintf(buf,DTREE_C_BUF_SIZE,"%d",node->occurs);
   xmlSetProp(element, BAD_CAST(MONPE_XML_DIC_ELEMENT_OCCURS),BAD_CAST(buf));
