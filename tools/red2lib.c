@@ -201,6 +201,9 @@ GetEmbedInfoText(xmlNodePtr node)
   id = GetAttributeString(node,BAD_CAST("embed_id"));
   column_size = GetAttributeInt(node,BAD_CAST("embed_column_size"));
   char_type = GetAttributeEnum(node,BAD_CAST("embed_char_type"));
+  if (char_type == -1) {
+    char_type = GetAttributeEnum(node,BAD_CAST("embed_text_string"));
+  }
 
   if (id != NULL && column_size != -1) {
     info = g_new0(EmbedInfo,1);
@@ -573,14 +576,16 @@ __red2fill(GString *fill,
       g_free(xname);
     }
   } else if(node->type == DIC_NODE_TYPE_IMAGE){
-    if (imagepath != NULL) {
-      g_string_append_printf(fill,"%s",imagepath);
-      for(i=strlen(imagepath);i<DNODE_IMAGE_PATH_SIZE;i++) {
-        g_string_append_printf(fill," ");
-      }
-    } else {
-      for(i=0;i<DNODE_IMAGE_PATH_SIZE;i++) {
-        g_string_append_printf(fill," ");
+    for (i=0;i<node->occurs;i++) {
+      if (imagepath != NULL) {
+        g_string_append_printf(fill,"%s",imagepath);
+        for(j=strlen(imagepath);j<DNODE_IMAGE_PATH_SIZE;j++) {
+          g_string_append_printf(fill," ");
+        }
+      } else {
+        for(i=0;i<DNODE_IMAGE_PATH_SIZE;i++) {
+          g_string_append_printf(fill," ");
+        }
       }
     }
   }
