@@ -57,3 +57,7 @@ depcomp
 install-sh
 lib/diamarshal.c
 missing
+lib/diamarshal.h
+po/ja.gmo
+sheets/sheet-translation-report
+
