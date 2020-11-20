@@ -238,7 +238,7 @@ dia_embedd_LDADD = ../lib/libmonpe.la \
 
 if HAVE_GCC
 # OS X would like += rather than =, but Linux automake no like that.  Grrr.
-monpe_LDFLAGS = -export-dynamic
+monpe_LDFLAGS = -export-dynamic 
 endif
 
 EXTRA_DIST = \
