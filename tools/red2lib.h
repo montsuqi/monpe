@@ -53,5 +53,6 @@ GString *red2rec(xmlDocPtr);
 GString *red2inc(xmlDocPtr,gchar *prefix);
 void red2fill(char *infile,char *imagepath,char *outfile);
 gchar *red2embed(int argc,char *argv[]);
+gchar *red2cat(int argc,char *argv[]);
 
 #endif
