@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 2 -*-
- * red2embed.c
+ * red2cat.c
  *
  */
 
