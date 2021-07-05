@@ -1271,3 +1271,37 @@ red2embed(int argc,char *argv[])
   xmlFreeDoc(doc);
   return g_strdup(CAST_BAD(outmem));
 }
+
+gchar *
+red2cat(int argc,char *argv[])
+{
+  xmlDocPtr doc,out;
+  int i;
+  double skip;
+  xmlChar *outmem;
+  int outsize;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  out = xmlParseFile(argv[1]);
+  if (out == NULL) {
+    g_error("Error: unable to parse file:%s", argv[1]);
+  }
+
+  /* parse out */
+  skip = getPageSkip(out);
+
+  for(i = 2; i < argc; i++) {
+    /* docはleakになるが結果出力後、すぐプロセス終了するので気にしない */
+    doc = xmlParseFile(argv[i]); 
+    page_skip(doc,skip * (i-1));
+    add_layers(out,doc);
+  }
+
+  xmlKeepBlanksDefault(0);
+  xmlDocDumpFormatMemory(out,&outmem,&outsize,1);
+
+  xmlFreeDoc(out);
+  return g_strdup(CAST_BAD(outmem));
+}
