@@ -1284,19 +1284,21 @@ red2cat(int argc,char *argv[])
   xmlInitParser();
   LIBXML_TEST_VERSION
 
+  /*最初のファイルを出力用のxmlDocとする*/
   out = xmlParseFile(argv[1]);
   if (out == NULL) {
     g_error("Error: unable to parse file:%s", argv[1]);
   }
 
-  /* parse out */
+  /*ページスキップ値の取得*/
   skip = getPageSkip(out);
 
   for(i = 2; i < argc; i++) {
-    /* docはleakになるが結果出力後、すぐプロセス終了するので気にしない */
+    /*2つ目以降のファイルをページスキップさせて最初のファイルにマージする*/
     doc = xmlParseFile(argv[i]); 
     page_skip(doc,skip * (i-1));
     add_layers(out,doc);
+    xmlFreeDoc(doc);
   }
 
   xmlKeepBlanksDefault(0);
