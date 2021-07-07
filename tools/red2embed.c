@@ -15,24 +15,6 @@
 
 static char *outfile = NULL;
 
-static void
-_red2embed(int argc,char *argv[])
-{
-  gchar *buf;
-
-  buf = red2embed(argc,argv);
-  if (outfile != NULL) {
-    if (!g_file_set_contents(outfile,buf,strlen(buf),NULL)) {
-      g_error("Error: unable to write file:%s\n",outfile);
-    }
-  } else {
-#if 1
-    printf("%s",buf);
-#endif
-  }
-  g_free(buf);
-}
-
 static GOptionEntry entries[] =
 {
   { "out",'o',0,G_OPTION_ARG_STRING,&outfile,"output filename",NULL},
@@ -54,6 +36,6 @@ int main(int argc, char *argv[])
     g_print("%s",g_option_context_get_help(ctx,TRUE,NULL));
     exit(1);
   }
-  _red2embed(argc,argv);
+  red2embed(argc,argv,outfile);
   return 0;
 }
