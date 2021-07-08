@@ -1432,7 +1432,7 @@ red2mod(
     hide_layers(doc, hls);
   }
   /*オフセット指定*/
-  page_skip(doc,-1.0 * xs,-1.0 * ys);
+  page_skip(doc,xs,ys);
 
   xmlKeepBlanksDefault(0);
   if (outfile != NULL) {
