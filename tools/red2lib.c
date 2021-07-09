@@ -1448,3 +1448,89 @@ red2mod(
 
   xmlFreeDoc(doc);
 }
+
+void
+red2info(char *infile)
+{
+  int size;
+  xmlDocPtr doc;
+  xmlXPathContextPtr xpathCtx; 
+  xmlXPathObjectPtr xpathObj; 
+  xmlChar *paper;
+  xmlChar *exIsPortrait = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='is_portrait']/"
+      "dia:boolean[@val='true']"); 
+  xmlChar *exPaper = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='name']/"
+      "dia:string"); 
+  gboolean is_portrait;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  doc = xmlParseFile(infile);
+  if (doc == NULL) {
+    g_error("Error: unable to parse file:%s", infile);
+  }
+
+  xpathCtx = xmlXPathNewContext(doc);
+  xmlXPathRegisterNs(xpathCtx,
+    BAD_CAST("dia"),
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
+
+  /*paper size*/
+  paper = NULL;
+  xpathObj = xmlXPathEvalExpression(exPaper, xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    paper = xmlXPathCastNodeSetToString(xpathObj->nodesetval);
+  } else {
+    g_critical("cannot found paper node");
+    exit(1);
+  }
+  if (paper == NULL) {
+    g_critical("invalid paper");
+    exit(1);
+  }
+  {
+    /* #A4# -> A4 */
+    GRegex *regex;
+    GMatchInfo *match_info;
+    regex = g_regex_new ("#(.*)#", 0, 0, NULL);
+    g_regex_match (regex, (const char*)paper, 0, &match_info);
+    if (g_match_info_matches (match_info)) {
+      gchar *_paper = g_match_info_fetch (match_info, 1);
+      printf("%s,",_paper);
+      g_free(_paper);
+    } else {
+      g_critical("invalid paper");
+      exit(1);
+    }
+    g_match_info_free (match_info);
+    g_regex_unref (regex);
+  }
+  xmlFree(paper);
+  xmlXPathFreeObject(xpathObj);
+
+  /*is portrait*/
+  is_portrait = TRUE;
+  xpathObj = xmlXPathEvalExpression(exIsPortrait, xpathCtx);
+  if(xpathObj != NULL) {
+    size = (xpathObj->nodesetval) ? xpathObj->nodesetval->nodeNr : 0;
+    if (size == 0) {
+      is_portrait = FALSE;
+    }
+  }
+  if (is_portrait) {
+    printf("portrait\n");
+  } else {
+    printf("landscape\n");
+  }
+  xmlXPathFreeObject(xpathObj);
+
+  xmlXPathFreeContext(xpathCtx); 
+  xmlFreeDoc(doc);
+}

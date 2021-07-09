@@ -37,6 +37,7 @@ tools/red2rec
 tools/red2test
 tools/red2cat
 tools/red2mod
+tools/red2info
 mkinstalldirs
 compile
 core-translation-report

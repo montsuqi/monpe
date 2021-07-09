@@ -1,6 +1,9 @@
 /* -*- Mode: C; c-basic-offset: 2 -*-
- * red2cat.c
+ * red2mod.c
+ * modify redfile: layer operation, set offset
  *
+ * $ red2mod in.red -o out.red -L "表示レイヤ1,表示レイヤ2" -x 0.1 -y 0.1
+ * $ red2mod in.red -o out.red -H "非表示レイヤ1,非表示レイヤ2" -x 0.1 -y 0.1
  */
 
 #ifdef HAVE_CONFIG_H

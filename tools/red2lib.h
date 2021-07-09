@@ -55,5 +55,6 @@ void red2fill(char *infile,char *imagepath,char *outfile);
 void red2embed(int argc,char *argv[],char *outfile);
 void red2cat(int argc,char *argv[],char *outfile);
 void red2mod(char *in, char *out, char *sls, char *hls, double x, double y);
+void red2info(char *in);
 
 #endif

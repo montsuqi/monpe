@@ -1,6 +1,8 @@
 /* -*- Mode: C; c-basic-offset: 2 -*-
  * red2cat.c
+ * concatinate red files
  *
+ * $ red2cat 1.red 2.red 3.red -o out.red
  */
 
 #ifdef HAVE_CONFIG_H
