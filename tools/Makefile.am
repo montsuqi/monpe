@@ -6,7 +6,8 @@ bin_PROGRAMS = \
 	red2fill \
 	red2test \
 	red2cat \
-	red2mod
+	red2mod \
+	red2info
 
 base_sources =	\
 	red2lib.c	red2lib.h
@@ -91,4 +92,13 @@ red2mod_CFLAGS = \
 	$(base_CFLAGS)
 
 red2mod_LDADD = \
+	$(base_LDADD)
+
+red2info_SOURCES = red2info.c \
+	$(base_sources)
+
+red2info_CFLAGS = \
+	$(base_CFLAGS)
+
+red2info_LDADD = \
 	$(base_LDADD)
