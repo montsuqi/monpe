@@ -35,6 +35,9 @@ tools/red2fill
 tools/red2inc
 tools/red2rec
 tools/red2test
+tools/red2cat
+tools/red2mod
+tools/red2info
 mkinstalldirs
 compile
 core-translation-report
@@ -50,10 +53,13 @@ po/POTFILES
 po/ja.gmo
 po/monpe.pot
 po/stamp-it
+po/ja.gmo
 tests/boundingbox
 tests/objects
 INSTALL
 depcomp
 install-sh
 lib/diamarshal.c
+lib/diamarshal.h
+sheets/sheet-translation-report
 missing
