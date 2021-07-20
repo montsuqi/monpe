@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
   gchar *dfile;
   GError *error = NULL;
   GOptionContext *ctx;
-  gchar *buf;
   char *nargv[3];
 
   ctx = g_option_context_new("<.red>");
@@ -48,14 +47,7 @@ int main(int argc, char *argv[])
   nargv[0] = "";
   nargv[1] = argv[1];
   nargv[2] = dfile;
-  buf = red2embed(3,nargv);
+  red2embed(3,nargv,outfile);
   remove(dfile);
-  if (outfile != NULL) {
-    if (!g_file_set_contents(outfile,buf,strlen(buf),NULL)) {
-      g_error("Error: unable to write file:%s\n",outfile);
-    }
-  } else {
-    printf("%s",buf);
-  }
   return 0;
 }
