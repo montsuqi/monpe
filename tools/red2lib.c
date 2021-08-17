@@ -1449,40 +1449,16 @@ red2mod(
   xmlFreeDoc(doc);
 }
 
-void
-red2info(char *infile)
+static void print_paper_size(xmlXPathContextPtr xpathCtx)
 {
-  int size;
-  xmlDocPtr doc;
-  xmlXPathContextPtr xpathCtx; 
   xmlXPathObjectPtr xpathObj; 
   xmlChar *paper;
-  xmlChar *exIsPortrait = 
-    BAD_CAST(
-      "//dia:composite[@type='paper']/"
-      "dia:attribute[@name='is_portrait']/"
-      "dia:boolean[@val='true']"); 
   xmlChar *exPaper = 
     BAD_CAST(
       "//dia:composite[@type='paper']/"
       "dia:attribute[@name='name']/"
       "dia:string"); 
-  gboolean is_portrait;
 
-  xmlInitParser();
-  LIBXML_TEST_VERSION
-
-  doc = xmlParseFile(infile);
-  if (doc == NULL) {
-    g_error("Error: unable to parse file:%s", infile);
-  }
-
-  xpathCtx = xmlXPathNewContext(doc);
-  xmlXPathRegisterNs(xpathCtx,
-    BAD_CAST("dia"),
-    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
-
-  /*paper size*/
   paper = NULL;
   xpathObj = xmlXPathEvalExpression(exPaper, xpathCtx);
   if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
@@ -1514,8 +1490,19 @@ red2info(char *infile)
   }
   xmlFree(paper);
   xmlXPathFreeObject(xpathObj);
+}
 
-  /*is portrait*/
+static void print_paper_direction(xmlXPathContextPtr xpathCtx)
+{
+  int size;
+  gboolean is_portrait;
+  xmlXPathObjectPtr xpathObj;
+  xmlChar *exIsPortrait =
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='is_portrait']/"
+      "dia:boolean[@val='true']");
+
   is_portrait = TRUE;
   xpathObj = xmlXPathEvalExpression(exIsPortrait, xpathCtx);
   if(xpathObj != NULL) {
@@ -1525,11 +1512,146 @@ red2info(char *infile)
     }
   }
   if (is_portrait) {
-    printf("portrait\n");
+    printf("portrait,");
   } else {
-    printf("landscape\n");
+    printf("landscape,");
   }
   xmlXPathFreeObject(xpathObj);
+}
+
+static gboolean check_margin(xmlXPathContextPtr xpathCtx, char h)
+{
+  gchar *exMargin;
+  xmlXPathObjectPtr xpathObj;
+  xmlChar *str = NULL;
+  gboolean ret = TRUE;
+
+  exMargin = g_strdup_printf(""
+    "//dia:composite[@type='paper']/"
+    "dia:attribute[@name='%cmargin']/"
+    "dia:real",h);
+  xpathObj = xmlXPathEvalExpression(BAD_CAST(exMargin), xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    str = xmlGetProp(xpathObj->nodesetval->nodeTab[0],BAD_CAST("val"));
+    if (str != NULL) {
+      if (atof((const char*)str) != 0.0) {
+        ret = FALSE;
+        fprintf(stderr,"%cmargin = %s\n",h,str);
+      }
+      xmlFree(str);
+    }
+  }
+  g_free(exMargin);
+  xmlXPathFreeObject(xpathObj);
+  return ret;
+}
+
+static gboolean check_scaling(xmlXPathContextPtr xpathCtx)
+{
+  xmlChar *exScaling =
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='scaling']/"
+      "dia:real");
+  xmlXPathObjectPtr xpathObj;
+  xmlChar *str = NULL;
+  gboolean ret = TRUE;
+
+  xpathObj = xmlXPathEvalExpression(exScaling, xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    str = xmlGetProp(xpathObj->nodesetval->nodeTab[0],BAD_CAST("val"));
+    if (str != NULL) {
+      if (atof((const char*)str) != 1.0) {
+        ret = FALSE;
+        fprintf(stderr,"scaling = %s\n",str);
+      }
+      xmlFree(str);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+  return ret;
+}
+
+static gboolean check_fitto(xmlXPathContextPtr xpathCtx)
+{
+  xmlChar *exFitto =
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='fitto']/"
+      "dia:boolean");
+  xmlChar *str = NULL;
+  xmlXPathObjectPtr xpathObj;
+  gboolean ret = TRUE;
+
+  xpathObj = xmlXPathEvalExpression(exFitto, xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    str = xmlGetProp(xpathObj->nodesetval->nodeTab[0],BAD_CAST("val"));
+    if (str != NULL) {
+      if (strcmp((const char*)str,"false")) {
+        ret = FALSE;
+        fprintf(stderr,"fitto = true\n");
+      }
+      xmlFree(str);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+  return ret;
+}
+
+static gboolean check_margeable(xmlXPathContextPtr xpathCtx)
+{
+  if (!check_margin(xpathCtx, 't')) {
+    return FALSE;
+  }
+  if (!check_margin(xpathCtx, 'b')) {
+    return FALSE;
+  }
+  if (!check_margin(xpathCtx, 'l')) {
+    return FALSE;
+  }
+  if (!check_margin(xpathCtx, 'r')) {
+    return FALSE;
+  }
+  if (!check_scaling(xpathCtx)) {
+    return FALSE;
+  }
+  if (!check_fitto(xpathCtx)) {
+    return FALSE;
+  }
+  return TRUE;
+}
+
+void
+red2info(char *infile)
+{
+  xmlDocPtr doc;
+  xmlXPathContextPtr xpathCtx;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  doc = xmlParseFile(infile);
+  if (doc == NULL) {
+    g_error("Error: unable to parse file:%s", infile);
+  }
+
+  xpathCtx = xmlXPathNewContext(doc);
+  xmlXPathRegisterNs(xpathCtx,
+    BAD_CAST("dia"),
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
+
+  /*paper size*/
+  print_paper_size(xpathCtx);
+
+  /*is portrait*/
+  print_paper_direction(xpathCtx);
+
+  /*check margeable*/
+  if (check_margeable(xpathCtx)) {
+    printf("true\n");
+  } else {
+    printf("false\n");
+  }
 
   xmlXPathFreeContext(xpathCtx); 
   xmlFreeDoc(doc);
