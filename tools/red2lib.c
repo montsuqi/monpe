@@ -831,7 +831,7 @@ static const struct _paper_metrics {
 } paper_metrics[] = {
   { "#A3#", 29.7, 42.0},
   { "#A4#", 21.0, 29.7},
-  { "#A5#", 14.85, 21.0},
+  { "#A5#", 14.8, 21.0},
   { "#B4#", 25.7528, 36.4772},
   { "#B5#", 17.6389, 25.0472},
   { "#B5-Japan#", 18.2386, 25.7528},
@@ -1023,7 +1023,7 @@ delete_layers(xmlNodePtr node)
 }
 
 static void
-skip_obj_bb(xmlNodePtr node,double skip)
+skip_obj_bb(xmlNodePtr node,double xs, double ys)
 {
   double x1,y1,x2,y2;
   xmlChar *val;
@@ -1038,10 +1038,10 @@ skip_obj_bb(xmlNodePtr node,double skip)
   strs = g_regex_split(regex,CAST_BAD(val),0);
   if (strs[0] != NULL && strs[1] != NULL &&
       strs[2] != NULL && strs[3] != NULL) {
-    x1 = atof(strs[0]);
-    y1 = atof(strs[1]) + skip;
-    x2 = atof(strs[2]);
-    y2 = atof(strs[3]) + skip;
+    x1 = atof(strs[0]) + xs;
+    y1 = atof(strs[1]) + ys;
+    x2 = atof(strs[2]) + xs;
+    y2 = atof(strs[3]) + ys;
     new = g_strdup_printf("%lf,%lf;%lf,%lf",x1,y1,x2,y2);
     xmlSetProp(node,BAD_CAST("val"),BAD_CAST(new));
     g_free(new);
@@ -1051,7 +1051,7 @@ skip_obj_bb(xmlNodePtr node,double skip)
 }
 
 static void
-skip_obj_pos(xmlNodePtr node,double skip)
+skip_obj_pos(xmlNodePtr node,double xs, double ys)
 {
   double x,y;
   xmlChar *val;
@@ -1065,8 +1065,8 @@ skip_obj_pos(xmlNodePtr node,double skip)
   regex = g_regex_new(",",0,0,NULL);
   strs = g_regex_split(regex,CAST_BAD(val),0);
   if (strs[0] != NULL && strs[1] != NULL) {
-    x = atof(strs[0]);
-    y = atof(strs[1]) + skip;
+    x = atof(strs[0]) + xs;
+    y = atof(strs[1]) + ys;
     new = g_strdup_printf("%lf,%lf",x,y);
     xmlSetProp(node,BAD_CAST("val"),BAD_CAST(new));
     g_free(new);
@@ -1076,7 +1076,7 @@ skip_obj_pos(xmlNodePtr node,double skip)
 }
 
 static void
-page_skip(xmlDocPtr doc,double skip)
+page_skip(xmlDocPtr doc,double xs, double ys)
 {
   int i,size;
   xmlXPathContextPtr xpathCtx; 
@@ -1114,7 +1114,7 @@ page_skip(xmlDocPtr doc,double skip)
       if (nodes->nodeTab[i] == NULL) {
         continue;
       }
-      skip_obj_pos(nodes->nodeTab[i],skip);
+      skip_obj_pos(nodes->nodeTab[i],xs, ys);
     }
   }
   xmlXPathFreeObject(xpathObj);
@@ -1129,7 +1129,7 @@ page_skip(xmlDocPtr doc,double skip)
       if (nodes->nodeTab[i] == NULL) {
         continue;
       }
-      skip_obj_bb(nodes->nodeTab[i],skip);
+      skip_obj_bb(nodes->nodeTab[i],xs,ys);
     }
   }
   xmlXPathFreeObject(xpathObj);
@@ -1144,7 +1144,7 @@ page_skip(xmlDocPtr doc,double skip)
       if (nodes->nodeTab[i] == NULL) {
         continue;
       }
-      skip_obj_pos(nodes->nodeTab[i],skip);
+      skip_obj_pos(nodes->nodeTab[i],xs,ys);
     }
   }
   xmlXPathFreeObject(xpathObj);
@@ -1159,7 +1159,7 @@ page_skip(xmlDocPtr doc,double skip)
       if (nodes->nodeTab[i] == NULL) {
         continue;
       }
-      skip_obj_pos(nodes->nodeTab[i],skip);
+      skip_obj_pos(nodes->nodeTab[i],xs,ys);
     }
   }
   xmlXPathFreeObject(xpathObj);
@@ -1202,16 +1202,14 @@ add_layers(xmlDocPtr dst,xmlDocPtr src)
   xmlXPathFreeContext(xpathCtx); 
 }
 
-gchar *
-red2embed(int argc,char *argv[])
+void
+red2embed(int argc, char *argv[], char *outfile)
 {
   xmlDocPtr doc,out;
   gchar *buf;
   gsize size;
   int i;
   double skip;
-  xmlChar *outmem;
-  int outsize;
 
   GPtrArray *array;
   ValueStruct *value;
@@ -1258,16 +1256,403 @@ red2embed(int argc,char *argv[])
     OpenCOBOL_UnPackValue(conv,(unsigned char*)buf,value);
     _red2embed(array,value,dtree);
     if (i != 2) {
-      page_skip(doc,skip);
+      page_skip(doc,0,skip);
     }
     add_layers(out,doc);
     g_free(buf);
   }
 
   xmlKeepBlanksDefault(0);
-  xmlDocDumpFormatMemory(out,&outmem,&outsize,1);
+  if (outfile != NULL) {
+    FILE *fp = fopen(outfile,"w");
+    if (fp == NULL) {
+      g_error("Error: unable to write file:%s", outfile);
+    }
+    xmlDocFormatDump(fp,out,1);
+    fclose(fp);
+  } else {
+    xmlDocFormatDump(stdout,out,1);
+  }
 
   xmlFreeDoc(out);
   xmlFreeDoc(doc);
-  return g_strdup(CAST_BAD(outmem));
+}
+
+void
+red2cat(int argc, char *argv[],char *outfile)
+{
+  xmlDocPtr doc,out;
+  int i;
+  double skip;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  /*最初のファイルを出力用のxmlDocとする*/
+  out = xmlParseFile(argv[1]);
+  if (out == NULL) {
+    g_error("Error: unable to parse file:%s", argv[1]);
+  }
+
+  /*ページスキップ値の取得*/
+  skip = getPageSkip(out);
+
+  for(i = 2; i < argc; i++) {
+    /*2つ目以降のファイルをページスキップさせて最初のファイルにマージする*/
+    doc = xmlParseFile(argv[i]); 
+    page_skip(doc,0,skip * (i-1));
+    add_layers(out,doc);
+    xmlFreeDoc(doc);
+  }
+
+  xmlKeepBlanksDefault(0);
+  if (outfile != NULL) {
+    FILE *fp = fopen(outfile,"w");
+    if (fp == NULL) {
+      g_error("Error: unable to write file:%s", outfile);
+    }
+    xmlDocFormatDump(fp,out,1);
+    fclose(fp);
+  } else {
+    xmlDocFormatDump(stdout,out,1);
+  }
+  xmlFreeDoc(out);
+}
+
+static void
+hide_layer(xmlNodePtr node, const char *name)
+{
+  xmlNodePtr child;
+  xmlNodePtr next;
+  xmlChar *xname;
+
+  if (node == NULL) {
+    return ;
+  }
+  if (!xmlStrcmp(node->name,BAD_CAST("layer"))) {
+    xname = xmlGetProp(node,BAD_CAST("name"));
+    if (xname != NULL) {
+      if (!xmlStrcmp(xname,BAD_CAST(name))) {
+        xmlUnlinkNode(node);
+        xmlFreeNode(node);
+      }
+      xmlFree(xname);
+    }
+  }
+  for(child = node->children; child != NULL; child = next)
+  {
+    next = child->next;
+    hide_layer(child, name);
+  }
+}
+
+static void
+_show_layers(xmlNodePtr node, char **strs)
+{
+  int i;
+  xmlNodePtr child;
+  xmlNodePtr next;
+  xmlChar *xname;
+  gboolean f_hide = TRUE;
+
+  if (node == NULL) {
+    return;
+  }
+  if (!xmlStrcmp(node->name,BAD_CAST("layer"))) {
+    xname = xmlGetProp(node,BAD_CAST("name"));
+    if (xname != NULL) {
+      for (i=0; strs[i]!=NULL; i++) {
+        if (!xmlStrcmp(xname,BAD_CAST(strs[i]))) {
+          f_hide = FALSE;
+        }
+      }
+      if (f_hide) {
+        xmlUnlinkNode(node);
+        xmlFreeNode(node);
+      }
+      xmlFree(xname);
+    }
+  }
+  for(child = node->children; child != NULL; child = next)
+  {
+    next = child->next;
+    _show_layers(child, strs);
+  }
+}
+
+static void
+show_layers(xmlDocPtr doc, char *sls)
+{
+  gchar **strs;
+  GRegex *regex;
+
+  regex = g_regex_new(",",0,0,NULL);
+  strs = g_regex_split(regex, sls,0);
+  _show_layers(xmlDocGetRootElement(doc),strs);
+  g_strfreev(strs);
+  g_regex_unref(regex);
+}
+
+static void
+hide_layers(xmlDocPtr doc, char *hls)
+{
+  int i;
+  gchar **strs;
+  GRegex *regex;
+
+  regex = g_regex_new(",",0,0,NULL);
+  strs = g_regex_split(regex, hls,0);
+  for (i=0; strs[i]!=NULL; i++) {
+    hide_layer(xmlDocGetRootElement(doc),strs[i]);
+  }
+  g_strfreev(strs);
+  g_regex_unref(regex);
+}
+
+void
+red2mod(
+  char *infile, char *outfile, 
+  char *sls, char *hls, 
+  double xs, double ys)
+{
+  xmlDocPtr doc;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  doc = xmlParseFile(infile);
+  if (doc == NULL) {
+    g_error("Error: unable to parse file:%s", infile);
+  }
+
+  if (sls) {
+    show_layers(doc, sls);
+  }
+  if (hls) {
+    hide_layers(doc, hls);
+  }
+  /*オフセット指定*/
+  page_skip(doc,xs,ys);
+
+  xmlKeepBlanksDefault(0);
+  if (outfile != NULL) {
+    FILE *fp = fopen(outfile,"w");
+    if (fp == NULL) {
+      g_error("Error: unable to write file:%s", outfile);
+    }
+    xmlDocFormatDump(fp,doc,1);
+    fclose(fp);
+  } else {
+    xmlDocFormatDump(stdout,doc,1);
+  }
+
+  xmlFreeDoc(doc);
+}
+
+static void print_paper_size(xmlXPathContextPtr xpathCtx)
+{
+  xmlXPathObjectPtr xpathObj; 
+  xmlChar *paper;
+  xmlChar *exPaper = 
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='name']/"
+      "dia:string"); 
+
+  paper = NULL;
+  xpathObj = xmlXPathEvalExpression(exPaper, xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    paper = xmlXPathCastNodeSetToString(xpathObj->nodesetval);
+  } else {
+    g_critical("cannot found paper node");
+    exit(1);
+  }
+  if (paper == NULL) {
+    g_critical("invalid paper");
+    exit(1);
+  }
+  {
+    /* #A4# -> A4 */
+    GRegex *regex;
+    GMatchInfo *match_info;
+    regex = g_regex_new ("#(.*)#", 0, 0, NULL);
+    g_regex_match (regex, (const char*)paper, 0, &match_info);
+    if (g_match_info_matches (match_info)) {
+      gchar *_paper = g_match_info_fetch (match_info, 1);
+      printf("%s,",_paper);
+      g_free(_paper);
+    } else {
+      g_critical("invalid paper");
+      exit(1);
+    }
+    g_match_info_free (match_info);
+    g_regex_unref (regex);
+  }
+  xmlFree(paper);
+  xmlXPathFreeObject(xpathObj);
+}
+
+static void print_paper_direction(xmlXPathContextPtr xpathCtx)
+{
+  int size;
+  gboolean is_portrait;
+  xmlXPathObjectPtr xpathObj;
+  xmlChar *exIsPortrait =
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='is_portrait']/"
+      "dia:boolean[@val='true']");
+
+  is_portrait = TRUE;
+  xpathObj = xmlXPathEvalExpression(exIsPortrait, xpathCtx);
+  if(xpathObj != NULL) {
+    size = (xpathObj->nodesetval) ? xpathObj->nodesetval->nodeNr : 0;
+    if (size == 0) {
+      is_portrait = FALSE;
+    }
+  }
+  if (is_portrait) {
+    printf("portrait,");
+  } else {
+    printf("landscape,");
+  }
+  xmlXPathFreeObject(xpathObj);
+}
+
+static gboolean check_margin(xmlXPathContextPtr xpathCtx, char h)
+{
+  gchar *exMargin;
+  xmlXPathObjectPtr xpathObj;
+  xmlChar *str = NULL;
+  gboolean ret = TRUE;
+
+  exMargin = g_strdup_printf(""
+    "//dia:composite[@type='paper']/"
+    "dia:attribute[@name='%cmargin']/"
+    "dia:real",h);
+  xpathObj = xmlXPathEvalExpression(BAD_CAST(exMargin), xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    str = xmlGetProp(xpathObj->nodesetval->nodeTab[0],BAD_CAST("val"));
+    if (str != NULL) {
+      if (atof((const char*)str) != 0.0) {
+        ret = FALSE;
+        fprintf(stderr,"%cmargin = %s\n",h,str);
+      }
+      xmlFree(str);
+    }
+  }
+  g_free(exMargin);
+  xmlXPathFreeObject(xpathObj);
+  return ret;
+}
+
+static gboolean check_scaling(xmlXPathContextPtr xpathCtx)
+{
+  xmlChar *exScaling =
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='scaling']/"
+      "dia:real");
+  xmlXPathObjectPtr xpathObj;
+  xmlChar *str = NULL;
+  gboolean ret = TRUE;
+
+  xpathObj = xmlXPathEvalExpression(exScaling, xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    str = xmlGetProp(xpathObj->nodesetval->nodeTab[0],BAD_CAST("val"));
+    if (str != NULL) {
+      if (atof((const char*)str) != 1.0) {
+        ret = FALSE;
+        fprintf(stderr,"scaling = %s\n",str);
+      }
+      xmlFree(str);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+  return ret;
+}
+
+static gboolean check_fitto(xmlXPathContextPtr xpathCtx)
+{
+  xmlChar *exFitto =
+    BAD_CAST(
+      "//dia:composite[@type='paper']/"
+      "dia:attribute[@name='fitto']/"
+      "dia:boolean");
+  xmlChar *str = NULL;
+  xmlXPathObjectPtr xpathObj;
+  gboolean ret = TRUE;
+
+  xpathObj = xmlXPathEvalExpression(exFitto, xpathCtx);
+  if(xpathObj != NULL && xpathObj->nodesetval != NULL) {
+    str = xmlGetProp(xpathObj->nodesetval->nodeTab[0],BAD_CAST("val"));
+    if (str != NULL) {
+      if (strcmp((const char*)str,"false")) {
+        ret = FALSE;
+        fprintf(stderr,"fitto = true\n");
+      }
+      xmlFree(str);
+    }
+  }
+  xmlXPathFreeObject(xpathObj);
+  return ret;
+}
+
+static gboolean check_margeable(xmlXPathContextPtr xpathCtx)
+{
+  if (!check_margin(xpathCtx, 't')) {
+    return FALSE;
+  }
+  if (!check_margin(xpathCtx, 'b')) {
+    return FALSE;
+  }
+  if (!check_margin(xpathCtx, 'l')) {
+    return FALSE;
+  }
+  if (!check_margin(xpathCtx, 'r')) {
+    return FALSE;
+  }
+  if (!check_scaling(xpathCtx)) {
+    return FALSE;
+  }
+  if (!check_fitto(xpathCtx)) {
+    return FALSE;
+  }
+  return TRUE;
+}
+
+void
+red2info(char *infile)
+{
+  xmlDocPtr doc;
+  xmlXPathContextPtr xpathCtx;
+
+  xmlInitParser();
+  LIBXML_TEST_VERSION
+
+  doc = xmlParseFile(infile);
+  if (doc == NULL) {
+    g_error("Error: unable to parse file:%s", infile);
+  }
+
+  xpathCtx = xmlXPathNewContext(doc);
+  xmlXPathRegisterNs(xpathCtx,
+    BAD_CAST("dia"),
+    BAD_CAST("http://www.lysator.liu.se/~alla/dia/"));
+
+  /*paper size*/
+  print_paper_size(xpathCtx);
+
+  /*is portrait*/
+  print_paper_direction(xpathCtx);
+
+  /*check margeable*/
+  if (check_margeable(xpathCtx)) {
+    printf("true\n");
+  } else {
+    printf("false\n");
+  }
+
+  xmlXPathFreeContext(xpathCtx); 
+  xmlFreeDoc(doc);
 }
